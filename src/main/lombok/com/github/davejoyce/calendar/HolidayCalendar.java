@@ -1,5 +1,10 @@
 package com.github.davejoyce.calendar;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Singular;
+
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -7,7 +12,6 @@ import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -16,46 +20,34 @@ import static java.util.Objects.requireNonNull;
  * calendar year. An instance of this class defines the days on which
  * activities may not occur.
  */
+
 public class HolidayCalendar {
 
     public static final HashSet<DayOfWeek> STANDARD_WEEKEND = new HashSet<>(Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-    private static final Holiday[] EMPTY = {};
 
+    @Getter
+    @NonNull
     private final String code;
+
+    @Getter
+    @NonNull
     private final String name;
+
+    @Getter
+    @NonNull
     private final Set<DayOfWeek> weekendDays;
-    private final ConcurrentMap<String, Holiday> holidays;
 
+    private final Map<String, Holiday> holidays;
 
-    public HolidayCalendar(String code, String name, Set<DayOfWeek> weekendDays, Holiday... holidays) {
+    @Builder(toBuilder = true)
+    public HolidayCalendar(String code,
+                           String name,
+                           Set<DayOfWeek> weekendDays,
+                           @Singular Map<String, Holiday> holidays) {
         this.code = requireNonNull(code, "Argument 'code' cannot be null");
         this.name = requireNonNull(name, "Argument 'name' cannot be null");
         this.weekendDays = Collections.unmodifiableSet(requireNonNull(weekendDays, "Argument 'weekendDays' cannot be null"));
-        this.holidays = Arrays.stream(requireNonNull(holidays, "Argument 'holidays' cannot be null"))
-                              .collect(Collectors.toMap(Holiday::getName,
-                                                        h -> h,
-                                                        (original, replacement) -> original,
-                                                        ConcurrentHashMap::new));
-    }
-
-    public HolidayCalendar(String code, String name, Set<DayOfWeek> weekendDays) {
-        this(code, name, weekendDays, EMPTY);
-    }
-
-    public HolidayCalendar(String code, String name) {
-        this(code, name, STANDARD_WEEKEND);
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Set<DayOfWeek> getWeekendDays() {
-        return weekendDays;
+        this.holidays = requireNonNull(holidays, "Argument 'holidays' cannot be null");
     }
 
     public Map<String, Holiday> getHolidays() {
@@ -91,8 +83,7 @@ public class HolidayCalendar {
         weekendDays.addAll(other.getWeekendDays());
         final ConcurrentMap<String, Holiday> combined = new ConcurrentHashMap<>(this.holidays);
         other.getHolidays().forEach((holidayName, holiday) -> combined.merge(holidayName, holiday, (v1, v2) -> v1));
-        final Holiday[] holidays = combined.values().toArray(EMPTY);
-        return new HolidayCalendar(code, name, weekendDays, holidays);
+        return new HolidayCalendar(code, name, weekendDays, combined);
     }
 
     @Override
