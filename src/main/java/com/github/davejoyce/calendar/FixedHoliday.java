@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.MonthDay;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 /**
@@ -16,12 +17,17 @@ public class FixedHoliday extends Holiday {
 
     private final MonthDay monthDay;
 
-    public FixedHoliday(String name, String description, Month month, int dayOfMonth) {
+    public FixedHoliday(String name,
+                        String description,
+                        Month month,
+                        int dayOfMonth) {
         super(name, description);
         this.monthDay = MonthDay.of(month, dayOfMonth);
     }
 
-    public FixedHoliday(String name, String description, String monthAndDay) {
+    public FixedHoliday(String name,
+                        String description,
+                        String monthAndDay) {
         super(name, description);
         this.monthDay = MonthDay.parse(monthAndDay);
     }
@@ -35,8 +41,8 @@ public class FixedHoliday extends Holiday {
     }
 
     @Override
-    public LocalDate dateForYear(int year) {
-        return LocalDate.of(year, monthDay.getMonth(), monthDay.getDayOfMonth());
+    public Optional<LocalDate> dateForYear(int year) {
+        return Optional.of(LocalDate.of(year, monthDay.getMonth(), monthDay.getDayOfMonth()));
     }
 
     @Override

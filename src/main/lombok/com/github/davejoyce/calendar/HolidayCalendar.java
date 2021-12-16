@@ -10,9 +10,8 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -20,9 +19,12 @@ import static java.util.Objects.requireNonNull;
  * calendar year. An instance of this class defines the days on which
  * activities may not occur.
  */
-
 public class HolidayCalendar {
 
+    /**
+     * Default {@link DayOfWeek days of week} that constitute the 'standard'
+     * weekend worldwide.
+     */
     public static final HashSet<DayOfWeek> STANDARD_WEEKEND = new HashSet<>(Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
 
     @Getter
@@ -33,25 +35,39 @@ public class HolidayCalendar {
     @NonNull
     private final String name;
 
-    @Getter
-    @NonNull
-    private final Set<DayOfWeek> weekendDays;
-
-    private final Map<String, Holiday> holidays;
+    private final Set<DayOfWeek> weekendDays = new HashSet<>();
+    private final Set<Holiday> holidays = new HashSet<>();
 
     @Builder(toBuilder = true)
     public HolidayCalendar(String code,
                            String name,
-                           Set<DayOfWeek> weekendDays,
-                           @Singular Map<String, Holiday> holidays) {
+                           @Singular Set<DayOfWeek> weekendDays,
+                           @Singular Set<Holiday> holidays) {
         this.code = requireNonNull(code, "Argument 'code' cannot be null");
         this.name = requireNonNull(name, "Argument 'name' cannot be null");
-        this.weekendDays = Collections.unmodifiableSet(requireNonNull(weekendDays, "Argument 'weekendDays' cannot be null"));
-        this.holidays = requireNonNull(holidays, "Argument 'holidays' cannot be null");
+        Optional.ofNullable(weekendDays)
+                .ifPresent(wd -> {
+                    if (wd.isEmpty()) {
+                        this.weekendDays.addAll(STANDARD_WEEKEND);
+                    } else {
+                        wd.stream()
+                          .filter(dayOfWeek -> !isNull(dayOfWeek))
+                          .forEach(this.weekendDays::add);
+                    }
+                });
+        Optional.ofNullable(holidays)
+                .ifPresent(h -> h.stream()
+                                 .filter(holiday -> !isNull(holiday))
+                                 .forEach(this.holidays::add)
+                );
     }
 
-    public Map<String, Holiday> getHolidays() {
-        return Collections.unmodifiableMap(this.holidays);
+    public Set<Holiday> getHolidays() {
+        return Collections.unmodifiableSet(this.holidays);
+    }
+
+    public Set<DayOfWeek> getWeekendDays() {
+        return Collections.unmodifiableSet(this.weekendDays);
     }
 
     public boolean isWeekend(final Instant instant,
@@ -81,8 +97,8 @@ public class HolidayCalendar {
         final String name = String.format("%1s + %2s", this.name, other.getName());
         final Set<DayOfWeek> weekendDays = new HashSet<>(this.weekendDays);
         weekendDays.addAll(other.getWeekendDays());
-        final ConcurrentMap<String, Holiday> combined = new ConcurrentHashMap<>(this.holidays);
-        other.getHolidays().forEach((holidayName, holiday) -> combined.merge(holidayName, holiday, (v1, v2) -> v1));
+        final Set<Holiday> combined = new HashSet<>(this.holidays);
+        combined.addAll(other.getHolidays());
         return new HolidayCalendar(code, name, weekendDays, combined);
     }
 

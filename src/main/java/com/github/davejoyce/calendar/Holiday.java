@@ -40,9 +40,10 @@ public abstract class Holiday {
      * observance by the associated {@link HolidayCalendar holiday calendar}.
      *
      * @param year full calendar year (e.g. 1977, 2021)
-     * @return date of this holiday
+     * @return date of this holiday, or {@link Optional#empty() empty} if not
+     *         observed on the specified year
      */
-    public abstract LocalDate dateForYear(int year);
+    public abstract Optional<LocalDate> dateForYear(int year);
 
     @Override
     public boolean equals(Object o) {

@@ -2,8 +2,9 @@ package com.github.davejoyce.calendar;
 
 import org.testng.annotations.Test;
 
+import java.time.DayOfWeek;
 import java.time.ZoneId;
-import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import static org.testng.Assert.*;
@@ -14,20 +15,23 @@ public class HolidayCalendarTest {
     private static final ZoneId ZONE_ID_TOKYO = ZoneId.of("Asia/Tokyo");
     private static final TimeZone TZ_NEW_YORK = TimeZone.getTimeZone(ZONE_ID_NEW_YORK);
 
-    @Test(expectedExceptions = NullPointerException.class,
-          expectedExceptionsMessageRegExp = "Argument 'holidays'.*")
-    public void testFullConstructorWithNullHolidays() {
-        new HolidayCalendar("FRB", "Federal Reserve Board", HolidayCalendar.STANDARD_WEEKEND, null);
-    }
-
     @Test
     public void testBuilderWithNoHolidays() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
                                                          .name("Federal Reserve Board")
-                                                         .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                                                          .build();
         assertNotNull(holidayCalendar.getHolidays());
+        assertTrue(holidayCalendar.getHolidays().isEmpty());
+    }
+
+    @Test
+    public void testBuilderWithNoWeekendDays() {
+        HolidayCalendar holidayCalendar = HolidayCalendar.builder()
+                                                         .code("FRB")
+                                                         .name("Federal Reserve Board")
+                                                         .build();
+        assertEquals(holidayCalendar.getWeekendDays(), HolidayCalendar.STANDARD_WEEKEND);
     }
 
     @Test
@@ -35,7 +39,6 @@ public class HolidayCalendarTest {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
                                                          .name("Federal Reserve Board")
-                                                         .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                                                          .build();
         assertEquals(holidayCalendar.getCode(), "FRB");
     }
@@ -45,7 +48,6 @@ public class HolidayCalendarTest {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
                                                          .name("Federal Reserve Board")
-                                                         .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                                                          .build();
         assertEquals(holidayCalendar.getName(), "Federal Reserve Board");
     }
@@ -55,13 +57,25 @@ public class HolidayCalendarTest {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
                                                          .name("Federal Reserve Board")
-                                                         .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                                                          .build();
-        Map<String, Holiday> view = holidayCalendar.getHolidays();
+        Set<Holiday> view = holidayCalendar.getHolidays();
         assertNotNull(view, "Expected non-null holidays");
 
-        view.put("TEST", null);
-        fail("Holidays map view should be unmodifiable!");
+        view.add(null);
+        fail("Holidays set view should be unmodifiable!");
+    }
+
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void testGetWeekendDays_Unmodifiable() {
+        HolidayCalendar holidayCalendar = HolidayCalendar.builder()
+                                                         .code("FRB")
+                                                         .name("Federal Reserve Board")
+                                                         .build();
+        Set<DayOfWeek> view = holidayCalendar.getWeekendDays();
+        assertNotNull(view, "Expected non-null weekendDays");
+
+        view.add(null);
+        fail("WeekendDays set view should be unmodifiable!");
     }
 
     @Test
@@ -69,7 +83,6 @@ public class HolidayCalendarTest {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
                                                          .name("Federal Reserve Board")
-                                                         .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                                                          .build();
         String actual = holidayCalendar.toString();
         assertEquals(actual, "HolidayCalendar[code='FRB', name='Federal Reserve Board']");
