@@ -21,6 +21,7 @@
         <!-- Plugin versions -->
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-jacoco-plugin.version>0.8.7</maven-jacoco-plugin.version>
     </properties>
 
     <dependencies>
@@ -67,6 +68,25 @@
                         <suiteXmlFile>${project.build.directory}/test-classes/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${maven-jacoco-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

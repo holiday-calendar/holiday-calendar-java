@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A holiday which occurs on the same date every year. Examples of a fixed
  * holiday are
@@ -21,15 +23,36 @@ public class FixedHoliday extends Holiday {
                         String description,
                         Month month,
                         int dayOfMonth) {
-        super(name, description);
-        this.monthDay = MonthDay.of(month, dayOfMonth);
+        this(name, description, MonthDay.of(month, dayOfMonth), true);
     }
 
     public FixedHoliday(String name,
                         String description,
                         String monthAndDay) {
-        super(name, description);
-        this.monthDay = MonthDay.parse(monthAndDay);
+        this(name, description, MonthDay.parse(monthAndDay), true);
+    }
+
+    public FixedHoliday(String name,
+                        String description,
+                        Month month,
+                        int dayOfMonth,
+                        boolean rollable) {
+        this(name, description, MonthDay.of(month, dayOfMonth), rollable);
+    }
+
+    public FixedHoliday(String name,
+                        String description,
+                        String monthAndDay,
+                        boolean rollable) {
+        this(name, description, MonthDay.parse(monthAndDay), rollable);
+    }
+
+    public FixedHoliday(String name,
+                        String description,
+                        MonthDay monthDay,
+                        boolean rollable) {
+        super(name, description, rollable);
+        this.monthDay = requireNonNull(monthDay, "Argument 'monthDay' cannot be null");
     }
 
     public Month getMonth() {

@@ -25,9 +25,16 @@ public class FloatingHoliday extends Holiday {
 
     public FloatingHoliday(String name,
                            String description,
-                           Observance observance) {
-        super(name, description);
+                           Observance observance,
+                           boolean rollable) {
+        super(name, description, rollable);
         this.observance = requireNonNull(observance, "Argument 'observance' cannot be null");
+    }
+
+    public FloatingHoliday(String name,
+                           String description,
+                           Observance observance) {
+        this(name, description, observance, true);
     }
 
     @Override
