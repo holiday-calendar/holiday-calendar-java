@@ -17,7 +17,7 @@ public interface Observance extends Function<Integer, LocalDate>, Predicate<Inte
      * Determines whether this observance applies to the specified year.
      *
      * @param year year of potential observance
-     * @return true if the input argument matches the predicate, otherwise false
+     * @return true if the input year applies for this observance, otherwise false
      */
     @Override
     default boolean test(Integer year) {

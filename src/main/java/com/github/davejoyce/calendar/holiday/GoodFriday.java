@@ -1,4 +1,7 @@
-package com.github.davejoyce.calendar.function;
+package com.github.davejoyce.calendar.holiday;
+
+import com.github.davejoyce.calendar.function.EasterObservance;
+import com.github.davejoyce.calendar.function.Observance;
 
 import java.time.LocalDate;
 

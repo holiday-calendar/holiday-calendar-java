@@ -1,5 +1,6 @@
 package com.github.davejoyce.calendar;
 
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static org.testng.Assert.*;
 
+@Slf4j
 public class FixedHolidayTest {
 
     @Test(dataProvider = "data")
@@ -21,6 +23,8 @@ public class FixedHolidayTest {
         Optional<LocalDate> actual = holiday.dateForYear(yearToCalculate);
         assertTrue(actual.isPresent());
         assertEquals(actual.get(), expected);
+
+        log.debug("{} {}: {}", name, yearToCalculate, actual.get());
     }
 
     @DataProvider
