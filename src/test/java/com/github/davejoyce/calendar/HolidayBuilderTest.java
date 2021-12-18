@@ -29,6 +29,18 @@ public class HolidayBuilderTest {
     }
 
     @Test
+    public void testBuilderFixedHoliday_StringMonthDay() {
+        Holiday holiday = Holiday.builder()
+                .type(Holiday.Type.FIXED)
+                .name("New Year's Day")
+                .description("First day of a new year")
+                .rollable(true)
+                .monthDay("--01-01")
+                .build();
+        assertEquals(holiday.getClass(), FixedHoliday.class);
+    }
+
+    @Test
     public void testBuilderFloatingHoliday() {
         Holiday holiday = Holiday.builder()
                 .type(Holiday.Type.FLOATING)
@@ -40,15 +52,27 @@ public class HolidayBuilderTest {
         assertEquals(holiday.getClass(), FloatingHoliday.class);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testBuilder_NoType() {
+    @Test
+    public void testBuilderFloatingHoliday_StringType() {
         Holiday holiday = Holiday.builder()
-                .type((Holiday.Type)null)
+                .type("floating")
                 .name("Good Friday")
                 .description("Date of crucifixion of Jesus Christ")
                 .rollable(false)
                 .observance(new GoodFriday(new WesternEaster()))
                 .build();
+        assertEquals(holiday.getClass(), FloatingHoliday.class);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testBuilder_NoType() {
+        Holiday.builder()
+               .type((Holiday.Type)null)
+               .name("Good Friday")
+               .description("Date of crucifixion of Jesus Christ")
+               .rollable(false)
+               .observance(new GoodFriday(new WesternEaster()))
+               .build();
         fail("Expected IllegalArgumentException");
     }
 

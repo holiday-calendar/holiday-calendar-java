@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
@@ -40,6 +42,29 @@ public class FloatingHoliday extends Holiday {
     @Override
     public Optional<LocalDate> dateForYear(int year) {
         return Optional.ofNullable(observance.apply(year));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FloatingHoliday that = (FloatingHoliday) o;
+        return observance.equals(that.observance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), observance);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Holiday.class.getSimpleName() + "[", "]")
+                .add("name='" + getName() + "'")
+                .add("description='" + getDescription() + "'")
+                .add("observance=" + getObservance())
+                .toString();
     }
 
 }

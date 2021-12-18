@@ -9,6 +9,10 @@ import java.time.Month;
  * Observance of <em>Western</em> Easter as recognized by Roman Catholic and
  * Protestant Christian denominations. This class implements the algorithm for
  * Easter calculation as published by Butcher / Jones / Meeus.
+ * <p>While all Easter dates calculated by this class are Gregorian dates, it
+ * does not support a proleptic Gregorian calendar. Dates for years prior to
+ * 1583 CE will be calculated the same as Orthodox Easter and simply returned as
+ * the Gregorian date.</p>
  */
 public class WesternEaster implements EasterObservance {
 

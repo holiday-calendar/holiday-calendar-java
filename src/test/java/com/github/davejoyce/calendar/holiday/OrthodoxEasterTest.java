@@ -23,9 +23,16 @@ public class OrthodoxEasterTest {
         assertEquals(actual, expected);
     }
 
+    @Test(dataProvider = "predicateData")
+    public void testTest(int yearToCheck, boolean expected) {
+        boolean actual = orthodoxEaster.test(yearToCheck);
+        assertEquals(actual, expected);
+    }
+
     @DataProvider
     public Iterator<Object[]> data() {
         List<Object[]> data = new ArrayList<>();
+        data.add(new Object[]{ 1582, LocalDate.of(1582, Month.APRIL, 15) }); // year before Gregorian calendar exists
         data.add(new Object[]{ 1583, LocalDate.of(1583, Month.APRIL, 10) }); // Same as Western
         data.add(new Object[]{ 1776, LocalDate.of(1776, Month.APRIL, 14) });
         data.add(new Object[]{ 1918, LocalDate.of(1918, Month.MAY,    5) });
@@ -33,6 +40,20 @@ public class OrthodoxEasterTest {
         data.add(new Object[]{ 2000, LocalDate.of(2000, Month.APRIL, 30) });
         data.add(new Object[]{ 2021, LocalDate.of(2021, Month.MAY,    2) });
         data.add(new Object[]{ 2022, LocalDate.of(2022, Month.APRIL, 24) });
+
+        data.add(new Object[]{ 529, null });
+        data.add(new Object[]{ 3400, null });
+
+        return data.iterator();
+    }
+
+    @DataProvider
+    public Iterator<Object[]> predicateData() {
+        List<Object[]> data = new ArrayList<>();
+        data.add(new Object[]{ 529, false });
+        data.add(new Object[]{ 530, true });
+        data.add(new Object[]{ 3399, true });
+        data.add(new Object[]{ 3400, false });
 
         return data.iterator();
     }

@@ -23,13 +23,13 @@ public class FixedHoliday extends Holiday {
                         String description,
                         Month month,
                         int dayOfMonth) {
-        this(name, description, MonthDay.of(month, dayOfMonth), true);
+        this(name, description, month, dayOfMonth, true);
     }
 
     public FixedHoliday(String name,
                         String description,
                         String monthAndDay) {
-        this(name, description, MonthDay.parse(monthAndDay), true);
+        this(name, description, monthAndDay, true);
     }
 
     public FixedHoliday(String name,

@@ -7,7 +7,6 @@ import java.time.Month;
 import java.time.MonthDay;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
@@ -173,10 +172,6 @@ public abstract class Holiday {
         this.rollable =rollable;
     }
 
-    public Holiday(String name, String description) {
-        this(name, description, true);
-    }
-
     public String getName() {
         return this.name;
     }
@@ -200,7 +195,6 @@ public abstract class Holiday {
      */
     public abstract Optional<LocalDate> dateForYear(int year);
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Holiday)) return false;
@@ -214,12 +208,13 @@ public abstract class Holiday {
         return Objects.hash(getName(), getDescription());
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Subclasses must implement this method.</p>
+     *
+     * @return text representation of this object
+     */
     @Override
-    public String toString() {
-        return new StringJoiner(", ", Holiday.class.getSimpleName() + "[", "]")
-                .add("name='" + name + "'")
-                .add("description='" + description + "'")
-                .toString();
-    }
+    public abstract String toString();
 
 }

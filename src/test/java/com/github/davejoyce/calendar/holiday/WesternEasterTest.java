@@ -24,6 +24,7 @@ public class WesternEasterTest {
     @DataProvider
     public Iterator<Object[]> data() {
         List<Object[]> data = new ArrayList<>();
+        data.add(new Object[]{ 1582, LocalDate.of(1582, Month.APRIL, 15) }); // year before Gregorian calendar exists
         data.add(new Object[]{ 1583, LocalDate.of(1583, Month.APRIL, 10) });
         data.add(new Object[]{ 1776, LocalDate.of(1776, Month.APRIL,  7) });
         data.add(new Object[]{ 1918, LocalDate.of(1918, Month.MARCH, 31) });
