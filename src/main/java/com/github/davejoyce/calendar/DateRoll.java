@@ -12,10 +12,9 @@ public interface DateRoll {
     /**
      * Roll the calculated date for the specified holiday in the given year to
      * the nearest valid date.
-     * @param holiday holiday
-     * @param year year for which to calculate holiday date
+     * @param dateToRoll calculated holiday date to be rolled
      * @return holiday date (adjusted for valid observance)
      */
-    LocalDate rollToObservedDate(Holiday holiday, int year);
+    LocalDate rollToObservedDate(LocalDate dateToRoll);
 
 }

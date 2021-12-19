@@ -3,7 +3,10 @@ package com.github.davejoyce.calendar;
 import org.testng.annotations.Test;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -86,6 +89,28 @@ public class HolidayCalendarTest {
                                                          .build();
         String actual = holidayCalendar.toString();
         assertEquals(actual, "HolidayCalendar[code='FRB', name='Federal Reserve Board']");
+    }
+
+    @Test
+    public void testCalculate() {
+        HolidayCalendar calendar = HolidayCalendar.builder()
+                .code("SIFMA")
+                .name("SIFMA Holiday Calendar")
+                .dateRoll(dateToRoll -> {
+                    if (DayOfWeek.SATURDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.minusDays(1);
+                    if (DayOfWeek.SUNDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.plusDays(1);
+                    return dateToRoll;
+                })
+                .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
+                .holiday(new FixedHoliday("New Year's Day", "", Month.JANUARY, 1))
+                .holiday(new FixedHoliday("Christmas Day", "", Month.DECEMBER, 25))
+                .build();
+        List<HolidayDate> dates = calendar.calculate(2021);
+
+        assertEquals(dates.get(0).getHoliday().getName(), "New Year's Day");
+        assertEquals(dates.get(0).getDate(), LocalDate.of(2021, Month.JANUARY, 1));
+        assertEquals(dates.get(1).getHoliday().getName(), "Christmas Day");
+        assertEquals(dates.get(1).getDate(), LocalDate.of(2021, Month.DECEMBER, 24)); // rolled back 1 day
     }
 
 }
