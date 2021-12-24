@@ -12,6 +12,7 @@
 
     <artifactId>holiday-calendar-eur</artifactId>
     <name>Holiday Calendar - European</name>
+    <description>European and derived holiday features.</description>
 
     <properties>
     </properties>

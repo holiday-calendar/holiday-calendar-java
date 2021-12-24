@@ -9,6 +9,36 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
+    <name>Holiday Calendar</name>
+    <description>A library for definition and calculation of holiday calendars.</description>
+    <url>https://${repo.domain}/${repo.user}/${repo.name}</url>
+    <inceptionYear>2021</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>LGPL-2.1</name>
+            <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>davejoyce</id>
+            <name>Dave Joyce</name>
+            <email>dave@osframework.org</email>
+            <roles>
+                <role>founder</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>${project.url}</url>
+        <connection>scm:git:https://github.com/davejoyce/holiday-calendar-java.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:davejoyce/holiday-calendar-java.git</developerConnection>
+    </scm>
+
     <modules>
         <module>holiday-calendar-base</module>
         <module>holiday-calendar-eur</module>
@@ -18,6 +48,9 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <repo.domain>github.com</repo.domain>
+        <repo.user>davejoyce</repo.user>
+        <repo.name>holiday-calendar-java</repo.name>
 
         <!-- Dependency versions -->
         <logback.version>1.2.9</logback.version>
@@ -28,6 +61,9 @@
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-jacoco-plugin.version>0.8.7</maven-jacoco-plugin.version>
+        <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
+        <maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
+        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -70,7 +106,46 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${maven-jacoco-plugin.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${maven-project-info-reports-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>aggregate-javadoc</id>
+                        <inherited>false</inherited>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>default</id>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

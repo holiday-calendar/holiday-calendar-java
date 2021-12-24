@@ -12,6 +12,7 @@
 
     <artifactId>holiday-calendar-base</artifactId>
     <name>Holiday Calendar - Base API</name>
+    <description>Base API for defining and creating holiday calendars</description>
 
     <properties>
     </properties>
