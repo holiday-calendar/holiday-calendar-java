@@ -10,7 +10,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>Holiday Calendar</name>
-    <description>A library for definition and calculation of holiday calendars.</description>
+    <description>Holiday Calendar Library for Java</description>
     <url>https://${repo.domain}/${repo.user}/${repo.name}</url>
     <inceptionYear>2021</inceptionYear>
 
@@ -36,12 +36,19 @@
     <scm>
         <url>${project.url}</url>
         <connection>scm:git:https://github.com/davejoyce/holiday-calendar-java.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:davejoyce/holiday-calendar-java.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:davejoyce/holiday-calendar-java.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>${project.url}/issues</url>
+    </issueManagement>
 
     <modules>
         <module>holiday-calendar-base</module>
         <module>holiday-calendar-eur</module>
+        <module>holiday-calendar-noneur</module>
     </modules>
 
     <properties>
@@ -56,6 +63,7 @@
         <logback.version>1.2.9</logback.version>
         <lombok.version>1.18.22</lombok.version>
         <testng.version>7.4.0</testng.version>
+        <time4j.version>5.9</time4j.version>
 
         <!-- Plugin versions -->
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
@@ -72,6 +80,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.time4j</groupId>
+                <artifactId>time4j-base</artifactId>
+                <version>${time4j.version}</version>
             </dependency>
 
             <!-- Test dependencies -->
