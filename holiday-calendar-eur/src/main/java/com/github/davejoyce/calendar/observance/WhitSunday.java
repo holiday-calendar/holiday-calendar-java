@@ -30,6 +30,8 @@ import static java.util.Objects.requireNonNull;
  * commemoration of the descent of the Holy Spirit upon Christ's disciples. It
  * is observed on the 7th Sunday after Easter, or exactly 49 days following
  * Easter Sunday.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class WhitSunday implements Observance {
 

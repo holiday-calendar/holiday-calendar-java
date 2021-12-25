@@ -29,6 +29,7 @@ import java.time.LocalDate;
  * Era (CE). Instances of this class are immutable and thread safe.
  *
  * @see HolidayCalendar#calculate(int)
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 @Data
 @AllArgsConstructor

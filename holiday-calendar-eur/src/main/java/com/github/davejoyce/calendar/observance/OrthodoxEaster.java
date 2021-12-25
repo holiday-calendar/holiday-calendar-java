@@ -36,6 +36,8 @@ import java.util.stream.IntStream;
  * <p>Due to the evolution of the computation of Easter Sunday during the
  * early-to-medieval period of the Christian church, this implementation of the
  * Gauss algorithm is only valid for years 530 - 3399 AD.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class OrthodoxEaster implements EasterObservance {
 

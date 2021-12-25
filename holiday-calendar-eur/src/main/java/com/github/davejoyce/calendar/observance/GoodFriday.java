@@ -30,6 +30,8 @@ import static java.util.Objects.requireNonNull;
  * Christ. Good Friday is a major Christian holiday that is widely instituted
  * as a legal holiday around the world. Good Friday is the Friday two days
  * preceding Easter Sunday.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class GoodFriday implements Observance {
 

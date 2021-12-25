@@ -31,6 +31,8 @@ import java.time.Month;
  * does not support a proleptic Gregorian calendar. Dates for years prior to
  * 1583 CE will be calculated the same as Orthodox Easter and simply returned as
  * the Gregorian date.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class WesternEaster implements EasterObservance {
 

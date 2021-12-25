@@ -24,6 +24,8 @@ import java.time.LocalDate;
  * Defines date adjustment behavior for holiday observance when the calculated
  * date falls on a weekend day. Date roll behavior is a defined attribute of a
  * published holiday calendar.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public interface DateRoll {
 

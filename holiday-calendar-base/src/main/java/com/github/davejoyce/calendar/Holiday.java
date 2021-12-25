@@ -29,13 +29,14 @@ import java.util.Optional;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An official day on which activity does not occur. A holiday may be
- * traditional, religious, or governmental in origin. Its date of
- * occurrence may be fixed,
+ * An official day on which work does not occur. A holiday may be traditional,
+ * religious, or governmental in origin. Its date of occurrence may be fixed,
  * <a href="https://en.wikipedia.org/wiki/Moveable_feast">moveable</a>, or
  * otherwise computed.
  * <p>Subclasses which extend this class determine the method of holiday date
  * calculation.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public abstract class Holiday {
 
@@ -58,6 +59,12 @@ public abstract class Holiday {
         private MonthDay monthDay;
         private Observance observance;
 
+        /**
+         * Package private constructor. Not intended to be called directly by
+         * client code.
+         *
+         * @see #builder()
+         */
         HolidayBuilder() {}
 
         /**
@@ -162,20 +169,28 @@ public abstract class Holiday {
          * Build the {@link Holiday} object.
          *
          * @return constructed holiday
+         * @throws IllegalStateException if {@code type} was not set prior to
+         *         invocation of this method
          */
         public Holiday build() {
             switch (Optional.ofNullable(type)
-                            .orElseThrow(() -> new IllegalArgumentException("Parameter 'type' cannot be null"))) {
+                            .orElseThrow(() -> new IllegalStateException("Parameter 'type' cannot be null"))) {
                 case FIXED:
                     return new FixedHoliday(name, description, monthDay, rollable);
                 case FLOATING:
                     return new FloatingHoliday(name, description, observance, rollable);
                 default:
-                    throw new IllegalArgumentException("Parameter 'type' cannot be null");
+                    throw new IllegalStateException("Parameter 'type' cannot be null");
             }
         }
     }
 
+    /**
+     * Get a new builder object for construction of a configured {@code Holiday}
+     * instance to be used with one or more holiday calendars.
+     *
+     * @return new {@code Holiday} builder instance
+     */
     public static HolidayBuilder builder() {
         return new HolidayBuilder();
     }
@@ -184,20 +199,46 @@ public abstract class Holiday {
     private final String description;
     private final boolean rollable;
 
+    /**
+     * Parent constructor inherited by concrete subclasses.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param rollable flag indicating whether this holiday may be rolled for
+     *                 observance
+     * @throws NullPointerException if {@code name} is null
+     */
     public Holiday(String name, String description, boolean rollable) {
         this.name = requireNonNull(name, "Argument 'name' cannot be null");
         this.description = Optional.ofNullable(description).orElse("");
-        this.rollable =rollable;
+        this.rollable = rollable;
     }
 
+    /**
+     * Get the name of this holiday.
+     *
+     * @return holiday name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Get the description (if any) of this holiday.
+     *
+     * @return holiday description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Determine if this holiday supports date rolling for actual observance on
+     * a holiday calendar.
+     *
+     * @return {@code true} if the date of occurrence for this holiday may be
+     *         rolled for observance, {@code false} otherwise
+     */
     public boolean isRollable() {
         return rollable;
     }

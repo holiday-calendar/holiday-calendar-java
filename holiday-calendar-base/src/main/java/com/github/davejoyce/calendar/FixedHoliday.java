@@ -31,12 +31,24 @@ import static java.util.Objects.requireNonNull;
  * A holiday which occurs on the same date every year. Examples of a fixed
  * holiday are
  * <a href="https://en.wikipedia.org/wiki/New_Year%27s_Day">New Year's Day</a>
- * and national independence days.
+ * and a national independence day.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class FixedHoliday extends Holiday {
 
     private final MonthDay monthDay;
 
+    /**
+     * Construct a new instance of a fixed holiday with the specified name,
+     * description, and occurring on the given month and day. The constructed
+     * holiday object will be {@link #isRollable() rollable} by default.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param month month in which holiday occurs
+     * @param dayOfMonth day of month on which holiday occurs
+     */
     public FixedHoliday(String name,
                         String description,
                         Month month,
@@ -44,12 +56,34 @@ public class FixedHoliday extends Holiday {
         this(name, description, month, dayOfMonth, true);
     }
 
+    /**
+     * Construct a new instance of a fixed holiday with the specified name,
+     * description, and occurring on the given month and day. The constructed
+     * holiday object will be {@link #isRollable() rollable} by default.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param monthAndDay text notation of month and day on which holiday occurs
+     */
     public FixedHoliday(String name,
                         String description,
                         String monthAndDay) {
         this(name, description, monthAndDay, true);
     }
 
+    /**
+     * Construct a new instance of a fixed holiday with the specified name,
+     * description, and occurring on the given month and day. The constructed
+     * holiday object will support or disallow {@link DateRoll date roll}, based
+     * upon the specified boolean flag argument.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param month month in which holiday occurs
+     * @param dayOfMonth day of month on which holiday occurs
+     * @param rollable flag indicating whether this holiday may be rolled for
+     *                 observance
+     */
     public FixedHoliday(String name,
                         String description,
                         Month month,
@@ -58,6 +92,18 @@ public class FixedHoliday extends Holiday {
         this(name, description, MonthDay.of(month, dayOfMonth), rollable);
     }
 
+    /**
+     * Construct a new instance of a fixed holiday with the specified name,
+     * description, and occurring on the given month and day. The constructed
+     * holiday object will support or disallow {@link DateRoll date roll}, based
+     * upon the specified boolean flag argument.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param monthAndDay text notation of month and day on which holiday occurs
+     * @param rollable flag indicating whether this holiday may be rolled for
+     *                 observance
+     */
     public FixedHoliday(String name,
                         String description,
                         String monthAndDay,
@@ -65,6 +111,18 @@ public class FixedHoliday extends Holiday {
         this(name, description, MonthDay.parse(monthAndDay), rollable);
     }
 
+    /**
+     * Construct a new instance of a fixed holiday with the specified name,
+     * description, and occurring on the given month and day. The constructed
+     * holiday object will support or disallow {@link DateRoll date roll}, based
+     * upon the specified boolean flag argument.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param monthDay {@code MonthDay} specification of when holiday occurs
+     * @param rollable flag indicating whether this holiday may be rolled for
+     *                 observance
+     */
     public FixedHoliday(String name,
                         String description,
                         MonthDay monthDay,
@@ -73,14 +131,27 @@ public class FixedHoliday extends Holiday {
         this.monthDay = requireNonNull(monthDay, "Argument 'monthDay' cannot be null");
     }
 
+    /**
+     * Get month on which this holiday occurs.
+     *
+     * @return holiday month
+     */
     public Month getMonth() {
         return monthDay.getMonth();
     }
 
+    /**
+     * Get day of the month on which this holiday occurs.
+     *
+     * @return holiday day in month
+     */
     public int getDayOfMonth() {
         return monthDay.getDayOfMonth();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<LocalDate> dateForYear(int year) {
         return Optional.of(LocalDate.of(year, monthDay.getMonth(), monthDay.getDayOfMonth()));

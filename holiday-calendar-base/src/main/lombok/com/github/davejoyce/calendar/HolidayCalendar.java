@@ -34,6 +34,8 @@ import static java.util.Objects.requireNonNull;
  * A named collection of {@link Holiday holidays} observed within a single
  * calendar year. An instance of this class defines the days on which
  * activities may not occur.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class HolidayCalendar {
 
@@ -63,6 +65,21 @@ public class HolidayCalendar {
     private final Set<DayOfWeek> weekendDays = new HashSet<>();
     private final Set<Holiday> holidays = new HashSet<>();
 
+    /**
+     * Construct a new holiday calendar object. While this constructor is public
+     * to support extension of this class, for most cases it is recommended to
+     * construct a new instance of {@code HolidayCalendar} via a
+     * {@link HolidayCalendarBuilder builder} object.
+     *
+     * @param code short text code symbol by which this calendar may be located
+     * @param name name of this holiday calendar object
+     * @param dateRoll date rolling behavior to be employed by this holiday
+     *                 calendar
+     * @param weekendDays days of the week to be treated as the weekend on this
+     *                    calendar
+     * @param holidays set of {@link Holiday} objects to be observed on this
+     *                 calendar
+     */
     @Builder(toBuilder = true)
     public HolidayCalendar(String code,
                            String name,
@@ -89,14 +106,35 @@ public class HolidayCalendar {
                 );
     }
 
+    /**
+     * Get holidays observed on this calendar.
+     *
+     * @return set of {@link Holiday} objects to be observed on this
+     *         calendar
+     */
     public Set<Holiday> getHolidays() {
         return Collections.unmodifiableSet(this.holidays);
     }
 
+    /**
+     * Get weekend days recognized by this calendar.
+     *
+     * @return days of the week to be treated as the weekend on this
+     *         calendar
+     */
     public Set<DayOfWeek> getWeekendDays() {
         return Collections.unmodifiableSet(this.weekendDays);
     }
 
+    /**
+     * Determine if the given instant, in the specified time zone, falls on
+     * the weekend as defined by this holiday calendar.
+     *
+     * @param instant instant in time to be evaluated
+     * @param zoneId ID of time zone to be used
+     * @return {@code true} if instant falls on the weekend, {@code false}
+     *         otherwise
+     */
     public boolean isWeekend(final Instant instant,
                              final ZoneId zoneId) {
         final DayOfWeek weekDay = requireNonNull(instant, "Argument 'instant' cannot be null")
@@ -105,15 +143,40 @@ public class HolidayCalendar {
         return weekendDays.contains(weekDay);
     }
 
+    /**
+     * Determine if the given instant, in UTC standard time, falls on
+     * the weekend as defined by this holiday calendar.
+     *
+     * @param instant instant in time to be evaluated
+     * @return {@code true} if instant falls on the weekend, {@code false}
+     *         otherwise
+     */
     public boolean isWeekendUTC(final Instant instant) {
         return isWeekend(instant, ZoneOffset.UTC.normalized());
     }
 
+    /**
+     * Determine if the given date, in the specified time zone, falls on the
+     * weekend as defined by this holiday calendar.
+     *
+     * @param date date to be evaluated
+     * @param timeZone time zone to be used
+     * @return {@code true} if date falls on the weekend, {@code false}
+     *         otherwise
+     */
     public boolean isWeekend(final Date date, final TimeZone timeZone) {
         return isWeekend(requireNonNull(date, "Argument 'date' cannot be null").toInstant(),
                          requireNonNull(timeZone, "Argument 'timeZone' cannot be null").toZoneId());
     }
 
+    /**
+     * Determine if the given date, in UTC standard time, falls on the weekend
+     * as defined by this holiday calendar.
+     *
+     * @param date date to be evaluated
+     * @return {@code true} if date falls on the weekend, {@code false}
+     *         otherwise
+     */
     public boolean isWeekendUTC(final Date date) {
         return isWeekend(date, TimeZone.getTimeZone(ZoneOffset.UTC.normalized()));
     }

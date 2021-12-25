@@ -36,6 +36,7 @@ import static java.util.Objects.requireNonNull;
  * the observed date of a floating holiday can vary widely in complexity.
  *
  * @see Observance
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class FloatingHoliday extends Holiday {
 
@@ -43,6 +44,18 @@ public class FloatingHoliday extends Holiday {
     @NonNull
     private final Observance observance;
 
+    /**
+     * Construct a new instance of a fixed holiday with the specified name,
+     * description, and occurring on the given month and day. The constructed
+     * holiday object will support or disallow {@link DateRoll date roll}, based
+     * upon the specified boolean flag argument.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param observance observance algorithm to calculate dates of this holiday
+     * @param rollable flag indicating whether this holiday may be rolled for
+     *                 observance
+     */
     public FloatingHoliday(String name,
                            String description,
                            Observance observance,
@@ -51,12 +64,24 @@ public class FloatingHoliday extends Holiday {
         this.observance = requireNonNull(observance, "Argument 'observance' cannot be null");
     }
 
+    /**
+     * Construct a new instance of a fixed holiday with the specified name,
+     * description, and occurring on the given month and day. The constructed
+     * holiday object will be {@link #isRollable() rollable} by default.
+     *
+     * @param name name of this holiday
+     * @param description brief description of this holiday
+     * @param observance observance algorithm to calculate dates of this holiday
+     */
     public FloatingHoliday(String name,
                            String description,
                            Observance observance) {
         this(name, description, observance, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<LocalDate> dateForYear(int year) {
         return Optional.ofNullable(observance.apply(year));
