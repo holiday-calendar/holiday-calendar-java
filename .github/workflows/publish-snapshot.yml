@@ -2,7 +2,7 @@ name: "Snapshot Publication"
 
 on:
   workflow_run:
-    workflows: ["maven-build"]
+    workflows: ["build"]
     types:
       - completed
 
