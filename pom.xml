@@ -9,20 +9,17 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <distributionManagement>
-        <repository>
-            <id>${project.scm.id}</id>
-            <name>${project.scm.name}</name>
-            <url>${project.dist.url}</url>
-        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub</name>
+            <url>https://maven.pkg.github.com/davejoyce/holiday-calendar-java</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.dist.url>https://maven.pkg.github.com/davejoyce/holiday-calendar-java</project.dist.url>
-        <project.scm.id>github</project.scm.id>
-        <project.scm.name>GitHub</project.scm.name>
 
         <!-- Dependency versions -->
         <logback.version>1.2.9</logback.version>
