@@ -16,7 +16,9 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar;
+package com.github.davejoyce.calendar.function;
+
+import com.github.davejoyce.calendar.HolidayCalendar;
 
 import java.time.LocalDate;
 
@@ -24,9 +26,13 @@ import java.time.LocalDate;
  * Defines date adjustment behavior for holiday observance when the calculated
  * date falls on a weekend day. Date roll behavior is a defined attribute of a
  * published holiday calendar.
+ * <p>This is a functional interface, supporting definition of date roll
+ * behavior for a {@link HolidayCalendar} as a
+ * lambda expression.</p>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
+@FunctionalInterface
 public interface DateRoll {
 
     /**

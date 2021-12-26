@@ -18,6 +18,7 @@
 
 package com.github.davejoyce.calendar;
 
+import com.github.davejoyce.calendar.function.DateRoll;
 import com.github.davejoyce.calendar.function.Observance;
 import lombok.Getter;
 import lombok.NonNull;

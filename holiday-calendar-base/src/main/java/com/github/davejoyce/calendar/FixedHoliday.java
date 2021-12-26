@@ -18,6 +18,8 @@
 
 package com.github.davejoyce.calendar;
 
+import com.github.davejoyce.calendar.function.DateRoll;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.MonthDay;
