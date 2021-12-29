@@ -51,6 +51,14 @@
         <module>holiday-calendar-noneur</module>
     </modules>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub</name>
+            <url>https://maven.pkg.github.com/davejoyce/holiday-calendar-java</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -67,6 +75,7 @@
 
         <!-- Plugin versions -->
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-jacoco-plugin.version>0.8.7</maven-jacoco-plugin.version>
         <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
@@ -105,7 +114,32 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.projectlombok</groupId>
+                    <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.5.0,)</version>
+                                    <message>Invalid Maven version. It should be minimum of 3.5.0</message>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>[1.8,)</version>
+                                    <message>Invalid Java version. It should be minimum of 1.8</message>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
                     <artifactId>lombok-maven-plugin</artifactId>
                     <version>${lombok-maven-plugin.version}</version>
                 </plugin>
