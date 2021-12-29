@@ -18,46 +18,37 @@
 
 package com.github.davejoyce.calendar.observance;
 
-import com.github.davejoyce.calendar.function.EasterObservance;
 import com.github.davejoyce.calendar.function.Observance;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-
-import static java.util.Objects.requireNonNull;
+import java.time.Month;
+import java.time.Year;
+import java.time.temporal.TemporalAdjusters;
 
 /**
- * Observance of the Feast of Corpus Christi, a liturgical solemnity celebrated
- * in the Roman Catholic, Anglican, and Western Orthodox churches. The holiday
- * is celebrated on the Thursday 60 days after Easter, or on the following
- * Sunday.
+ * Observance of May Day - an ancient festival marking the first day of summer.
+ * It is a current traditional spring holiday in many European cultures that is
+ * celebrated as a public holiday on 1 May or the 1st Monday of May.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class CorpusChristi implements Observance {
+public class MayDay implements Observance {
 
-    private final EasterObservance easterObservance;
-    private final boolean adjustToSunday;
+    private final boolean onFirstMonday;
 
-    public CorpusChristi(EasterObservance easterObservance,
-                         boolean adjustToSunday) {
-        this.easterObservance = requireNonNull(easterObservance, "Argument 'easterObservance' cannot be null");
-        this.adjustToSunday = adjustToSunday;
+    public MayDay(boolean onFirstMonday) {
+        this.onFirstMonday = onFirstMonday;
     }
 
-    public CorpusChristi(EasterObservance easterObservance) {
-        this(easterObservance, false);
+    public MayDay() {
+        this(false);
     }
 
     @Override
     public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-        LocalDate actual = easterObservance.apply(year).plusDays(60);
-        return adjustToSunday ? actual.plusDays(3) : actual;
-    }
-
-    @Override
-    public boolean test(Integer year) {
-        return easterObservance.test(year);
+        LocalDate actual = Year.of(year).atMonth(Month.MAY).atDay(1);
+        return onFirstMonday ? actual.with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)) : actual;
     }
 
 }
