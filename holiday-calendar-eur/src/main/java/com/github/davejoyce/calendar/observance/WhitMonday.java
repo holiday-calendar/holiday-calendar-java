@@ -18,41 +18,37 @@
 
 package com.github.davejoyce.calendar.observance;
 
+import com.github.davejoyce.calendar.function.EasterObservance;
 import com.github.davejoyce.calendar.function.Observance;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
-import java.time.temporal.TemporalAdjusters;
+
+import static java.util.Objects.requireNonNull;
 
 /**
- * Observance of May Day - an ancient festival marking the first day of summer.
- * It is a current traditional spring holiday in many European cultures that is
- * celebrated as a public holiday on 1 May or the 1st Monday of May.
- * <p>In modern times, May Day is also celebrated as <em>International Workers'
- * Day</em> in many countries around the world, where it is commonly known as
- * <em>Labour Day</em>.
- * </p>
+ * Observance of Whit Monday, the Monday following
+ * {@link WhitSunday Whit Sunday}. Whit Monday is exactly 50 days after Easter
+ * Sunday.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class MayDay implements Observance {
+public class WhitMonday implements Observance {
 
-    private final boolean onFirstMonday;
+    private final WhitSunday whitSunday;
 
-    public MayDay(boolean onFirstMonday) {
-        this.onFirstMonday = onFirstMonday;
-    }
-
-    public MayDay() {
-        this(false);
+    public WhitMonday(EasterObservance easterObservance) {
+        this.whitSunday = new WhitSunday(easterObservance);
     }
 
     @Override
     public LocalDate apply(Integer year) {
-        LocalDate actual = Year.of(year).atMonth(Month.MAY).atDay(1);
-        return onFirstMonday ? actual.with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)) : actual;
+        if (!test(year)) return null;
+        return whitSunday.apply(year).plusDays(1);
+    }
+
+    @Override
+    public boolean test(Integer year) {
+        return whitSunday.test(year);
     }
 
 }

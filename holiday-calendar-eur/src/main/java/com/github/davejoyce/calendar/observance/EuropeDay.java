@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Holiday Calendar - A library for definition and calculation of holiday calendars
- * Copyright (C) 2021 David Joyce
+ * Copyright (C) 2022 David Joyce
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -20,39 +20,40 @@ package com.github.davejoyce.calendar.observance;
 
 import com.github.davejoyce.calendar.function.Observance;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
-import java.time.temporal.TemporalAdjusters;
 
 /**
- * Observance of May Day - an ancient festival marking the first day of summer.
- * It is a current traditional spring holiday in many European cultures that is
- * celebrated as a public holiday on 1 May or the 1st Monday of May.
- * <p>In modern times, May Day is also celebrated as <em>International Workers'
- * Day</em> in many countries around the world, where it is commonly known as
- * <em>Labour Day</em>.
- * </p>
+ * Observance of Europe Day - a day celebrating "peace and unity in Europe"
+ * celebrated on 5 May by the Council of Europe and on 9 May by the European
+ * Union.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class MayDay implements Observance {
+public class EuropeDay implements Observance {
 
-    private final boolean onFirstMonday;
+    private final boolean europeanUnion;
 
-    public MayDay(boolean onFirstMonday) {
-        this.onFirstMonday = onFirstMonday;
+    public EuropeDay(boolean europeanUnion) {
+        this.europeanUnion = europeanUnion;
     }
 
-    public MayDay() {
-        this(false);
+    public EuropeDay() {
+        this(true);
     }
 
     @Override
     public LocalDate apply(Integer year) {
-        LocalDate actual = Year.of(year).atMonth(Month.MAY).atDay(1);
-        return onFirstMonday ? actual.with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)) : actual;
+        if (!test(year)) return null;
+        return Year.of(year)
+                   .atMonth(Month.MAY)
+                   .atDay(europeanUnion ? 9 : 5);
+    }
+
+    @Override
+    public boolean test(Integer year) {
+        return 1964 <= year;
     }
 
 }

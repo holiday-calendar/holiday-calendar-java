@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Holiday Calendar - A library for definition and calculation of holiday calendars
- * Copyright (C) 2021 David Joyce
+ * Copyright (C) 2022 David Joyce
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,7 +16,7 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.observance;
+package com.github.davejoyce.calendar.observance.ca;
 
 import com.github.davejoyce.calendar.function.Observance;
 
@@ -27,32 +27,28 @@ import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
 
 /**
- * Observance of May Day - an ancient festival marking the first day of summer.
- * It is a current traditional spring holiday in many European cultures that is
- * celebrated as a public holiday on 1 May or the 1st Monday of May.
- * <p>In modern times, May Day is also celebrated as <em>International Workers'
- * Day</em> in many countries around the world, where it is commonly known as
- * <em>Labour Day</em>.
- * </p>
+ * Observance of Labour Day - a statutory public holiday in Canada that occurs
+ * on the first Monday in September. One of several Labour Day celebrations that
+ * occur worldwide, the Canadian observance occurs on the same day as Labor Day
+ * in the United States.
  *
+ * @see com.github.davejoyce.calendar.observance.MayDay
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class MayDay implements Observance {
-
-    private final boolean onFirstMonday;
-
-    public MayDay(boolean onFirstMonday) {
-        this.onFirstMonday = onFirstMonday;
-    }
-
-    public MayDay() {
-        this(false);
-    }
+public class LabourDay implements Observance {
 
     @Override
     public LocalDate apply(Integer year) {
-        LocalDate actual = Year.of(year).atMonth(Month.MAY).atDay(1);
-        return onFirstMonday ? actual.with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)) : actual;
+        if (!test(year)) return null;
+        return Year.of(year)
+                   .atMonth(Month.SEPTEMBER)
+                   .atDay(1)
+                   .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
+    }
+
+    @Override
+    public boolean test(Integer year) {
+        return 1894 <= year;
     }
 
 }
