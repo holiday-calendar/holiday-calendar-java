@@ -19,6 +19,7 @@
 package com.github.davejoyce.calendar.observance.ca;
 
 import com.github.davejoyce.calendar.function.Observance;
+import com.github.davejoyce.calendar.observance.eu.MayDay;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ import java.time.temporal.TemporalAdjusters;
  * occur worldwide, the Canadian observance occurs on the same day as Labor Day
  * in the United States.
  *
- * @see com.github.davejoyce.calendar.observance.MayDay
+ * @see MayDay
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class LabourDay implements Observance {

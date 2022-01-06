@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Holiday Calendar - A library for definition and calculation of holiday calendars
- * Copyright (C) 2022 David Joyce
+ * Copyright (C) 2021 David Joyce
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,40 +16,10 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.observance.us;
-
-import com.github.davejoyce.calendar.function.Observance;
-import com.github.davejoyce.calendar.observance.eu.MayDay;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
-import java.time.temporal.TemporalAdjusters;
-
 /**
- * Observance of Labor Day - a federal holiday in the United States that occurs
- * on the first Monday in September. One of several Labour Day celebrations that
- * occur worldwide, the American observance occurs on the same day as Labour Day
- * in Canada.
+ * Implementations of {@link com.github.davejoyce.calendar.function.Observance}
+ * for holidays observed in the European Union.
  *
- * @see MayDay
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class LaborDay implements Observance {
-
-    @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-        return Year.of(year)
-                   .atMonth(Month.SEPTEMBER)
-                   .atDay(1)
-                   .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
-    }
-
-    @Override
-    public boolean test(Integer year) {
-        return 1894 <= year;
-    }
-
-}
+package com.github.davejoyce.calendar.observance.eu;
