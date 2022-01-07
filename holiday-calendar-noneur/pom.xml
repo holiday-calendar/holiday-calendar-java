@@ -14,6 +14,7 @@
     <description>Support for calendar systems and holidays of non-European origin</description>
 
     <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>

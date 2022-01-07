@@ -17,7 +17,7 @@
     <licenses>
         <license>
             <name>GNU Lesser General Public License, version 2.1</name>
-            <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html</url>
+            <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -35,8 +35,8 @@
 
     <scm>
         <url>${project.url}</url>
-        <connection>scm:git:https://github.com/davejoyce/holiday-calendar-java.git</connection>
-        <developerConnection>scm:git:git@github.com:davejoyce/holiday-calendar-java.git</developerConnection>
+        <connection>scm:git:https://${repo.domain}/${repo.user}/${repo.name}.git</connection>
+        <developerConnection>scm:git:git@${repo.domain}:${repo.user}/${repo.name}.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -49,6 +49,7 @@
         <module>holiday-calendar-base</module>
         <module>holiday-calendar-eur</module>
         <module>holiday-calendar-noneur</module>
+        <module>tests</module>
     </modules>
 
     <distributionManagement>
@@ -63,6 +64,10 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.sourceEncoding>UTF-8</project.reporting.sourceEncoding>
+
+        <aggregate.report.dir>tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+
         <repo.domain>github.com</repo.domain>
         <repo.user>davejoyce</repo.user>
         <repo.name>holiday-calendar-java</repo.name>
@@ -81,6 +86,7 @@
         <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+        <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -115,31 +121,31 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven-enforcer-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>default-enforce</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>[3.5.0,)</version>
-                                    <message>Invalid Maven version. It should be minimum of 3.5.0</message>
-                                </requireMavenVersion>
-                                <requireJavaVersion>
-                                    <version>[1.8,)</version>
-                                    <message>Invalid Java version. It should be minimum of 1.8</message>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.projectlombok</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>default-enforce</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>[3.5.0,)</version>
+                                        <message>Invalid Maven version. It should be minimum of 3.5.0</message>
+                                    </requireMavenVersion>
+                                    <requireJavaVersion>
+                                        <version>[1.8,)</version>
+                                        <message>Invalid Java version. It should be minimum of 1.8</message>
+                                    </requireJavaVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.projectlombok</groupId>
                     <artifactId>lombok-maven-plugin</artifactId>
                     <version>${lombok-maven-plugin.version}</version>
                 </plugin>
@@ -152,6 +158,11 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${maven-jacoco-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -195,4 +206,29 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -27,36 +27,26 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
-public class MayDayTest {
-
-    private final MayDay mayDay = new MayDay();
+public class EuropeDayTest {
 
     @Test(dataProvider = "data")
-    public void testApply(int yearToCalculate, LocalDate expected) {
-        LocalDate actual = mayDay.apply(yearToCalculate);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testApplyFirstMonday() {
-        LocalDate expected = LocalDate.of(2022, Month.MAY, 2);
-
-        final MayDay mayDay = new MayDay(true);
-        LocalDate actual = mayDay.apply(2022);
+    public void testApply(int yearToCalculate, boolean forEuropeanUnion, LocalDate expected) {
+        final EuropeDay europeDay = new EuropeDay(forEuropeanUnion);
+        LocalDate actual = europeDay.apply(yearToCalculate);
         assertEquals(actual, expected);
     }
 
     @DataProvider
     public Iterator<Object[]> data() {
         List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{ 1800, LocalDate.of(1800, Month.MAY, 1) });
-        data.add(new Object[]{ 1848, LocalDate.of(1848, Month.MAY, 1) });
-        data.add(new Object[]{ 1900, LocalDate.of(1900, Month.MAY, 1) });
-        data.add(new Object[]{ 1950, LocalDate.of(1950, Month.MAY, 1) });
-        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.MAY, 1) });
-        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.MAY, 1) });
+        data.add(new Object[]{ 1963, true, null });
+        data.add(new Object[]{ 1963, false, null });
+        data.add(new Object[]{ 1964, true, LocalDate.of(1964, Month.MAY, 9) });
+        data.add(new Object[]{ 1964, false, LocalDate.of(1964, Month.MAY, 5) });
+        data.add(new Object[]{ 2022, true, LocalDate.of(2022, Month.MAY, 9) });
+        data.add(new Object[]{ 2022, false, LocalDate.of(2022, Month.MAY, 5) });
 
         return data.iterator();
     }
