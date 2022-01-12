@@ -40,6 +40,7 @@ public class WesternEaster implements EasterObservance {
 
     @Override
     public LocalDate apply(Integer year) {
+        if (!test(year)) return null;
         if (1583 > year) return PRE_1583.apply(year);
         final int a = year % 19;
         final int b = year / 100;
@@ -57,6 +58,11 @@ public class WesternEaster implements EasterObservance {
         final int p = monthDividend(h, l, m) % 31;
         final int day = p + 1;
         return LocalDate.of(year, Month.of(month), day);
+    }
+
+    @Override
+    public boolean test(Integer year) {
+        return OrthodoxEaster.MIN_VALID_YEAR <= year;
     }
 
     private int monthDividend(int h, int l, int m) {
