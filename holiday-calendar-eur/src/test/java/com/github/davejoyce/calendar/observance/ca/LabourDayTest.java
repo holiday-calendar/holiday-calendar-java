@@ -25,7 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LabourDayTest extends AbstractObservanceTest<LabourDay> {
+public class LabourDayTest extends AbstractObservanceTest {
 
     public LabourDayTest() {
         super(new LabourDay());

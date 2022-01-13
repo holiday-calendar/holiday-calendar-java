@@ -21,6 +21,8 @@ package com.github.davejoyce.calendar.function;
 /**
  * Marker extension of {@link Observance} for representing a particular
  * calculation of a recognized observance of Easter.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 @FunctionalInterface
 public interface EasterObservance extends Observance {}

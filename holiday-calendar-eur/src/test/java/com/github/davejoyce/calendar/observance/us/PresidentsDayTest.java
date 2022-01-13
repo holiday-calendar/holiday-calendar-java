@@ -25,7 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PresidentsDayTest extends AbstractObservanceTest<PresidentsDay> {
+public class PresidentsDayTest extends AbstractObservanceTest {
 
     public PresidentsDayTest() {
         super(new PresidentsDay());

@@ -25,7 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThanksgivingTest extends AbstractObservanceTest<Thanksgiving> {
+public class ThanksgivingTest extends AbstractObservanceTest {
 
     public ThanksgivingTest() {
         super(new Thanksgiving());

@@ -18,41 +18,48 @@
 
 package com.github.davejoyce.calendar.observance;
 
-import com.github.davejoyce.calendar.function.Observance;
+import com.github.davejoyce.calendar.function.EasterObservance;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
-/**
- * Abstract superclass of standard {@link Observance} unit tests.
- *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
- */
-public abstract class AbstractObservanceTest {
+public class AscensionDayTest {
 
-    protected final Observance observance;
+    private final AscensionDay ascensionDay = new AscensionDay(new WesternEaster());
 
-    public AbstractObservanceTest(final Observance observance) {
-        this.observance = observance;
+    @Test(expectedExceptions = IllegalArgumentException.class,
+          expectedExceptionsMessageRegExp = "Argument 'daysAfterEaster' must be .*")
+    public void testMinimumDaysAfterEaster() {
+        AscensionDay bad = new AscensionDay(new WesternEaster(), 38);
+        fail("Expected IllegalArgumentException");
     }
 
     @Test(dataProvider = "data")
     public void testApply(int yearToCalculate, LocalDate expected) {
-        LocalDate actual = observance.apply(yearToCalculate);
+        LocalDate actual = ascensionDay.apply(yearToCalculate);
         assertEquals(actual, expected);
     }
 
     @DataProvider
     public Iterator<Object[]> data() {
-        List<Object[]> data = createData();
+        List<Object[]> data = new ArrayList<>();
+        data.add(new Object[]{ 1582, LocalDate.of(1582, Month.MAY, 24) }); // year before Gregorian calendar exists
+        data.add(new Object[]{ 1583, LocalDate.of(1583, Month.MAY, 19) });
+        data.add(new Object[]{ 1776, LocalDate.of(1776, Month.MAY, 16) });
+        data.add(new Object[]{ 1918, LocalDate.of(1918, Month.MAY,  9) });
+        data.add(new Object[]{ 2000, LocalDate.of(2000, Month.JUNE, 1) });
+        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.MAY, 13) });
+        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.MAY, 26) });
+        data.add(new Object[]{  529, null }); // 1 year before valid OrthodoxEaster computus
+
         return data.iterator();
     }
-
-    protected abstract List<Object[]> createData();
 
 }

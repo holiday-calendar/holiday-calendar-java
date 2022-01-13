@@ -25,7 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MartinLutherKingJrDayTest extends AbstractObservanceTest<MartinLutherKingJrDay> {
+public class MartinLutherKingJrDayTest extends AbstractObservanceTest {
 
     public MartinLutherKingJrDayTest() {
         super(new MartinLutherKingJrDay());

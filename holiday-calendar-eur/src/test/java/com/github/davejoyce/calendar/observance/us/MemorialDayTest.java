@@ -25,9 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.*;
-
-public class MemorialDayTest extends AbstractObservanceTest<MemorialDay> {
+public class MemorialDayTest extends AbstractObservanceTest {
 
     public MemorialDayTest() {
         super(new MemorialDay());

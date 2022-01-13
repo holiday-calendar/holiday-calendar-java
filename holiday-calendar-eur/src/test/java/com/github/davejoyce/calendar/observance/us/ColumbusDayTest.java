@@ -25,7 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColumbusDayTest extends AbstractObservanceTest<ColumbusDay> {
+public class ColumbusDayTest extends AbstractObservanceTest {
 
     public ColumbusDayTest() {
         super(new ColumbusDay());

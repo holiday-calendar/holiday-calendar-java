@@ -25,7 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CivicHolidayTest extends AbstractObservanceTest<CivicHoliday> {
+public class CivicHolidayTest extends AbstractObservanceTest {
 
     public CivicHolidayTest() {
         super(new CivicHoliday());

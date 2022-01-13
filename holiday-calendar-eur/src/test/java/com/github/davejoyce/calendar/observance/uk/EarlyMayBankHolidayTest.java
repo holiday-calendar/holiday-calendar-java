@@ -25,7 +25,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarlyMayBankHolidayTest extends AbstractObservanceTest<EarlyMayBankHoliday> {
+public class EarlyMayBankHolidayTest extends AbstractObservanceTest {
 
     public EarlyMayBankHolidayTest() {
         super(new EarlyMayBankHoliday());
