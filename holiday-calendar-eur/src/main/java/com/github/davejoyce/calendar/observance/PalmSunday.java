@@ -16,13 +16,39 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.function;
+package com.github.davejoyce.calendar.observance;
+
+import com.github.davejoyce.calendar.function.EasterObservance;
+import com.github.davejoyce.calendar.function.Observance;
+
+import java.time.LocalDate;
+
+import static java.util.Objects.requireNonNull;
 
 /**
- * Marker extension of {@link Observance} for representing a particular
- * calculation of a recognized observance of Easter.
+ * Observance of Palm Sunday - the Sunday before Easter. This holiday marks the
+ * beginning of <em>Holy Week</em>, the last week of the Christian season of
+ * Lent.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-@FunctionalInterface
-public interface EasterObservance extends Observance {}
+public class PalmSunday implements Observance {
+
+    private final EasterObservance easterObservance;
+
+    public PalmSunday(EasterObservance easterObservance) {
+        this.easterObservance = requireNonNull(easterObservance, "Argument 'easterObservance' cannot be null");
+    }
+
+    @Override
+    public LocalDate apply(Integer year) {
+        if (!test(year)) return null;
+        return easterObservance.apply(year).minusDays(7);
+    }
+
+    @Override
+    public boolean test(Integer year) {
+        return easterObservance.test(year);
+    }
+
+}

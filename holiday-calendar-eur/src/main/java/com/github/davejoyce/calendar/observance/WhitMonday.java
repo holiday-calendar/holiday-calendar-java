@@ -16,13 +16,39 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.function;
+package com.github.davejoyce.calendar.observance;
+
+import com.github.davejoyce.calendar.function.EasterObservance;
+import com.github.davejoyce.calendar.function.Observance;
+
+import java.time.LocalDate;
+
+import static java.util.Objects.requireNonNull;
 
 /**
- * Marker extension of {@link Observance} for representing a particular
- * calculation of a recognized observance of Easter.
+ * Observance of Whit Monday, the Monday following
+ * {@link WhitSunday Whit Sunday}. Whit Monday is exactly 50 days after Easter
+ * Sunday.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-@FunctionalInterface
-public interface EasterObservance extends Observance {}
+public class WhitMonday implements Observance {
+
+    private final WhitSunday whitSunday;
+
+    public WhitMonday(EasterObservance easterObservance) {
+        this.whitSunday = new WhitSunday(easterObservance);
+    }
+
+    @Override
+    public LocalDate apply(Integer year) {
+        if (!test(year)) return null;
+        return whitSunday.apply(year).plusDays(1);
+    }
+
+    @Override
+    public boolean test(Integer year) {
+        return whitSunday.test(year);
+    }
+
+}

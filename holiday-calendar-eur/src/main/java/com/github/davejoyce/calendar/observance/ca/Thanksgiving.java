@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Holiday Calendar - A library for definition and calculation of holiday calendars
- * Copyright (C) 2021 David Joyce
+ * Copyright (C) 2022 David Joyce
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,13 +16,33 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.function;
+package com.github.davejoyce.calendar.observance.ca;
+
+import com.github.davejoyce.calendar.function.Observance;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
+import java.time.temporal.TemporalAdjusters;
 
 /**
- * Marker extension of {@link Observance} for representing a particular
- * calculation of a recognized observance of Easter.
+ * Observance of Thanksgiving - a day to give thanks for the things one has at
+ * the close of the harvest season. This national holiday is observed on the
+ * second Monday in October.
+ * <p>Note that this public holiday is similar to, but distinct from, the
+ * holiday of the same name in the United States.</p>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-@FunctionalInterface
-public interface EasterObservance extends Observance {}
+public class Thanksgiving implements Observance {
+
+    @Override
+    public LocalDate apply(Integer year) {
+        return Year.of(year)
+                   .atMonth(Month.OCTOBER)
+                   .atDay(1)
+                   .with(TemporalAdjusters.dayOfWeekInMonth(2, DayOfWeek.MONDAY));
+    }
+
+}

@@ -16,13 +16,10 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.function;
-
 /**
- * Marker extension of {@link Observance} for representing a particular
- * calculation of a recognized observance of Easter.
+ * Implementations of {@link com.github.davejoyce.calendar.function.Observance}
+ * for holidays observed exclusively in the United States.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-@FunctionalInterface
-public interface EasterObservance extends Observance {}
+package com.github.davejoyce.calendar.observance.us;

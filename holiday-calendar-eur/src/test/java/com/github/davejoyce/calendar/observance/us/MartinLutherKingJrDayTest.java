@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Holiday Calendar - A library for definition and calculation of holiday calendars
- * Copyright (C) 2021 David Joyce
+ * Copyright (C) 2022 David Joyce
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,13 +16,31 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.function;
+package com.github.davejoyce.calendar.observance.us;
 
-/**
- * Marker extension of {@link Observance} for representing a particular
- * calculation of a recognized observance of Easter.
- *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
- */
-@FunctionalInterface
-public interface EasterObservance extends Observance {}
+import com.github.davejoyce.calendar.observance.AbstractObservanceTest;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MartinLutherKingJrDayTest extends AbstractObservanceTest {
+
+    public MartinLutherKingJrDayTest() {
+        super(new MartinLutherKingJrDay());
+    }
+
+    @Override
+    protected List<Object[]> createData() {
+        List<Object[]> data = new ArrayList<>();
+        data.add(new Object[]{ 1985, null });
+        data.add(new Object[]{ 1986, LocalDate.of(1986, Month.JANUARY, 20) });
+        data.add(new Object[]{ 1990, LocalDate.of(1990, Month.JANUARY, 15) });
+        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.JANUARY, 18) });
+        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.JANUARY, 17) });
+
+        return data;
+    }
+
+}

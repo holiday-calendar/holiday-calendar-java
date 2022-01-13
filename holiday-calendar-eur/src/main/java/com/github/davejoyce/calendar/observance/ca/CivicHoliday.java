@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Holiday Calendar - A library for definition and calculation of holiday calendars
- * Copyright (C) 2021 David Joyce
+ * Copyright (C) 2022 David Joyce
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,13 +16,33 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.function;
+package com.github.davejoyce.calendar.observance.ca;
+
+import com.github.davejoyce.calendar.function.Observance;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
+import java.time.temporal.TemporalAdjusters;
 
 /**
- * Marker extension of {@link Observance} for representing a particular
- * calculation of a recognized observance of Easter.
+ * Observance of Civic Holiday - public holiday in Canada celebrated on the
+ * first Monday in August. The word <em>civic</em> is in reference to
+ * municipalities (such as cities, towns, etc.), as this day is not
+ * legislatively mandated as a public holiday across the country by the Canadian
+ * federal government.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-@FunctionalInterface
-public interface EasterObservance extends Observance {}
+public class CivicHoliday implements Observance {
+
+    @Override
+    public LocalDate apply(Integer year) {
+        return Year.of(year)
+                   .atMonth(Month.AUGUST)
+                   .atDay(1)
+                   .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
+    }
+
+}
