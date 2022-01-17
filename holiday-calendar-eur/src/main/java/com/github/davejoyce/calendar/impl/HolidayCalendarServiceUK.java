@@ -30,6 +30,7 @@ import com.github.davejoyce.calendar.observance.uk.SpringBankHoliday;
 import com.github.davejoyce.calendar.observance.uk.SummerBankHoliday;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.Month;
 
 public class HolidayCalendarServiceUK implements HolidayCalendarService {
@@ -81,7 +82,34 @@ public class HolidayCalendarServiceUK implements HolidayCalendarService {
                 .rollable(false)
                 .observance(new SpringBankHoliday())
                 .build();
-        // TODO Load Jubilee holidays here
+        final Holiday silverJubileeBankHoliday = Holiday.builder()
+                .name("Silver Jubilee Bank Holiday")
+                .description("Silver Jubilee of Queen Elizabeth II")
+                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
+                .rollable(false)
+                .anniversaryDate(LocalDate.of(1977, Month.JUNE, 7))
+                .build();
+        final Holiday goldenJubileeBankHoliday = Holiday.builder()
+                .name("Golden Jubilee Bank Holiday")
+                .description("Golden Jubilee of Queen Elizabeth II")
+                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
+                .rollable(false)
+                .anniversaryDate(LocalDate.of(2002, Month.JUNE, 3))
+                .build();
+        final Holiday diamondJubileeBankHoliday = Holiday.builder()
+                .name("Diamond Jubilee Bank Holiday")
+                .description("Diamond Jubilee of Queen Elizabeth II")
+                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
+                .rollable(false)
+                .anniversaryDate(LocalDate.of(2021, Month.JUNE, 5))
+                .build();
+        final Holiday platinumJubileeBankHoliday = Holiday.builder()
+                .name("Platinum Jubilee Bank Holiday")
+                .description("Platinum Jubilee of Queen Elizabeth II")
+                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
+                .rollable(false)
+                .anniversaryDate(LocalDate.of(2022, Month.JUNE, 3))
+                .build();
         final Holiday summerBankHoliday = Holiday.builder()
                 .name("Summer Bank Holiday")
                 .description("Summer bank holiday")
@@ -117,7 +145,10 @@ public class HolidayCalendarServiceUK implements HolidayCalendarService {
                 .holiday(easterMonday)
                 .holiday(earlyMayBankHoliday)
                 .holiday(springBankHoliday)
-                // TODO Add Jubilee holidays here
+                .holiday(silverJubileeBankHoliday)
+                .holiday(goldenJubileeBankHoliday)
+                .holiday(diamondJubileeBankHoliday)
+                .holiday(platinumJubileeBankHoliday)
                 .holiday(summerBankHoliday)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
