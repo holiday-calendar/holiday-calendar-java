@@ -35,7 +35,7 @@ public class SpringBankHolidayTest extends AbstractObservanceTest {
     protected List<Object[]> createData() {
         List<Object[]> data = new ArrayList<>();
         data.add(new Object[]{ 1970, null });
-        data.add(new Object[]{ 1977, LocalDate.of(1977, Month.MAY, 30) });
+        data.add(new Object[]{ 1977, LocalDate.of(1977, Month.JUNE, 6) });
         data.add(new Object[]{ 1990, LocalDate.of(1990, Month.MAY, 28) });
         data.add(new Object[]{ 2012, LocalDate.of(2012, Month.JUNE, 4) });
         data.add(new Object[]{ 2021, LocalDate.of(2021, Month.MAY, 31) });
