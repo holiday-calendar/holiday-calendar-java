@@ -73,16 +73,16 @@
         <repo.name>holiday-calendar-java</repo.name>
 
         <!-- Dependency versions -->
-        <logback.version>1.2.10</logback.version>
-        <lombok.version>1.18.22</lombok.version>
-        <testng.version>7.5</testng.version>
+        <logback.version>1.2.11</logback.version>
+        <lombok.version>1.18.24</lombok.version>
+        <testng.version>7.6.0</testng.version>
         <time4j.version>5.9</time4j.version>
 
         <!-- Plugin versions -->
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <maven-jacoco-plugin.version>0.8.7</maven-jacoco-plugin.version>
+        <maven-jacoco-plugin.version>0.8.8</maven-jacoco-plugin.version>
         <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
