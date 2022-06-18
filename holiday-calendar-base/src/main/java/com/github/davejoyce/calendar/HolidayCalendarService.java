@@ -16,31 +16,31 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.observance.uk;
+package com.github.davejoyce.calendar;
 
-import com.github.davejoyce.calendar.observance.AbstractObservanceTest;
+/**
+ * Required behavior of a service which provides the {@link HolidayCalendar}
+ * object assigned to a unique <em>code</em> identifier.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ */
+public interface HolidayCalendarService {
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
+    /**
+     * Determine if this service provides the {@link HolidayCalendar} for the
+     * specified code.
+     *
+     * @param code short code identifier of desired holiday calendar
+     * @return true if this service provides the holiday calendar for the given
+     *         code, false otherwise
+     */
+    boolean isProvided(String code);
 
-public class SpringBankHolidayTest extends AbstractObservanceTest {
+    /**
+     * Get the holiday calendar object provided by this service.
+     *
+     * @return holiday calendar object
+     */
+    HolidayCalendar getHolidayCalendar();
 
-    public SpringBankHolidayTest() {
-        super(new SpringBankHoliday());
-    }
-
-    @Override
-    protected List<Object[]> createData() {
-        List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{ 1970, null });
-        data.add(new Object[]{ 1977, LocalDate.of(1977, Month.JUNE, 6) });
-        data.add(new Object[]{ 1990, LocalDate.of(1990, Month.MAY, 28) });
-        data.add(new Object[]{ 2012, LocalDate.of(2012, Month.JUNE, 4) });
-        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.MAY, 31) });
-        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.JUNE, 2) });
-
-        return data;
-    }
 }

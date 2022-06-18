@@ -42,6 +42,7 @@ public class SpringBankHoliday implements Observance {
 
     public SpringBankHoliday() {
         jubileeYearDates = new HashMap<>();
+        jubileeYearDates.put(1977, LocalDate.of(1977, Month.JUNE, 6));
         jubileeYearDates.put(2002, LocalDate.of(2002, Month.JUNE, 4));
         jubileeYearDates.put(2012, LocalDate.of(2012, Month.JUNE, 4));
         jubileeYearDates.put(2022, LocalDate.of(2022, Month.JUNE, 2));

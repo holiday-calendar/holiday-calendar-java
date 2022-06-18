@@ -44,7 +44,7 @@ public abstract class Holiday {
      * Enumerated type of {@link Holiday}.
      */
     public enum Type {
-        FIXED, FLOATING
+        FIXED, FLOATING, SPECIAL_ANNIVERSARY
     }
 
     /**
@@ -58,6 +58,7 @@ public abstract class Holiday {
         private boolean rollable = true;
         private MonthDay monthDay;
         private Observance observance;
+        private LocalDate anniversaryDate;
 
         /**
          * Package private constructor. Not intended to be called directly by
@@ -165,6 +166,11 @@ public abstract class Holiday {
             return this;
         }
 
+        public HolidayBuilder anniversaryDate(final LocalDate anniversaryDate) {
+            this.anniversaryDate = anniversaryDate;
+            return this;
+        }
+
         /**
          * Build the {@link Holiday} object.
          *
@@ -179,6 +185,8 @@ public abstract class Holiday {
                     return new FixedHoliday(name, description, monthDay, rollable);
                 case FLOATING:
                     return new FloatingHoliday(name, description, observance, rollable);
+                case SPECIAL_ANNIVERSARY:
+                    return new SpecialAnniversary(name, description, anniversaryDate, rollable);
                 default:
                     throw new IllegalStateException("Parameter 'type' cannot be null");
             }
