@@ -18,6 +18,9 @@
 
 package com.github.davejoyce.calendar;
 
+import lombok.Getter;
+import lombok.NonNull;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Objects;
@@ -34,6 +37,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class SpecialAnniversary extends Holiday {
 
+    @Getter
+    @NonNull
     private final LocalDate anniversaryDate;
 
     public SpecialAnniversary(String name,
@@ -46,13 +51,8 @@ public class SpecialAnniversary extends Holiday {
 
     public SpecialAnniversary(String name,
                               String description,
-                              String anniversaryDate,
-                              boolean rollable) {
-        this(name, description, LocalDate.parse(anniversaryDate), rollable);
-    }
-
-    public LocalDate getAnniversaryDate() {
-        return anniversaryDate;
+                              LocalDate anniversaryDate) {
+        this(name, description, anniversaryDate, false);
     }
 
     /**
