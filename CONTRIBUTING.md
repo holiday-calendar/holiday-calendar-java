@@ -9,7 +9,6 @@ First off, thank you for taking the time to contribute! :+1:
   * [Create an issue](#create-an-issue)
   * [Report a security vulnerability](#report-a-security-vulnerability)
   * [Submit a pull request](#submit-a-pull-request)
-* [Source Code Style](#source-code-style)
 
 ### Code of Conduct
 
@@ -36,8 +35,3 @@ welcome to:
 1. [Fork this project](https://github.com/holiday-calendar/holiday-calendar-java/fork).
 2. In your fork repository, create the fix, including unit tests that validate it.
 3. Open a PR with the fix.
-
-### Source Code Style
-
-_Link to example of source code style. Also provide a link to IDE settings for
-IntelliJ IDEA, Eclipse, Visual Studio Code._
