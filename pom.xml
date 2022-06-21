@@ -56,7 +56,7 @@
         <snapshotRepository>
             <id>github</id>
             <name>GitHub</name>
-            <url>https://maven.pkg.github.com/davejoyce/holiday-calendar-java</url>
+            <url>https://maven.pkg.github.com/holiday-calendar/holiday-calendar-java</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -68,10 +68,10 @@
 
         <sonar.organization>holiday-calendar</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.jacoco.xmlReportPaths>tests/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/tests/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
         <repo.domain>github.com</repo.domain>
-        <repo.user>davejoyce</repo.user>
+        <repo.user>holiday-calendar</repo.user>
         <repo.name>holiday-calendar-java</repo.name>
 
         <!-- Dependency versions -->
