@@ -46,8 +46,8 @@ public class FloatingHoliday extends Holiday {
     private final Observance observance;
 
     /**
-     * Construct a new instance of a fixed holiday with the specified name,
-     * description, and occurring on the given month and day. The constructed
+     * Construct a new instance of a floating holiday with the specified name,
+     * description, and following the given observance. The constructed
      * holiday object will support or disallow {@link DateRoll date roll}, based
      * upon the specified boolean flag argument.
      *
@@ -66,8 +66,8 @@ public class FloatingHoliday extends Holiday {
     }
 
     /**
-     * Construct a new instance of a fixed holiday with the specified name,
-     * description, and occurring on the given month and day. The constructed
+     * Construct a new instance of a floating holiday with the specified name,
+     * description, and following the given observance. The constructed
      * holiday object will be {@link #isRollable() rollable} by default.
      *
      * @param name name of this holiday

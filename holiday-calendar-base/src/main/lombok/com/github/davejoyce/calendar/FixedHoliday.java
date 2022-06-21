@@ -19,6 +19,8 @@
 package com.github.davejoyce.calendar;
 
 import com.github.davejoyce.calendar.function.DateRoll;
+import lombok.Getter;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -39,6 +41,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class FixedHoliday extends Holiday {
 
+    @Getter
+    @NonNull
     private final MonthDay monthDay;
 
     /**
@@ -127,7 +131,7 @@ public class FixedHoliday extends Holiday {
      */
     public FixedHoliday(String name,
                         String description,
-                        MonthDay monthDay,
+                        @NonNull MonthDay monthDay,
                         boolean rollable) {
         super(name, description, rollable);
         this.monthDay = requireNonNull(monthDay, "Argument 'monthDay' cannot be null");

@@ -188,7 +188,7 @@ public abstract class Holiday {
                 case SPECIAL_ANNIVERSARY:
                     return new SpecialAnniversary(name, description, anniversaryDate, rollable);
                 default:
-                    throw new IllegalStateException("Parameter 'type' cannot be null");
+                    throw new IllegalStateException("Parameter 'type' unsupported: " + type);
             }
         }
     }

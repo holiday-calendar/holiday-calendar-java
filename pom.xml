@@ -56,7 +56,7 @@
         <snapshotRepository>
             <id>github</id>
             <name>GitHub</name>
-            <url>https://maven.pkg.github.com/davejoyce/holiday-calendar-java</url>
+            <url>https://maven.pkg.github.com/holiday-calendar/holiday-calendar-java</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -66,10 +66,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.sourceEncoding>UTF-8</project.reporting.sourceEncoding>
 
-        <aggregate.report.dir>tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+        <sonar.organization>holiday-calendar</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/tests/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
         <repo.domain>github.com</repo.domain>
-        <repo.user>davejoyce</repo.user>
+        <repo.user>holiday-calendar</repo.user>
         <repo.name>holiday-calendar-java</repo.name>
 
         <!-- Dependency versions -->
@@ -83,6 +85,7 @@
         <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-jacoco-plugin.version>0.8.8</maven-jacoco-plugin.version>
+        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
@@ -163,6 +166,11 @@
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>${sonar-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

@@ -77,6 +77,8 @@ public class FloatingHolidayTest {
         assertNotEquals(notAHoliday, holiday1);
         assertNotEquals(holiday3, holiday1);
         assertNotEquals(holiday4, holiday1);
+        assertFalse(holiday1.equals(null));
+        assertFalse(holiday1.equals(notAHoliday));
     }
 
     @Test
