@@ -149,6 +149,20 @@ public class HolidayCalendarTest {
     }
 
     @Test
+    public void testMergeNull() {
+        HolidayCalendar sifmaCalendar = createHolidayCalendarSifmaUS();
+        HolidayCalendar merged = sifmaCalendar.merge(null);
+        assertSame(merged, sifmaCalendar);
+    }
+
+    @Test
+    public void testMergeThis() {
+        HolidayCalendar sifmaCalendar = createHolidayCalendarSifmaUS();
+        HolidayCalendar merged = sifmaCalendar.merge(sifmaCalendar);
+        assertSame(merged, sifmaCalendar);
+    }
+
+    @Test
     public void testIsWeekendUTC_Date() {
         HolidayCalendar calendar = createHolidayCalendarSifmaUS();
 

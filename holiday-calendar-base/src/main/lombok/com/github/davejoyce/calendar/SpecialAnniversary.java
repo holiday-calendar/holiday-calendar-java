@@ -43,7 +43,7 @@ public class SpecialAnniversary extends Holiday {
 
     public SpecialAnniversary(String name,
                               String description,
-                              LocalDate anniversaryDate,
+                              @NonNull LocalDate anniversaryDate,
                               boolean rollable) {
         super(name, description, rollable);
         this.anniversaryDate = requireNonNull(anniversaryDate, "Argument 'anniversaryDate' cannot be null");
@@ -51,7 +51,7 @@ public class SpecialAnniversary extends Holiday {
 
     public SpecialAnniversary(String name,
                               String description,
-                              LocalDate anniversaryDate) {
+                              @NonNull LocalDate anniversaryDate) {
         this(name, description, anniversaryDate, false);
     }
 

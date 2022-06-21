@@ -131,7 +131,7 @@ public class FixedHoliday extends Holiday {
      */
     public FixedHoliday(String name,
                         String description,
-                        MonthDay monthDay,
+                        @NonNull MonthDay monthDay,
                         boolean rollable) {
         super(name, description, rollable);
         this.monthDay = requireNonNull(monthDay, "Argument 'monthDay' cannot be null");
