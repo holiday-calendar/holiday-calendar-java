@@ -29,7 +29,6 @@ import com.github.davejoyce.calendar.observance.uk.EarlyMayBankHoliday;
 import com.github.davejoyce.calendar.observance.uk.SpringBankHoliday;
 import com.github.davejoyce.calendar.observance.uk.SummerBankHoliday;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Optional;
@@ -114,6 +113,7 @@ public class HolidayCalendarServiceUK implements HolidayCalendarService {
         final Holiday summerBankHoliday = Holiday.builder()
                 .name("Summer Bank Holiday")
                 .description("Summer bank holiday")
+                .type(Holiday.Type.FLOATING)
                 .rollable(false)
                 .observance(new SummerBankHoliday())
                 .build();
