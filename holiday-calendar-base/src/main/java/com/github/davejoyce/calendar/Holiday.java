@@ -216,7 +216,7 @@ public abstract class Holiday {
      *                 observance
      * @throws NullPointerException if {@code name} is null
      */
-    public Holiday(String name, String description, boolean rollable) {
+    protected Holiday(String name, String description, boolean rollable) {
         this.name = requireNonNull(name, "Argument 'name' cannot be null");
         this.description = Optional.ofNullable(description).orElse("");
         this.rollable = rollable;

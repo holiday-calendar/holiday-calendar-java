@@ -32,6 +32,7 @@ import com.github.davejoyce.calendar.observance.uk.SummerBankHoliday;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Optional;
 
 public class HolidayCalendarServiceUK implements HolidayCalendarService {
 
@@ -101,7 +102,7 @@ public class HolidayCalendarServiceUK implements HolidayCalendarService {
                 .description("Diamond Jubilee of Queen Elizabeth II")
                 .type(Holiday.Type.SPECIAL_ANNIVERSARY)
                 .rollable(false)
-                .anniversaryDate(LocalDate.of(2021, Month.JUNE, 5))
+                .anniversaryDate(LocalDate.of(2012, Month.JUNE, 5))
                 .build();
         final Holiday platinumJubileeBankHoliday = Holiday.builder()
                 .name("Platinum Jubilee Bank Holiday")
@@ -134,10 +135,19 @@ public class HolidayCalendarServiceUK implements HolidayCalendarService {
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(dateToRoll -> {
-                    // TODO Handle Christmas + Boxing Day date roll
-                    if (DayOfWeek.SATURDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.plusDays(2);
-                    if (DayOfWeek.SUNDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.plusDays(1);
-                    return dateToRoll;
+                    switch (dateToRoll.getDayOfWeek()) {
+                        case SATURDAY:
+                            return dateToRoll.plusDays(2L);
+                        case SUNDAY:
+                            // 1. Check if date is Boxing Day. If it is Boxing Day of
+                            //    the year and the day of week is SUNDAY, roll forward
+                            //    2 days to TUESDAY - because Christmas Day rolls
+                            //    forward to MONDAY.
+                            final Optional<LocalDate> boxingDayDate = boxingDay.dateForYear(dateToRoll.getYear());
+                            return dateToRoll.plusDays(boxingDayDate.isPresent() && dateToRoll.equals(boxingDayDate.get()) ? 2L : 1L);
+                        default:
+                            return dateToRoll;
+                    }
                 })
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                 .holiday(newYearsDay)

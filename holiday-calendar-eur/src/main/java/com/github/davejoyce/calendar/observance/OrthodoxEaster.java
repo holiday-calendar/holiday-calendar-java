@@ -44,7 +44,7 @@ public class OrthodoxEaster implements EasterObservance {
     public static final int MIN_VALID_YEAR = 530;
     public static final int MAX_VALID_YEAR = 3399;
 
-    public static final int[][] YEAR_RANGE_ADJUSTMENT_MATRIX = {
+    protected static final int[][] YEAR_RANGE_ADJUSTMENT_MATRIX = {
             {1583, 1699, 10},
             {1700, 1799, 11},
             {1700, 1799, 11},
