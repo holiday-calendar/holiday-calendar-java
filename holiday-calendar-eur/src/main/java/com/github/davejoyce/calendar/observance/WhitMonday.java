@@ -23,8 +23,6 @@ import com.github.davejoyce.calendar.function.Observance;
 
 import java.time.LocalDate;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Observance of Whit Monday, the Monday following
  * {@link WhitSunday Whit Sunday}. Whit Monday is exactly 50 days after Easter
