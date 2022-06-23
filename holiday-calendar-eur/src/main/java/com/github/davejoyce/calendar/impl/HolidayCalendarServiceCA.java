@@ -14,6 +14,7 @@ import com.github.davejoyce.calendar.observance.ca.VictoriaDay;
 import java.time.Month;
 
 import static com.github.davejoyce.calendar.HolidayCalendar.NO_ROLL;
+import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 public class HolidayCalendarServiceCA implements HolidayCalendarService {
 
@@ -103,6 +104,7 @@ public class HolidayCalendarServiceCA implements HolidayCalendarService {
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(NO_ROLL) // TODO Update this roll convention
+                .weekendDays(STANDARD_WEEKEND)
                 .holiday(newYearsDay)
                 .holiday(goodFriday)
                 .holiday(easterMonday)
