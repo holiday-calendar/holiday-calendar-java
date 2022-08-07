@@ -1,31 +1,24 @@
 package com.github.davejoyce.calendar.impl;
 
-import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarFactory;
-import com.github.davejoyce.calendar.HolidayCalendarService;
-import org.testng.annotations.Test;
+import org.testng.annotations.DataProvider;
 
-import static org.testng.Assert.*;
+import java.util.Arrays;
+import java.util.Iterator;
 
-public class HolidayCalendarServiceUSTest {
+public class HolidayCalendarServiceUSTest extends AbstractHolidayCalendarServiceTest {
 
     static final String CODE = "US";
 
-    @Test
-    public void testHolidayCalendarFactoryCreate() {
-        HolidayCalendarFactory factory = new HolidayCalendarFactory();
-        HolidayCalendar calendar = factory.create(CODE);
-        assertNotNull(calendar);
-        assertEquals(calendar.getCode(), CODE);
+    public HolidayCalendarServiceUSTest() {
+        super(CODE);
     }
 
-    @Test
-    public void testGetHolidayCalendar() {
-        HolidayCalendarService calendarService = new HolidayCalendarServiceUS();
-        assertTrue(calendarService.isProvided(CODE));
-
-        HolidayCalendar usCalendar = calendarService.getHolidayCalendar();
-        assertTrue(usCalendar.getHolidays().stream().anyMatch(holiday -> "Juneteenth".equals(holiday.getName())));
+    @DataProvider
+    @Override
+    Iterator<Object[]> expectedHolidayNames() {
+        final Object[] presidentsDay = {"Presidents' Day"};
+        final Object[] juneteenth = {"Juneteenth"};
+        return Arrays.asList(presidentsDay, juneteenth).listIterator();
     }
 
 }

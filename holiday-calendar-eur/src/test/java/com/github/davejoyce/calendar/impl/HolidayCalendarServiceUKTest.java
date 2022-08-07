@@ -4,34 +4,24 @@ import com.github.davejoyce.calendar.HolidayCalendar;
 import com.github.davejoyce.calendar.HolidayCalendarFactory;
 import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.HolidayDate;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import static org.testng.Assert.*;
 
-public class HolidayCalendarServiceUKTest {
+public class HolidayCalendarServiceUKTest extends AbstractHolidayCalendarServiceTest {
 
     static final String CODE = "UK";
 
-    @Test
-    public void testHolidayCalendarFactoryCreate() {
-        HolidayCalendarFactory factory = new HolidayCalendarFactory();
-        HolidayCalendar calendar = factory.create(CODE);
-        assertNotNull(calendar);
-        assertEquals(calendar.getCode(), CODE);
-    }
-
-    @Test
-    public void testGetHolidayCalendar() {
-        HolidayCalendarService calendarService = new HolidayCalendarServiceUK();
-        assertTrue(calendarService.isProvided(CODE));
-
-        HolidayCalendar ukCalendar = calendarService.getHolidayCalendar();
-        assertTrue(ukCalendar.getHolidays().stream().anyMatch(holiday -> "Boxing Day".equals(holiday.getName())));
+    public HolidayCalendarServiceUKTest() {
+        super(CODE);
     }
 
     @Test
@@ -60,6 +50,14 @@ public class HolidayCalendarServiceUKTest {
                                                                .findFirst();
         assertTrue(foundNewYearsDay.isPresent());
         assertEquals(foundNewYearsDay.get().getDate(), LocalDate.of(2020, Month.JANUARY, 1));
+    }
+
+    @DataProvider
+    @Override
+    Iterator<Object[]> expectedHolidayNames() {
+        final Object[] presidentsDay = {"Summer Bank Holiday"};
+        final Object[] juneteenth = {"Boxing Day"};
+        return Arrays.asList(presidentsDay, juneteenth).listIterator();
     }
 
 }

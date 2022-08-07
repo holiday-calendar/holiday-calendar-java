@@ -1,9 +1,12 @@
 package com.github.davejoyce.calendar.impl;
 
-import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarFactory;
-import com.github.davejoyce.calendar.HolidayCalendarService;
+import com.github.davejoyce.calendar.*;
 import org.testng.annotations.Test;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Optional;
 
 import static org.testng.Assert.*;
 
@@ -26,6 +29,27 @@ public class HolidayCalendarServiceCATest {
 
         HolidayCalendar caCalendar = calendarService.getHolidayCalendar();
         assertTrue(caCalendar.getHolidays().stream().anyMatch(holiday -> "Victoria Day".equals(holiday.getName())));
+    }
+
+    @Test(dependsOnMethods = "testGetHolidayCalendar")
+    public void testBoxingDayRoll() {
+        final HolidayCalendarService calendarService = new HolidayCalendarServiceCA();
+        final HolidayCalendar caCalendar = calendarService.getHolidayCalendar();
+
+        final Optional<HolidayDate> boxingDay21 = caCalendar.calculate(2021)
+                                                            .stream()
+                                                            .filter(hd -> "Boxing Day".equals(hd.getHoliday().getName()))
+                                                            .findFirst();
+        assertTrue(boxingDay21.isPresent());
+        assertEquals(boxingDay21.get().getDate(), LocalDate.of(2021, Month.DECEMBER, 28));
+        assertEquals(boxingDay21.get().getDate().getDayOfWeek(), DayOfWeek.TUESDAY);
+
+        final Optional<HolidayDate> boxingDay22 = caCalendar.calculate(2022)
+                                                            .stream()
+                                                            .filter(hd -> "Boxing Day".equals(hd.getHoliday().getName()))
+                                                            .findFirst();
+        assertTrue(boxingDay22.isPresent());
+        assertEquals(boxingDay22.get().getDate(), LocalDate.of(2022, Month.DECEMBER, 26));
     }
 
 }
