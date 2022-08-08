@@ -12,6 +12,7 @@ import com.github.davejoyce.calendar.observance.ca.LabourDay;
 import com.github.davejoyce.calendar.observance.ca.Thanksgiving;
 import com.github.davejoyce.calendar.observance.ca.VictoriaDay;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Optional;
@@ -86,7 +87,7 @@ public class HolidayCalendarServiceCA implements HolidayCalendarService {
                 .description("Recognition of the legacy of the Canadian Indian residential school system")
                 .type(Holiday.Type.FIXED)
                 .monthDay(Month.SEPTEMBER, 30)
-                .rollable(true)
+                .rollable(false)
                 .build();
         final Holiday thanksgiving = Holiday.builder()
                 .name("Thanksgiving Day")
@@ -100,38 +101,37 @@ public class HolidayCalendarServiceCA implements HolidayCalendarService {
                 .description("Commemoration of armed forces members who have died in the line of duty")
                 .type(Holiday.Type.FIXED)
                 .monthDay(Month.NOVEMBER, 11)
-                .rollable(false)
+                .rollable(true)
                 .build();
         final Holiday christmas = Holiday.builder()
-                .name("Christmas")
+                .name("Christmas Day")
                 .description("Christmas Day")
                 .type(Holiday.Type.FIXED)
                 .monthDay(Month.DECEMBER, 25)
-                .rollable(true)
+                .rollable(false)
                 .build();
         final Holiday boxingDay = Holiday.builder()
                 .name("Boxing Day")
                 .description("Day after Christmas")
                 .type(Holiday.Type.FIXED)
                 .monthDay(Month.DECEMBER, 26)
-                .rollable(true)
+                .rollable(false)
                 .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(dateToRoll -> {
-                    final Optional<LocalDate> christmasDate = christmas.dateForYear(dateToRoll.getYear());
-                    final Optional<LocalDate> boxingDayDate = boxingDay.dateForYear(dateToRoll.getYear());
-                    final boolean isChristmas = christmasDate.isPresent() && dateToRoll.equals(christmasDate.get());
-                    final boolean isBoxingDay = boxingDayDate.isPresent() && dateToRoll.equals(boxingDayDate.get());
-                    switch (dateToRoll.getDayOfWeek()) {
-                        case SATURDAY:
-                        case SUNDAY:
-                            return (isChristmas || isBoxingDay) ? dateToRoll.plusDays(2L) : dateToRoll;
-                        default:
-                            return dateToRoll;
+                    final Optional<LocalDate> newYearsDayDate = newYearsDay.dateForYear(dateToRoll.getYear());
+                    final Optional<LocalDate> canadaDayDate = canadaDay.dateForYear(dateToRoll.getYear());
+                    final Optional<LocalDate> remembranceDayDate = remembranceDay.dateForYear(dateToRoll.getYear());
+                    final boolean isNewYearsDay = newYearsDayDate.isPresent() && dateToRoll.equals(newYearsDayDate.get());
+                    final boolean isCanadaDay = canadaDayDate.isPresent() && dateToRoll.equals(canadaDayDate.get());
+                    final boolean isRemembranceDay = remembranceDayDate.isPresent() && dateToRoll.equals(remembranceDayDate.get());
+                    if (dateToRoll.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                        return (isNewYearsDay || isCanadaDay || isRemembranceDay) ? dateToRoll.plusDays(1L) : dateToRoll;
                     }
+                    return dateToRoll;
                 })
                 .weekendDays(STANDARD_WEEKEND)
                 .holiday(newYearsDay)
