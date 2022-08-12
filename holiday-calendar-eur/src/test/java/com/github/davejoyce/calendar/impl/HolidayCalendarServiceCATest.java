@@ -32,9 +32,17 @@ public class HolidayCalendarServiceCATest extends AbstractHolidayCalendarService
     @DataProvider
     @Override
     Iterator<Object[]> expectedHolidayOccurrences() {
+        final Object[] newYearsDay12 = {2012, "New Year's Day", LocalDate.of(2012, Month.JANUARY, 2)};
+        final Object[] canadaDay12 = {2012, "Canada Day", LocalDate.of(2012, Month.JULY, 2)};
+        final Object[] remembranceDay12 = {2012, "Remembrance Day", LocalDate.of(2012, Month.NOVEMBER, 12)};
+        final Object[] newYearsDay13 = {2013, "New Year's Day", LocalDate.of(2013, Month.JANUARY, 1)};
+        final Object[] canadaDay13 = {2013, "Canada Day", LocalDate.of(2013, Month.JULY, 1)};
+        final Object[] remembranceDay13 = {2013, "Remembrance Day", LocalDate.of(2013, Month.NOVEMBER, 11)};
         final Object[] christmas20 = {2020, "Christmas Day", LocalDate.of(2020, Month.DECEMBER, 25)};
         final Object[] christmas21 = {2021, "Christmas Day", LocalDate.of(2021, Month.DECEMBER, 25)};
-        return Arrays.asList(christmas20, christmas21).listIterator();
+        return Arrays.asList(newYearsDay12, canadaDay12, remembranceDay12,
+                             newYearsDay13, canadaDay13, remembranceDay13,
+                             christmas20, christmas21).listIterator();
     }
 
 }

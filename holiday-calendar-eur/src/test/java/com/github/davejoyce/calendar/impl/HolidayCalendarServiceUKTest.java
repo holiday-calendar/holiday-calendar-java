@@ -2,7 +2,6 @@ package com.github.davejoyce.calendar.impl;
 
 import com.github.davejoyce.calendar.HolidayCalendar;
 import com.github.davejoyce.calendar.HolidayCalendarFactory;
-import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.HolidayDate;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -55,9 +54,22 @@ public class HolidayCalendarServiceUKTest extends AbstractHolidayCalendarService
     @DataProvider
     @Override
     Iterator<Object[]> expectedHolidayNames() {
-        final Object[] presidentsDay = {"Summer Bank Holiday"};
-        final Object[] juneteenth = {"Boxing Day"};
-        return Arrays.asList(presidentsDay, juneteenth).listIterator();
+        final Object[] summerBankHoliday = {"Summer Bank Holiday"};
+        final Object[] boxingDay = {"Boxing Day"};
+        return Arrays.asList(summerBankHoliday, boxingDay).listIterator();
+    }
+
+    @DataProvider
+    @Override
+    Iterator<Object[]> expectedHolidayOccurrences() {
+        final Object[] christmas20 = {2020, "Christmas Day", LocalDate.of(2020, Month.DECEMBER, 25)};
+        final Object[] christmas21 = {2021, "Christmas Day", LocalDate.of(2021, Month.DECEMBER, 27)};
+        final Object[] christmas22 = {2022, "Christmas Day", LocalDate.of(2022, Month.DECEMBER, 27)};
+        final Object[] boxingDay20 = {2020, "Boxing Day", LocalDate.of(2020, Month.DECEMBER, 28)};
+        final Object[] boxingDay21 = {2021, "Boxing Day", LocalDate.of(2021, Month.DECEMBER, 28)};
+        final Object[] boxingDay22 = {2022, "Boxing Day", LocalDate.of(2022, Month.DECEMBER, 26)};
+        return Arrays.asList(christmas20, christmas21, christmas22,
+                             boxingDay20, boxingDay21, boxingDay22).listIterator();
     }
 
 }

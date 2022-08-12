@@ -8,13 +8,11 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.testng.Assert.*;
-import static org.testng.Assert.assertTrue;
 
 public abstract class AbstractHolidayCalendarServiceTest {
 
