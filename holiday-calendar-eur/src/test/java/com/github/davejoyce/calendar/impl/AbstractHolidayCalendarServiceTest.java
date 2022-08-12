@@ -58,6 +58,7 @@ public abstract class AbstractHolidayCalendarServiceTest {
                 .findFirst();
         assertTrue(holidayDate.isPresent());
         assertEquals(holidayDate.get().getDate(), expectedHolidayOccurrence);
+        logger.debug("'{}' for {} calculated expected date: {}", holidayName, year, expectedHolidayOccurrence);
     }
 
     @DataProvider

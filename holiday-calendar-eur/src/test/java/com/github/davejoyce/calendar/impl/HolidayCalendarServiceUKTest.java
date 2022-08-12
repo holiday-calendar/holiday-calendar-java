@@ -62,14 +62,20 @@ public class HolidayCalendarServiceUKTest extends AbstractHolidayCalendarService
     @DataProvider
     @Override
     Iterator<Object[]> expectedHolidayOccurrences() {
+        final Object[] christmas18 = {2018, "Christmas Day", LocalDate.of(2018, Month.DECEMBER, 25)};
+        final Object[] christmas19 = {2019, "Christmas Day", LocalDate.of(2019, Month.DECEMBER, 25)};
         final Object[] christmas20 = {2020, "Christmas Day", LocalDate.of(2020, Month.DECEMBER, 25)};
         final Object[] christmas21 = {2021, "Christmas Day", LocalDate.of(2021, Month.DECEMBER, 27)};
         final Object[] christmas22 = {2022, "Christmas Day", LocalDate.of(2022, Month.DECEMBER, 27)};
+        final Object[] christmas23 = {2023, "Christmas Day", LocalDate.of(2023, Month.DECEMBER, 25)};
+        final Object[] boxingDay18 = {2018, "Boxing Day", LocalDate.of(2018, Month.DECEMBER, 26)};
+        final Object[] boxingDay19 = {2019, "Boxing Day", LocalDate.of(2019, Month.DECEMBER, 26)};
         final Object[] boxingDay20 = {2020, "Boxing Day", LocalDate.of(2020, Month.DECEMBER, 28)};
         final Object[] boxingDay21 = {2021, "Boxing Day", LocalDate.of(2021, Month.DECEMBER, 28)};
         final Object[] boxingDay22 = {2022, "Boxing Day", LocalDate.of(2022, Month.DECEMBER, 26)};
-        return Arrays.asList(christmas20, christmas21, christmas22,
-                             boxingDay20, boxingDay21, boxingDay22).listIterator();
+        final Object[] boxingDay23 = {2023, "Boxing Day", LocalDate.of(2023, Month.DECEMBER, 26)};
+        return Arrays.asList(christmas18, christmas19, christmas20, christmas21, christmas22, christmas23,
+                             boxingDay18, boxingDay19, boxingDay20, boxingDay21, boxingDay22, boxingDay23).listIterator();
     }
 
 }
