@@ -124,8 +124,8 @@ public class HolidayCalendarServiceUS implements HolidayCalendarService {
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(dateToRoll -> {
-                    if (DayOfWeek.SATURDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.minusDays(1);
-                    if (DayOfWeek.SUNDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.plusDays(1);
+                    if (DayOfWeek.SATURDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.minusDays(1L);
+                    if (DayOfWeek.SUNDAY.equals(dateToRoll.getDayOfWeek())) return dateToRoll.plusDays(1L);
                     return dateToRoll;
                 })
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
