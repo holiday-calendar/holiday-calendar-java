@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Optional;
 
 /**
  * Observance of Family Day - a widely-celebrated regional holiday in Canada
@@ -48,7 +49,9 @@ public class FamilyDay implements Observance {
 
     @Override
     public boolean test(Integer year) {
-        return 1990 <= year;
+        return Optional.ofNullable(year)
+                       .filter(yr -> 1990 <= yr)
+                       .isPresent();
     }
 
 }
