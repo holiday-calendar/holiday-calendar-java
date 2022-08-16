@@ -40,11 +40,24 @@ public class HolidayCalendarFactory {
      *         holiday calendar
      */
     public HolidayCalendar create(String code) {
+        return getService(code).getHolidayCalendar();
+    }
+
+    /**
+     * Get the {@link HolidayCalendarService} object that provides the
+     * {@link HolidayCalendar} object identified by the specified code.
+     *
+     * @param code short code identifier of desired holiday calendar
+     * @return holiday calendar service
+     * @throws NoSuchElementException if code does not match any available
+     *         holiday calendar service
+     */
+    public HolidayCalendarService getService(String code) {
         final Spliterator<HolidayCalendarService> spliterator = serviceLoader.spliterator();
-        final Optional<HolidayCalendarService> match = StreamSupport.stream(spliterator, false)
-                                                                    .filter(service -> service.isProvided(code))
-                                                                    .findFirst();
-        return match.orElseThrow(() -> new NoSuchElementException("No HolidayCalendarService support: " + code)).getHolidayCalendar();
+        return StreamSupport.stream(spliterator, false)
+                .filter(service -> service.isProvided(code))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("No HolidayCalendarService support: " + code));
     }
 
 }
