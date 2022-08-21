@@ -8,6 +8,11 @@ import java.time.Month;
 
 import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
+/**
+ * Service for provision of Switzerland national holiday calendar.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ */
 public class HolidayCalendarServiceCH implements HolidayCalendarService {
 
     private static final String CODE = "CH";
