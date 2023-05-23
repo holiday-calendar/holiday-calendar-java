@@ -19,6 +19,11 @@ import java.util.Optional;
 
 import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
+/**
+ * Service for provision of Canada national holiday calendar.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ */
 public class HolidayCalendarServiceCA implements HolidayCalendarService {
 
     private static final String CODE = "CA";

@@ -33,6 +33,11 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Optional;
 
+/**
+ * Service for provision of UK national holiday calendar.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ */
 public class HolidayCalendarServiceUK implements HolidayCalendarService {
 
     private static final String CODE = "UK";
