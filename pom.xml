@@ -15,7 +15,7 @@
 
         <!-- Dependency versions -->
         <logback.version>1.2.11</logback.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.26</lombok.version>
         <testng.version>7.6.1</testng.version>
 
         <!-- Plugin versions -->
