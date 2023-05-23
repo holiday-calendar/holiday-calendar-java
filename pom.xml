@@ -77,7 +77,7 @@
         <!-- Dependency versions -->
         <logback.version>1.4.5</logback.version>
         <lombok.version>1.18.24</lombok.version>
-        <testng.version>7.6.1</testng.version>
+        <testng.version>7.7.1</testng.version>
         <time4j.version>5.9</time4j.version>
 
         <!-- Plugin versions -->
