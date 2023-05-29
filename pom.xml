@@ -21,7 +21,7 @@
         <!-- Plugin versions -->
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <maven-jacoco-plugin.version>0.8.8</maven-jacoco-plugin.version>
+        <maven-jacoco-plugin.version>0.8.10</maven-jacoco-plugin.version>
     </properties>
 
     <dependencies>
