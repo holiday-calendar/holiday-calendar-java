@@ -24,9 +24,9 @@
  * {@code HolidayCalendarService}, {@code HolidayCalendarFactory}, and
  * associated functional interfaces.
  */
-module holiday.calendar.core {
-    exports com.github.davejoyce.calendar;
-    exports com.github.davejoyce.calendar.function;
+module org.holiday.calendar.core {
+    exports org.holiday.calendar;
+    exports org.holiday.calendar.function;
 
-    uses com.github.davejoyce.calendar.HolidayCalendarService;
+    uses org.holiday.calendar.HolidayCalendarService;
 }

@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>holiday-calendar-java</artifactId>
-        <groupId>com.github.davejoyce.calendar</groupId>
+        <groupId>org.holiday.calendar</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 

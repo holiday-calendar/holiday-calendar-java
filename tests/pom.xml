@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>holiday-calendar-java</artifactId>
-        <groupId>com.github.davejoyce.calendar</groupId>
+        <groupId>org.holiday.calendar</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -17,17 +17,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
+            <groupId>org.holiday.calendar</groupId>
             <artifactId>holiday-calendar-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
+            <groupId>org.holiday.calendar</groupId>
             <artifactId>holiday-calendar-western</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
+            <groupId>org.holiday.calendar</groupId>
             <artifactId>holiday-calendar-apac</artifactId>
             <version>${project.version}</version>
         </dependency>
