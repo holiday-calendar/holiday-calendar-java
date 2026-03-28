@@ -10,45 +10,42 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tests</artifactId>
-    <name>Test Reports</name>
+    <artifactId>holiday-calendar-core</artifactId>
+    <name>Holiday Calendar - Core API</name>
+    <description>Core API for defining and creating holiday calendars</description>
 
-    <properties />
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+    </properties>
 
     <dependencies>
+        <!-- Test dependencies -->
         <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
-            <artifactId>holiday-calendar-core</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
-            <artifactId>holiday-calendar-western</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
-            <artifactId>holiday-calendar-apac</artifactId>
-            <version>${project.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!--
+                Run tests on the classpath (unnamed module) rather than the module path.
+                This allows the test-only HolidayCalendarServiceEXAMPLE to be discovered
+                via META-INF/services without needing a provides directive in the
+                production module-info.java.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <skipIfEmpty>true</skipIfEmpty>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -66,10 +63,10 @@
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>report-aggregate</id>
-                                <phase>verify</phase>
+                                <id>report</id>
+                                <phase>prepare-package</phase>
                                 <goals>
-                                    <goal>report-aggregate</goal>
+                                    <goal>report</goal>
                                 </goals>
                             </execution>
                         </executions>

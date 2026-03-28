@@ -2,53 +2,66 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <artifactId>holiday-calendar-java</artifactId>
         <groupId>com.github.davejoyce.calendar</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tests</artifactId>
-    <name>Test Reports</name>
+    <artifactId>holiday-calendar-apac</artifactId>
+    <name>Holiday Calendar - APAC</name>
+    <description>Support for calendar systems and holidays of APAC origin</description>
 
-    <properties />
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+    </properties>
 
     <dependencies>
+        <!-- Module dependencies -->
         <dependency>
             <groupId>com.github.davejoyce.calendar</groupId>
             <artifactId>holiday-calendar-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>holiday-calendar-western</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>com.github.davejoyce.calendar</groupId>
-            <artifactId>holiday-calendar-apac</artifactId>
-            <version>${project.version}</version>
+            <groupId>net.time4j</groupId>
+            <artifactId>time4j-base</artifactId>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!--
+                Run tests on the classpath (unnamed module) rather than the module path.
+                This allows test code to access all packages including unexported impl
+                packages and Time4J internals, without requiring add-opens or
+                add-reads JVM arguments.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <skipIfEmpty>true</skipIfEmpty>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -66,10 +79,10 @@
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>report-aggregate</id>
-                                <phase>verify</phase>
+                                <id>report</id>
+                                <phase>prepare-package</phase>
                                 <goals>
-                                    <goal>report-aggregate</goal>
+                                    <goal>report</goal>
                                 </goals>
                             </execution>
                         </executions>
