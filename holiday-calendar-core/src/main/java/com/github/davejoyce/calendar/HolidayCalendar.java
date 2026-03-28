@@ -233,7 +233,7 @@ public class HolidayCalendar {
         return holidays.stream()
             .<HolidayDate>mapMulti((holiday, sink) ->
                 holiday.dateForYear(year).ifPresent(date -> {
-                    LocalDate observed = weekendDays.contains(date.getDayOfWeek())
+                    LocalDate observed = holiday.isRollable() && weekendDays.contains(date.getDayOfWeek())
                         ? dateRoll.rollToObservedDate(date)
                         : date;
                     sink.accept(new HolidayDate(holiday, observed));

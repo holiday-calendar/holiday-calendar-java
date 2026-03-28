@@ -34,14 +34,14 @@ import java.time.Month;
 import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of Switzerland (SIX Stock Exchange) holiday calendar.
+ * Service for provision of Germany (Xetra/FSE) holiday calendar.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceCH implements HolidayCalendarService {
+public class HolidayCalendarServiceDE implements HolidayCalendarService {
 
-    private static final String CODE = "CH";
-    private static final String NAME = "Switzerland (SIX) Holidays";
+    private static final String CODE = "DE";
+    private static final String NAME = "Germany (Xetra) Holidays";
 
     @Override
     public boolean isProvided(String code) {
@@ -104,12 +104,12 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(false)
                 .observance(new WhitMonday(easter))
                 .build();
-        final Holiday swissNationalDay = Holiday.builder()
-                .name("Swiss National Day")
-                .description("Date of the Federal Charter of 1291")
+        final Holiday germanUnityDay = Holiday.builder()
+                .name("German Unity Day")
+                .description("German Unity Day")
                 .type(Holiday.Type.FIXED)
                 .rollable(true)
-                .monthDay(Month.AUGUST, 1)
+                .monthDay(Month.OCTOBER, 3)
                 .build();
         final Holiday christmasDay = Holiday.builder()
                 .name("Christmas Day")
@@ -137,7 +137,7 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .holiday(labourDay)
                 .holiday(ascensionDay)
                 .holiday(whitMonday)
-                .holiday(swissNationalDay)
+                .holiday(germanUnityDay)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
                 .build();

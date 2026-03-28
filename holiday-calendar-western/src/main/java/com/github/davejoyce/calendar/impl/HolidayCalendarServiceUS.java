@@ -21,6 +21,9 @@ package com.github.davejoyce.calendar.impl;
 import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
 import com.github.davejoyce.calendar.HolidayCalendarService;
+import com.github.davejoyce.calendar.observance.christian.EasterObservance;
+import com.github.davejoyce.calendar.observance.christian.GoodFriday;
+import com.github.davejoyce.calendar.observance.christian.WesternEaster;
 import com.github.davejoyce.calendar.observance.us.*;
 
 import java.time.DayOfWeek;
@@ -53,6 +56,8 @@ public class HolidayCalendarServiceUS implements HolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
+        final EasterObservance easter = new WesternEaster();
+
         final Holiday newYearsDay = Holiday.builder()
                                            .name("New Year's Day")
                                            .description("First day of new year in the Common Era (CE)")
@@ -74,6 +79,13 @@ public class HolidayCalendarServiceUS implements HolidayCalendarService {
                                              .rollable(false)
                                              .observance(new PresidentsDay())
                                              .build();
+        final Holiday goodFriday = Holiday.builder()
+                                          .name("Good Friday")
+                                          .description("Good Friday (NYSE market closure by convention)")
+                                          .type(Holiday.Type.FLOATING)
+                                          .rollable(false)
+                                          .observance(new GoodFriday(easter))
+                                          .build();
         final Holiday memorialDay = Holiday.builder()
                                            .name("Memorial Day")
                                            .description("Commemoration of fallen service members of US armed forces")
@@ -123,6 +135,13 @@ public class HolidayCalendarServiceUS implements HolidayCalendarService {
                                             .rollable(false)
                                             .observance(new Thanksgiving())
                                             .build();
+        final Holiday dayAfterThanksgiving = Holiday.builder()
+                                                     .name("Day After Thanksgiving")
+                                                     .description("Day after Thanksgiving (NYSE market closure by convention)")
+                                                     .type(Holiday.Type.FLOATING)
+                                                     .rollable(false)
+                                                     .observance(new DayAfterThanksgiving())
+                                                     .build();
         final Holiday christmasDay = Holiday.builder()
                                             .name("Christmas Day")
                                             .description("Celebration of traditional Christmas holiday")
@@ -142,6 +161,7 @@ public class HolidayCalendarServiceUS implements HolidayCalendarService {
                 .holiday(newYearsDay)
                 .holiday(mlkDay)
                 .holiday(presidentsDay)
+                .holiday(goodFriday)
                 .holiday(memorialDay)
                 .holiday(juneteenth)
                 .holiday(independenceDay)
@@ -149,6 +169,7 @@ public class HolidayCalendarServiceUS implements HolidayCalendarService {
                 .holiday(columbusDay)
                 .holiday(veteransDay)
                 .holiday(thanksgiving)
+                .holiday(dayAfterThanksgiving)
                 .holiday(christmasDay)
                 .build();
     }

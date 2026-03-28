@@ -25,40 +25,39 @@ import java.time.Month;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class HolidayCalendarServiceCHTest extends AbstractHolidayCalendarServiceTest {
+public class HolidayCalendarServiceDETest extends AbstractHolidayCalendarServiceTest {
 
-    static final String CODE = "CH";
+    static final String CODE = "DE";
 
-    public HolidayCalendarServiceCHTest() {
+    public HolidayCalendarServiceDETest() {
         super(CODE);
     }
 
     @DataProvider
     @Override
     Iterator<Object[]> expectedHolidayNames() {
-        final Object[] swissNationalDay = new Object[]{"Swiss National Day"};
-        final Object[] boxingDay = new Object[]{"Boxing Day"};
-        return Arrays.asList(swissNationalDay, boxingDay).listIterator();
+        final Object[] germanUnityDay = {"German Unity Day"};
+        final Object[] labourDay = {"Labour Day"};
+        return Arrays.asList(germanUnityDay, labourDay).listIterator();
     }
 
     @DataProvider
     @Override
     Iterator<Object[]> expectedHolidayOccurrences() {
-        // Swiss National Day: Aug 1
-        // 2021: Aug 1 is Sunday -> rolls to Monday Aug 2
-        final Object[] swissNationalDay21 = {2021, "Swiss National Day", LocalDate.of(2021, Month.AUGUST, 2)};
-        // 2022: Aug 1 is Monday -> no roll
-        final Object[] swissNationalDay22 = {2022, "Swiss National Day", LocalDate.of(2022, Month.AUGUST, 1)};
-        // 2023: Aug 1 is Tuesday -> no roll
-        final Object[] swissNationalDay23 = {2023, "Swiss National Day", LocalDate.of(2023, Month.AUGUST, 1)};
         // Christmas Day 2021: Dec 25 is Saturday -> rolls to Friday Dec 24
         final Object[] christmas21 = {2021, "Christmas Day", LocalDate.of(2021, Month.DECEMBER, 24)};
         // Christmas Day 2022: Dec 25 is Sunday -> rolls to Monday Dec 26
         final Object[] christmas22 = {2022, "Christmas Day", LocalDate.of(2022, Month.DECEMBER, 26)};
         // Christmas Day 2023: Dec 25 is Monday -> no roll
         final Object[] christmas23 = {2023, "Christmas Day", LocalDate.of(2023, Month.DECEMBER, 25)};
-        return Arrays.asList(swissNationalDay21, swissNationalDay22, swissNationalDay23,
-                             christmas21, christmas22, christmas23).listIterator();
+        // Boxing Day 2021: Dec 26 is Sunday -> rolls to Monday Dec 27
+        final Object[] boxingDay21 = {2021, "Boxing Day", LocalDate.of(2021, Month.DECEMBER, 27)};
+        // Boxing Day 2022: Dec 26 is Monday -> no roll
+        final Object[] boxingDay22 = {2022, "Boxing Day", LocalDate.of(2022, Month.DECEMBER, 26)};
+        // Boxing Day 2023: Dec 26 is Tuesday -> no roll
+        final Object[] boxingDay23 = {2023, "Boxing Day", LocalDate.of(2023, Month.DECEMBER, 26)};
+        return Arrays.asList(christmas21, christmas22, christmas23,
+                             boxingDay21, boxingDay22, boxingDay23).listIterator();
     }
 
 }

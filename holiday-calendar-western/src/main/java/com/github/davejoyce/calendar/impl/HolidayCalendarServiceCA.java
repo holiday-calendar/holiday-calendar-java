@@ -7,6 +7,7 @@ import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import com.github.davejoyce.calendar.observance.christian.EasterMonday;
 import com.github.davejoyce.calendar.observance.christian.GoodFriday;
 import com.github.davejoyce.calendar.observance.christian.WesternEaster;
+import com.github.davejoyce.calendar.observance.ca.CivicHoliday;
 import com.github.davejoyce.calendar.observance.ca.FamilyDay;
 import com.github.davejoyce.calendar.observance.ca.LabourDay;
 import com.github.davejoyce.calendar.observance.ca.Thanksgiving;
@@ -90,6 +91,13 @@ public class HolidayCalendarServiceCA implements HolidayCalendarService {
                 .monthDay(Month.JULY, 1)
                 .rollable(true)
                 .build();
+        final Holiday civicHoliday = Holiday.builder()
+                .name("Civic Holiday")
+                .description("Civic Holiday (observed; varies by province)")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new CivicHoliday())
+                .build();
         final Holiday labourDay = Holiday.builder()
                 .name("Labour Day")
                 .description("Celebration of workers in Canada")
@@ -155,6 +163,7 @@ public class HolidayCalendarServiceCA implements HolidayCalendarService {
                 .holiday(easterMonday)
                 .holiday(victoriaDay)
                 .holiday(canadaDay)
+                .holiday(civicHoliday)
                 .holiday(labourDay)
                 .holiday(nationalDayForTruthAndReconciliation)
                 .holiday(thanksgiving)

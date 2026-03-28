@@ -1,4 +1,7 @@
+com.github.davejoyce.calendar.impl.HolidayCalendarServiceAU
 com.github.davejoyce.calendar.impl.HolidayCalendarServiceCA
 com.github.davejoyce.calendar.impl.HolidayCalendarServiceCH
+com.github.davejoyce.calendar.impl.HolidayCalendarServiceDE
+com.github.davejoyce.calendar.impl.HolidayCalendarServiceFR
 com.github.davejoyce.calendar.impl.HolidayCalendarServiceUK
 com.github.davejoyce.calendar.impl.HolidayCalendarServiceUS

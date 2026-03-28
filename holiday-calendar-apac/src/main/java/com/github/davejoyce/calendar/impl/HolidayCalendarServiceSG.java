@@ -22,26 +22,26 @@ import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
 import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.function.DateRolls;
-import com.github.davejoyce.calendar.observance.christian.AscensionDay;
-import com.github.davejoyce.calendar.observance.christian.EasterMonday;
-import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import com.github.davejoyce.calendar.observance.christian.GoodFriday;
 import com.github.davejoyce.calendar.observance.christian.WesternEaster;
-import com.github.davejoyce.calendar.observance.christian.WhitMonday;
+import com.github.davejoyce.calendar.observance.hindu.Deepavali;
+import com.github.davejoyce.calendar.observance.islamic.HariRayaHaji;
+import com.github.davejoyce.calendar.observance.islamic.HariRayaPuasa;
+import com.github.davejoyce.calendar.observance.lunar.ChineseNewYearFirstDay;
+import com.github.davejoyce.calendar.observance.lunar.ChineseNewYearSecondDay;
+import com.github.davejoyce.calendar.observance.lunar.VesakDay;
 
 import java.time.Month;
 
-import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
-
 /**
- * Service for provision of Switzerland (SIX Stock Exchange) holiday calendar.
+ * Service for provision of Singapore Exchange (SGX) holiday calendar.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceCH implements HolidayCalendarService {
+public class HolidayCalendarServiceSG implements HolidayCalendarService {
 
-    private static final String CODE = "CH";
-    private static final String NAME = "Switzerland (SIX) Holidays";
+    private static final String CODE = "SG";
+    private static final String NAME = "Singapore (SGX) Holidays";
 
     @Override
     public boolean isProvided(String code) {
@@ -60,8 +60,6 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
-        final EasterObservance easter = new WesternEaster();
-
         final Holiday newYearsDay = Holiday.builder()
                 .name("New Year's Day")
                 .description("First day of new year in the Common Era (CE)")
@@ -69,19 +67,26 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.JANUARY, 1)
                 .build();
+        final Holiday chineseNewYearFirstDay = Holiday.builder()
+                .name("Chinese New Year (1st Day)")
+                .description("First day of the Chinese lunisolar new year")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new ChineseNewYearFirstDay())
+                .build();
+        final Holiday chineseNewYearSecondDay = Holiday.builder()
+                .name("Chinese New Year (2nd Day)")
+                .description("Second day of the Chinese lunisolar new year")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new ChineseNewYearSecondDay())
+                .build();
         final Holiday goodFriday = Holiday.builder()
                 .name("Good Friday")
-                .description("Friday before Easter Sunday")
+                .description("Commemoration of the crucifixion of Jesus Christ")
                 .type(Holiday.Type.FLOATING)
                 .rollable(false)
-                .observance(new GoodFriday(easter))
-                .build();
-        final Holiday easterMonday = Holiday.builder()
-                .name("Easter Monday")
-                .description("Monday after Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EasterMonday(easter))
+                .observance(new GoodFriday(new WesternEaster()))
                 .build();
         final Holiday labourDay = Holiday.builder()
                 .name("Labour Day")
@@ -90,26 +95,40 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.MAY, 1)
                 .build();
-        final Holiday ascensionDay = Holiday.builder()
-                .name("Ascension Day")
-                .description("The 40th day of Easter; Jesus Christ's ascension into heaven")
+        final Holiday vesakDay = Holiday.builder()
+                .name("Vesak Day")
+                .description("Commemoration of the birth, enlightenment, and death of Gautama Buddha")
                 .type(Holiday.Type.FLOATING)
                 .rollable(false)
-                .observance(new AscensionDay(easter))
+                .observance(new VesakDay())
                 .build();
-        final Holiday whitMonday = Holiday.builder()
-                .name("Whit Monday")
-                .description("Monday after Whit Sunday (Pentecost)")
+        final Holiday hariRayaPuasa = Holiday.builder()
+                .name("Hari Raya Puasa")
+                .description("Eid al-Fitr, marking the end of Ramadan")
                 .type(Holiday.Type.FLOATING)
                 .rollable(false)
-                .observance(new WhitMonday(easter))
+                .observance(new HariRayaPuasa())
                 .build();
-        final Holiday swissNationalDay = Holiday.builder()
-                .name("Swiss National Day")
-                .description("Date of the Federal Charter of 1291")
+        final Holiday nationalDay = Holiday.builder()
+                .name("National Day")
+                .description("Commemoration of Singapore's independence on 9 August 1965")
                 .type(Holiday.Type.FIXED)
                 .rollable(true)
-                .monthDay(Month.AUGUST, 1)
+                .monthDay(Month.AUGUST, 9)
+                .build();
+        final Holiday hariRayaHaji = Holiday.builder()
+                .name("Hari Raya Haji")
+                .description("Eid al-Adha, the Feast of Sacrifice")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new HariRayaHaji())
+                .build();
+        final Holiday deepavali = Holiday.builder()
+                .name("Deepavali")
+                .description("Hindu Festival of Lights")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new Deepavali())
                 .build();
         final Holiday christmasDay = Holiday.builder()
                 .name("Christmas Day")
@@ -118,28 +137,23 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 25)
                 .build();
-        final Holiday boxingDay = Holiday.builder()
-                .name("Boxing Day")
-                .description("Day after Christmas")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 26)
-                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
-                .dateRoll(DateRolls.previousFridayOrFollowingMonday())
-                .weekendDays(STANDARD_WEEKEND)
+                .dateRoll(DateRolls.followingMonday())
+                .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                 .holiday(newYearsDay)
+                .holiday(chineseNewYearFirstDay)
+                .holiday(chineseNewYearSecondDay)
                 .holiday(goodFriday)
-                .holiday(easterMonday)
                 .holiday(labourDay)
-                .holiday(ascensionDay)
-                .holiday(whitMonday)
-                .holiday(swissNationalDay)
+                .holiday(vesakDay)
+                .holiday(hariRayaPuasa)
+                .holiday(nationalDay)
+                .holiday(hariRayaHaji)
+                .holiday(deepavali)
                 .holiday(christmasDay)
-                .holiday(boxingDay)
                 .build();
     }
 

@@ -25,7 +25,6 @@ import com.github.davejoyce.calendar.function.DateRolls;
 import com.github.davejoyce.calendar.observance.christian.AscensionDay;
 import com.github.davejoyce.calendar.observance.christian.EasterMonday;
 import com.github.davejoyce.calendar.observance.christian.EasterObservance;
-import com.github.davejoyce.calendar.observance.christian.GoodFriday;
 import com.github.davejoyce.calendar.observance.christian.WesternEaster;
 import com.github.davejoyce.calendar.observance.christian.WhitMonday;
 
@@ -34,14 +33,14 @@ import java.time.Month;
 import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of Switzerland (SIX Stock Exchange) holiday calendar.
+ * Service for provision of France (Euronext Paris) holiday calendar.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceCH implements HolidayCalendarService {
+public class HolidayCalendarServiceFR implements HolidayCalendarService {
 
-    private static final String CODE = "CH";
-    private static final String NAME = "Switzerland (SIX) Holidays";
+    private static final String CODE = "FR";
+    private static final String NAME = "France (Euronext Paris) Holidays";
 
     @Override
     public boolean isProvided(String code) {
@@ -69,13 +68,6 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.JANUARY, 1)
                 .build();
-        final Holiday goodFriday = Holiday.builder()
-                .name("Good Friday")
-                .description("Friday before Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new GoodFriday(easter))
-                .build();
         final Holiday easterMonday = Holiday.builder()
                 .name("Easter Monday")
                 .description("Monday after Easter Sunday")
@@ -89,6 +81,13 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .type(Holiday.Type.FIXED)
                 .rollable(true)
                 .monthDay(Month.MAY, 1)
+                .build();
+        final Holiday victoryInEuropeDay = Holiday.builder()
+                .name("Victory in Europe Day")
+                .description("Victory in Europe Day")
+                .type(Holiday.Type.FIXED)
+                .rollable(true)
+                .monthDay(Month.MAY, 8)
                 .build();
         final Holiday ascensionDay = Holiday.builder()
                 .name("Ascension Day")
@@ -104,12 +103,33 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(false)
                 .observance(new WhitMonday(easter))
                 .build();
-        final Holiday swissNationalDay = Holiday.builder()
-                .name("Swiss National Day")
-                .description("Date of the Federal Charter of 1291")
+        final Holiday bastilleDay = Holiday.builder()
+                .name("Bastille Day")
+                .description("Bastille Day (French National Day)")
                 .type(Holiday.Type.FIXED)
                 .rollable(true)
-                .monthDay(Month.AUGUST, 1)
+                .monthDay(Month.JULY, 14)
+                .build();
+        final Holiday assumptionDay = Holiday.builder()
+                .name("Assumption Day")
+                .description("Assumption of the Blessed Virgin Mary")
+                .type(Holiday.Type.FIXED)
+                .rollable(true)
+                .monthDay(Month.AUGUST, 15)
+                .build();
+        final Holiday allSaintsDay = Holiday.builder()
+                .name("All Saints' Day")
+                .description("All Saints' Day")
+                .type(Holiday.Type.FIXED)
+                .rollable(true)
+                .monthDay(Month.NOVEMBER, 1)
+                .build();
+        final Holiday armisticeDay = Holiday.builder()
+                .name("Armistice Day")
+                .description("Armistice Day")
+                .type(Holiday.Type.FIXED)
+                .rollable(true)
+                .monthDay(Month.NOVEMBER, 11)
                 .build();
         final Holiday christmasDay = Holiday.builder()
                 .name("Christmas Day")
@@ -118,13 +138,6 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 25)
                 .build();
-        final Holiday boxingDay = Holiday.builder()
-                .name("Boxing Day")
-                .description("Day after Christmas")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 26)
-                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
@@ -132,14 +145,16 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .dateRoll(DateRolls.previousFridayOrFollowingMonday())
                 .weekendDays(STANDARD_WEEKEND)
                 .holiday(newYearsDay)
-                .holiday(goodFriday)
                 .holiday(easterMonday)
                 .holiday(labourDay)
+                .holiday(victoryInEuropeDay)
                 .holiday(ascensionDay)
                 .holiday(whitMonday)
-                .holiday(swissNationalDay)
+                .holiday(bastilleDay)
+                .holiday(assumptionDay)
+                .holiday(allSaintsDay)
+                .holiday(armisticeDay)
                 .holiday(christmasDay)
-                .holiday(boxingDay)
                 .build();
     }
 

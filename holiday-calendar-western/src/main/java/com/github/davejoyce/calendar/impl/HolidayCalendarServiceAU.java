@@ -22,26 +22,25 @@ import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
 import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.function.DateRolls;
-import com.github.davejoyce.calendar.observance.christian.AscensionDay;
+import com.github.davejoyce.calendar.observance.au.KingsBirthday;
 import com.github.davejoyce.calendar.observance.christian.EasterMonday;
 import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import com.github.davejoyce.calendar.observance.christian.GoodFriday;
 import com.github.davejoyce.calendar.observance.christian.WesternEaster;
-import com.github.davejoyce.calendar.observance.christian.WhitMonday;
 
 import java.time.Month;
 
 import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of Switzerland (SIX Stock Exchange) holiday calendar.
+ * Service for provision of Australia (ASX) holiday calendar.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceCH implements HolidayCalendarService {
+public class HolidayCalendarServiceAU implements HolidayCalendarService {
 
-    private static final String CODE = "CH";
-    private static final String NAME = "Switzerland (SIX) Holidays";
+    private static final String CODE = "AU";
+    private static final String NAME = "Australia (ASX) Holidays";
 
     @Override
     public boolean isProvided(String code) {
@@ -61,6 +60,7 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
     @Override
     public HolidayCalendar getHolidayCalendar() {
         final EasterObservance easter = new WesternEaster();
+        final GoodFriday goodFridayObs = new GoodFriday(easter);
 
         final Holiday newYearsDay = Holiday.builder()
                 .name("New Year's Day")
@@ -69,12 +69,26 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.JANUARY, 1)
                 .build();
+        final Holiday australiaDay = Holiday.builder()
+                .name("Australia Day")
+                .description("Australia Day")
+                .type(Holiday.Type.FIXED)
+                .rollable(true)
+                .monthDay(Month.JANUARY, 26)
+                .build();
         final Holiday goodFriday = Holiday.builder()
                 .name("Good Friday")
                 .description("Friday before Easter Sunday")
                 .type(Holiday.Type.FLOATING)
                 .rollable(false)
-                .observance(new GoodFriday(easter))
+                .observance(goodFridayObs)
+                .build();
+        final Holiday easterSaturday = Holiday.builder()
+                .name("Easter Saturday")
+                .description("Day after Good Friday")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(year -> goodFridayObs.apply(year).plusDays(1))
                 .build();
         final Holiday easterMonday = Holiday.builder()
                 .name("Easter Monday")
@@ -83,33 +97,19 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .rollable(false)
                 .observance(new EasterMonday(easter))
                 .build();
-        final Holiday labourDay = Holiday.builder()
-                .name("Labour Day")
-                .description("International Workers' Day")
+        final Holiday anzacDay = Holiday.builder()
+                .name("ANZAC Day")
+                .description("ANZAC Day")
                 .type(Holiday.Type.FIXED)
                 .rollable(true)
-                .monthDay(Month.MAY, 1)
+                .monthDay(Month.APRIL, 25)
                 .build();
-        final Holiday ascensionDay = Holiday.builder()
-                .name("Ascension Day")
-                .description("The 40th day of Easter; Jesus Christ's ascension into heaven")
+        final Holiday kingsBirthday = Holiday.builder()
+                .name("King's Birthday")
+                .description("King's Birthday (ASX; 2nd Monday in June)")
                 .type(Holiday.Type.FLOATING)
                 .rollable(false)
-                .observance(new AscensionDay(easter))
-                .build();
-        final Holiday whitMonday = Holiday.builder()
-                .name("Whit Monday")
-                .description("Monday after Whit Sunday (Pentecost)")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new WhitMonday(easter))
-                .build();
-        final Holiday swissNationalDay = Holiday.builder()
-                .name("Swiss National Day")
-                .description("Date of the Federal Charter of 1291")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.AUGUST, 1)
+                .observance(new KingsBirthday())
                 .build();
         final Holiday christmasDay = Holiday.builder()
                 .name("Christmas Day")
@@ -132,12 +132,12 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
                 .dateRoll(DateRolls.previousFridayOrFollowingMonday())
                 .weekendDays(STANDARD_WEEKEND)
                 .holiday(newYearsDay)
+                .holiday(australiaDay)
                 .holiday(goodFriday)
+                .holiday(easterSaturday)
                 .holiday(easterMonday)
-                .holiday(labourDay)
-                .holiday(ascensionDay)
-                .holiday(whitMonday)
-                .holiday(swissNationalDay)
+                .holiday(anzacDay)
+                .holiday(kingsBirthday)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
                 .build();
