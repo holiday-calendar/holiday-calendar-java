@@ -46,9 +46,9 @@
     </issueManagement>
 
     <modules>
-        <module>holiday-calendar-base</module>
-        <module>holiday-calendar-eur</module>
-        <module>holiday-calendar-noneur</module>
+        <module>holiday-calendar-core</module>
+        <module>holiday-calendar-western</module>
+        <module>holiday-calendar-apac</module>
         <module>tests</module>
     </modules>
 
@@ -82,7 +82,7 @@
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
         <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
-        <maven-jacoco-plugin.version>0.8.12</maven-jacoco-plugin.version>
+        <maven-jacoco-plugin.version>0.8.13</maven-jacoco-plugin.version>
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
