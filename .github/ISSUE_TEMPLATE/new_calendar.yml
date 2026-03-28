@@ -1,0 +1,78 @@
+name: New Market / Calendar Request
+description: Request coverage for a new country or regional holiday calendar
+title: "[New Market] "
+labels: ["enhancement", "new-market"]
+body:
+  - type: input
+    id: country_name
+    attributes:
+      label: Country / Region Name
+      placeholder: e.g. Japan, Hong Kong, New Zealand
+    validations:
+      required: true
+
+  - type: input
+    id: iso_code
+    attributes:
+      label: ISO 3166-1 Alpha-2 Code
+      description: Two-letter country code (or ISO 3166-2 subdivision code for regional calendars)
+      placeholder: e.g. JP, HK, NZ
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target_module
+    attributes:
+      label: Target Module
+      description: Which module should this calendar live in?
+      options:
+        - holiday-calendar-western
+        - holiday-calendar-apac
+        - New module (describe below)
+    validations:
+      required: true
+
+  - type: textarea
+    id: holidays
+    attributes:
+      label: Holidays to Cover
+      description: >
+        List the public holidays that should be included, with their
+        typical dates or calculation rules. One holiday per line.
+      placeholder: |
+        New Year's Day — 1 January (fixed)
+        Golden Week — first Monday in May (floating)
+        National Day — 3 November (fixed)
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Reference Sources
+      description: >
+        Links to official government pages, legislation, or authoritative
+        sources that define these holidays.
+      placeholder: |
+        https://www.example.gov/public-holidays
+        https://en.wikipedia.org/wiki/Public_holidays_in_...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: non_gregorian
+    attributes:
+      label: Non-Gregorian Calendar Involved?
+      description: >
+        Check if any holidays are based on a non-Gregorian calendar
+        (e.g. Chinese lunisolar, Islamic Hijri, Hebrew).
+      options:
+        - label: Yes — one or more holidays use a non-Gregorian calendar system
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: >
+        Any other details — exchange calendar requirements (e.g. SGX, TSE),
+        regional variations, or existing observance logic that could be reused.
