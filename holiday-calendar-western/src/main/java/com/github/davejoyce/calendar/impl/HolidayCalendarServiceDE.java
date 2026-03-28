@@ -18,9 +18,9 @@
 
 package com.github.davejoyce.calendar.impl;
 
+import com.github.davejoyce.calendar.AbstractHolidayCalendarService;
 import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.function.DateRolls;
 import com.github.davejoyce.calendar.observance.christian.AscensionDay;
 import com.github.davejoyce.calendar.observance.christian.EasterMonday;
@@ -38,24 +38,13 @@ import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceDE implements HolidayCalendarService {
+public class HolidayCalendarServiceDE extends AbstractHolidayCalendarService {
 
     private static final String CODE = "DE";
     private static final String NAME = "Germany (Xetra) Holidays";
 
-    @Override
-    public boolean isProvided(String code) {
-        return CODE.equalsIgnoreCase(code);
-    }
-
-    @Override
-    public String getCode() {
-        return CODE;
-    }
-
-    @Override
-    public String getRegion() {
-        return NAME;
+    public HolidayCalendarServiceDE() {
+        super(CODE, NAME);
     }
 
     @Override

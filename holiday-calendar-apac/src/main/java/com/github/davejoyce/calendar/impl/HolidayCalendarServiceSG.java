@@ -18,9 +18,9 @@
 
 package com.github.davejoyce.calendar.impl;
 
+import com.github.davejoyce.calendar.AbstractHolidayCalendarService;
 import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.function.DateRolls;
 import com.github.davejoyce.calendar.observance.christian.GoodFriday;
 import com.github.davejoyce.calendar.observance.christian.WesternEaster;
@@ -38,24 +38,13 @@ import java.time.Month;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceSG implements HolidayCalendarService {
+public class HolidayCalendarServiceSG extends AbstractHolidayCalendarService {
 
     private static final String CODE = "SG";
     private static final String NAME = "Singapore (SGX) Holidays";
 
-    @Override
-    public boolean isProvided(String code) {
-        return CODE.equalsIgnoreCase(code);
-    }
-
-    @Override
-    public String getCode() {
-        return CODE;
-    }
-
-    @Override
-    public String getRegion() {
-        return NAME;
+    public HolidayCalendarServiceSG() {
+        super(CODE, NAME);
     }
 
     @Override

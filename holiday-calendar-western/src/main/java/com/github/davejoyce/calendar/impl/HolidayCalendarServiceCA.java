@@ -1,8 +1,8 @@
 package com.github.davejoyce.calendar.impl;
 
+import com.github.davejoyce.calendar.AbstractHolidayCalendarService;
 import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import com.github.davejoyce.calendar.observance.christian.EasterMonday;
 import com.github.davejoyce.calendar.observance.christian.GoodFriday;
@@ -25,24 +25,13 @@ import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceCA implements HolidayCalendarService {
+public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
 
     private static final String CODE = "CA";
     private static final String NAME = "Canada National Holidays";
 
-    @Override
-    public boolean isProvided(String code) {
-        return CODE.equalsIgnoreCase(code);
-    }
-
-    @Override
-    public String getCode() {
-        return CODE;
-    }
-
-    @Override
-    public String getRegion() {
-        return NAME;
+    public HolidayCalendarServiceCA() {
+        super(CODE, NAME);
     }
 
     @Override

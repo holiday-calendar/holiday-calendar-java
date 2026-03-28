@@ -1,8 +1,8 @@
 package com.github.davejoyce.calendar.impl;
 
+import com.github.davejoyce.calendar.AbstractHolidayCalendarService;
 import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarService;
 
 import java.time.Month;
 
@@ -13,24 +13,13 @@ import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceEXAMPLE implements HolidayCalendarService {
+public class HolidayCalendarServiceEXAMPLE extends AbstractHolidayCalendarService {
 
     private static final String CODE = "EXAMPLE";
     private static final String NAME = "Example Holidays";
 
-    @Override
-    public boolean isProvided(String code) {
-        return CODE.equalsIgnoreCase(code);
-    }
-
-    @Override
-    public String getCode() {
-        return CODE;
-    }
-
-    @Override
-    public String getRegion() {
-        return NAME;
+    public HolidayCalendarServiceEXAMPLE() {
+        super(CODE, NAME);
     }
 
     @Override

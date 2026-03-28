@@ -18,9 +18,9 @@
 
 package com.github.davejoyce.calendar.impl;
 
+import com.github.davejoyce.calendar.AbstractHolidayCalendarService;
 import com.github.davejoyce.calendar.Holiday;
 import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarService;
 import com.github.davejoyce.calendar.function.DateRolls;
 import com.github.davejoyce.calendar.observance.christian.AscensionDay;
 import com.github.davejoyce.calendar.observance.christian.EasterMonday;
@@ -37,24 +37,13 @@ import static com.github.davejoyce.calendar.HolidayCalendar.STANDARD_WEEKEND;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceFR implements HolidayCalendarService {
+public class HolidayCalendarServiceFR extends AbstractHolidayCalendarService {
 
     private static final String CODE = "FR";
     private static final String NAME = "France (Euronext Paris) Holidays";
 
-    @Override
-    public boolean isProvided(String code) {
-        return CODE.equalsIgnoreCase(code);
-    }
-
-    @Override
-    public String getCode() {
-        return CODE;
-    }
-
-    @Override
-    public String getRegion() {
-        return NAME;
+    public HolidayCalendarServiceFR() {
+        super(CODE, NAME);
     }
 
     @Override
