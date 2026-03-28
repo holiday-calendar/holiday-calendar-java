@@ -18,7 +18,6 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -38,7 +37,7 @@ public class AscensionDayTest {
           expectedExceptionsMessageRegExp = "Argument 'daysAfterEaster' must be .*",
           groups = "observance.christian")
     public void testMinimumDaysAfterEaster() {
-        AscensionDay bad = new AscensionDay(new WesternEaster(), 38);
+        new AscensionDay(new WesternEaster(), 38);
         fail("Expected IllegalArgumentException");
     }
 

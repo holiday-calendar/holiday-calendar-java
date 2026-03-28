@@ -25,7 +25,6 @@ import java.time.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
 import static com.github.davejoyce.calendar.TestObjects.*;
 import static org.testng.Assert.*;
@@ -33,8 +32,6 @@ import static org.testng.Assert.*;
 public class HolidayCalendarTest {
 
     private static final ZoneId ZONE_ID_NEW_YORK = ZoneId.of("America/New_York");
-    private static final ZoneId ZONE_ID_TOKYO = ZoneId.of("Asia/Tokyo");
-    private static final TimeZone TZ_NEW_YORK = TimeZone.getTimeZone(ZONE_ID_NEW_YORK);
 
     @Test(groups = "core")
     public void testBuilder_NoHolidays() {
@@ -127,10 +124,10 @@ public class HolidayCalendarTest {
         HolidayCalendar calendar = createHolidayCalendarSifmaUS();
         List<HolidayDate> dates = calendar.calculate(2021);
 
-        assertEquals(dates.get(0).getHoliday().getName(), "New Year's Day");
-        assertEquals(dates.get(0).getDate(), LocalDate.of(2021, Month.JANUARY, 1));
-        assertEquals(dates.get(dates.size() - 1).getHoliday().getName(), "Christmas Day");
-        assertEquals(dates.get(dates.size() - 1).getDate(), LocalDate.of(2021, Month.DECEMBER, 24)); // rolled back 1 day
+        assertEquals(dates.getFirst().getHoliday().getName(), "New Year's Day");
+        assertEquals(dates.getFirst().getDate(), LocalDate.of(2021, Month.JANUARY, 1));
+        assertEquals(dates.getLast().getHoliday().getName(), "Christmas Day");
+        assertEquals(dates.getLast().getDate(), LocalDate.of(2021, Month.DECEMBER, 24)); // rolled back 1 day
     }
 
     @Test(groups = "core")

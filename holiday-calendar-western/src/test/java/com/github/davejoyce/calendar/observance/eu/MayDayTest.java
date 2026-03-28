@@ -43,8 +43,8 @@ public class MayDayTest {
     public void testApplyFirstMonday() {
         LocalDate expected = LocalDate.of(2022, Month.MAY, 2);
 
-        final MayDay mayDay = new MayDay(true);
-        LocalDate actual = mayDay.apply(2022);
+        final MayDay mayDay2 = new MayDay(true);
+        LocalDate actual = mayDay2.apply(2022);
         assertEquals(actual, expected);
     }
 
