@@ -18,6 +18,7 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
+import com.github.davejoyce.calendar.observance.AbstractObservance;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -38,7 +39,7 @@ import java.util.stream.IntStream;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class OrthodoxEaster implements EasterObservance {
+public class OrthodoxEaster extends AbstractObservance implements EasterObservance {
 
     public static final int MIN_VALID_YEAR = 530;
     public static final int MAX_VALID_YEAR = 3399;
@@ -71,9 +72,7 @@ public class OrthodoxEaster implements EasterObservance {
     }
 
     @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-
+    protected LocalDate computeDate(int year) {
         final int Y = year;
         final float yearMod19 = Y % 19;
         final float yearMod4 = Y % 4;
@@ -104,7 +103,7 @@ public class OrthodoxEaster implements EasterObservance {
     }
 
     @Override
-    public boolean test(Integer year) {
+    protected boolean isValidYear(int year) {
         return validYearRange.contains(year);
     }
 

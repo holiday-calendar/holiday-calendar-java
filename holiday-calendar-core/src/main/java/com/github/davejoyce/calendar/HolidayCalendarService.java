@@ -43,4 +43,24 @@ public interface HolidayCalendarService {
      */
     HolidayCalendar getHolidayCalendar();
 
+    /**
+     * Get the short code identifier for the holiday calendar provided by this service.
+     * Returns {@code null} if not implemented.
+     *
+     * @return short code identifier, e.g. "US", "UK"
+     */
+    default String getCode() {
+        return null;
+    }
+
+    /**
+     * Get the human-readable name of the region for this holiday calendar.
+     * Returns {@code null} if not implemented.
+     *
+     * @return region name, e.g. "United States National Holidays"
+     */
+    default String getRegion() {
+        return null;
+    }
+
 }

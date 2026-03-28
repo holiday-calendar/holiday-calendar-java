@@ -18,6 +18,7 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
+import com.github.davejoyce.calendar.observance.AbstractObservance;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -33,13 +34,12 @@ import java.time.Month;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class WesternEaster implements EasterObservance {
+public class WesternEaster extends AbstractObservance implements EasterObservance {
 
     private static final OrthodoxEaster PRE_1583 = new OrthodoxEaster();
 
     @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
+    protected LocalDate computeDate(int year) {
         if (1583 > year) return PRE_1583.apply(year);
         final int a = year % 19;
         final int b = year / 100;
@@ -60,7 +60,7 @@ public class WesternEaster implements EasterObservance {
     }
 
     @Override
-    public boolean test(Integer year) {
+    protected boolean isValidYear(int year) {
         return OrthodoxEaster.MIN_VALID_YEAR <= year;
     }
 

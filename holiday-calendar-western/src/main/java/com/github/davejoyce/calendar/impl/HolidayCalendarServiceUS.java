@@ -42,6 +42,16 @@ public class HolidayCalendarServiceUS implements HolidayCalendarService {
     }
 
     @Override
+    public String getCode() {
+        return CODE;
+    }
+
+    @Override
+    public String getRegion() {
+        return NAME;
+    }
+
+    @Override
     public HolidayCalendar getHolidayCalendar() {
         final Holiday newYearsDay = Holiday.builder()
                                            .name("New Year's Day")

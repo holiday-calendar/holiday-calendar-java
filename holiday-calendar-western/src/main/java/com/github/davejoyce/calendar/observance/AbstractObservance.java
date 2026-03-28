@@ -16,42 +16,48 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.function;
+package com.github.davejoyce.calendar.observance;
 
-import com.github.davejoyce.calendar.HolidayCalendar;
+import com.github.davejoyce.calendar.function.Observance;
 
 import java.time.LocalDate;
 
 /**
- * Defines date adjustment behavior for holiday observance when the calculated
- * date falls on a weekend day. Date roll behavior is a defined attribute of a
- * published holiday calendar.
- * <p>This is a functional interface, supporting definition of date roll
- * behavior for a {@link HolidayCalendar} as a
- * lambda expression.</p>
+ * Abstract base class for {@link Observance} implementations, providing
+ * standard null-guard and year-validity logic.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-@FunctionalInterface
-public interface DateRoll {
+public abstract class AbstractObservance implements Observance {
+
+    @Override
+    public final LocalDate apply(Integer year) {
+        return (year != null && isValidYear(year)) ? computeDate(year) : null;
+    }
+
+    @Override
+    public final boolean test(Integer year) {
+        return year != null && isValidYear(year);
+    }
 
     /**
-     * Roll the calculated date for the specified holiday in the given year to
-     * the nearest valid date.
-     * @param dateToRoll calculated holiday date to be rolled
-     * @return holiday date (adjusted for valid observance)
-     */
-    LocalDate rollToObservedDate(LocalDate dateToRoll);
-
-    /**
-     * Returns a composed {@code DateRoll} that first applies this roll, then
-     * applies {@code after}.
+     * Compute the date for this observance in the given year.
+     * Only called when {@link #isValidYear(int)} returns {@code true}.
      *
-     * @param after the roll to apply after this one
-     * @return composed date roll
+     * @param year the year for which to compute the date
+     * @return computed holiday date
      */
-    default DateRoll andThen(DateRoll after) {
-        return date -> after.rollToObservedDate(this.rollToObservedDate(date));
+    protected abstract LocalDate computeDate(int year);
+
+    /**
+     * Determine whether this observance applies in the given year.
+     * Defaults to {@code true} (all years are valid).
+     *
+     * @param year the year to test
+     * @return {@code true} if this observance applies
+     */
+    protected boolean isValidYear(int year) {
+        return true;
     }
 
 }

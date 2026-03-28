@@ -18,7 +18,7 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.function.Observance;
+import com.github.davejoyce.calendar.observance.CompositeObservance;
 
 import java.time.LocalDate;
 
@@ -29,23 +29,15 @@ import java.time.LocalDate;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class WhitMonday implements Observance {
-
-    private final WhitSunday whitSunday;
+public class WhitMonday extends CompositeObservance {
 
     public WhitMonday(EasterObservance easterObservance) {
-        this.whitSunday = new WhitSunday(easterObservance);
+        super(easterObservance);
     }
 
     @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-        return whitSunday.apply(year).plusDays(1);
-    }
-
-    @Override
-    public boolean test(Integer year) {
-        return whitSunday.test(year);
+    protected LocalDate computeDate(int year) {
+        return base.apply(year).plusDays(50);
     }
 
 }

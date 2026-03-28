@@ -18,11 +18,9 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.function.Observance;
+import com.github.davejoyce.calendar.observance.CompositeObservance;
 
 import java.time.LocalDate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Observance of Whit Sunday (also known as Whitsun or Pentecost), the
@@ -32,23 +30,15 @@ import static java.util.Objects.requireNonNull;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class WhitSunday implements Observance {
-
-    private final EasterObservance easterObservance;
+public class WhitSunday extends CompositeObservance {
 
     public WhitSunday(EasterObservance easterObservance) {
-        this.easterObservance = requireNonNull(easterObservance, "Argument 'easterObservance' cannot be null");
+        super(easterObservance);
     }
 
     @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-        return easterObservance.apply(year).plusDays(49);
-    }
-
-    @Override
-    public boolean test(Integer year) {
-        return easterObservance.test(year);
+    protected LocalDate computeDate(int year) {
+        return base.apply(year).plusDays(49);
     }
 
 }

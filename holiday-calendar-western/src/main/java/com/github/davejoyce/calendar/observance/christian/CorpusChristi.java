@@ -18,11 +18,9 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.function.Observance;
+import com.github.davejoyce.calendar.observance.CompositeObservance;
 
 import java.time.LocalDate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Observance of the Feast of Corpus Christi, a liturgical solemnity celebrated
@@ -32,14 +30,13 @@ import static java.util.Objects.requireNonNull;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class CorpusChristi implements Observance {
+public class CorpusChristi extends CompositeObservance {
 
-    private final EasterObservance easterObservance;
     private final boolean adjustToSunday;
 
     public CorpusChristi(EasterObservance easterObservance,
                          boolean adjustToSunday) {
-        this.easterObservance = requireNonNull(easterObservance, "Argument 'easterObservance' cannot be null");
+        super(easterObservance);
         this.adjustToSunday = adjustToSunday;
     }
 
@@ -48,15 +45,9 @@ public class CorpusChristi implements Observance {
     }
 
     @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-        LocalDate actual = easterObservance.apply(year).plusDays(60);
+    protected LocalDate computeDate(int year) {
+        LocalDate actual = base.apply(year).plusDays(60);
         return adjustToSunday ? actual.plusDays(3) : actual;
-    }
-
-    @Override
-    public boolean test(Integer year) {
-        return easterObservance.test(year);
     }
 
 }

@@ -16,28 +16,35 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.observance.christian;
+package com.github.davejoyce.calendar;
 
-import com.github.davejoyce.calendar.observance.CompositeObservance;
-
-import java.time.LocalDate;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
- * Observance of Palm Sunday - the Sunday before Easter. This holiday marks the
- * beginning of <em>Holy Week</em>, the last week of the Christian season of
- * Lent.
+ * Exception thrown when a requested holiday calendar code is not provided by
+ * any registered {@link HolidayCalendarService}.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class PalmSunday extends CompositeObservance {
+public class HolidayCalendarNotFoundException extends NoSuchElementException {
 
-    public PalmSunday(EasterObservance easterObservance) {
-        super(easterObservance);
+    private final String requestedCode;
+    private final List<String> availableCodes;
+
+    public HolidayCalendarNotFoundException(String requestedCode, List<String> availableCodes) {
+        super("No HolidayCalendarService found for code '" + requestedCode
+                + "'. Available codes: " + availableCodes);
+        this.requestedCode = requestedCode;
+        this.availableCodes = List.copyOf(availableCodes);
     }
 
-    @Override
-    protected LocalDate computeDate(int year) {
-        return base.apply(year).minusDays(7);
+    public String getRequestedCode() {
+        return requestedCode;
+    }
+
+    public List<String> getAvailableCodes() {
+        return availableCodes;
     }
 
 }

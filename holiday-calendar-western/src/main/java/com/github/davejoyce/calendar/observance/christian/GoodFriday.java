@@ -18,11 +18,9 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.function.Observance;
+import com.github.davejoyce.calendar.observance.CompositeObservance;
 
 import java.time.LocalDate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Observance of Good Friday, the commemoration of the crucifixion of Jesus
@@ -32,23 +30,15 @@ import static java.util.Objects.requireNonNull;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class GoodFriday implements Observance {
-
-    private final EasterObservance easterObservance;
+public class GoodFriday extends CompositeObservance {
 
     public GoodFriday(EasterObservance easterObservance) {
-        this.easterObservance = requireNonNull(easterObservance, "Argument 'easterObservance' cannot be null");
+        super(easterObservance);
     }
 
     @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-        return easterObservance.apply(year).minusDays(2);
-    }
-
-    @Override
-    public boolean test(Integer year) {
-        return easterObservance.test(year);
+    protected LocalDate computeDate(int year) {
+        return base.apply(year).minusDays(2);
     }
 
 }

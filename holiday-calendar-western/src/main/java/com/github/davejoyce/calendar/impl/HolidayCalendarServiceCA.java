@@ -35,6 +35,16 @@ public class HolidayCalendarServiceCA implements HolidayCalendarService {
     }
 
     @Override
+    public String getCode() {
+        return CODE;
+    }
+
+    @Override
+    public String getRegion() {
+        return NAME;
+    }
+
+    @Override
     public HolidayCalendar getHolidayCalendar() {
         final EasterObservance easter = new WesternEaster();
 

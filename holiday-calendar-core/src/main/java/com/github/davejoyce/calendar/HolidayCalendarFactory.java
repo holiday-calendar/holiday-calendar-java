@@ -20,6 +20,7 @@ package com.github.davejoyce.calendar;
 
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.StreamSupport;
 
 /**
@@ -30,17 +31,18 @@ import java.util.stream.StreamSupport;
 public class HolidayCalendarFactory {
 
     private final ServiceLoader<HolidayCalendarService> serviceLoader = ServiceLoader.load(HolidayCalendarService.class, Thread.currentThread().getContextClassLoader());
+    private final Map<String, HolidayCalendar> cache = new ConcurrentHashMap<>();
 
     /**
-     * Create the {@link HolidayCalendar} object identified by the specified code.
+     * Create (or return cached) {@link HolidayCalendar} identified by the specified code.
      *
      * @param code short code identifier of desired holiday calendar
      * @return holiday calendar
-     * @throws NoSuchElementException if code does not match any available
+     * @throws HolidayCalendarNotFoundException if code does not match any available
      *         holiday calendar
      */
     public HolidayCalendar create(String code) {
-        return getService(code).getHolidayCalendar();
+        return cache.computeIfAbsent(code, k -> getService(k).getHolidayCalendar());
     }
 
     /**
@@ -49,7 +51,7 @@ public class HolidayCalendarFactory {
      *
      * @param code short code identifier of desired holiday calendar
      * @return holiday calendar service
-     * @throws NoSuchElementException if code does not match any available
+     * @throws HolidayCalendarNotFoundException if code does not match any available
      *         holiday calendar service
      */
     public HolidayCalendarService getService(String code) {
@@ -57,7 +59,21 @@ public class HolidayCalendarFactory {
         return StreamSupport.stream(spliterator, false)
                 .filter(service -> service.isProvided(code))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("No HolidayCalendarService support: " + code));
+                .orElseThrow(() -> new HolidayCalendarNotFoundException(code, listAvailableCodes()));
+    }
+
+    /**
+     * List all calendar codes available from registered services.
+     *
+     * @return sorted list of available calendar codes
+     */
+    public List<String> listAvailableCodes() {
+        final Spliterator<HolidayCalendarService> spliterator = serviceLoader.spliterator();
+        return StreamSupport.stream(spliterator, false)
+                .map(HolidayCalendarService::getCode)
+                .filter(Objects::nonNull)
+                .sorted()
+                .toList();
     }
 
 }

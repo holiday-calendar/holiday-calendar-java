@@ -2,7 +2,7 @@ package com.github.davejoyce.calendar;
 
 import org.testng.annotations.Test;
 
-import java.util.NoSuchElementException;
+import java.util.List;
 
 import static org.testng.Assert.*;
 
@@ -20,11 +20,19 @@ public class HolidayCalendarFactoryTest {
         assertEquals(calendar.getHolidays().size(), 2);
     }
 
-    @Test(expectedExceptions = NoSuchElementException.class)
+    @Test(expectedExceptions = HolidayCalendarNotFoundException.class)
     public void testCreateInvalidCodeThrowsException() {
         HolidayCalendarFactory factory = new HolidayCalendarFactory();
         factory.create(INVALID_CODE);
-        fail("Expected NoSuchElementException to be thrown for code " + INVALID_CODE);
+        fail("Expected HolidayCalendarNotFoundException to be thrown for code " + INVALID_CODE);
+    }
+
+    @Test
+    public void testListAvailableCodes() {
+        HolidayCalendarFactory factory = new HolidayCalendarFactory();
+        List<String> codes = factory.listAvailableCodes();
+        assertNotNull(codes);
+        assertTrue(codes.contains(CODE));
     }
 
 }

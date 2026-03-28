@@ -24,6 +24,16 @@ public class HolidayCalendarServiceCH implements HolidayCalendarService {
     }
 
     @Override
+    public String getCode() {
+        return CODE;
+    }
+
+    @Override
+    public String getRegion() {
+        return NAME;
+    }
+
+    @Override
     public HolidayCalendar getHolidayCalendar() {
         final Holiday swissNationalDay = Holiday.builder()
                                                 .name("Swiss National Day")

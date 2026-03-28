@@ -16,28 +16,29 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.observance.christian;
+package com.github.davejoyce.calendar.observance;
 
-import com.github.davejoyce.calendar.observance.CompositeObservance;
+import com.github.davejoyce.calendar.function.Observance;
 
-import java.time.LocalDate;
+import java.util.Objects;
 
 /**
- * Observance of Palm Sunday - the Sunday before Easter. This holiday marks the
- * beginning of <em>Holy Week</em>, the last week of the Christian season of
- * Lent.
+ * Abstract base class for observances that are computed relative to another
+ * {@link Observance} (the base). Year validity is delegated to the base.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class PalmSunday extends CompositeObservance {
+public abstract class CompositeObservance extends AbstractObservance {
 
-    public PalmSunday(EasterObservance easterObservance) {
-        super(easterObservance);
+    protected final Observance base;
+
+    protected CompositeObservance(Observance base) {
+        this.base = Objects.requireNonNull(base, "Argument 'base' cannot be null");
     }
 
     @Override
-    protected LocalDate computeDate(int year) {
-        return base.apply(year).minusDays(7);
+    protected boolean isValidYear(int year) {
+        return base.test(year);
     }
 
 }

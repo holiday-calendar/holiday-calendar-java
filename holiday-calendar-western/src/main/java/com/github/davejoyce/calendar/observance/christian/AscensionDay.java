@@ -18,11 +18,9 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.function.Observance;
+import com.github.davejoyce.calendar.observance.CompositeObservance;
 
 import java.time.LocalDate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * The 40th day of Easter. Ascension Day commemorates Jesus Christ's ascension
@@ -30,15 +28,14 @@ import static java.util.Objects.requireNonNull;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class AscensionDay implements Observance {
+public class AscensionDay extends CompositeObservance {
 
     public static final int DEFAULT_DAYS_AFTER_EASTER = 39;
 
-    private final EasterObservance easterObservance;
     private final int daysAfterEaster;
 
     public AscensionDay(EasterObservance easterObservance, int daysAfterEaster) {
-        this.easterObservance = requireNonNull(easterObservance, "Argument 'easterObservance' cannot be null");
+        super(easterObservance);
         if (DEFAULT_DAYS_AFTER_EASTER > daysAfterEaster) {
             throw new IllegalArgumentException("Argument 'daysAfterEaster' must be at least " + DEFAULT_DAYS_AFTER_EASTER);
         }
@@ -50,14 +47,8 @@ public class AscensionDay implements Observance {
     }
 
     @Override
-    public LocalDate apply(Integer year) {
-        if (!test(year)) return null;
-        return easterObservance.apply(year).plusDays(daysAfterEaster);
-    }
-
-    @Override
-    public boolean test(Integer year) {
-        return easterObservance.test(year);
+    protected LocalDate computeDate(int year) {
+        return base.apply(year).plusDays(daysAfterEaster);
     }
 
 }
