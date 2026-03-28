@@ -33,7 +33,7 @@ public class WesternEasterTest {
 
     private final WesternEaster westernEaster = new WesternEaster();
 
-    @Test(dataProvider = "data")
+    @Test(dataProvider = "data", groups = "observance.christian")
     public void testApply(int yearToCalculate, LocalDate expected) {
         LocalDate actual = westernEaster.apply(yearToCalculate);
         assertEquals(actual, expected);
@@ -45,10 +45,18 @@ public class WesternEasterTest {
         data.add(new Object[]{ 1582, LocalDate.of(1582, Month.APRIL, 15) }); // year before Gregorian calendar exists
         data.add(new Object[]{ 1583, LocalDate.of(1583, Month.APRIL, 10) });
         data.add(new Object[]{ 1776, LocalDate.of(1776, Month.APRIL,  7) });
+        data.add(new Object[]{ 1800, LocalDate.of(1800, Month.APRIL, 13) }); // earliest boundary check
         data.add(new Object[]{ 1918, LocalDate.of(1918, Month.MARCH, 31) });
+        data.add(new Object[]{ 1954, LocalDate.of(1954, Month.APRIL, 18) });
+        data.add(new Object[]{ 1967, LocalDate.of(1967, Month.MARCH, 26) });
+        data.add(new Object[]{ 1981, LocalDate.of(1981, Month.APRIL, 19) });
+        data.add(new Object[]{ 1991, LocalDate.of(1991, Month.MARCH, 31) });
         data.add(new Object[]{ 2000, LocalDate.of(2000, Month.APRIL, 23) });
+        data.add(new Object[]{ 2008, LocalDate.of(2008, Month.MARCH, 23) });
+        data.add(new Object[]{ 2019, LocalDate.of(2019, Month.APRIL, 21) });
         data.add(new Object[]{ 2021, LocalDate.of(2021, Month.APRIL,  4) });
         data.add(new Object[]{ 2022, LocalDate.of(2022, Month.APRIL, 17) });
+        data.add(new Object[]{ 2038, LocalDate.of(2038, Month.APRIL, 25) }); // latest possible date check
         data.add(new Object[]{  529, null }); // 1 year before valid OrthodoxEaster computus
 
         return data.iterator();

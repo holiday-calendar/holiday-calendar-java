@@ -35,13 +35,14 @@ public class AscensionDayTest {
     private final AscensionDay ascensionDay = new AscensionDay(new WesternEaster());
 
     @Test(expectedExceptions = IllegalArgumentException.class,
-          expectedExceptionsMessageRegExp = "Argument 'daysAfterEaster' must be .*")
+          expectedExceptionsMessageRegExp = "Argument 'daysAfterEaster' must be .*",
+          groups = "observance.christian")
     public void testMinimumDaysAfterEaster() {
         AscensionDay bad = new AscensionDay(new WesternEaster(), 38);
         fail("Expected IllegalArgumentException");
     }
 
-    @Test(dataProvider = "data")
+    @Test(dataProvider = "data", groups = "observance.christian")
     public void testApply(int yearToCalculate, LocalDate expected) {
         LocalDate actual = ascensionDay.apply(yearToCalculate);
         assertEquals(actual, expected);

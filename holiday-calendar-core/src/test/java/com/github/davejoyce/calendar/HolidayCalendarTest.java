@@ -36,7 +36,7 @@ public class HolidayCalendarTest {
     private static final ZoneId ZONE_ID_TOKYO = ZoneId.of("Asia/Tokyo");
     private static final TimeZone TZ_NEW_YORK = TimeZone.getTimeZone(ZONE_ID_NEW_YORK);
 
-    @Test
+    @Test(groups = "core")
     public void testBuilder_NoHolidays() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
@@ -46,7 +46,7 @@ public class HolidayCalendarTest {
         assertTrue(holidayCalendar.getHolidays().isEmpty());
     }
 
-    @Test
+    @Test(groups = "core")
     public void testBuilder_NoWeekendDays() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
@@ -55,7 +55,7 @@ public class HolidayCalendarTest {
         assertEquals(holidayCalendar.getWeekendDays(), HolidayCalendar.STANDARD_WEEKEND);
     }
 
-    @Test
+    @Test(groups = "core")
     public void testBuilder_NoDateRoll() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
@@ -64,7 +64,7 @@ public class HolidayCalendarTest {
         assertEquals(holidayCalendar.getDateRoll(), HolidayCalendar.NO_ROLL);
     }
 
-    @Test
+    @Test(groups = "core")
     public void testGetCode() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
@@ -73,7 +73,7 @@ public class HolidayCalendarTest {
         assertEquals(holidayCalendar.getCode(), "FRB");
     }
 
-    @Test
+    @Test(groups = "core")
     public void testGetName() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
@@ -82,14 +82,14 @@ public class HolidayCalendarTest {
         assertEquals(holidayCalendar.getName(), "Federal Reserve Board");
     }
 
-    @Test
+    @Test(groups = "core")
     public void testGetDateRoll() {
         final DateRoll usDateRoll = createDateRollUS();
         HolidayCalendar holidayCalendar = new HolidayCalendar("FRB", "Federal Reserve Board", usDateRoll, null, null);
         assertEquals(holidayCalendar.getDateRoll(), usDateRoll);
     }
 
-    @Test(expectedExceptions = UnsupportedOperationException.class)
+    @Test(expectedExceptions = UnsupportedOperationException.class, groups = "core")
     public void testGetHolidays_Unmodifiable() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
@@ -102,7 +102,7 @@ public class HolidayCalendarTest {
         fail("Holidays set view should be unmodifiable!");
     }
 
-    @Test(expectedExceptions = UnsupportedOperationException.class)
+    @Test(expectedExceptions = UnsupportedOperationException.class, groups = "core")
     public void testGetWeekendDays_Unmodifiable() {
         HolidayCalendar holidayCalendar = HolidayCalendar.builder()
                                                          .code("FRB")
@@ -115,14 +115,14 @@ public class HolidayCalendarTest {
         fail("WeekendDays set view should be unmodifiable!");
     }
 
-    @Test
+    @Test(groups = "core")
     public void testToString() {
         HolidayCalendar holidayCalendar = createHolidayCalendarSifmaUS();
         String actual = holidayCalendar.toString();
         assertEquals(actual, "HolidayCalendar[code='SIFMA', name='SIFMA Holiday Recommendations (US)']");
     }
 
-    @Test
+    @Test(groups = "core")
     public void testCalculate() {
         HolidayCalendar calendar = createHolidayCalendarSifmaUS();
         List<HolidayDate> dates = calendar.calculate(2021);
@@ -133,7 +133,7 @@ public class HolidayCalendarTest {
         assertEquals(dates.get(dates.size() - 1).getDate(), LocalDate.of(2021, Month.DECEMBER, 24)); // rolled back 1 day
     }
 
-    @Test
+    @Test(groups = "core")
     public void testMerge() {
         HolidayCalendar sifmaCalendar = createHolidayCalendarSifmaUS();
         HolidayCalendar frbCalendar = HolidayCalendar.builder()
@@ -148,21 +148,21 @@ public class HolidayCalendarTest {
         assertEquals(merged.getHolidays().size(), 10);
     }
 
-    @Test
+    @Test(groups = "core")
     public void testMergeNull() {
         HolidayCalendar sifmaCalendar = createHolidayCalendarSifmaUS();
         HolidayCalendar merged = sifmaCalendar.merge(null);
         assertSame(merged, sifmaCalendar);
     }
 
-    @Test
+    @Test(groups = "core")
     public void testMergeThis() {
         HolidayCalendar sifmaCalendar = createHolidayCalendarSifmaUS();
         HolidayCalendar merged = sifmaCalendar.merge(sifmaCalendar);
         assertSame(merged, sifmaCalendar);
     }
 
-    @Test
+    @Test(groups = "core")
     public void testIsWeekendUTC_Date() {
         HolidayCalendar calendar = createHolidayCalendarSifmaUS();
 
@@ -172,7 +172,7 @@ public class HolidayCalendarTest {
         assertTrue(actual);
     }
 
-    @Test
+    @Test(groups = "core")
     public void testIsWeekendUTC_Instant() {
         HolidayCalendar calendar = createHolidayCalendarSifmaUS();
 
@@ -180,6 +180,58 @@ public class HolidayCalendarTest {
         Instant i = date.atStartOfDay(ZONE_ID_NEW_YORK).toInstant();
         boolean actual = calendar.isWeekendUTC(i);
         assertTrue(actual);
+    }
+
+    @Test(groups = "core")
+    public void testCalculateIsChronologicallyOrdered() {
+        HolidayCalendar calendar = HolidayCalendar.builder()
+                                                  .code("TEST")
+                                                  .name("Chronological Order Test Calendar")
+                                                  .holiday(new FixedHoliday("Christmas Day", "", Month.DECEMBER, 25))
+                                                  .holiday(new FixedHoliday("Fourth of July", "", Month.JULY, 4))
+                                                  .holiday(new FixedHoliday("New Year's Day", "", Month.JANUARY, 1))
+                                                  .build();
+
+        List<HolidayDate> dates = calendar.calculate(2021);
+
+        assertEquals(dates.size(), 3);
+        assertTrue(dates.get(0).getDate().isBefore(dates.get(1).getDate()),
+                   "First date should be before second date");
+        assertTrue(dates.get(1).getDate().isBefore(dates.get(2).getDate()),
+                   "Second date should be before third date");
+        assertEquals(dates.get(0).getHoliday().getName(), "New Year's Day");
+        assertEquals(dates.get(1).getHoliday().getName(), "Fourth of July");
+        assertEquals(dates.get(2).getHoliday().getName(), "Christmas Day");
+    }
+
+    @Test(groups = "core")
+    public void testIsWeekendUTC_LocalDate_Saturday() {
+        HolidayCalendar calendar = createHolidayCalendarSifmaUS();
+
+        // 2021-12-18 is a Saturday
+        LocalDate saturday = LocalDate.of(2021, Month.DECEMBER, 18);
+        Instant saturdayInstant = saturday.atStartOfDay(ZoneOffset.UTC).toInstant();
+        assertTrue(calendar.isWeekendUTC(saturdayInstant));
+    }
+
+    @Test(groups = "core")
+    public void testIsWeekendUTC_LocalDate_Sunday() {
+        HolidayCalendar calendar = createHolidayCalendarSifmaUS();
+
+        // 2021-12-19 is a Sunday
+        LocalDate sunday = LocalDate.of(2021, Month.DECEMBER, 19);
+        Instant sundayInstant = sunday.atStartOfDay(ZoneOffset.UTC).toInstant();
+        assertTrue(calendar.isWeekendUTC(sundayInstant));
+    }
+
+    @Test(groups = "core")
+    public void testIsWeekendUTC_LocalDate_Monday() {
+        HolidayCalendar calendar = createHolidayCalendarSifmaUS();
+
+        // 2021-12-20 is a Monday
+        LocalDate monday = LocalDate.of(2021, Month.DECEMBER, 20);
+        Instant mondayInstant = monday.atStartOfDay(ZoneOffset.UTC).toInstant();
+        assertFalse(calendar.isWeekendUTC(mondayInstant));
     }
 
     private HolidayCalendar createHolidayCalendarSifmaUS() {

@@ -18,7 +18,6 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -28,42 +27,35 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
-public class PalmSundayTest {
+public class ShroveTuesdayTest {
 
     private final OrthodoxEaster orthodoxEaster = new OrthodoxEaster();
     private final WesternEaster westernEaster = new WesternEaster();
 
     @Test(dataProvider = "data", groups = "observance.christian")
     public void testApply(EasterObservance easterObservance, int yearToCalculate, LocalDate expected) {
-        final PalmSunday palmSunday = new PalmSunday(easterObservance);
-        LocalDate actual = palmSunday.apply(yearToCalculate);
+        final ShroveTuesday shroveTuesday = new ShroveTuesday(easterObservance);
+        LocalDate actual = shroveTuesday.apply(yearToCalculate);
         assertEquals(actual, expected);
     }
 
     @DataProvider
     public Iterator<Object[]> data() {
         List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{ westernEaster, 1582, LocalDate.of(1582, Month.APRIL,  8) }); // year before Gregorian calendar exists
-        data.add(new Object[]{ westernEaster, 1583, LocalDate.of(1583, Month.APRIL,  3) });
-        data.add(new Object[]{ westernEaster, 1776, LocalDate.of(1776, Month.MARCH, 31) });
-        data.add(new Object[]{ westernEaster, 1918, LocalDate.of(1918, Month.MARCH, 24) });
-        data.add(new Object[]{ westernEaster, 2000, LocalDate.of(2000, Month.APRIL, 16) });
-        data.add(new Object[]{ westernEaster, 2021, LocalDate.of(2021, Month.MARCH, 28) });
-        data.add(new Object[]{ westernEaster, 2022, LocalDate.of(2022, Month.APRIL, 10) });
-
-        data.add(new Object[]{ orthodoxEaster, 1582, LocalDate.of(1582, Month.APRIL,  8) }); // year before Gregorian calendar exists
-        data.add(new Object[]{ orthodoxEaster, 1583, LocalDate.of(1583, Month.APRIL,  3) }); // Same as Western
-        data.add(new Object[]{ orthodoxEaster, 1776, LocalDate.of(1776, Month.APRIL,  7) });
-        data.add(new Object[]{ orthodoxEaster, 1918, LocalDate.of(1918, Month.APRIL, 28) });
-        data.add(new Object[]{ orthodoxEaster, 1919, LocalDate.of(1919, Month.APRIL, 13) }); // Same as Western
-        data.add(new Object[]{ orthodoxEaster, 2000, LocalDate.of(2000, Month.APRIL, 23) });
-        data.add(new Object[]{ orthodoxEaster, 2021, LocalDate.of(2021, Month.APRIL, 25) });
-        data.add(new Object[]{ orthodoxEaster, 2022, LocalDate.of(2022, Month.APRIL, 17) });
-
+        // Western Easter 2021 = April 4; -47 = February 16
+        data.add(new Object[]{ westernEaster, 2021, LocalDate.of(2021, Month.FEBRUARY, 16) });
+        // Western Easter 2022 = April 17; -47 = March 1
+        data.add(new Object[]{ westernEaster, 2022, LocalDate.of(2022, Month.MARCH,  1) });
+        // Western Easter 2023 = April 9; -47 = February 21
+        data.add(new Object[]{ westernEaster, 2023, LocalDate.of(2023, Month.FEBRUARY, 21) });
+        // Orthodox Easter 2021 = May 2; -47 = March 16
+        data.add(new Object[]{ orthodoxEaster, 2021, LocalDate.of(2021, Month.MARCH, 16) });
+        // Orthodox Easter 2022 = April 24; -47 = March 8
+        data.add(new Object[]{ orthodoxEaster, 2022, LocalDate.of(2022, Month.MARCH,  8) });
+        // Invalid year returns null
         data.add(new Object[]{ orthodoxEaster, 529, null });
-        data.add(new Object[]{ orthodoxEaster, 3400, null });
         return data.iterator();
     }
 

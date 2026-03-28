@@ -35,7 +35,7 @@ public class EasterMondayTest {
     private final OrthodoxEaster orthodoxEaster = new OrthodoxEaster();
     private final WesternEaster westernEaster = new WesternEaster();
 
-    @Test(dataProvider = "data")
+    @Test(dataProvider = "data", groups = "observance.christian")
     public void testApply(EasterObservance easterObservance, int yearToCalculate, LocalDate expected) {
         final EasterMonday easterMonday = new EasterMonday(easterObservance);
         LocalDate actual = easterMonday.apply(yearToCalculate);

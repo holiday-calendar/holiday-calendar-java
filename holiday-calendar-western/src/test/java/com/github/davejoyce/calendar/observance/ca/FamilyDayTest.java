@@ -16,9 +16,8 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package com.github.davejoyce.calendar.observance.christian;
+package com.github.davejoyce.calendar.observance.ca;
 
-import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -28,31 +27,39 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
-public class AshWednesdayTest {
+public class FamilyDayTest {
 
-    private final WesternEaster westernEaster = new WesternEaster();
+    private final FamilyDay familyDay = new FamilyDay();
 
-    @Test(dataProvider = "data", groups = "observance.christian")
-    public void testApply(EasterObservance easterObservance, int yearToCalculate, LocalDate expected) {
-        final AshWednesday ashWednesday = new AshWednesday(easterObservance);
-        LocalDate actual = ashWednesday.apply(yearToCalculate);
+    @Test(dataProvider = "data")
+    public void testApply(Integer yearToCalculate, LocalDate expected) {
+        LocalDate actual = familyDay.apply(yearToCalculate);
         assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testApply_NullYear() {
+        assertNull(familyDay.apply(null));
+    }
+
+    @Test
+    public void testApply_YearBefore1990() {
+        // FamilyDay was not observed before 1990
+        assertNull(familyDay.apply(1989));
     }
 
     @DataProvider
     public Iterator<Object[]> data() {
         List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{ westernEaster, 1582, LocalDate.of(1582, Month.FEBRUARY, 28) }); // year before Gregorian calendar exists
-        data.add(new Object[]{ westernEaster, 1583, LocalDate.of(1583, Month.FEBRUARY, 23) });
-        data.add(new Object[]{ westernEaster, 1776, LocalDate.of(1776, Month.FEBRUARY, 21) });
-        data.add(new Object[]{ westernEaster, 1918, LocalDate.of(1918, Month.FEBRUARY, 13) });
-        data.add(new Object[]{ westernEaster, 2000, LocalDate.of(2000, Month.MARCH,     8) });
-        data.add(new Object[]{ westernEaster, 2021, LocalDate.of(2021, Month.FEBRUARY, 17) });
-        data.add(new Object[]{ westernEaster, 2022, LocalDate.of(2022, Month.MARCH,     2) });
-
-        data.add(new Object[]{ westernEaster, 529, null });
+        // Third Monday in February 1990 = February 19
+        data.add(new Object[]{ 1990, LocalDate.of(1990, Month.FEBRUARY, 19) });
+        // Third Monday in February 2021 = February 15
+        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.FEBRUARY, 15) });
+        // Third Monday in February 2022 = February 21
+        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.FEBRUARY, 21) });
         return data.iterator();
     }
 

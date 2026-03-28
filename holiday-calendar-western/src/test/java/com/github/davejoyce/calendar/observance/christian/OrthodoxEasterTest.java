@@ -34,13 +34,13 @@ public class OrthodoxEasterTest {
 
     private final OrthodoxEaster orthodoxEaster = new OrthodoxEaster();
 
-    @Test(dataProvider = "data")
+    @Test(dataProvider = "data", groups = "observance.christian")
     public void testApply(int yearToCalculate, LocalDate expected) {
         LocalDate actual = orthodoxEaster.apply(yearToCalculate);
         assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "predicateData")
+    @Test(dataProvider = "predicateData", groups = "observance.christian")
     public void testTest(int yearToCheck, boolean expected) {
         boolean actual = orthodoxEaster.test(yearToCheck);
         assertEquals(actual, expected);

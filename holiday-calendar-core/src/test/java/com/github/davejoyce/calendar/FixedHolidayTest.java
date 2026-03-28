@@ -36,7 +36,7 @@ public class FixedHolidayTest {
 
     private static final Logger log = LoggerFactory.getLogger(FixedHolidayTest.class);
 
-    @Test
+    @Test(groups = "core")
     public void testConstructor_StringMonthAndDay_3Args() {
         FixedHoliday holiday = new FixedHoliday("Fourth of July", "US Independence Day", "--07-04");
         assertEquals(holiday.getMonth(), Month.JULY);
@@ -44,7 +44,7 @@ public class FixedHolidayTest {
         assertTrue(holiday.isRollable());
     }
 
-    @Test(dataProvider = "data")
+    @Test(dataProvider = "data", groups = "core")
     public void testDateForYear(String name, Month month, int day, int yearToCalculate, LocalDate expected) {
         FixedHoliday holiday = new FixedHoliday(name, "", month, day);
         Optional<LocalDate> actual = holiday.dateForYear(yearToCalculate);
@@ -54,7 +54,7 @@ public class FixedHolidayTest {
         log.debug("{} {}: {}", name, yearToCalculate, actual.get());
     }
 
-    @Test
+    @Test(groups = "core")
     public void testEquals() {
         FixedHoliday holiday1 = new FixedHoliday("Fourth of July", "US Independence Day", "--07-04");
         FixedHoliday holiday2 = new FixedHoliday("Fourth of July", "US Independence Day", "--07-04");
@@ -72,14 +72,14 @@ public class FixedHolidayTest {
         assertFalse(holiday1.equals(notAHoliday));
     }
 
-    @Test
+    @Test(groups = "core")
     public void testHashCode() {
         FixedHoliday holiday1 = new FixedHoliday("Fourth of July", "US Independence Day", "--07-04");
         FixedHoliday holiday2 = new FixedHoliday("Fourth of July", "US Independence Day", "--07-04");
         assertEquals(holiday2.hashCode(), holiday1.hashCode());
     }
 
-    @Test
+    @Test(groups = "core")
     public void testToString() {
         FixedHoliday holiday = new FixedHoliday("Fourth of July", "US Independence Day", "--07-04");
         String expected = "Holiday[name='Fourth of July', description='US Independence Day', month=JULY, dayOfMonth=4]";
@@ -91,6 +91,12 @@ public class FixedHolidayTest {
         List<Object[]> data = new ArrayList<>();
         data.add(new Object[]{ "New Years Day", Month.JANUARY, 1, 2021, LocalDate.of(2021, Month.JANUARY, 1)});
         data.add(new Object[]{ "Fourth of July", Month.JULY, 4, 1976, LocalDate.of(1976, Month.JULY, 4)});
+        data.add(new Object[]{ "Leap Day", Month.FEBRUARY, 29, 2020, LocalDate.of(2020, Month.FEBRUARY, 29)});
+        data.add(new Object[]{ "Fourth of July", Month.JULY, 4, 1776, LocalDate.of(1776, Month.JULY, 4)});
+        data.add(new Object[]{ "New Years Day", Month.JANUARY, 1, 1900, LocalDate.of(1900, Month.JANUARY, 1)});
+        data.add(new Object[]{ "New Years Eve", Month.DECEMBER, 31, 2021, LocalDate.of(2021, Month.DECEMBER, 31)});
+        data.add(new Object[]{ "Christmas Day", Month.DECEMBER, 25, 2021, LocalDate.of(2021, Month.DECEMBER, 25)});
+        data.add(new Object[]{ "Veterans Day", Month.NOVEMBER, 11, 2021, LocalDate.of(2021, Month.NOVEMBER, 11)});
         return data.iterator();
     }
 
