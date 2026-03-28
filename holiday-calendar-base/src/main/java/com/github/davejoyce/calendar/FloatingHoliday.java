@@ -18,15 +18,11 @@
 
 package com.github.davejoyce.calendar;
 
-import com.github.davejoyce.calendar.function.DateRoll;
 import com.github.davejoyce.calendar.function.Observance;
-import lombok.Getter;
-import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
@@ -39,50 +35,41 @@ import static java.util.Objects.requireNonNull;
  * @see Observance
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class FloatingHoliday extends Holiday {
+public final class FloatingHoliday implements Holiday {
 
-    @Getter
-    @NonNull
+    private final String name;
+    private final String description;
     private final Observance observance;
+    private final boolean rollable;
 
     /**
-     * Construct a new instance of a floating holiday with the specified name,
-     * description, and following the given observance. The constructed
-     * holiday object will support or disallow {@link DateRoll date roll}, based
-     * upon the specified boolean flag argument.
-     *
-     * @param name name of this holiday
-     * @param description brief description of this holiday
-     * @param observance observance algorithm to calculate dates of this holiday
-     * @param rollable flag indicating whether this holiday may be rolled for
-     *                 observance
+     * Construct a new instance with explicit rollable control.
      */
-    public FloatingHoliday(String name,
-                           String description,
-                           Observance observance,
-                           boolean rollable) {
-        super(name, description, rollable);
+    public FloatingHoliday(String name, String description, Observance observance, boolean rollable) {
+        this.name = requireNonNull(name, "Argument 'name' cannot be null");
+        this.description = Optional.ofNullable(description).orElse("");
         this.observance = requireNonNull(observance, "Argument 'observance' cannot be null");
+        this.rollable = rollable;
     }
 
     /**
-     * Construct a new instance of a floating holiday with the specified name,
-     * description, and following the given observance. The constructed
-     * holiday object will be {@link #isRollable() rollable} by default.
-     *
-     * @param name name of this holiday
-     * @param description brief description of this holiday
-     * @param observance observance algorithm to calculate dates of this holiday
+     * Construct a new instance that is {@link #isRollable() rollable} by default.
      */
-    public FloatingHoliday(String name,
-                           String description,
-                           Observance observance) {
+    public FloatingHoliday(String name, String description, Observance observance) {
         this(name, description, observance, true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    public String getName() { return name; }
+
+    @Override
+    public String getDescription() { return description; }
+
+    @Override
+    public boolean isRollable() { return rollable; }
+
+    public Observance getObservance() { return observance; }
+
     @Override
     public Optional<LocalDate> dateForYear(int year) {
         return Optional.ofNullable(observance.apply(year));
@@ -91,24 +78,22 @@ public class FloatingHoliday extends Holiday {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        FloatingHoliday that = (FloatingHoliday) o;
-        return observance.equals(that.observance);
+        if (!(o instanceof FloatingHoliday that)) return false;
+        return rollable == that.rollable
+            && name.equals(that.name)
+            && description.equals(that.description)
+            && observance.equals(that.observance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), observance);
+        return Objects.hash(name, description, observance, rollable);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Holiday.class.getSimpleName() + "[", "]")
-                .add("name='" + getName() + "'")
-                .add("description='" + getDescription() + "'")
-                .add("observance=" + getObservance())
-                .toString();
+        return "Holiday[name='" + name + "', description='" + description
+            + "', observance=" + observance + "]";
     }
 
 }

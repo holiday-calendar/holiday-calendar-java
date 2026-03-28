@@ -18,11 +18,9 @@
 
 package com.github.davejoyce.calendar;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NonNull;
-
 import java.time.LocalDate;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The observed date of a {@link Holiday} in a particular year of the Common
@@ -31,14 +29,17 @@ import java.time.LocalDate;
  * @see HolidayCalendar#calculate(int)
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-@Data
-@AllArgsConstructor
-public class HolidayDate {
+public record HolidayDate(Holiday holiday, LocalDate date) {
 
-    @NonNull
-    private final Holiday holiday;
+    public HolidayDate {
+        requireNonNull(holiday, "Argument 'holiday' cannot be null");
+        requireNonNull(date, "Argument 'date' cannot be null");
+    }
 
-    @NonNull
-    private final LocalDate date;
+    /** Backward-compatible accessor. */
+    public Holiday getHoliday() { return holiday; }
+
+    /** Backward-compatible accessor. */
+    public LocalDate getDate() { return date; }
 
 }

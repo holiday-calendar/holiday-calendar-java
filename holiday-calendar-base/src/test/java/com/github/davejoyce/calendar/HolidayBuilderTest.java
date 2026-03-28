@@ -84,7 +84,7 @@ public class HolidayBuilderTest {
         assertEquals(holiday.getClass(), FloatingHoliday.class);
     }
 
-    @Test(expectedExceptions = IllegalStateException.class)
+    @Test(expectedExceptions = NullPointerException.class)
     public void testBuilder_NoType() {
         Holiday.builder()
                .type((Holiday.Type)null)

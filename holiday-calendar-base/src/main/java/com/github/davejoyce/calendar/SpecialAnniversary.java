@@ -18,14 +18,10 @@
 
 package com.github.davejoyce.calendar;
 
-import lombok.Getter;
-import lombok.NonNull;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
@@ -35,84 +31,67 @@ import static java.util.Objects.requireNonNull;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class SpecialAnniversary extends Holiday {
+public final class SpecialAnniversary implements Holiday {
 
-    @Getter
-    @NonNull
+    private final String name;
+    private final String description;
     private final LocalDate anniversaryDate;
+    private final boolean rollable;
 
-    public SpecialAnniversary(String name,
-                              String description,
-                              @NonNull LocalDate anniversaryDate,
-                              boolean rollable) {
-        super(name, description, rollable);
+    public SpecialAnniversary(String name, String description, LocalDate anniversaryDate, boolean rollable) {
+        this.name = requireNonNull(name, "Argument 'name' cannot be null");
+        this.description = Optional.ofNullable(description).orElse("");
         this.anniversaryDate = requireNonNull(anniversaryDate, "Argument 'anniversaryDate' cannot be null");
+        this.rollable = rollable;
     }
 
-    public SpecialAnniversary(String name,
-                              String description,
-                              @NonNull LocalDate anniversaryDate) {
+    public SpecialAnniversary(String name, String description, LocalDate anniversaryDate) {
         this(name, description, anniversaryDate, false);
     }
 
-    /**
-     * Get month on which this holiday occurs.
-     *
-     * @return holiday month
-     */
-    public Month getMonth() {
-        return anniversaryDate.getMonth();
-    }
+    @Override
+    public String getName() { return name; }
 
-    /**
-     * Get day of the month on which this holiday occurs.
-     *
-     * @return holiday day in month
-     */
-    public int getDayOfMonth() {
-        return anniversaryDate.getDayOfMonth();
-    }
+    @Override
+    public String getDescription() { return description; }
 
-    /**
-     * Get year in which this holiday occurs.
-     *
-     * @return holiday year
-     */
-    public int getYear() {
-        return anniversaryDate.getYear();
-    }
+    @Override
+    public boolean isRollable() { return rollable; }
 
-    /**
-     * {@inheritDoc}
-     */
+    public LocalDate getAnniversaryDate() { return anniversaryDate; }
+
+    public Month getMonth() { return anniversaryDate.getMonth(); }
+
+    public int getDayOfMonth() { return anniversaryDate.getDayOfMonth(); }
+
+    public int getYear() { return anniversaryDate.getYear(); }
+
     @Override
     public Optional<LocalDate> dateForYear(int year) {
         return anniversaryDate.getYear() == year
-                ? Optional.of(anniversaryDate)
-                : Optional.empty();
+            ? Optional.of(anniversaryDate)
+            : Optional.empty();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        SpecialAnniversary that = (SpecialAnniversary) o;
-        return anniversaryDate.equals(that.anniversaryDate);
+        if (!(o instanceof SpecialAnniversary that)) return false;
+        return rollable == that.rollable
+            && name.equals(that.name)
+            && description.equals(that.description)
+            && anniversaryDate.equals(that.anniversaryDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), anniversaryDate);
+        return Objects.hash(name, description, anniversaryDate, rollable);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Holiday.class.getSimpleName() + "[", "]")
-                .add("name='" + getName() + "'")
-                .add("description='" + getDescription() + "'")
-                .add("anniversaryDate=" + getAnniversaryDate())
-                .toString();
+        return "Holiday[name='" + name + "', description='" + description
+            + "', anniversaryDate=" + anniversaryDate + "]";
     }
 
 }

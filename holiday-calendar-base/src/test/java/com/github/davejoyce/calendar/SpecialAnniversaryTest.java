@@ -18,7 +18,8 @@
 
 package com.github.davejoyce.calendar;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -31,8 +32,9 @@ import java.util.Optional;
 
 import static org.testng.Assert.*;
 
-@Slf4j
 public class SpecialAnniversaryTest {
+
+    private static final Logger log = LoggerFactory.getLogger(SpecialAnniversaryTest.class);
 
     @Test
     public void testConstructor_3Args() {

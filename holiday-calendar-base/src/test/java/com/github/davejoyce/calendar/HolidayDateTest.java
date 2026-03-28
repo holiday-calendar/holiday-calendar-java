@@ -27,14 +27,14 @@ import static org.testng.Assert.*;
 
 public class HolidayDateTest {
 
-    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "holiday is marked non-null .+")
+    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "Argument 'holiday' cannot be null")
     public void testConstructor_NullHoliday() {
         LocalDate date = LocalDate.now();
         new HolidayDate(null, date);
         fail("Expected NullPointerException");
     }
 
-    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "date is marked non-null .+")
+    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "Argument 'date' cannot be null")
     public void testConstructor_NullDate() {
         Holiday christmas = new FixedHoliday("Christmas", "Celebration of birth of Christ", Month.DECEMBER, 25);
         new HolidayDate(christmas, null);
@@ -92,7 +92,7 @@ public class HolidayDateTest {
         LocalDate christmasDate = LocalDate.of(2021, Month.DECEMBER, 25);
         HolidayDate christmas2021 = new HolidayDate(christmas, christmasDate);
 
-        String expected = "HolidayDate(holiday=Holiday[name='Christmas', description='Celebration of birth of Christ', month=DECEMBER, dayOfMonth=25], date=2021-12-25)";
+        String expected = "HolidayDate[holiday=Holiday[name='Christmas', description='Celebration of birth of Christ', month=DECEMBER, dayOfMonth=25], date=2021-12-25]";
         assertEquals(christmas2021.toString(), expected);
     }
 }
