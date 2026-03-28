@@ -13,7 +13,7 @@ mvn clean test
 
 # Run a single test class (run from the module directory, or use -pl)
 mvn test -Dtest=HolidayCalendarTest
-mvn -pl holiday-calendar-eur test -Dtest=WesternEasterTest
+mvn -pl holiday-calendar-western test -Dtest=WesternEasterTest
 
 # Run a single test method
 mvn test -Dtest=HolidayCalendarTest#testCalculate
@@ -22,7 +22,7 @@ mvn test -Dtest=HolidayCalendarTest#testCalculate
 mvn clean verify
 
 # Build a single module
-mvn -pl holiday-calendar-base clean install
+mvn -pl holiday-calendar-core clean install
 ```
 
 **Testing framework:** TestNG 7.7.1 (not JUnit). Use `@DataProvider` for parametrized tests.
@@ -31,40 +31,42 @@ mvn -pl holiday-calendar-base clean install
 
 This is a multi-module Maven project:
 
-| Module | Purpose |
-|--------|---------|
-| `holiday-calendar-base` | Core abstractions and framework |
-| `holiday-calendar-eur` | European + US/CA/UK calendar implementations |
-| `holiday-calendar-noneur` | Non-European calendars (future; uses Time4J for non-Gregorian support) |
-| `tests` | Test aggregation and JaCoCo coverage reporting for SonarCloud |
+| Module | JPMS Module Name | Purpose |
+|--------|------------------|---------|
+| `holiday-calendar-core` | `holiday.calendar.core` | Core API and abstractions |
+| `holiday-calendar-western` | `holiday.calendar.western` | Western calendars: US, CA, UK, CH, DE, FR, AU |
+| `holiday-calendar-apac` | `holiday.calendar.apac` | APAC calendars: SG (uses Time4J for non-Gregorian) |
+| `tests` | — | Test aggregation and JaCoCo coverage reporting for SonarCloud |
 
 ## Architecture
 
-### Core Abstractions (`holiday-calendar-base`)
+### Core Abstractions (`holiday-calendar-core`)
 
-**`Holiday`** (abstract) — base for all holidays; three types selected via builder:
+**`Holiday`** (sealed interface) — base for all holidays; three permitted types selected via builder:
 - `FixedHoliday` — same `MonthDay` every year (e.g., New Year's Day)
 - `FloatingHoliday` — date computed per year via an `Observance` function (e.g., Easter)
 - `SpecialAnniversary` — anniversary-based holidays
 
-**`HolidayCalendar`** (Lombok `@Builder`) — named collection of holidays with a `DateRoll` strategy and configurable `weekendDays`. Its `calculate(int year)` returns sorted `HolidayDate` instances with rolling applied.
+**`HolidayCalendar`** — named collection of holidays with a `DateRoll` strategy and configurable `weekendDays`. Its `calculate(int year)` returns sorted `HolidayDate` instances with rolling applied (respects the `rollable` flag per holiday).
 
-**`HolidayDate`** — immutable pairing of a `Holiday` and its resolved `LocalDate` for a year.
+**`HolidayDate`** — Java 21 record pairing a `Holiday` with its resolved `LocalDate` for a year.
 
 **Functional interfaces** (`function` package):
 - `Observance` — extends `Function<Integer, LocalDate>` + `Predicate<Integer>`; the plug-in point for floating holiday date calculation
-- `DateRoll` — adjusts a date when it falls on a weekend (e.g., roll to Friday or Monday)
+- `DateRoll` — adjusts a date when it falls on a weekend; `DateRolls` provides common strategies (`noRoll`, `previousFridayOrFollowingMonday`, `followingMonday`)
+
+**`HolidayCalendarNotFoundException`** — thrown by `HolidayCalendarFactory` when a code is not found; includes list of available codes.
 
 ### Service Loader Pattern
 
-`HolidayCalendarService` is the extension interface. Implementations are discovered at runtime via `HolidayCalendarFactory` using Java's `ServiceLoader`. To add a new regional calendar, implement `HolidayCalendarService` and register it in `META-INF/services/`.
+`HolidayCalendarService` is the extension interface (with `getCode()` and `getRegion()` default methods). Implementations are discovered at runtime via `HolidayCalendarFactory` using Java's `ServiceLoader`. To add a new regional calendar, implement `HolidayCalendarService` and register it in both `META-INF/services/` and the module's `provides` directive in `module-info.java`.
 
-### Implementations (`holiday-calendar-eur`)
+### Implementations (`holiday-calendar-western`)
 
-Regional `HolidayCalendarService` implementations: `HolidayCalendarServiceUS`, `HolidayCalendarServiceCA`, `HolidayCalendarServiceUK`, `HolidayCalendarServiceCH`.
+Regional `HolidayCalendarService` implementations: `HolidayCalendarServiceUS`, `HolidayCalendarServiceCA`, `HolidayCalendarServiceUK`, `HolidayCalendarServiceCH`, `HolidayCalendarServiceDE`, `HolidayCalendarServiceFR`, `HolidayCalendarServiceAU`.
 
-Observances are organized by region under the `observance` package (`us/`, `ca/`, `uk/`, `eu/`). Easter-related observances implement the `EasterObservance` marker interface and are located directly under `observance/`: `WesternEaster`, `OrthodoxEaster`, `GoodFriday`, `EasterMonday`, `WhitSunday`, etc. Derived holidays (e.g., `GoodFriday`) accept an `EasterObservance` in their constructor to offset from Easter.
+Observances are organized by region under the `observance` package. Easter-related observances live in `observance.christian` and extend `CompositeObservance` (e.g., `GoodFriday`, `EasterMonday`). `WesternEaster` and `OrthodoxEaster` extend `AbstractObservance` directly. Regional sub-packages: `us/`, `ca/`, `uk/`, `eu/`, `au/`.
 
-### Lombok Source Layout
+### Implementations (`holiday-calendar-apac`)
 
-Lombok-annotated classes live in `src/main/lombok/` (not `src/main/java/`) within each module. The build delomboks them automatically.
+`HolidayCalendarServiceSG` (SGX). Non-Gregorian holidays use Time4J (`ChineseCalendar` for Chinese New Year) or lookup tables (Vesak Day, Hari Raya Puasa/Haji, Deepavali).
