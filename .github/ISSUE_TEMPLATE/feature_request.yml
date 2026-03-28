@@ -1,0 +1,55 @@
+name: Feature Request
+description: Propose an API change, new DateRoll strategy, JPMS improvement, or other enhancement
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module(s) Affected
+      description: Which module(s) does this feature touch?
+      options:
+        - holiday-calendar-core
+        - holiday-calendar-western
+        - holiday-calendar-apac
+        - tests
+        - All / Cross-cutting
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Problem / Motivation
+      description: >
+        What problem does this solve? What use case is currently not supported?
+      placeholder: >
+        e.g. There is no way to retrieve holidays for a date range spanning
+        multiple years without calling calculate() in a loop.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the change you'd like to see, including any API shape ideas.
+      placeholder: |
+        Add a HolidayCalendar#calculate(int fromYear, int toYear) method that
+        returns a sorted List<HolidayDate> across the range.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Other approaches you evaluated and why you prefer the proposed solution.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: >
+        Links to related issues, standards, or external libraries that
+        informed this request.
