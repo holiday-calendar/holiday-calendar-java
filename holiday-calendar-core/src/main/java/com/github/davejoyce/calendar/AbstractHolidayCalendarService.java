@@ -49,7 +49,4 @@ public abstract class AbstractHolidayCalendarService implements HolidayCalendarS
         return name;
     }
 
-    @Override
-    public abstract HolidayCalendar getHolidayCalendar();
-
 }
