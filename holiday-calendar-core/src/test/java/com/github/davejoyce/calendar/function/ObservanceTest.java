@@ -32,7 +32,7 @@ public class ObservanceTest {
 
     @Test
     public void testDefaultTest() {
-        Observance o = (year) -> Year.of(year).atMonth(Month.JANUARY).atDay(1).with(TemporalAdjusters.dayOfWeekInMonth(3, DayOfWeek.MONDAY));
+        Observance o = year -> Year.of(year).atMonth(Month.JANUARY).atDay(1).with(TemporalAdjusters.dayOfWeekInMonth(3, DayOfWeek.MONDAY));
         assertTrue(o.test(2021));
     }
 

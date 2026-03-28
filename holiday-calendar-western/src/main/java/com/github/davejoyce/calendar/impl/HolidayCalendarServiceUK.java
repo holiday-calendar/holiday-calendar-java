@@ -154,13 +154,10 @@ public class HolidayCalendarServiceUK implements HolidayCalendarService {
                     final Optional<LocalDate> boxingDayDate = boxingDay.dateForYear(dateToRoll.getYear());
                     final boolean isChristmas = christmasDate.isPresent() && dateToRoll.equals(christmasDate.get());
                     final boolean isBoxingDay = boxingDayDate.isPresent() && dateToRoll.equals(boxingDayDate.get());
-                    switch (dateToRoll.getDayOfWeek()) {
-                        case SATURDAY:
-                        case SUNDAY:
-                            return (isChristmas || isBoxingDay) ? dateToRoll.plusDays(2L) : dateToRoll;
-                        default:
-                            return dateToRoll;
-                    }
+                    return switch (dateToRoll.getDayOfWeek()) {
+                        case SATURDAY, SUNDAY -> (isChristmas || isBoxingDay) ? dateToRoll.plusDays(2L) : dateToRoll;
+                        default -> dateToRoll;
+                    };
                 })
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                 .holiday(newYearsDay)

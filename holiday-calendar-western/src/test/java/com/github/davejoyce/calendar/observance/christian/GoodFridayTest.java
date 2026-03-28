@@ -18,7 +18,6 @@
 
 package com.github.davejoyce.calendar.observance.christian;
 
-import com.github.davejoyce.calendar.observance.christian.EasterObservance;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

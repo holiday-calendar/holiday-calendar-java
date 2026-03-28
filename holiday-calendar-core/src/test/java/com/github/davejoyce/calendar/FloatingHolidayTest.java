@@ -55,7 +55,7 @@ public class FloatingHolidayTest {
 
     @Test
     public void testGetObservance() {
-        final Observance thanksGiving = (year) -> Year.of(year)
+        final Observance thanksGiving = year -> Year.of(year)
                                                       .atMonth(Month.NOVEMBER)
                                                       .atDay(1)
                                                       .with(TemporalAdjusters.lastInMonth(DayOfWeek.THURSDAY));
@@ -66,7 +66,7 @@ public class FloatingHolidayTest {
     @Test
     public void testEquals() {
         final Observance observance = createObservanceThanksgiving();
-        final Observance justNewYear = (year) -> LocalDate.of(year, Month.JANUARY, 1);
+        final Observance justNewYear = year -> LocalDate.of(year, Month.JANUARY, 1);
         FloatingHoliday holiday1 = new FloatingHoliday("Thanksgiving Day", "Day of giving thanks", observance);
         FloatingHoliday holiday2 = new FloatingHoliday("Thanksgiving Day", "Day of giving thanks", observance);
         FloatingHoliday holiday3 = new FloatingHoliday("Thanksgiving Day", "Day of giving thanks", justNewYear);
@@ -79,8 +79,8 @@ public class FloatingHolidayTest {
         assertNotEquals(notAHoliday, holiday1);
         assertNotEquals(holiday3, holiday1);
         assertNotEquals(holiday4, holiday1);
-        assertFalse(holiday1.equals(null));
-        assertFalse(holiday1.equals(notAHoliday));
+        assertNotEquals(holiday1, null);
+        assertNotEquals(notAHoliday, holiday1);
     }
 
     @Test

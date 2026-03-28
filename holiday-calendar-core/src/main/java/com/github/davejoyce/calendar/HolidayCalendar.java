@@ -22,7 +22,6 @@ import com.github.davejoyce.calendar.function.DateRoll;
 
 import java.time.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
