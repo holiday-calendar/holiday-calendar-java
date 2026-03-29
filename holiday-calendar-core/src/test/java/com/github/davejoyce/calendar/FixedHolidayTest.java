@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Holiday Calendar - A library for definition and calculation of holiday calendars
- * Copyright (C) 2021 David Joyce
+ * Copyright (C) 2021-2026 The Holiday Calendar Project Contributors
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free

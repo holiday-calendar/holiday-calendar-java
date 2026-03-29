@@ -5,6 +5,7 @@ First off, thank you for taking the time to contribute! :+1:
 ### Table of Contents
 
 * [Code of Conduct](#code-of-conduct)
+* [Copyright Header](#copyright-header)
 * [How to Contribute](#how-to-contribute)
   * [Create an issue](#create-an-issue)
   * [Report a security vulnerability](#report-a-security-vulnerability)
@@ -15,6 +16,16 @@ First off, thank you for taking the time to contribute! :+1:
 This project is governed by the [Holiday Calendar Code of Conduct](CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report
 unacceptable behavior to conduct@holiday-calendar.org.
+
+### Copyright Header
+
+All Java source files must include the project's LGPL-2.1 copyright header. IDE templates are provided to make this easy when creating new files.
+
+**IntelliJ IDEA:** The copyright profile is automatically loaded from `.idea/copyright/`. With the Copyright plugin enabled, use **Code > Update Copyright** to insert or refresh the header in a file.
+
+**Eclipse:** Import the template via **Window > Preferences > Java > Code Style > Code Templates > Import**, selecting `ide-templates/eclipse/codetemplates.xml`. Eclipse will then insert the header automatically when creating new Java files.
+
+**Visual Studio Code:** Type `hcheader` and press Tab in any `.java` file to expand the full header. No extension required — the snippet is defined in `.vscode/holiday-calendar.code-snippets`.
 
 ### How to Contribute
 
