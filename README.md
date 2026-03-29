@@ -1,7 +1,7 @@
 # Holiday Calendar (Java)
 
-[![Build](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven.yml/badge.svg)](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=holiday-calendar_holiday-calendar-java&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=holiday-calendar_holiday-calendar-java)
+[![Build](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven-build.yml/badge.svg)](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven-build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=holiday-calendar_holiday-calendar-java&branch=develop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=holiday-calendar_holiday-calendar-java&branch=develop)
 [![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL_v2.1-blue.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 
 A Java library for defining and calculating holiday calendars. Provides an extensible foundation for generating the calendars used to determine when holidays occur and when they are observed worldwide.
