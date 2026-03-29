@@ -23,23 +23,23 @@
  * countries: Australia, Canada, France, Germany, Switzerland, the United
  * Kingdom, and the United States.
  */
-module holiday.calendar.western {
-    requires holiday.calendar.core;
+module org.holiday.calendar.western {
+    requires org.holiday.calendar.core;
 
-    exports com.github.davejoyce.calendar.observance;
-    exports com.github.davejoyce.calendar.observance.christian;
-    exports com.github.davejoyce.calendar.observance.au;
-    exports com.github.davejoyce.calendar.observance.ca;
-    exports com.github.davejoyce.calendar.observance.eu;
-    exports com.github.davejoyce.calendar.observance.uk;
-    exports com.github.davejoyce.calendar.observance.us;
+    exports org.holiday.calendar.observance;
+    exports org.holiday.calendar.observance.christian;
+    exports org.holiday.calendar.observance.au;
+    exports org.holiday.calendar.observance.ca;
+    exports org.holiday.calendar.observance.eu;
+    exports org.holiday.calendar.observance.uk;
+    exports org.holiday.calendar.observance.us;
 
-    provides com.github.davejoyce.calendar.HolidayCalendarService with
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceAU,
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceCA,
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceCH,
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceDE,
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceFR,
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceUK,
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceUS;
+    provides org.holiday.calendar.HolidayCalendarService with
+        org.holiday.calendar.impl.HolidayCalendarServiceAU,
+        org.holiday.calendar.impl.HolidayCalendarServiceCA,
+        org.holiday.calendar.impl.HolidayCalendarServiceCH,
+        org.holiday.calendar.impl.HolidayCalendarServiceDE,
+        org.holiday.calendar.impl.HolidayCalendarServiceFR,
+        org.holiday.calendar.impl.HolidayCalendarServiceUK,
+        org.holiday.calendar.impl.HolidayCalendarServiceUS;
 }

@@ -11,7 +11,7 @@
         </layout>
     </appender>
 
-    <logger name="com.github.davejoyce.calendar" level="debug" additivity="false">
+    <logger name="org.holiday.calendar" level="debug" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 

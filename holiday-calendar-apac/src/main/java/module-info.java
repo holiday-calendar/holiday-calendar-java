@@ -23,15 +23,15 @@
  * countries, including lunar, Islamic, and Hindu calendar-based holidays.
  * Currently supports Singapore (SG).
  */
-module holiday.calendar.apac {
-    requires holiday.calendar.core;
-    requires holiday.calendar.western;
+module org.holiday.calendar.apac {
+    requires org.holiday.calendar.core;
+    requires org.holiday.calendar.western;
     requires net.time4j.base;
 
-    exports com.github.davejoyce.calendar.observance.lunar;
-    exports com.github.davejoyce.calendar.observance.islamic;
-    exports com.github.davejoyce.calendar.observance.hindu;
+    exports org.holiday.calendar.observance.lunar;
+    exports org.holiday.calendar.observance.islamic;
+    exports org.holiday.calendar.observance.hindu;
 
-    provides com.github.davejoyce.calendar.HolidayCalendarService with
-        com.github.davejoyce.calendar.impl.HolidayCalendarServiceSG;
+    provides org.holiday.calendar.HolidayCalendarService with
+        org.holiday.calendar.impl.HolidayCalendarServiceSG;
 }
