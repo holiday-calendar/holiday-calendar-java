@@ -7,7 +7,7 @@
     <groupId>org.holiday.calendar</groupId>
     <artifactId>holiday-calendar-java</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <name>Holiday Calendar</name>
     <description>Holiday Calendar Library for Java</description>
@@ -37,7 +37,7 @@
         <url>${project.url}</url>
         <connection>scm:git:https://${repo.domain}/${repo.user}/${repo.name}.git</connection>
         <developerConnection>scm:git:git@${repo.domain}:${repo.user}/${repo.name}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v0.0.1</tag>
     </scm>
 
     <issueManagement>
@@ -53,6 +53,11 @@
     </modules>
 
     <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub</name>
+            <url>https://maven.pkg.github.com/holiday-calendar/holiday-calendar-java</url>
+        </repository>
         <snapshotRepository>
             <id>github</id>
             <name>GitHub</name>

@@ -7,13 +7,16 @@
     <parent>
         <artifactId>holiday-calendar-java</artifactId>
         <groupId>org.holiday.calendar</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
 
     <artifactId>tests</artifactId>
     <name>Test Reports</name>
 
-    <properties />
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 
     <dependencies>
         <dependency>
