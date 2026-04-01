@@ -7,7 +7,7 @@
     <parent>
         <artifactId>holiday-calendar-java</artifactId>
         <groupId>org.holiday.calendar</groupId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>holiday-calendar-western</artifactId>
