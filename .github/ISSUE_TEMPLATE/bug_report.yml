@@ -1,0 +1,82 @@
+name: Calendar Bug Report
+description: Report an incorrect holiday date, wrong date-roll result, or observance calculation error
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: region
+    attributes:
+      label: Region / Market
+      description: Which regional calendar is affected?
+      options:
+        - US (United States)
+        - CA (Canada)
+        - UK (United Kingdom)
+        - CH (Switzerland)
+        - DE (Germany)
+        - FR (France)
+        - AU (Australia)
+        - SG (Singapore)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: holiday_name
+    attributes:
+      label: Holiday Name
+      description: The name of the holiday with the incorrect date
+      placeholder: e.g. Easter Monday, Thanksgiving, Chinese New Year
+    validations:
+      required: true
+
+  - type: input
+    id: years_affected
+    attributes:
+      label: Year(s) Affected
+      description: Which year(s) produce the wrong result?
+      placeholder: e.g. 2025, 2024–2026
+    validations:
+      required: true
+
+  - type: input
+    id: expected_date
+    attributes:
+      label: Expected Date
+      description: What date should the holiday fall on? (YYYY-MM-DD)
+      placeholder: e.g. 2025-04-21
+    validations:
+      required: true
+
+  - type: input
+    id: actual_date
+    attributes:
+      label: Actual Date Returned
+      description: What date does the library currently return? (YYYY-MM-DD)
+      placeholder: e.g. 2025-04-20
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to Reproduce
+      description: >
+        Minimal code snippet demonstrating the issue. Include the
+        `HolidayCalendarFactory` call and the output you observe.
+      render: java
+      placeholder: |
+        HolidayCalendar cal = HolidayCalendarFactory.forCode("US");
+        List<HolidayDate> dates = cal.calculate(2025);
+        dates.forEach(System.out::println);
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: >
+        Reference sources (official government pages, Wikipedia, etc.),
+        date-roll strategy involved, or any other relevant details.
+      placeholder: Link to official public holiday declaration, ISO standard, etc.
