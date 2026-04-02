@@ -78,6 +78,7 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
 
     private static final String CODE = "CNY";
     private static final String NAME = "China (PBOC) Holidays";
+    private static final String NATIONAL_DAY_CONTINUED = "National Day Golden Week (continued)";
 
     /**
      * Compensatory (make-up) working days published by China's State Council.
@@ -263,42 +264,42 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
                 .build();
         final Holiday nationalDay2 = Holiday.builder()
                 .name("National Day (Day 2)")
-                .description("National Day Golden Week (continued)")
+                .description(NATIONAL_DAY_CONTINUED)
                 .type(Holiday.Type.FIXED)
                 .rollable(false)
                 .monthDay(Month.OCTOBER, 2)
                 .build();
         final Holiday nationalDay3 = Holiday.builder()
                 .name("National Day (Day 3)")
-                .description("National Day Golden Week (continued)")
+                .description(NATIONAL_DAY_CONTINUED)
                 .type(Holiday.Type.FIXED)
                 .rollable(false)
                 .monthDay(Month.OCTOBER, 3)
                 .build();
         final Holiday nationalDay4 = Holiday.builder()
                 .name("National Day (Day 4)")
-                .description("National Day Golden Week (continued)")
+                .description(NATIONAL_DAY_CONTINUED)
                 .type(Holiday.Type.FIXED)
                 .rollable(false)
                 .monthDay(Month.OCTOBER, 4)
                 .build();
         final Holiday nationalDay5 = Holiday.builder()
                 .name("National Day (Day 5)")
-                .description("National Day Golden Week (continued)")
+                .description(NATIONAL_DAY_CONTINUED)
                 .type(Holiday.Type.FIXED)
                 .rollable(false)
                 .monthDay(Month.OCTOBER, 5)
                 .build();
         final Holiday nationalDay6 = Holiday.builder()
                 .name("National Day (Day 6)")
-                .description("National Day Golden Week (continued)")
+                .description(NATIONAL_DAY_CONTINUED)
                 .type(Holiday.Type.FIXED)
                 .rollable(false)
                 .monthDay(Month.OCTOBER, 6)
                 .build();
         final Holiday nationalDay7 = Holiday.builder()
                 .name("National Day (Day 7)")
-                .description("National Day Golden Week (continued)")
+                .description(NATIONAL_DAY_CONTINUED)
                 .type(Holiday.Type.FIXED)
                 .rollable(false)
                 .monthDay(Month.OCTOBER, 7)

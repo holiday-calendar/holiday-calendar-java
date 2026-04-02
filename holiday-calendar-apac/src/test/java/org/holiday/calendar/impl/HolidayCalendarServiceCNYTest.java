@@ -132,26 +132,26 @@ public class HolidayCalendarServiceCNYTest {
         assertEquals(found.get().getDate(), expectedDate, holidayName + " date mismatch for 2025");
     }
 
-    // --- Qingming Festival ---
+    // --- Floating lunisolar holidays ---
 
     @DataProvider
-    Iterator<Object[]> qingmingDates() {
+    Iterator<Object[]> floatingHolidayDates() {
         return Arrays.asList(
-            new Object[]{2023, LocalDate.of(2023, Month.APRIL, 5)},
-            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 4)},
-            new Object[]{2025, LocalDate.of(2025, Month.APRIL, 4)}
+            new Object[]{"Qingming Festival",   2023, LocalDate.of(2023, Month.APRIL,     5)},
+            new Object[]{"Qingming Festival",   2024, LocalDate.of(2024, Month.APRIL,     4)},
+            new Object[]{"Qingming Festival",   2025, LocalDate.of(2025, Month.APRIL,     4)},
+            new Object[]{"Dragon Boat Festival", 2023, LocalDate.of(2023, Month.JUNE,     22)},
+            new Object[]{"Dragon Boat Festival", 2024, LocalDate.of(2024, Month.JUNE,     10)},
+            new Object[]{"Dragon Boat Festival", 2025, LocalDate.of(2025, Month.MAY,      31)},
+            new Object[]{"Mid-Autumn Festival", 2023, LocalDate.of(2023, Month.SEPTEMBER, 29)},
+            new Object[]{"Mid-Autumn Festival", 2024, LocalDate.of(2024, Month.SEPTEMBER, 17)},
+            new Object[]{"Mid-Autumn Festival", 2025, LocalDate.of(2025, Month.OCTOBER,    6)}
         ).iterator();
     }
 
-    @Test(dataProvider = "qingmingDates")
-    public void testQingmingFestival(int year, LocalDate expectedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        Optional<HolidayDate> found = holidays.stream()
-                .filter(hd -> "Qingming Festival".equals(hd.getHoliday().getName()))
-                .findFirst();
-        assertTrue(found.isPresent(), "Qingming Festival should be present for " + year);
-        assertEquals(found.get().getDate(), expectedDate, "Qingming Festival date mismatch for " + year);
+    @Test(dataProvider = "floatingHolidayDates")
+    public void testFloatingHolidayDate(String holidayName, int year, LocalDate expectedDate) {
+        assertHolidayDate(service.getHolidayCalendar().calculate(year), holidayName, expectedDate);
     }
 
     // --- Labour Day ---
@@ -164,50 +164,6 @@ public class HolidayCalendarServiceCNYTest {
         assertHolidayDate(holidays, "Labour Day (Day 1)", LocalDate.of(2024, Month.MAY, 1));
         assertHolidayDate(holidays, "Labour Day (Day 2)", LocalDate.of(2024, Month.MAY, 2));
         assertHolidayDate(holidays, "Labour Day (Day 3)", LocalDate.of(2024, Month.MAY, 3));
-    }
-
-    // --- Dragon Boat Festival ---
-
-    @DataProvider
-    Iterator<Object[]> dragonBoatDates() {
-        return Arrays.asList(
-            new Object[]{2023, LocalDate.of(2023, Month.JUNE, 22)},
-            new Object[]{2024, LocalDate.of(2024, Month.JUNE, 10)},
-            new Object[]{2025, LocalDate.of(2025, Month.MAY, 31)}
-        ).iterator();
-    }
-
-    @Test(dataProvider = "dragonBoatDates")
-    public void testDragonBoatFestival(int year, LocalDate expectedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        Optional<HolidayDate> found = holidays.stream()
-                .filter(hd -> "Dragon Boat Festival".equals(hd.getHoliday().getName()))
-                .findFirst();
-        assertTrue(found.isPresent(), "Dragon Boat Festival should be present for " + year);
-        assertEquals(found.get().getDate(), expectedDate, "Dragon Boat Festival date mismatch for " + year);
-    }
-
-    // --- Mid-Autumn Festival ---
-
-    @DataProvider
-    Iterator<Object[]> midAutumnDates() {
-        return Arrays.asList(
-            new Object[]{2023, LocalDate.of(2023, Month.SEPTEMBER, 29)},
-            new Object[]{2024, LocalDate.of(2024, Month.SEPTEMBER, 17)},
-            new Object[]{2025, LocalDate.of(2025, Month.OCTOBER, 6)}
-        ).iterator();
-    }
-
-    @Test(dataProvider = "midAutumnDates")
-    public void testMidAutumnFestival(int year, LocalDate expectedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        Optional<HolidayDate> found = holidays.stream()
-                .filter(hd -> "Mid-Autumn Festival".equals(hd.getHoliday().getName()))
-                .findFirst();
-        assertTrue(found.isPresent(), "Mid-Autumn Festival should be present for " + year);
-        assertEquals(found.get().getDate(), expectedDate, "Mid-Autumn Festival date mismatch for " + year);
     }
 
     // --- National Day Golden Week ---
