@@ -36,6 +36,7 @@ module org.holiday.calendar.western {
 
     provides org.holiday.calendar.HolidayCalendarService with
         org.holiday.calendar.impl.HolidayCalendarServiceAU,
+        org.holiday.calendar.impl.HolidayCalendarServiceAUD,
         org.holiday.calendar.impl.HolidayCalendarServiceCA,
         org.holiday.calendar.impl.HolidayCalendarServiceCH,
         org.holiday.calendar.impl.HolidayCalendarServiceDE,
