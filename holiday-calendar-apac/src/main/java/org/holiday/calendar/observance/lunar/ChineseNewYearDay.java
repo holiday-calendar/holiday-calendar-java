@@ -56,7 +56,7 @@ public class ChineseNewYearDay extends AbstractObservance {
     protected LocalDate computeDate(int year) {
         ChineseCalendar cny = ChineseCalendar.ofNewYear(year);
         PlainDate plain = cny.transform(PlainDate.axis());
-        return plain.toTemporalAccessor().plusDays(dayNumber - 1);
+        return plain.toTemporalAccessor().plusDays((long) dayNumber - 1);
     }
 
 }
