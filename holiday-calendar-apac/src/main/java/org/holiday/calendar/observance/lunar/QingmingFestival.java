@@ -16,24 +16,32 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.lunar;
+
+import org.holiday.calendar.observance.AbstractObservance;
+import net.time4j.PlainDate;
+import net.time4j.calendar.ChineseCalendar;
+
+import java.time.LocalDate;
+
 /**
- * Holiday Calendar APAC module.
+ * Observance of Qingming Festival (清明, Tomb Sweeping Day), which falls on
+ * the solar term at ecliptic longitude 15° — the 5th of the 24 Chinese solar
+ * terms. It occurs on 4 or 5 April in the Gregorian calendar.
  *
- * <p>Provides holiday calendar implementations and observances for Asia-Pacific
- * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Currently supports Singapore (SG).
+ * <p>The date is computed via Time4J's {@code ChineseCalendar.ofQingMing(year)},
+ * which applies the {@code SolarTerm.MINOR_03_QINGMING_015.sinceLichun()} operator
+ * using precise astronomical solar-longitude calculations.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-module org.holiday.calendar.apac {
-    requires org.holiday.calendar.core;
-    requires org.holiday.calendar.western;
-    requires net.time4j.base;
-    requires org.slf4j;
+public class QingmingFestival extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.lunar;
-    exports org.holiday.calendar.observance.islamic;
-    exports org.holiday.calendar.observance.hindu;
+    @Override
+    protected LocalDate computeDate(int year) {
+        ChineseCalendar qingming = ChineseCalendar.ofQingMing(year);
+        PlainDate plain = qingming.transform(PlainDate.axis());
+        return plain.toTemporalAccessor();
+    }
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceCNY,
-        org.holiday.calendar.impl.HolidayCalendarServiceSG;
 }

@@ -16,24 +16,35 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.lunar;
+
+import org.holiday.calendar.observance.AbstractObservance;
+import net.time4j.PlainDate;
+import net.time4j.calendar.ChineseCalendar;
+import net.time4j.calendar.EastAsianMonth;
+import net.time4j.calendar.EastAsianYear;
+
+import java.time.LocalDate;
+
 /**
- * Holiday Calendar APAC module.
+ * Observance of Dragon Boat Festival (端午节, Duanwu), which falls on the
+ * 5th day of the 5th month of the Chinese lunisolar calendar.
  *
- * <p>Provides holiday calendar implementations and observances for Asia-Pacific
- * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Currently supports Singapore (SG).
+ * <p>The date is computed algorithmically via Time4J's {@code ChineseCalendar},
+ * using the Chinese year that begins in the given Gregorian year.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-module org.holiday.calendar.apac {
-    requires org.holiday.calendar.core;
-    requires org.holiday.calendar.western;
-    requires net.time4j.base;
-    requires org.slf4j;
+public class DragonBoatFestival extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.lunar;
-    exports org.holiday.calendar.observance.islamic;
-    exports org.holiday.calendar.observance.hindu;
+    @Override
+    protected LocalDate computeDate(int year) {
+        ChineseCalendar date = ChineseCalendar.of(
+                EastAsianYear.forGregorian(year),
+                EastAsianMonth.valueOf(5),
+                5);
+        PlainDate plain = date.transform(PlainDate.axis());
+        return plain.toTemporalAccessor();
+    }
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceCNY,
-        org.holiday.calendar.impl.HolidayCalendarServiceSG;
 }
