@@ -40,7 +40,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
 
     private static final String CODE = "AU";
-    private static final String NAME = "Australia (ASX) Holidays";
+    private static final String NAME = "Australian Securities Exchange (ASX) Holidays";
 
     public HolidayCalendarServiceAU() {
         super(CODE, NAME);
