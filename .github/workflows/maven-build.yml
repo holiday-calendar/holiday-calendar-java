@@ -7,6 +7,10 @@ on:
       - develop
   pull_request:
     types: [opened, synchronize, reopened]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     name: Build and analyze
@@ -33,6 +37,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
+        if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=holiday-calendar_holiday-calendar-java
