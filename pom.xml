@@ -81,7 +81,7 @@
         <!-- Dependency versions -->
         <logback.version>1.4.12</logback.version>
         <testng.version>7.7.1</testng.version>
-        <time4j.version>5.9</time4j.version>
+        <time4j.version>5.9.4</time4j.version>
 
         <!-- Plugin versions -->
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
