@@ -22,6 +22,7 @@ import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
+import org.holiday.calendar.observance.au.BankHoliday;
 import org.holiday.calendar.observance.au.KingsBirthday;
 import org.holiday.calendar.observance.christian.EasterMonday;
 import org.holiday.calendar.observance.christian.EasterObservance;
@@ -33,23 +34,22 @@ import java.time.Month;
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of Australia (ASX) holiday calendar.
+ * Service for provision of Australia (RBA) holiday calendar.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
+public class HolidayCalendarServiceAUD extends AbstractHolidayCalendarService {
 
-    private static final String CODE = "AU";
-    private static final String NAME = "Australian Securities Exchange (ASX) Holidays";
+    private static final String CODE = "AUD";
+    private static final String NAME = "Australia (RBA) Holidays";
 
-    public HolidayCalendarServiceAU() {
+    public HolidayCalendarServiceAUD() {
         super(CODE, NAME);
     }
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
         final EasterObservance easter = new WesternEaster();
-        final GoodFriday goodFridayObs = new GoodFriday(easter);
 
         final Holiday newYearsDay = Holiday.builder()
                 .name("New Year's Day")
@@ -70,14 +70,7 @@ public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
                 .description("Friday before Easter Sunday")
                 .type(Holiday.Type.FLOATING)
                 .rollable(false)
-                .observance(goodFridayObs)
-                .build();
-        final Holiday easterSaturday = Holiday.builder()
-                .name("Easter Saturday")
-                .description("Day after Good Friday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(year -> goodFridayObs.apply(year).plusDays(1))
+                .observance(new GoodFriday(easter))
                 .build();
         final Holiday easterMonday = Holiday.builder()
                 .name("Easter Monday")
@@ -95,10 +88,17 @@ public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
                 .build();
         final Holiday kingsBirthday = Holiday.builder()
                 .name("King's Birthday")
-                .description("King's Birthday (ASX; 2nd Monday in June)")
+                .description("King's Birthday (RBA; 2nd Monday in June)")
                 .type(Holiday.Type.FLOATING)
                 .rollable(false)
                 .observance(new KingsBirthday())
+                .build();
+        final Holiday bankHoliday = Holiday.builder()
+                .name("Bank Holiday")
+                .description("NSW Bank Holiday (1st Monday in August)")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new BankHoliday())
                 .build();
         final Holiday christmasDay = Holiday.builder()
                 .name("Christmas Day")
@@ -123,10 +123,10 @@ public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
                 .holiday(newYearsDay)
                 .holiday(australiaDay)
                 .holiday(goodFriday)
-                .holiday(easterSaturday)
                 .holiday(easterMonday)
                 .holiday(anzacDay)
                 .holiday(kingsBirthday)
+                .holiday(bankHoliday)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
                 .build();
