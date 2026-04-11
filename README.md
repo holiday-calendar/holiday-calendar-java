@@ -26,7 +26,8 @@ Key design goals:
 | `CH` | Switzerland National Holidays |
 | `DE` | Germany National Holidays |
 | `FR` | France National Holidays |
-| `AU` | Australia National Holidays |
+| `AU` | Australian Securities Exchange (ASX) Holidays |
+| `AUD` | Australia (RBA) Holidays |
 | `SG` | Singapore Exchange (SGX) Holidays |
 
 ## Installation
