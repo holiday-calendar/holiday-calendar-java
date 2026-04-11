@@ -29,6 +29,8 @@ Key design goals:
 | `AU` | Australian Securities Exchange (ASX) Holidays |
 | `AUD` | Australia (RBA) Holidays |
 | `SG` | Singapore Exchange (SGX) Holidays |
+| `JP` | Japan — Tokyo Stock Exchange (TSE/JPX) Holidays |
+| `JPY` | Japan — Bank of Japan (BOJ/BOJNET) Holidays |
 
 ## Installation
 
@@ -63,7 +65,7 @@ Then add the modules you need:
   <version>0.0.1</version>
 </dependency>
 
-<!-- APAC calendars: SG -->
+<!-- APAC calendars: SG, JP, JPY -->
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
@@ -110,7 +112,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "CA", "DE", "FR", "SG", "CH", "UK", "US"]
+// ["AU", "CA", "DE", "FR", "JP", "JPY", "SG", "CH", "UK", "US"]
 ```
 
 ### Define a custom holiday calendar
