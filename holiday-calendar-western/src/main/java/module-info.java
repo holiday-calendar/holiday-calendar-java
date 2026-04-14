@@ -38,6 +38,7 @@ module org.holiday.calendar.western {
         org.holiday.calendar.impl.HolidayCalendarServiceAU,
         org.holiday.calendar.impl.HolidayCalendarServiceAUD,
         org.holiday.calendar.impl.HolidayCalendarServiceCA,
+        org.holiday.calendar.impl.HolidayCalendarServiceCAD,
         org.holiday.calendar.impl.HolidayCalendarServiceCH,
         org.holiday.calendar.impl.HolidayCalendarServiceDE,
         org.holiday.calendar.impl.HolidayCalendarServiceEUR,

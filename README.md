@@ -22,6 +22,7 @@ Key design goals:
 |------|--------|
 | `US` | United States National Holidays |
 | `CA` | Canada National Holidays |
+| `CAD` | Bank of Canada (Lynx) Holidays |
 | `UK` | United Kingdom National Holidays |
 | `CH` | Switzerland National Holidays |
 | `DE` | Germany National Holidays |
@@ -113,7 +114,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "DE", "EUR", "FR", "JP", "JPY", "SG", "CH", "UK", "US", "USD"]
+// ["AU", "AUD", "CA", "CAD", "DE", "EUR", "FR", "JP", "JPY", "SG", "CH", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
