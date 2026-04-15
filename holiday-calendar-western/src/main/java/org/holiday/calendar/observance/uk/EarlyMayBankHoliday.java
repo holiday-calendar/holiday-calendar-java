@@ -25,22 +25,33 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Observance of Early May bank holiday - a proclaimed bank holiday in the
- * United Kingdom since 1978.
+ * United Kingdom since 1978. In years when the anniversary of VE Day is
+ * commemorated, this holiday's observed date is moved to May 8.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class EarlyMayBankHoliday implements Observance {
 
+    private final Map<Integer, LocalDate> veDayYearDates;
+
+    public EarlyMayBankHoliday() {
+        veDayYearDates = new HashMap<>();
+        veDayYearDates.put(1995, LocalDate.of(1995, Month.MAY, 8)); // VE Day 50th anniversary
+        veDayYearDates.put(2020, LocalDate.of(2020, Month.MAY, 8)); // VE Day 75th anniversary
+    }
+
     @Override
     public LocalDate apply(Integer year) {
         if (!test(year)) return null;
-        return Year.of(year)
-                   .atMonth(Month.MAY)
-                   .atDay(1)
-                   .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
+        return veDayYearDates.getOrDefault(year, Year.of(year)
+                                                     .atMonth(Month.MAY)
+                                                     .atDay(1)
+                                                     .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)));
     }
 
     @Override

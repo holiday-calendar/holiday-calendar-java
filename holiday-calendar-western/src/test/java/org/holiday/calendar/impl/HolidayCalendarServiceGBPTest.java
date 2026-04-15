@@ -85,6 +85,10 @@ public class HolidayCalendarServiceGBPTest extends AbstractHolidayCalendarServic
         final Object[] easterMonday2024 = {2024, "Easter Monday", LocalDate.of(2024, Month.APRIL,  1)};
 
         // --- Early May Bank Holiday (1st Monday in May, NOT rollable) ---
+        // 1995: VE Day 50th anniversary override → May 8
+        final Object[] earlyMay1995 = {1995, "Early May Bank Holiday", LocalDate.of(1995, Month.MAY,  8)};
+        // 2020: VE Day 75th anniversary override → May 8
+        final Object[] earlyMay2020 = {2020, "Early May Bank Holiday", LocalDate.of(2020, Month.MAY,  8)};
         // 2021: May 3  (May 1 = Saturday → 1st Monday = May 3)
         final Object[] earlyMay2021 = {2021, "Early May Bank Holiday", LocalDate.of(2021, Month.MAY,  3)};
         // 2023: May 1  (May 1 itself is a Monday — earliest possible date)
@@ -114,7 +118,7 @@ public class HolidayCalendarServiceGBPTest extends AbstractHolidayCalendarServic
                 boxing2020, boxing2021, boxing2022, boxing2023, boxing2026,
                 goodFriday2021, goodFriday2024,
                 easterMonday2021, easterMonday2024,
-                earlyMay2021, earlyMay2023, earlyMay2024,
+                earlyMay1995, earlyMay2020, earlyMay2021, earlyMay2023, earlyMay2024,
                 spring2021, spring2022, spring2023,
                 summer2022, summer2024, summer2026
         ).listIterator();
