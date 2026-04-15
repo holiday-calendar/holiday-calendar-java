@@ -25,9 +25,13 @@ Key design goals:
 | `UK` | United Kingdom National Holidays |
 | `CH` | Switzerland National Holidays |
 | `DE` | Germany National Holidays |
+| `EUR` | Euro (TARGET2) Holidays |
 | `FR` | France National Holidays |
-| `AU` | Australia National Holidays |
+| `AU` | Australian Securities Exchange (ASX) Holidays |
+| `AUD` | Australia (RBA) Holidays |
 | `SG` | Singapore Exchange (SGX) Holidays |
+| `JP` | Japan — Tokyo Stock Exchange (TSE/JPX) Holidays |
+| `JPY` | Japan — Bank of Japan (BOJ/BOJNET) Holidays |
 
 ## Installation
 
@@ -55,14 +59,14 @@ Then add the modules you need:
   <version>0.0.1</version>
 </dependency>
 
-<!-- Western calendars: US, CA, UK, CH, DE, FR, AU -->
+<!-- Western calendars: US, USD, CA, UK, CH, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
   <version>0.0.1</version>
 </dependency>
 
-<!-- APAC calendars: SG -->
+<!-- APAC calendars: SG, JP, JPY -->
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
@@ -109,7 +113,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "CA", "DE", "FR", "SG", "CH", "UK", "US"]
+// ["AU", "AUD", "CA", "DE", "EUR", "FR", "JP", "JPY", "SG", "CH", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
