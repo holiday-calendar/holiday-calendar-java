@@ -60,9 +60,11 @@ public final class UKDateRolls {
             return switch (dateToRoll.getDayOfWeek()) {
                 case SATURDAY -> (isChristmas || isBoxingDay || isNewYearsDay)
                         ? dateToRoll.plusDays(2L) : dateToRoll;
-                case SUNDAY -> (isChristmas || isBoxingDay)
-                        ? dateToRoll.plusDays(2L)
-                        : isNewYearsDay ? dateToRoll.plusDays(1L) : dateToRoll;
+                case SUNDAY -> {
+                    if (isChristmas || isBoxingDay) yield dateToRoll.plusDays(2L);
+                    if (isNewYearsDay)              yield dateToRoll.plusDays(1L);
+                    yield dateToRoll;
+                }
                 default -> dateToRoll;
             };
         };
