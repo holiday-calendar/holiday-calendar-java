@@ -108,6 +108,11 @@ public class HolidayCalendarServiceGBPTest extends AbstractHolidayCalendarServic
         // 2026: Aug 31
         final Object[] summer2026 = {2026, "Summer Bank Holiday", LocalDate.of(2026, Month.AUGUST, 31)};
 
+        // --- Queen's Funeral (SpecialAnniversary, 2022 only) ---
+        final Object[] queenFuneral2022 = {2022, "State Funeral of Queen Elizabeth II", LocalDate.of(2022, Month.SEPTEMBER, 19)};
+        // --- Coronation Bank Holiday (SpecialAnniversary, 2023 only) ---
+        final Object[] coronation2023   = {2023, "Coronation Bank Holiday", LocalDate.of(2023, Month.MAY, 8)};
+
         return Arrays.asList(
                 nyd2021, nyd2022, nyd2023, nyd2024,
                 xmas2020, xmas2021, xmas2022, xmas2023,
@@ -116,15 +121,30 @@ public class HolidayCalendarServiceGBPTest extends AbstractHolidayCalendarServic
                 easterMonday2021, easterMonday2024,
                 earlyMay2021, earlyMay2023, earlyMay2024,
                 spring2021, spring2022, spring2023,
-                summer2022, summer2024, summer2026
+                summer2022, summer2024, summer2026,
+                queenFuneral2022, coronation2023
         ).listIterator();
     }
 
     @Test(dependsOnMethods = "testHolidayCalendarFactoryCreate")
     public void testHolidayCount() {
         final HolidayCalendar calendar = factory.create(CODE);
-        assertEquals(calendar.getHolidays().size(), 8,
-                "GBP calendar must define exactly 8 recurring CHAPS closure days");
+        assertEquals(calendar.getHolidays().size(), 10,
+                "GBP calendar must define 8 recurring + 2 special-anniversary CHAPS closure days");
+    }
+
+    @Test(dependsOnMethods = "testHolidayCalendarFactoryCreate")
+    public void testQueenFuneralHolidayCount_2022() {
+        final HolidayCalendar calendar = factory.create(CODE);
+        assertEquals(calendar.calculate(2022).size(), 9,
+                "GBP calendar must return 9 CHAPS closure days for 2022 (8 recurring + Queen's funeral)");
+    }
+
+    @Test(dependsOnMethods = "testHolidayCalendarFactoryCreate")
+    public void testCoronationBankHolidayCount_2023() {
+        final HolidayCalendar calendar = factory.create(CODE);
+        assertEquals(calendar.calculate(2023).size(), 9,
+                "GBP calendar must return 9 CHAPS closure days for 2023 (8 recurring + Coronation)");
     }
 
     @Test
