@@ -28,10 +28,9 @@ import org.holiday.calendar.observance.christian.WesternEaster;
 import org.holiday.calendar.observance.uk.EarlyMayBankHoliday;
 import org.holiday.calendar.observance.uk.SpringBankHoliday;
 import org.holiday.calendar.observance.uk.SummerBankHoliday;
+import org.holiday.calendar.observance.uk.UKDateRolls;
 
-import java.time.LocalDate;
 import java.time.Month;
-import java.util.Optional;
 
 /**
  * Service for provision of United Kingdom (CHAPS) holiday calendar.
@@ -129,28 +128,7 @@ public class HolidayCalendarServiceGBP extends AbstractHolidayCalendarService {
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
-                .dateRoll(dateToRoll -> {
-                    final Optional<LocalDate> nydDate      = newYearsDay.dateForYear(dateToRoll.getYear());
-                    final Optional<LocalDate> christmasDate = christmasDay.dateForYear(dateToRoll.getYear());
-                    final Optional<LocalDate> boxingDayDate = boxingDay.dateForYear(dateToRoll.getYear());
-                    final boolean isNewYearsDay = nydDate.isPresent()       && dateToRoll.equals(nydDate.get());
-                    final boolean isChristmas   = christmasDate.isPresent() && dateToRoll.equals(christmasDate.get());
-                    final boolean isBoxingDay   = boxingDayDate.isPresent() && dateToRoll.equals(boxingDayDate.get());
-                    return switch (dateToRoll.getDayOfWeek()) {
-                        // Christmas/Boxing Day: +2 regardless of Saturday or Sunday (Mon or Tue substitute)
-                        // New Year's Day on Saturday: +2 to Monday
-                        case SATURDAY -> (isChristmas || isBoxingDay || isNewYearsDay)
-                                ? dateToRoll.plusDays(2L)
-                                : dateToRoll;
-                        // Christmas/Boxing Day on Sunday: +2 to Tuesday
-                        // New Year's Day on Sunday: +1 to Monday
-                        case SUNDAY -> (isChristmas || isBoxingDay)
-                                ? dateToRoll.plusDays(2L)
-                                : isNewYearsDay ? dateToRoll.plusDays(1L)
-                                : dateToRoll;
-                        default -> dateToRoll;
-                    };
-                })
+                .dateRoll(UKDateRolls.fixedHolidayRoll(newYearsDay, christmasDay, boxingDay))
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                 .holiday(newYearsDay)
                 .holiday(goodFriday)

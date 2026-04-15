@@ -28,10 +28,10 @@ import org.holiday.calendar.observance.christian.WesternEaster;
 import org.holiday.calendar.observance.uk.EarlyMayBankHoliday;
 import org.holiday.calendar.observance.uk.SpringBankHoliday;
 import org.holiday.calendar.observance.uk.SummerBankHoliday;
+import org.holiday.calendar.observance.uk.UKDateRolls;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Optional;
 
 /**
  * Service for provision of UK national holiday calendar.
@@ -138,16 +138,7 @@ public class HolidayCalendarServiceUK extends AbstractHolidayCalendarService {
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
-                .dateRoll(dateToRoll -> {
-                    final Optional<LocalDate> christmasDate = christmasDay.dateForYear(dateToRoll.getYear());
-                    final Optional<LocalDate> boxingDayDate = boxingDay.dateForYear(dateToRoll.getYear());
-                    final boolean isChristmas = christmasDate.isPresent() && dateToRoll.equals(christmasDate.get());
-                    final boolean isBoxingDay = boxingDayDate.isPresent() && dateToRoll.equals(boxingDayDate.get());
-                    return switch (dateToRoll.getDayOfWeek()) {
-                        case SATURDAY, SUNDAY -> (isChristmas || isBoxingDay) ? dateToRoll.plusDays(2L) : dateToRoll;
-                        default -> dateToRoll;
-                    };
-                })
+                .dateRoll(UKDateRolls.fixedHolidayRoll(newYearsDay, christmasDay, boxingDay))
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                 .holiday(newYearsDay)
                 .holiday(goodFriday)
