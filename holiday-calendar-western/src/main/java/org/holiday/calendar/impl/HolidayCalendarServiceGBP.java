@@ -30,6 +30,7 @@ import org.holiday.calendar.observance.uk.SpringBankHoliday;
 import org.holiday.calendar.observance.uk.SummerBankHoliday;
 import org.holiday.calendar.observance.uk.UKDateRolls;
 
+import java.time.LocalDate;
 import java.time.Month;
 
 /**
