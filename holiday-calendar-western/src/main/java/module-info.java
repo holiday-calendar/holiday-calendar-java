@@ -43,6 +43,7 @@ module org.holiday.calendar.western {
         org.holiday.calendar.impl.HolidayCalendarServiceDE,
         org.holiday.calendar.impl.HolidayCalendarServiceEUR,
         org.holiday.calendar.impl.HolidayCalendarServiceFR,
+        org.holiday.calendar.impl.HolidayCalendarServiceGBP,
         org.holiday.calendar.impl.HolidayCalendarServiceUK,
         org.holiday.calendar.impl.HolidayCalendarServiceUS;
 }
