@@ -124,6 +124,20 @@ public class HolidayCalendarServiceGBP extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 26)
                 .build();
+        final Holiday queenFuneral = Holiday.builder()
+                .name("State Funeral of Queen Elizabeth II")
+                .description("Proclaimed bank holiday for the State Funeral of Queen Elizabeth II")
+                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
+                .rollable(false)
+                .anniversaryDate(LocalDate.of(2022, Month.SEPTEMBER, 19))
+                .build();
+        final Holiday coronationBankHoliday = Holiday.builder()
+                .name("Coronation Bank Holiday")
+                .description("Proclaimed bank holiday for the Coronation of King Charles III")
+                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
+                .rollable(false)
+                .anniversaryDate(LocalDate.of(2023, Month.MAY, 8))
+                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
@@ -138,6 +152,8 @@ public class HolidayCalendarServiceGBP extends AbstractHolidayCalendarService {
                 .holiday(summerBankHoliday)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
+                .holiday(queenFuneral)
+                .holiday(coronationBankHoliday)
                 .build();
     }
 
