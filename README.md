@@ -26,6 +26,7 @@ Key design goals:
 | `UK` | United Kingdom National Holidays |
 | `GBP` | United Kingdom (CHAPS) Holidays |
 | `CH` | Switzerland National Holidays |
+| `CHF` | Switzerland (SIC/SNB) Holidays |
 | `DE` | Germany National Holidays |
 | `EUR` | Euro (TARGET2) Holidays |
 | `FR` | France National Holidays |
@@ -61,7 +62,7 @@ Then add the modules you need:
   <version>0.0.1</version>
 </dependency>
 
-<!-- Western calendars: US, USD, CA, UK, GBP, CH, DE, EUR, FR, AU, AUD -->
+<!-- Western calendars: US, USD, CA, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
@@ -115,7 +116,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "CAD", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "CH", "UK", "US", "USD"]
+// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
