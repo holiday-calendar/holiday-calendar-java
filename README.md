@@ -21,6 +21,7 @@ Key design goals:
 | Code | Region |
 |------|--------|
 | `US` | United States National Holidays |
+| `USD` | United States (Federal Reserve) Holidays |
 | `CA` | Canada National Holidays |
 | `CAD` | Bank of Canada (Lynx) Holidays |
 | `UK` | United Kingdom National Holidays |
