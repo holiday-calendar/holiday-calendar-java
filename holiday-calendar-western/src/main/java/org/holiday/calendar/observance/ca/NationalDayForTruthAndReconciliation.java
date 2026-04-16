@@ -16,47 +16,42 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package org.holiday.calendar.observance.uk;
+package org.holiday.calendar.observance.ca;
 
 import org.holiday.calendar.function.Observance;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Year;
-import java.time.temporal.TemporalAdjusters;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Observance of Early May bank holiday - a proclaimed bank holiday in the
- * United Kingdom since 1978. In years when the anniversary of VE Day is
- * commemorated, this holiday's observed date is moved to May 8.
+ * Observance of the National Day for Truth and Reconciliation - a federal
+ * statutory holiday on 30 September, honouring the survivors and victims of
+ * Canada's Indian residential school system and acknowledging the ongoing
+ * impacts on Indigenous communities.
+ *
+ * <p>This holiday was established by the federal government and first observed
+ * on <strong>30 September 2021</strong>. It is a rollable holiday: when 30
+ * September falls on a Saturday or Sunday, it is observed the following Monday
+ * under Canada's federal following-Monday substitution rule.</p>
+ *
+ * <p>This class is implemented as a {@link Observance} rather than a fixed
+ * {@code MonthDay} in order to enforce the year constraint via
+ * {@link #test(Integer)}, since {@code FixedHoliday} does not support year
+ * gating.</p>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class EarlyMayBankHoliday implements Observance {
-
-    private final Map<Integer, LocalDate> veDayYearDates;
-
-    public EarlyMayBankHoliday() {
-        veDayYearDates = new HashMap<>();
-        veDayYearDates.put(1995, LocalDate.of(1995, Month.MAY, 8)); // VE Day 50th anniversary
-        veDayYearDates.put(2020, LocalDate.of(2020, Month.MAY, 8)); // VE Day 75th anniversary
-    }
+public class NationalDayForTruthAndReconciliation implements Observance {
 
     @Override
     public LocalDate apply(Integer year) {
         if (!test(year)) return null;
-        return veDayYearDates.getOrDefault(year, Year.of(year)
-                                                     .atMonth(Month.MAY)
-                                                     .atDay(1)
-                                                     .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)));
+        return LocalDate.of(year, Month.SEPTEMBER, 30);
     }
 
     @Override
     public boolean test(Integer year) {
-        return 1978 <= year;
+        return year != null && year >= 2021;
     }
 
 }

@@ -1,7 +1,7 @@
 # Holiday Calendar (Java)
 
 [![Build](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven-build.yml/badge.svg)](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven-build.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=holiday-calendar_holiday-calendar-java&branch=develop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=holiday-calendar_holiday-calendar-java&branch=develop)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=holiday-calendar_holiday-calendar-java&metric=alert_status)](https://sonarcloud.io/project/overview?id=holiday-calendar_holiday-calendar-java)
 [![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL_v2.1-blue.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 
 A Java library for defining and calculating holiday calendars. Provides an extensible foundation for generating the calendars used to determine when holidays occur and when they are observed worldwide.
@@ -22,7 +22,9 @@ Key design goals:
 |------|--------|
 | `US` | United States National Holidays |
 | `CA` | Canada National Holidays |
+| `CAD` | Bank of Canada (Lynx) Holidays |
 | `UK` | United Kingdom National Holidays |
+| `GBP` | United Kingdom (CHAPS) Holidays |
 | `CH` | Switzerland National Holidays |
 | `DE` | Germany National Holidays |
 | `EUR` | Euro (TARGET2) Holidays |
@@ -59,7 +61,7 @@ Then add the modules you need:
   <version>0.0.1</version>
 </dependency>
 
-<!-- Western calendars: US, USD, CA, UK, CH, DE, EUR, FR, AU, AUD -->
+<!-- Western calendars: US, USD, CA, UK, GBP, CH, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
@@ -113,7 +115,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "DE", "EUR", "FR", "JP", "JPY", "SG", "CH", "UK", "US", "USD"]
+// ["AU", "AUD", "CA", "CAD", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "CH", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar

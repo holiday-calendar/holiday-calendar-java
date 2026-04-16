@@ -37,6 +37,8 @@ public class EarlyMayBankHolidayTest extends AbstractObservanceTest {
         data.add(new Object[]{ 1977, null });
         data.add(new Object[]{ 1978, LocalDate.of(1978, Month.MAY, 1) });
         data.add(new Object[]{ 1990, LocalDate.of(1990, Month.MAY, 7) });
+        data.add(new Object[]{ 1995, LocalDate.of(1995, Month.MAY, 8) }); // VE Day 50th anniversary
+        data.add(new Object[]{ 2020, LocalDate.of(2020, Month.MAY, 8) }); // VE Day 75th anniversary
         data.add(new Object[]{ 2021, LocalDate.of(2021, Month.MAY, 3) });
         data.add(new Object[]{ 2022, LocalDate.of(2022, Month.MAY, 2) });
 
