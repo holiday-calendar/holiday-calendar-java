@@ -45,7 +45,7 @@ public class HolidayCalendarServiceCHFTest extends AbstractHolidayCalendarServic
         // Berchtoldstag is the primary CHF differentiator — absent from the CH calendar.
         final Object[] berchtoldstag    = new Object[]{"Berchtoldstag"};
         final Object[] swissNationalDay = new Object[]{"Swiss National Day"};
-        final Object[] boxingDay        = new Object[]{"Boxing Day"};
+        final Object[] boxingDay        = new Object[]{"St. Stephen's Day"};
         return Arrays.asList(berchtoldstag, swissNationalDay, boxingDay).listIterator();
     }
 
@@ -126,15 +126,15 @@ public class HolidayCalendarServiceCHFTest extends AbstractHolidayCalendarServic
         // 2023: Monday    — weekday
         final Object[] christmas2023 = {2023, "Christmas Day", LocalDate.of(2023, Month.DECEMBER, 25)};
 
-        // ---- Boxing Day (Dec 26) — no roll ----
+        // ---- St. Stephen's Day (Dec 26) — no roll ----
         // 2021: Sunday    — no roll
-        final Object[] boxingDay2021 = {2021, "Boxing Day", LocalDate.of(2021, Month.DECEMBER, 26)};
+        final Object[] boxingDay2021 = {2021, "St. Stephen's Day", LocalDate.of(2021, Month.DECEMBER, 26)};
         // 2022: Monday    — weekday
-        final Object[] boxingDay2022 = {2022, "Boxing Day", LocalDate.of(2022, Month.DECEMBER, 26)};
+        final Object[] boxingDay2022 = {2022, "St. Stephen's Day", LocalDate.of(2022, Month.DECEMBER, 26)};
         // 2023: Tuesday   — weekday
-        final Object[] boxingDay2023 = {2023, "Boxing Day", LocalDate.of(2023, Month.DECEMBER, 26)};
+        final Object[] boxingDay2023 = {2023, "St. Stephen's Day", LocalDate.of(2023, Month.DECEMBER, 26)};
         // 2026: Saturday  — no roll
-        final Object[] boxingDay2026 = {2026, "Boxing Day", LocalDate.of(2026, Month.DECEMBER, 26)};
+        final Object[] boxingDay2026 = {2026, "St. Stephen's Day", LocalDate.of(2026, Month.DECEMBER, 26)};
 
         return Arrays.asList(
                 nyd2021, nyd2022, nyd2023,

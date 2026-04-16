@@ -124,7 +124,7 @@ public class HolidayCalendarServiceCHF extends AbstractHolidayCalendarService {
                                             .monthDay(Month.DECEMBER, 25)
                                             .build();
         final Holiday boxingDay = Holiday.builder()
-                                         .name("Boxing Day")
+                                         .name("St. Stephen's Day")
                                          .description("Day after Christmas")
                                          .type(Holiday.Type.FIXED)
                                          .rollable(false)
