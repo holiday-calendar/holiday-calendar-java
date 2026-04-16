@@ -45,8 +45,8 @@ public class HolidayCalendarServiceCHFTest extends AbstractHolidayCalendarServic
         // Berchtoldstag is the primary CHF differentiator — absent from the CH calendar.
         final Object[] berchtoldstag    = new Object[]{"Berchtoldstag"};
         final Object[] swissNationalDay = new Object[]{"Swiss National Day"};
-        final Object[] boxingDay        = new Object[]{"St. Stephen's Day"};
-        return Arrays.asList(berchtoldstag, swissNationalDay, boxingDay).listIterator();
+        final Object[] stStephensDay        = new Object[]{"St. Stephen's Day"};
+        return Arrays.asList(berchtoldstag, swissNationalDay, stStephensDay).listIterator();
     }
 
     @DataProvider
@@ -128,13 +128,13 @@ public class HolidayCalendarServiceCHFTest extends AbstractHolidayCalendarServic
 
         // ---- St. Stephen's Day (Dec 26) — no roll ----
         // 2021: Sunday    — no roll
-        final Object[] boxingDay2021 = {2021, "St. Stephen's Day", LocalDate.of(2021, Month.DECEMBER, 26)};
+        final Object[] stStephensDay2021 = {2021, "St. Stephen's Day", LocalDate.of(2021, Month.DECEMBER, 26)};
         // 2022: Monday    — weekday
-        final Object[] boxingDay2022 = {2022, "St. Stephen's Day", LocalDate.of(2022, Month.DECEMBER, 26)};
+        final Object[] stStephensDay2022 = {2022, "St. Stephen's Day", LocalDate.of(2022, Month.DECEMBER, 26)};
         // 2023: Tuesday   — weekday
-        final Object[] boxingDay2023 = {2023, "St. Stephen's Day", LocalDate.of(2023, Month.DECEMBER, 26)};
+        final Object[] stStephensDay2023 = {2023, "St. Stephen's Day", LocalDate.of(2023, Month.DECEMBER, 26)};
         // 2026: Saturday  — no roll
-        final Object[] boxingDay2026 = {2026, "St. Stephen's Day", LocalDate.of(2026, Month.DECEMBER, 26)};
+        final Object[] stStephensDay2026 = {2026, "St. Stephen's Day", LocalDate.of(2026, Month.DECEMBER, 26)};
 
         return Arrays.asList(
                 nyd2021, nyd2022, nyd2023,
@@ -146,7 +146,7 @@ public class HolidayCalendarServiceCHFTest extends AbstractHolidayCalendarServic
                 whitMonday2021, whitMonday2022, whitMonday2023,
                 nationalDay2021, nationalDay2022, nationalDay2026,
                 christmas2021, christmas2022, christmas2023,
-                boxingDay2021, boxingDay2022, boxingDay2023, boxingDay2026
+                stStephensDay2021, stStephensDay2022, stStephensDay2023, stStephensDay2026
         ).listIterator();
     }
 
@@ -154,7 +154,7 @@ public class HolidayCalendarServiceCHFTest extends AbstractHolidayCalendarServic
     public void testHolidayCount() {
         final HolidayCalendar calendar = factory.create(CODE);
         // New Year's Day, Berchtoldstag, Good Friday, Easter Monday, Labour Day,
-        // Ascension Day, Whit Monday, Swiss National Day, Christmas Day, Boxing Day.
+        // Ascension Day, Whit Monday, Swiss National Day, Christmas Day, St. Stephen's Day.
         assertEquals(calendar.getHolidays().size(), 10,
                 "CHF calendar must define exactly 10 SIC closure days");
     }
