@@ -27,6 +27,7 @@ module org.holiday.calendar.apac {
     requires org.holiday.calendar.core;
     requires org.holiday.calendar.western;
     requires net.time4j.base;
+    requires org.slf4j;
 
     exports org.holiday.calendar.observance.lunar;
     exports org.holiday.calendar.observance.islamic;
