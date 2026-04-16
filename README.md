@@ -20,22 +20,25 @@ Key design goals:
 
 | Code | Region |
 |------|--------|
-| `US` | United States National Holidays |
-| `USD` | United States (Federal Reserve) Holidays |
-| `CA` | Canada National Holidays |
-| `CAD` | Bank of Canada (Lynx) Holidays |
-| `UK` | United Kingdom National Holidays |
-| `GBP` | United Kingdom (CHAPS) Holidays |
-| `CH` | Switzerland National Holidays |
-| `CHF` | Switzerland (SIC/SNB) Holidays |
-| `DE` | Germany National Holidays |
-| `EUR` | Euro (TARGET2) Holidays |
-| `FR` | France National Holidays |
 | `AU` | Australian Securities Exchange (ASX) Holidays |
 | `AUD` | Australia (RBA) Holidays |
-| `SG` | Singapore Exchange (SGX) Holidays |
-| `JP` | Japan — Tokyo Stock Exchange (TSE/JPX) Holidays |
-| `JPY` | Japan — Bank of Japan (BOJ/BOJNET) Holidays |
+| `CA` | Canada National Holidays |
+| `CAD` | Bank of Canada (Lynx) Holiday Schedule |
+| `CH` | Switzerland (SIX) Holidays |
+| `CHF` | Switzerland (SIC/SNB) Holidays |
+| `CNY` | China (PBOC) Holidays |
+| `DE` | Germany (Xetra) Holidays |
+| `EUR` | Euro (TARGET2) Holidays |
+| `FR` | France (Euronext Paris) Holidays |
+| `GBP` | United Kingdom (CHAPS) Holidays |
+| `JP` | Japan (TSE) Holidays |
+| `JPY` | Japan (BOJ) Holidays |
+| `SG` | Singapore (SGX) Holidays |
+| `UK` | United Kingdom National Holidays |
+| `US` | United States National Holidays |
+| `USD` | United States (Federal Reserve) Holidays |
+
+For information on adding new calendars or maintaining existing ones, see the [Contributing Guide](CONTRIBUTING.md).
 
 ## Installation
 
@@ -60,21 +63,21 @@ Then add the modules you need:
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0-SNAPSHOT</version>
 </dependency>
 
-<!-- Western calendars: US, USD, CA, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
+<!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0-SNAPSHOT</version>
 </dependency>
 
-<!-- APAC calendars: SG, JP, JPY -->
+<!-- APAC calendars: SG, JP, JPY, CNY -->
 <dependency>
   <groupId>com.github.davejoyce.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -117,7 +120,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "UK", "US", "USD"]
+// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
