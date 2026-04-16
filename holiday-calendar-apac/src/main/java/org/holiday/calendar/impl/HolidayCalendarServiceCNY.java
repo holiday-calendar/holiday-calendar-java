@@ -30,9 +30,17 @@ import org.holiday.calendar.observance.lunar.QingmingFestival;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,67 +88,60 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
     private static final String NAME = "China (PBOC) Holidays";
     private static final String NATIONAL_DAY_CONTINUED = "National Day Golden Week (continued)";
 
+    private static final String COMPENSATORY_DAYS_CSV = "cny-compensatory-working-days.csv";
+
     /**
-     * Compensatory (make-up) working days published by China's State Council.
-     * These are Saturdays or Sundays that are designated as working days to
-     * compensate for extended holiday windows.
-     *
-     * <p>Sources: annual State Council holiday notices at www.gov.cn.
-     * Dates must be verified against official notices before each calendar year.</p>
+     * Holder for lazily-loaded compensatory working day data. The JLS (§12.4.1)
+     * guarantees this inner class is initialized at most once, on the first access
+     * to {@code DATA}, without requiring explicit synchronization.
      */
-    private static final Map<Integer, List<LocalDate>> COMPENSATORY_WORKING_DAYS = Map.ofEntries(
-        Map.entry(2020, List.of(
-            LocalDate.of(2020, 1, 19),   // New Year's bridge
-            LocalDate.of(2020, 2, 1),    // Spring Festival bridge
-            LocalDate.of(2020, 4, 26),   // Labour Day bridge
-            LocalDate.of(2020, 5, 9),    // Labour Day bridge
-            LocalDate.of(2020, 6, 28),   // Dragon Boat bridge
-            LocalDate.of(2020, 9, 27),   // National Day bridge
-            LocalDate.of(2020, 10, 10)   // National Day bridge
-        )),
-        Map.entry(2021, List.of(
-            LocalDate.of(2021, 2, 7),    // Spring Festival bridge
-            LocalDate.of(2021, 2, 20),   // Spring Festival bridge
-            LocalDate.of(2021, 4, 25),   // Labour Day bridge
-            LocalDate.of(2021, 5, 8),    // Labour Day bridge
-            LocalDate.of(2021, 9, 18),   // Mid-Autumn bridge
-            LocalDate.of(2021, 10, 9)    // National Day bridge
-        )),
-        Map.entry(2022, List.of(
-            LocalDate.of(2022, 1, 29),   // Spring Festival bridge
-            LocalDate.of(2022, 4, 2),    // Qingming bridge
-            LocalDate.of(2022, 4, 24),   // Labour Day bridge
-            LocalDate.of(2022, 5, 7),    // Labour Day bridge
-            LocalDate.of(2022, 10, 8),   // National Day bridge
-            LocalDate.of(2022, 10, 9)    // National Day bridge
-        )),
-        Map.entry(2023, List.of(
-            LocalDate.of(2023, 1, 28),   // Spring Festival bridge
-            LocalDate.of(2023, 1, 29),   // Spring Festival bridge
-            LocalDate.of(2023, 4, 23),   // Labour Day bridge
-            LocalDate.of(2023, 5, 6),    // Labour Day bridge
-            LocalDate.of(2023, 6, 25),   // Dragon Boat bridge
-            LocalDate.of(2023, 10, 7),   // National Day bridge
-            LocalDate.of(2023, 10, 8)    // National Day bridge
-        )),
-        Map.entry(2024, List.of(
-            LocalDate.of(2024, 2, 4),    // Spring Festival bridge
-            LocalDate.of(2024, 2, 18),   // Spring Festival bridge
-            LocalDate.of(2024, 4, 7),    // Qingming bridge
-            LocalDate.of(2024, 4, 28),   // Labour Day bridge
-            LocalDate.of(2024, 5, 11),   // Labour Day bridge
-            LocalDate.of(2024, 9, 14),   // Mid-Autumn bridge
-            LocalDate.of(2024, 9, 29),   // National Day bridge
-            LocalDate.of(2024, 10, 12)   // National Day bridge
-        )),
-        Map.entry(2025, List.of(
-            LocalDate.of(2025, 1, 26),   // Spring Festival bridge
-            LocalDate.of(2025, 2, 8),    // Spring Festival bridge
-            LocalDate.of(2025, 4, 27),   // Labour Day bridge
-            LocalDate.of(2025, 9, 28),   // National Day bridge
-            LocalDate.of(2025, 10, 11)   // National Day bridge
-        ))
-    );
+    private static final class CompensatoryDaysHolder {
+        static final Map<Integer, List<LocalDate>> DATA = loadFromCsv();
+    }
+
+    private static Map<Integer, List<LocalDate>> loadFromCsv() {
+        Map<Integer, List<LocalDate>> result = new HashMap<>();
+        try (InputStream is = HolidayCalendarServiceCNY.class.getResourceAsStream(COMPENSATORY_DAYS_CSV)) {
+            if (is == null) {
+                throw new IllegalStateException("Required resource not found: " + COMPENSATORY_DAYS_CSV);
+            }
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                int lineNumber = 0;
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    lineNumber++;
+                    line = line.strip();
+                    if (line.isEmpty() || line.startsWith("#")) {
+                        continue;
+                    }
+                    String[] parts = line.split(",", 3);
+                    if (parts.length < 2) {
+                        LOGGER.warn("Skipping malformed line {} in {}: '{}'",
+                                lineNumber, COMPENSATORY_DAYS_CSV, line);
+                        continue;
+                    }
+                    try {
+                        int year = Integer.parseInt(parts[0].strip());
+                        LocalDate date = LocalDate.parse(parts[1].strip());
+                        result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
+                    } catch (NumberFormatException | DateTimeParseException e) {
+                        LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
+                                lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error("Failed to load compensatory working days from {}", COMPENSATORY_DAYS_CSV, e);
+            throw new ExceptionInInitializerError(e);
+        } catch (IllegalStateException e) {
+            LOGGER.error(e.getMessage());
+            throw new ExceptionInInitializerError(e);
+        }
+        Map<Integer, List<LocalDate>> frozen = new HashMap<>(result.size());
+        result.forEach((year, dates) ->
+                frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
+        return Collections.unmodifiableMap(frozen);
+    }
 
     public HolidayCalendarServiceCNY() {
         super(CODE, NAME);
@@ -355,12 +356,12 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
      *         data is unavailable for the requested year
      */
     public List<LocalDate> getCompensatoryWorkingDays(int year) {
-        List<LocalDate> dates = COMPENSATORY_WORKING_DAYS.get(year);
+        List<LocalDate> dates = CompensatoryDaysHolder.DATA.get(year);
         if (dates == null) {
             LOGGER.warn("Compensatory working day data for {} is not available. " +
-                    "Update HolidayCalendarServiceCNY with the State Council annual notice " +
+                    "Update {} with the State Council annual notice " +
                     "once published at http://www.gov.cn/",
-                    year);
+                    year, COMPENSATORY_DAYS_CSV);
             return Collections.emptyList();
         }
         return dates;
