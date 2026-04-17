@@ -37,7 +37,7 @@
         <url>${project.url}</url>
         <connection>scm:git:https://${repo.domain}/${repo.user}/${repo.name}.git</connection>
         <developerConnection>scm:git:git@${repo.domain}:${repo.user}/${repo.name}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0.0</tag>
     </scm>
 
     <issueManagement>
