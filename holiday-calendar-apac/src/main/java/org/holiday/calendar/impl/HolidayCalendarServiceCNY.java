@@ -120,14 +120,7 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
                                 lineNumber, COMPENSATORY_DAYS_CSV, line);
                         continue;
                     }
-                    try {
-                        int year = Integer.parseInt(parts[0].strip());
-                        LocalDate date = LocalDate.parse(parts[1].strip());
-                        result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
-                    } catch (NumberFormatException | DateTimeParseException e) {
-                        LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
-                                lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
-                    }
+                    parseLine(parts, lineNumber, line, result);
                 }
             }
         } catch (IOException e) {
@@ -141,6 +134,18 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
         result.forEach((year, dates) ->
                 frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
         return Collections.unmodifiableMap(frozen);
+    }
+
+    private static void parseLine(String[] parts, int lineNumber, String line,
+                                  Map<Integer, List<LocalDate>> result) {
+        try {
+            int year = Integer.parseInt(parts[0].strip());
+            LocalDate date = LocalDate.parse(parts[1].strip());
+            result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
+        } catch (NumberFormatException | DateTimeParseException e) {
+            LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
+                    lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
+        }
     }
 
     public HolidayCalendarServiceCNY() {
