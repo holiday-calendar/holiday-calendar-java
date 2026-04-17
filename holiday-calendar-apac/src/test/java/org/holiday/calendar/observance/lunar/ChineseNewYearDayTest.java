@@ -16,28 +16,27 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-/**
- * Holiday Calendar APAC module.
- *
- * <p>Provides holiday calendar implementations and observances for Asia-Pacific
- * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Supports Singapore SGX (SG), Tokyo Stock Exchange (JP), Bank of Japan (JPY),
- * and People's Bank of China (CNY).
- */
-module org.holiday.calendar.apac {
-    requires org.holiday.calendar.core;
-    requires org.holiday.calendar.western;
-    requires net.time4j.base;
-    requires org.slf4j;
+package org.holiday.calendar.observance.lunar;
 
-    exports org.holiday.calendar.observance.lunar;
-    exports org.holiday.calendar.observance.islamic;
-    exports org.holiday.calendar.observance.hindu;
-    exports org.holiday.calendar.observance.jp;
+import org.testng.annotations.Test;
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceCNY,
-        org.holiday.calendar.impl.HolidayCalendarServiceSG,
-        org.holiday.calendar.impl.HolidayCalendarServiceJP,
-        org.holiday.calendar.impl.HolidayCalendarServiceJPY;
+import static org.testng.Assert.assertThrows;
+
+public class ChineseNewYearDayTest {
+
+    @Test
+    public void testDayNumberZeroThrows() {
+        assertThrows(IllegalArgumentException.class, () -> new ChineseNewYearDay(0));
+    }
+
+    @Test
+    public void testDayNumberEightThrows() {
+        assertThrows(IllegalArgumentException.class, () -> new ChineseNewYearDay(8));
+    }
+
+    @Test
+    public void testNegativeDayNumberThrows() {
+        assertThrows(IllegalArgumentException.class, () -> new ChineseNewYearDay(-1));
+    }
+
 }
