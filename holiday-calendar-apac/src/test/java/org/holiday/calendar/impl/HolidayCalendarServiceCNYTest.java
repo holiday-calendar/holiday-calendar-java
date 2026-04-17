@@ -27,9 +27,12 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.testng.Assert.*;
@@ -239,6 +242,32 @@ public class HolidayCalendarServiceCNYTest {
         boolean found = calendar.getHolidays().stream()
                 .anyMatch(h -> holidayName.equals(h.getName()));
         assertTrue(found, "Calendar should contain holiday: " + holidayName);
+    }
+
+    // --- parseLine error paths ---
+
+    @Test
+    public void testParseLineInvalidYearIsSkipped() {
+        Map<Integer, List<LocalDate>> result = new HashMap<>();
+        String[] parts = {"not-a-year", "2024-02-04"};
+        HolidayCalendarServiceCNY.parseLine(parts, 1, "not-a-year,2024-02-04", result);
+        assertTrue(result.isEmpty(), "Malformed year should be skipped");
+    }
+
+    @Test
+    public void testParseLineInvalidDateIsSkipped() {
+        Map<Integer, List<LocalDate>> result = new HashMap<>();
+        String[] parts = {"2024", "not-a-date"};
+        HolidayCalendarServiceCNY.parseLine(parts, 1, "2024,not-a-date", result);
+        assertTrue(result.isEmpty(), "Malformed date should be skipped");
+    }
+
+    @Test
+    public void testParseLineValidEntry() {
+        Map<Integer, List<LocalDate>> result = new HashMap<>();
+        String[] parts = {"2024", "2024-02-04", "Spring Festival bridge"};
+        HolidayCalendarServiceCNY.parseLine(parts, 1, "2024,2024-02-04,Spring Festival bridge", result);
+        assertEquals(result.get(2024), List.of(LocalDate.of(2024, 2, 4)));
     }
 
     // --- Helper ---
