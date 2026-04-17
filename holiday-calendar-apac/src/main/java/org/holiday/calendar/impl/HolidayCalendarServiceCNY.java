@@ -111,16 +111,15 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
                 while ((line = reader.readLine()) != null) {
                     lineNumber++;
                     line = line.strip();
-                    if (line.isEmpty() || line.startsWith("#")) {
-                        continue;
+                    if (!line.isEmpty() && !line.startsWith("#")) {
+                        String[] parts = line.split(",", 3);
+                        if (parts.length < 2) {
+                            LOGGER.warn("Skipping malformed line {} in {}: '{}'",
+                                    lineNumber, COMPENSATORY_DAYS_CSV, line);
+                        } else {
+                            parseLine(parts, lineNumber, line, result);
+                        }
                     }
-                    String[] parts = line.split(",", 3);
-                    if (parts.length < 2) {
-                        LOGGER.warn("Skipping malformed line {} in {}: '{}'",
-                                lineNumber, COMPENSATORY_DAYS_CSV, line);
-                        continue;
-                    }
-                    parseLine(parts, lineNumber, line, result);
                 }
             }
         } catch (IOException e) {
