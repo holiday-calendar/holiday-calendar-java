@@ -1,7 +1,7 @@
 # Holiday Calendar (Java)
 
 [![Build](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven-build.yml/badge.svg)](https://github.com/holiday-calendar/holiday-calendar-java/actions/workflows/maven-build.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=holiday-calendar_holiday-calendar-java&branch=develop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=holiday-calendar_holiday-calendar-java&branch=develop)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=holiday-calendar_holiday-calendar-java&metric=alert_status)](https://sonarcloud.io/project/overview?id=holiday-calendar_holiday-calendar-java)
 [![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL_v2.1-blue.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 
 A Java library for defining and calculating holiday calendars. Provides an extensible foundation for generating the calendars used to determine when holidays occur and when they are observed worldwide.
@@ -20,14 +20,25 @@ Key design goals:
 
 | Code | Region |
 |------|--------|
-| `US` | United States National Holidays |
+| `AU` | Australian Securities Exchange (ASX) Holidays |
+| `AUD` | Australia (RBA) Holidays |
 | `CA` | Canada National Holidays |
+| `CAD` | Bank of Canada (Lynx) Holiday Schedule |
+| `CH` | Switzerland (SIX) Holidays |
+| `CHF` | Switzerland (SIC/SNB) Holidays |
+| `CNY` | China (PBOC) Holidays |
+| `DE` | Germany (Xetra) Holidays |
+| `EUR` | Euro (TARGET2) Holidays |
+| `FR` | France (Euronext Paris) Holidays |
+| `GBP` | United Kingdom (CHAPS) Holidays |
+| `JP` | Japan (TSE) Holidays |
+| `JPY` | Japan (BOJ) Holidays |
+| `SG` | Singapore (SGX) Holidays |
 | `UK` | United Kingdom National Holidays |
-| `CH` | Switzerland National Holidays |
-| `DE` | Germany National Holidays |
-| `FR` | France National Holidays |
-| `AU` | Australia National Holidays |
-| `SG` | Singapore Exchange (SGX) Holidays |
+| `US` | United States National Holidays |
+| `USD` | United States (Federal Reserve) Holidays |
+
+For information on adding new calendars or maintaining existing ones, see the [Contributing Guide](CONTRIBUTING.md).
 
 ## Installation
 
@@ -50,23 +61,23 @@ Then add the modules you need:
 ```xml
 <!-- Core API (required) -->
 <dependency>
-  <groupId>com.github.davejoyce.calendar</groupId>
+  <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
 </dependency>
 
-<!-- Western calendars: US, CA, UK, CH, DE, FR, AU -->
+<!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
-  <groupId>com.github.davejoyce.calendar</groupId>
+  <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
 </dependency>
 
-<!-- APAC calendars: SG -->
+<!-- APAC calendars: SG, JP, JPY, CNY -->
 <dependency>
-  <groupId>com.github.davejoyce.calendar</groupId>
+  <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
 </dependency>
 ```
 
@@ -75,9 +86,9 @@ Then add the modules you need:
 ### Look up a calendar and calculate holidays for a year
 
 ```java
-import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarFactory;
-import com.github.davejoyce.calendar.HolidayDate;
+import org.holiday.calendar.HolidayCalendar;
+import org.holiday.calendar.HolidayCalendarFactory;
+import org.holiday.calendar.HolidayDate;
 
 HolidayCalendarFactory factory = new HolidayCalendarFactory();
 
@@ -109,7 +120,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "CA", "DE", "FR", "SG", "CH", "UK", "US"]
+// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
@@ -146,7 +157,7 @@ public class HolidayCalendarServiceJP implements HolidayCalendarService {
 }
 ```
 
-Register the service in `META-INF/services/com.github.davejoyce.calendar.HolidayCalendarService` and add a `provides` directive to `module-info.java`.
+Register the service in `META-INF/services/org.holiday.calendar.HolidayCalendarService` and add a `provides` directive to `module-info.java`.
 
 ## Contributing
 

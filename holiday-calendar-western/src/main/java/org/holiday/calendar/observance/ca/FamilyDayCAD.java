@@ -16,7 +16,7 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package org.holiday.calendar.observance.uk;
+package org.holiday.calendar.observance.ca;
 
 import org.holiday.calendar.function.Observance;
 
@@ -25,38 +25,34 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Observance of Early May bank holiday - a proclaimed bank holiday in the
- * United Kingdom since 1978. In years when the anniversary of VE Day is
- * commemorated, this holiday's observed date is moved to May 8.
+ * Observance of Family Day as a federal Bank Act statutory holiday - the third
+ * Monday in February. This observance reflects the federal adoption of Family
+ * Day, which was first observed by federally regulated institutions (including
+ * the Bank of Canada) on <strong>11 February 2013</strong>.
  *
+ * <p>This class is distinct from {@link FamilyDay}, which models the earlier
+ * provincial Alberta adoption (1990). For the Bank of Canada Lynx settlement
+ * calendar, the 2013 federal start date is authoritative.</p>
+ *
+ * @see FamilyDay
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class EarlyMayBankHoliday implements Observance {
-
-    private final Map<Integer, LocalDate> veDayYearDates;
-
-    public EarlyMayBankHoliday() {
-        veDayYearDates = new HashMap<>();
-        veDayYearDates.put(1995, LocalDate.of(1995, Month.MAY, 8)); // VE Day 50th anniversary
-        veDayYearDates.put(2020, LocalDate.of(2020, Month.MAY, 8)); // VE Day 75th anniversary
-    }
+public class FamilyDayCAD implements Observance {
 
     @Override
     public LocalDate apply(Integer year) {
         if (!test(year)) return null;
-        return veDayYearDates.getOrDefault(year, Year.of(year)
-                                                     .atMonth(Month.MAY)
-                                                     .atDay(1)
-                                                     .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)));
+        return Year.of(year)
+                   .atMonth(Month.FEBRUARY)
+                   .atDay(1)
+                   .with(TemporalAdjusters.dayOfWeekInMonth(3, DayOfWeek.MONDAY));
     }
 
     @Override
     public boolean test(Integer year) {
-        return 1978 <= year;
+        return year != null && year >= 2013;
     }
 
 }

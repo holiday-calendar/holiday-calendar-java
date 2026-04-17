@@ -24,16 +24,37 @@
 </head>
 <body>
   <p>A library for definition and calculation of holiday calendars. This API
-      provides an extensible base for generating the calendars used to determine
-      when holidays occur and are observed worldwide.</p>
+      provides an extensible, service-loader-based framework for generating the
+      calendars used to determine when holidays occur and are observed worldwide.
+      Consumers can use only the regional modules they need, and third parties
+      can contribute new calendars by implementing
+      {@link org.holiday.calendar.HolidayCalendarService}.</p>
 
-  <h2>Modules</h2>
-  <p>This API is divided into modules to enable client software to use only the
-      functionality it requires.</p>
-  <ul>
-    <li>Base API</li>
-    <li>European</li>
-    <li>Non-European</li>
-  </ul>
+  <h1>Modules</h1>
+  <p>This API is divided into three modules to enable client software to depend
+      only on the regions it requires.</p>
+  <dl>
+    <dt><strong>holiday-calendar-core</strong></dt>
+    <dd>Core abstractions and API: {@link org.holiday.calendar.Holiday},
+        {@link org.holiday.calendar.HolidayCalendar},
+        {@link org.holiday.calendar.HolidayDate},
+        {@link org.holiday.calendar.HolidayCalendarFactory}, and the
+        functional interfaces {@link org.holiday.calendar.function.Observance}
+        and {@link org.holiday.calendar.function.DateRoll}.</dd>
+    <dt><strong>holiday-calendar-western</strong></dt>
+    <dd>Holiday calendars for Western markets: United States NYSE (US),
+        United States Federal Reserve (USD), Canada national (CA),
+        Bank of Canada / Lynx (CAD), United Kingdom bank holidays (UK),
+        Bank of England / CHAPS (GBP), SIX Swiss Exchange (CH),
+        Swiss National Bank / SIC (CHF), Germany Xetra / FSE (DE),
+        Euronext Paris (FR), Euro Area / ECB TARGET2 (EUR),
+        Australian Securities Exchange (AU), and
+        Reserve Bank of Australia (AUD).</dd>
+    <dt><strong>holiday-calendar-apac</strong></dt>
+    <dd>Holiday calendars for Asia-Pacific markets: Singapore SGX (SG),
+        Tokyo Stock Exchange (JP), Bank of Japan (JPY), and
+        People's Bank of China (CNY). Uses Time4J for accurate
+        non-Gregorian date calculations such as Chinese New Year.</dd>
+  </dl>
 </body>
 </html>

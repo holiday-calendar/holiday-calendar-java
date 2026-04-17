@@ -16,28 +16,41 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.jp;
+
+import org.holiday.calendar.observance.AbstractObservance;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
+import java.time.temporal.TemporalAdjusters;
+
 /**
- * Holiday Calendar APAC module.
+ * Observance of Marine Day (海の日) — a Japanese national holiday celebrating
+ * the ocean and the maritime nation of Japan.
  *
- * <p>Provides holiday calendar implementations and observances for Asia-Pacific
- * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Supports Singapore SGX (SG), Tokyo Stock Exchange (JP), Bank of Japan (JPY),
- * and People's Bank of China (CNY).
+ * <p>Historical rule changes:
+ * <ul>
+ *   <li>1996–1999: fixed on July 20</li>
+ *   <li>2000+: 3rd Monday in July (Happy Monday System)</li>
+ * </ul>
  */
-module org.holiday.calendar.apac {
-    requires org.holiday.calendar.core;
-    requires org.holiday.calendar.western;
-    requires net.time4j.base;
-    requires org.slf4j;
+public class MarineDay extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.lunar;
-    exports org.holiday.calendar.observance.islamic;
-    exports org.holiday.calendar.observance.hindu;
-    exports org.holiday.calendar.observance.jp;
+    @Override
+    protected LocalDate computeDate(int year) {
+        if (year < 2000) {
+            return LocalDate.of(year, Month.JULY, 20);
+        }
+        return Year.of(year)
+                   .atMonth(Month.JULY)
+                   .atDay(1)
+                   .with(TemporalAdjusters.dayOfWeekInMonth(3, DayOfWeek.MONDAY));
+    }
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceCNY,
-        org.holiday.calendar.impl.HolidayCalendarServiceSG,
-        org.holiday.calendar.impl.HolidayCalendarServiceJP,
-        org.holiday.calendar.impl.HolidayCalendarServiceJPY;
+    @Override
+    protected boolean isValidYear(int year) {
+        return year >= 1996;
+    }
 }

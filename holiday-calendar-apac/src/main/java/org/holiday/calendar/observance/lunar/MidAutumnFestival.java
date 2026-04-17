@@ -16,33 +16,35 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package org.holiday.calendar.observance.uk;
+package org.holiday.calendar.observance.lunar;
 
-import org.holiday.calendar.observance.AbstractObservanceTest;
+import org.holiday.calendar.observance.AbstractObservance;
+import net.time4j.PlainDate;
+import net.time4j.calendar.ChineseCalendar;
+import net.time4j.calendar.EastAsianMonth;
+import net.time4j.calendar.EastAsianYear;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
 
-public class EarlyMayBankHolidayTest extends AbstractObservanceTest {
-
-    public EarlyMayBankHolidayTest() {
-        super(new EarlyMayBankHoliday());
-    }
+/**
+ * Observance of Mid-Autumn Festival (中秋节), which falls on the 15th day of
+ * the 8th month of the Chinese lunisolar calendar — the full moon of autumn.
+ *
+ * <p>The date is computed algorithmically via Time4J's {@code ChineseCalendar},
+ * using the Chinese year that begins in the given Gregorian year.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ */
+public class MidAutumnFestival extends AbstractObservance {
 
     @Override
-    protected List<Object[]> createData() {
-        List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{ 1977, null });
-        data.add(new Object[]{ 1978, LocalDate.of(1978, Month.MAY, 1) });
-        data.add(new Object[]{ 1990, LocalDate.of(1990, Month.MAY, 7) });
-        data.add(new Object[]{ 1995, LocalDate.of(1995, Month.MAY, 8) }); // VE Day 50th anniversary
-        data.add(new Object[]{ 2020, LocalDate.of(2020, Month.MAY, 8) }); // VE Day 75th anniversary
-        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.MAY, 3) });
-        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.MAY, 2) });
-
-        return data;
+    protected LocalDate computeDate(int year) {
+        ChineseCalendar date = ChineseCalendar.of(
+                EastAsianYear.forGregorian(year),
+                EastAsianMonth.valueOf(8),
+                15);
+        PlainDate plain = date.transform(PlainDate.axis());
+        return plain.toTemporalAccessor();
     }
 
 }

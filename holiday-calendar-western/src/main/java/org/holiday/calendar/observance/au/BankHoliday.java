@@ -16,28 +16,30 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.au;
+
+import org.holiday.calendar.observance.AbstractObservance;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
+import java.time.temporal.TemporalAdjusters;
+
 /**
- * Holiday Calendar APAC module.
+ * Observance of the Bank Holiday public holiday in New South Wales, Australia,
+ * observed on the first Monday in August.
  *
- * <p>Provides holiday calendar implementations and observances for Asia-Pacific
- * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Supports Singapore SGX (SG), Tokyo Stock Exchange (JP), Bank of Japan (JPY),
- * and People's Bank of China (CNY).
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-module org.holiday.calendar.apac {
-    requires org.holiday.calendar.core;
-    requires org.holiday.calendar.western;
-    requires net.time4j.base;
-    requires org.slf4j;
+public class BankHoliday extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.lunar;
-    exports org.holiday.calendar.observance.islamic;
-    exports org.holiday.calendar.observance.hindu;
-    exports org.holiday.calendar.observance.jp;
+    @Override
+    protected LocalDate computeDate(int year) {
+        return Year.of(year)
+                   .atMonth(Month.AUGUST)
+                   .atDay(1)
+                   .with(TemporalAdjusters.dayOfWeekInMonth(1, DayOfWeek.MONDAY));
+    }
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceCNY,
-        org.holiday.calendar.impl.HolidayCalendarServiceSG,
-        org.holiday.calendar.impl.HolidayCalendarServiceJP,
-        org.holiday.calendar.impl.HolidayCalendarServiceJPY;
 }

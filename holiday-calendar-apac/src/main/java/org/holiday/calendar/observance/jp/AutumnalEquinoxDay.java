@@ -16,28 +16,31 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.jp;
+
+import org.holiday.calendar.observance.AbstractObservance;
+
+import java.time.LocalDate;
+import java.time.Month;
+
 /**
- * Holiday Calendar APAC module.
+ * Observance of Autumnal Equinox Day (秋分の日) — a Japanese national holiday
+ * observed on the day of the astronomical autumnal equinox in Japan Standard Time.
  *
- * <p>Provides holiday calendar implementations and observances for Asia-Pacific
- * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Supports Singapore SGX (SG), Tokyo Stock Exchange (JP), Bank of Japan (JPY),
- * and People's Bank of China (CNY).
+ * <p>The exact date (September 22 or 23) is computed using the formula published
+ * by the National Astronomical Observatory of Japan (NAOJ) and is valid for years
+ * 1980–2099.
  */
-module org.holiday.calendar.apac {
-    requires org.holiday.calendar.core;
-    requires org.holiday.calendar.western;
-    requires net.time4j.base;
-    requires org.slf4j;
+public class AutumnalEquinoxDay extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.lunar;
-    exports org.holiday.calendar.observance.islamic;
-    exports org.holiday.calendar.observance.hindu;
-    exports org.holiday.calendar.observance.jp;
+    @Override
+    protected LocalDate computeDate(int year) {
+        int day = (int) (23.2488 + 0.242194 * (year - 1980) - Math.floor((year - 1980) / 4.0));
+        return LocalDate.of(year, Month.SEPTEMBER, day);
+    }
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceCNY,
-        org.holiday.calendar.impl.HolidayCalendarServiceSG,
-        org.holiday.calendar.impl.HolidayCalendarServiceJP,
-        org.holiday.calendar.impl.HolidayCalendarServiceJPY;
+    @Override
+    protected boolean isValidYear(int year) {
+        return year >= 1980 && year <= 2099;
+    }
 }
