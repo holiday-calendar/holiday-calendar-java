@@ -21,7 +21,8 @@
  *
  * <p>Provides holiday calendar implementations and observances for Asia-Pacific
  * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Currently supports Singapore (SG), Japan TSE (JP), and Japan BOJ (JPY).
+ * Supports Singapore SGX (SG), Tokyo Stock Exchange (JP), Bank of Japan (JPY),
+ * and People's Bank of China (CNY).
  */
 module org.holiday.calendar.apac {
     requires org.holiday.calendar.core;

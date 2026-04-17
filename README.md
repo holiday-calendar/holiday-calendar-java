@@ -61,23 +61,23 @@ Then add the modules you need:
 ```xml
 <!-- Core API (required) -->
 <dependency>
-  <groupId>com.github.davejoyce.calendar</groupId>
+  <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
 </dependency>
 
 <!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
-  <groupId>com.github.davejoyce.calendar</groupId>
+  <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
 </dependency>
 
 <!-- APAC calendars: SG, JP, JPY, CNY -->
 <dependency>
-  <groupId>com.github.davejoyce.calendar</groupId>
+  <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -86,9 +86,9 @@ Then add the modules you need:
 ### Look up a calendar and calculate holidays for a year
 
 ```java
-import com.github.davejoyce.calendar.HolidayCalendar;
-import com.github.davejoyce.calendar.HolidayCalendarFactory;
-import com.github.davejoyce.calendar.HolidayDate;
+import org.holiday.calendar.HolidayCalendar;
+import org.holiday.calendar.HolidayCalendarFactory;
+import org.holiday.calendar.HolidayDate;
 
 HolidayCalendarFactory factory = new HolidayCalendarFactory();
 
@@ -157,7 +157,7 @@ public class HolidayCalendarServiceJP implements HolidayCalendarService {
 }
 ```
 
-Register the service in `META-INF/services/com.github.davejoyce.calendar.HolidayCalendarService` and add a `provides` directive to `module-info.java`.
+Register the service in `META-INF/services/org.holiday.calendar.HolidayCalendarService` and add a `provides` directive to `module-info.java`.
 
 ## Contributing
 

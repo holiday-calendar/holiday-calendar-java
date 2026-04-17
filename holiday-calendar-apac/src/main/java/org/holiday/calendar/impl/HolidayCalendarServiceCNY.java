@@ -97,50 +97,54 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
      */
     private static final class CompensatoryDaysHolder {
         static final Map<Integer, List<LocalDate>> DATA = loadFromCsv();
-    }
 
-    private static Map<Integer, List<LocalDate>> loadFromCsv() {
-        Map<Integer, List<LocalDate>> result = new HashMap<>();
-        try (InputStream is = HolidayCalendarServiceCNY.class.getResourceAsStream(COMPENSATORY_DAYS_CSV)) {
-            if (is == null) {
-                throw new IllegalStateException("Required resource not found: " + COMPENSATORY_DAYS_CSV);
-            }
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-                int lineNumber = 0;
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    lineNumber++;
-                    line = line.strip();
-                    if (line.isEmpty() || line.startsWith("#")) {
-                        continue;
-                    }
-                    String[] parts = line.split(",", 3);
-                    if (parts.length < 2) {
-                        LOGGER.warn("Skipping malformed line {} in {}: '{}'",
-                                lineNumber, COMPENSATORY_DAYS_CSV, line);
-                        continue;
-                    }
-                    try {
-                        int year = Integer.parseInt(parts[0].strip());
-                        LocalDate date = LocalDate.parse(parts[1].strip());
-                        result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
-                    } catch (NumberFormatException | DateTimeParseException e) {
-                        LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
-                                lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
+        private static Map<Integer, List<LocalDate>> loadFromCsv() {
+            Map<Integer, List<LocalDate>> result = new HashMap<>();
+            try (InputStream is = HolidayCalendarServiceCNY.class.getResourceAsStream(COMPENSATORY_DAYS_CSV)) {
+                if (is == null) {
+                    throw new IllegalStateException("Required resource not found: " + COMPENSATORY_DAYS_CSV);
+                }
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                    int lineNumber = 0;
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        lineNumber++;
+                        line = line.strip();
+                        if (!line.isEmpty() && !line.startsWith("#")) {
+                            String[] parts = line.split(",", 3);
+                            if (parts.length < 2) {
+                                LOGGER.warn("Skipping malformed line {} in {}: '{}'",
+                                        lineNumber, COMPENSATORY_DAYS_CSV, line);
+                            } else {
+                                parseLine(parts, lineNumber, line, result);
+                            }
+                        }
                     }
                 }
+            } catch (IOException e) {
+                LOGGER.error("Failed to load compensatory working days from {}", COMPENSATORY_DAYS_CSV, e);
+                throw new ExceptionInInitializerError(e);
+            } catch (IllegalStateException e) {
+                LOGGER.error(e.getMessage());
+                throw new ExceptionInInitializerError(e);
             }
-        } catch (IOException e) {
-            LOGGER.error("Failed to load compensatory working days from {}", COMPENSATORY_DAYS_CSV, e);
-            throw new ExceptionInInitializerError(e);
-        } catch (IllegalStateException e) {
-            LOGGER.error(e.getMessage());
-            throw new ExceptionInInitializerError(e);
+            Map<Integer, List<LocalDate>> frozen = HashMap.newHashMap(result.size());
+            result.forEach((year, dates) ->
+                    frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
+            return Collections.unmodifiableMap(frozen);
         }
-        Map<Integer, List<LocalDate>> frozen = new HashMap<>(result.size());
-        result.forEach((year, dates) ->
-                frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
-        return Collections.unmodifiableMap(frozen);
+
+        private static void parseLine(String[] parts, int lineNumber, String line,
+                                      Map<Integer, List<LocalDate>> result) {
+            try {
+                int year = Integer.parseInt(parts[0].strip());
+                LocalDate date = LocalDate.parse(parts[1].strip());
+                result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
+            } catch (NumberFormatException | DateTimeParseException e) {
+                LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
+                        lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
+            }
+        }
     }
 
     public HolidayCalendarServiceCNY() {
