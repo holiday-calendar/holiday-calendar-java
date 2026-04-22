@@ -218,4 +218,27 @@ public class HolidayCalendarServiceSGTest {
         assertTrue(found, "Calendar should contain holiday: " + holidayName);
     }
 
+    @Test
+    public void testVesakDay2055PresentAndCorrect() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidays = calendar.calculate(2055);
+        Optional<HolidayDate> vesak = holidays.stream()
+                .filter(hd -> "Vesak Day".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertTrue(vesak.isPresent(), "Vesak Day must be present for 2055");
+        assertEquals(vesak.get().getDate(), LocalDate.of(2055, Month.MAY, 11),
+                "Vesak Day 2055 should be May 11");
+    }
+
+    @Test
+    public void testVesakDay2056AbsentSilently() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidays2056 = calendar.calculate(2056);
+        Optional<HolidayDate> vesak = holidays2056.stream()
+                .filter(hd -> "Vesak Day".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertFalse(vesak.isPresent(),
+                "Vesak Day must be silently absent for 2056 — beyond the table ceiling");
+    }
+
 }
