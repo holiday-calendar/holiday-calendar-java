@@ -22,6 +22,8 @@ import org.holiday.calendar.function.DateRoll;
 
 import java.time.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.Objects.requireNonNull;
 
@@ -240,6 +242,74 @@ public class HolidayCalendar {
             )
             .sorted(Comparator.comparing(HolidayDate::getDate))
             .toList();
+    }
+
+    /**
+     * Calculate the dates of the holidays on this calendar for each year in
+     * the specified range, returning all results as a single chronologically-
+     * sorted list.
+     *
+     * <p>The {@link HolidayDate dates} returned are adjusted according to the
+     * date rolling behavior of this calendar. Note that a rolled date may fall
+     * outside the nominal year range (e.g. a Dec 31 holiday rolled forward to
+     * Jan 1 of the following year).</p>
+     *
+     * <p>Passing {@code fromYear == toYear} is legal and returns the same result
+     * as {@link #calculate(int)}.</p>
+     *
+     * @param fromYear first Common Era (CE) year in the range (inclusive)
+     * @param toYear   last Common Era (CE) year in the range (inclusive)
+     * @return chronologically-sorted list of observed holiday dates across all
+     *         years in {@code [fromYear, toYear]}
+     * @throws IllegalArgumentException if {@code fromYear > toYear}
+     * @see #calculate(int)
+     */
+    public List<HolidayDate> calculate(int fromYear, int toYear) {
+        if (fromYear > toYear) {
+            throw new IllegalArgumentException(
+                "fromYear (" + fromYear + ") must not be greater than toYear (" + toYear + ")");
+        }
+        return IntStream.rangeClosed(fromYear, toYear)
+            .mapToObj(this::calculate)
+            .flatMap(List::stream)
+            .sorted(Comparator.comparing(HolidayDate::getDate))
+            .toList();
+    }
+
+    /**
+     * Calculate the dates of the holidays on this calendar for each year in
+     * the specified range, returning results grouped by year.
+     *
+     * <p>The map contains an entry for every year in {@code [fromYear, toYear]}
+     * inclusive — years with no holidays map to an empty list (dense representation).
+     * Each list is chronologically sorted. The map itself is ordered by ascending year.</p>
+     *
+     * <p>Note: the year key is the <em>nominal</em> year used for calculation.
+     * A rolled date may have a {@link HolidayDate#getDate()} whose year differs
+     * from the map key.</p>
+     *
+     * <p>Passing {@code fromYear == toYear} is legal.</p>
+     *
+     * @param fromYear first Common Era (CE) year in the range (inclusive)
+     * @param toYear   last Common Era (CE) year in the range (inclusive)
+     * @return map of nominal year to chronologically-sorted observed holiday dates,
+     *         ordered by ascending year; all years in the range are present as keys
+     * @throws IllegalArgumentException if {@code fromYear > toYear}
+     * @see #calculate(int)
+     */
+    public Map<Integer, List<HolidayDate>> calculateByYear(int fromYear, int toYear) {
+        if (fromYear > toYear) {
+            throw new IllegalArgumentException(
+                "fromYear (" + fromYear + ") must not be greater than toYear (" + toYear + ")");
+        }
+        return IntStream.rangeClosed(fromYear, toYear)
+            .boxed()
+            .collect(Collectors.toMap(
+                year -> year,
+                    this::calculate,
+                (a, b) -> a,
+                TreeMap::new
+            ));
     }
 
     // -------------------------------------------------------------------------
