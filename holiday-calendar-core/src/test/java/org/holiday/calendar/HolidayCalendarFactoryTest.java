@@ -3,6 +3,7 @@ package org.holiday.calendar;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.OptionalInt;
 
 import static org.testng.Assert.*;
 
@@ -33,6 +34,21 @@ public class HolidayCalendarFactoryTest {
         List<String> codes = factory.listAvailableCodes();
         assertNotNull(codes);
         assertTrue(codes.contains(CODE));
+    }
+
+    @Test
+    public void testDataValidThroughAlgorithmicCalendarReturnsEmpty() {
+        HolidayCalendarFactory factory = new HolidayCalendarFactory();
+        OptionalInt result = factory.dataValidThrough(CODE);
+        assertFalse(result.isPresent(),
+            "Fully algorithmic calendar should return OptionalInt.empty() from dataValidThrough()");
+    }
+
+    @Test(expectedExceptions = HolidayCalendarNotFoundException.class)
+    public void testDataValidThroughInvalidCodeThrowsException() {
+        HolidayCalendarFactory factory = new HolidayCalendarFactory();
+        factory.dataValidThrough(INVALID_CODE);
+        fail("Expected HolidayCalendarNotFoundException to be thrown for code " + INVALID_CODE);
     }
 
 }

@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import static org.testng.Assert.*;
 
@@ -154,6 +155,50 @@ public class HolidayCalendarServiceSGTest {
         assertTrue(nationalDay2023.isPresent());
         assertEquals(nationalDay2023.get().getDate(), LocalDate.of(2023, Month.AUGUST, 9),
                 "National Day 2023 (Aug 9, Wednesday) should not roll");
+    }
+
+    @Test
+    public void testDataValidThroughReturnsPresent() {
+        OptionalInt result = service.dataValidThrough();
+        assertTrue(result.isPresent(),
+            "SG calendar has lookup-table holidays; must return a bounded year from dataValidThrough()");
+    }
+
+    @Test
+    public void testDataValidThroughReturnedYear() {
+        assertEquals(service.dataValidThrough().getAsInt(), 2030,
+            "SG lookup tables (VesakDay, HariRayaHaji, HariRayaPuasa, Deepavali) all end at 2030");
+    }
+
+    @Test
+    public void testDataValidThroughViaFactory() {
+        OptionalInt result = factory.dataValidThrough("SG");
+        assertTrue(result.isPresent());
+        assertEquals(result.getAsInt(), service.dataValidThrough().getAsInt(),
+            "factory.dataValidThrough(\"SG\") must delegate to the service and return the same year");
+    }
+
+    @Test
+    public void testCalculateAtDataValidThroughReturnsAllHolidays() {
+        int boundaryYear = service.dataValidThrough().getAsInt();
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidays = calendar.calculate(boundaryYear);
+        assertFalse(holidays.isEmpty(),
+            "calculate(" + boundaryYear + ") must return holidays — it is within the covered range");
+        assertEquals(holidays.size(), 11,
+            "Expected all 11 SG holidays for boundary year " + boundaryYear);
+    }
+
+    @Test
+    public void testCalculateBeyondDataValidThroughDropsLookupTableHolidays() {
+        int boundaryYear = service.dataValidThrough().getAsInt();
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidaysAtBoundary = calendar.calculate(boundaryYear);
+        // Must not throw — silent omission is the documented calculate() contract
+        List<HolidayDate> holidaysBeyond = calendar.calculate(boundaryYear + 1);
+        assertTrue(holidaysBeyond.size() < holidaysAtBoundary.size(),
+            "Year beyond dataValidThrough should produce fewer holidays (lookup tables exhausted); " +
+            "at boundary: " + holidaysAtBoundary.size() + ", beyond: " + holidaysBeyond.size());
     }
 
     @DataProvider
