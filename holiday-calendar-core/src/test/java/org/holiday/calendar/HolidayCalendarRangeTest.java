@@ -131,7 +131,8 @@ public class HolidayCalendarRangeTest {
         List<HolidayDate> result = calendar.calculate(fromYear, toYear);
 
         assertNotNull(result);
-        assertFalse(result.isEmpty());
+        assertEquals(result.size(), expectedCount,
+            String.format("Expected %d holidays for range [%d, %d]", expectedCount, fromYear, toYear));
 
         for (int i = 0; i < result.size() - 1; i++) {
             assertFalse(result.get(i).getDate().isAfter(result.get(i + 1).getDate()),
