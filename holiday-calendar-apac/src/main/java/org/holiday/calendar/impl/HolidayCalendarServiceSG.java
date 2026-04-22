@@ -32,6 +32,7 @@ import org.holiday.calendar.observance.lunar.ChineseNewYearSecondDay;
 import org.holiday.calendar.observance.lunar.VesakDay;
 
 import java.time.Month;
+import java.util.OptionalInt;
 
 /**
  * Service for provision of Singapore Exchange (SGX) holiday calendar.
@@ -43,8 +44,18 @@ public class HolidayCalendarServiceSG extends AbstractHolidayCalendarService {
     private static final String CODE = "SG";
     private static final String NAME = "Singapore (SGX) Holidays";
 
+    // Boundary year through which all four gazetted lookup-table observances
+    // (VesakDay, HariRayaHaji, HariRayaPuasa, Deepavali) are populated.
+    // Update this constant and all four DATES maps together when new years are added.
+    private static final int DATA_VALID_THROUGH_YEAR = 2030;
+
     public HolidayCalendarServiceSG() {
         super(CODE, NAME);
+    }
+
+    @Override
+    public OptionalInt dataValidThrough() {
+        return OptionalInt.of(DATA_VALID_THROUGH_YEAR);
     }
 
     @Override
