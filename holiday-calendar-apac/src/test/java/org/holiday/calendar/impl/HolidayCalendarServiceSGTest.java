@@ -164,9 +164,9 @@ public class HolidayCalendarServiceSGTest {
     @Test
     public void testDataValidThroughReturnedYear() {
         assertEquals(service.dataValidThrough().getAsInt(), 2030,
-            "HariRayaHaji and VesakDay now extend to 2055 (per #111, #113); " +
-            "HariRayaPuasa (#112) and Deepavali (#114) still end at 2030 — " +
-            "dataValidThrough() returns the minimum across all four tables");
+            "dataValidThrough() returns the minimum ceiling across all four lookup-table observances; " +
+            "VesakDay (#111) and HariRayaPuasa (#112) extend to 2055, but HariRayaHaji and Deepavali " +
+            "still end at 2030, so the minimum remains 2030");
     }
 
     @Test
@@ -264,6 +264,25 @@ public class HolidayCalendarServiceSGTest {
                 .findFirst();
         assertFalse(hariRaya.isPresent(),
                 "Hari Raya Haji must be silently absent for 2056 — beyond the table ceiling");
+    public void testHariRayaPuasa2055PresentAndCorrect() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidays = calendar.calculate(2055);
+        Optional<HolidayDate> hrp = holidays.stream()
+                .filter(hd -> "Hari Raya Puasa".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertTrue(hrp.isPresent(), "Hari Raya Puasa must be present for 2055");
+        assertEquals(hrp.get().getDate(), LocalDate.of(2055, Month.APRIL, 29),
+                "Hari Raya Puasa 2055 should be April 29");
+    }
+
+    @Test
+    public void testHariRayaPuasa2056AbsentSilently() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        Optional<HolidayDate> hrp = calendar.calculate(2056).stream()
+                .filter(hd -> "Hari Raya Puasa".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertFalse(hrp.isPresent(),
+                "Hari Raya Puasa must be silently absent for 2056 — beyond the table ceiling");
     }
 
 }
