@@ -164,7 +164,9 @@ public class HolidayCalendarServiceSGTest {
     @Test
     public void testDataValidThroughReturnedYear() {
         assertEquals(service.dataValidThrough().getAsInt(), 2030,
-            "SG lookup tables (VesakDay, HariRayaHaji, HariRayaPuasa, Deepavali) all end at 2030");
+            "HariRayaHaji and VesakDay now extend to 2055 (per #111, #113); " +
+            "HariRayaPuasa (#112) and Deepavali (#114) still end at 2030 — " +
+            "dataValidThrough() returns the minimum across all four tables");
     }
 
     @Test
@@ -239,6 +241,29 @@ public class HolidayCalendarServiceSGTest {
                 .findFirst();
         assertFalse(vesak.isPresent(),
                 "Vesak Day must be silently absent for 2056 — beyond the table ceiling");
+    }
+
+    @Test
+    public void testHariRayaHaji2055PresentAndCorrect() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidays = calendar.calculate(2055);
+        Optional<HolidayDate> hariRaya = holidays.stream()
+                .filter(hd -> "Hari Raya Haji".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertTrue(hariRaya.isPresent(), "Hari Raya Haji must be present for 2055");
+        assertEquals(hariRaya.get().getDate(), LocalDate.of(2055, Month.JULY, 4),
+                "Hari Raya Haji 2055 should be July 4");
+    }
+
+    @Test
+    public void testHariRayaHaji2056AbsentSilently() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidays2056 = calendar.calculate(2056);
+        Optional<HolidayDate> hariRaya = holidays2056.stream()
+                .filter(hd -> "Hari Raya Haji".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertFalse(hariRaya.isPresent(),
+                "Hari Raya Haji must be silently absent for 2056 — beyond the table ceiling");
     }
 
 }
