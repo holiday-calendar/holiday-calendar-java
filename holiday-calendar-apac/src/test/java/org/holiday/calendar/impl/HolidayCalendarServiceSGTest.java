@@ -165,7 +165,7 @@ public class HolidayCalendarServiceSGTest {
     public void testDataValidThroughReturnedYear() {
         assertEquals(service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year")), 2055,
             "dataValidThrough() returns the minimum ceiling across all four lookup-table observances; " +
-            "all four (VesakDay #111, HariRayaPuasa #112, HariRayaHaji #113, Deepavali #114) " +
+            "all four (VesakDay, HariRayaPuasa, HariRayaHaji, Deepavali) " +
             "now extend through 2055");
     }
 
