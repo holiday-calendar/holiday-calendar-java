@@ -46,8 +46,7 @@ public class HolidayCalendarServiceSG extends AbstractHolidayCalendarService {
 
     // Boundary year through which all four gazetted lookup-table observances
     // (VesakDay, HariRayaHaji, HariRayaPuasa, Deepavali) are populated.
-    // Update this constant and all four DATES maps together when new years are added.
-    private static final int DATA_VALID_THROUGH_YEAR = 2030;
+    private static final int DATA_VALID_THROUGH_YEAR = 2055;
 
     public HolidayCalendarServiceSG() {
         super(CODE, NAME);

@@ -163,10 +163,10 @@ public class HolidayCalendarServiceSGTest {
 
     @Test
     public void testDataValidThroughReturnedYear() {
-        assertEquals(service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year")), 2030,
+        assertEquals(service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year")), 2055,
             "dataValidThrough() returns the minimum ceiling across all four lookup-table observances; " +
-            "VesakDay (#111) and HariRayaPuasa (#112) extend to 2055, but HariRayaHaji and Deepavali " +
-            "still end at 2030, so the minimum remains 2030");
+            "all four (VesakDay, HariRayaPuasa, HariRayaHaji, Deepavali) " +
+            "now extend through 2055");
     }
 
     @Test
@@ -286,6 +286,28 @@ public class HolidayCalendarServiceSGTest {
                 .findFirst();
         assertFalse(hrp.isPresent(),
                 "Hari Raya Puasa must be silently absent for 2056 — beyond the table ceiling");
+    }
+
+    @Test
+    public void testDeepavali2055PresentAndCorrect() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        List<HolidayDate> holidays = calendar.calculate(2055);
+        Optional<HolidayDate> deepavali = holidays.stream()
+                .filter(hd -> "Deepavali".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertTrue(deepavali.isPresent(), "Deepavali must be present for 2055");
+        assertEquals(deepavali.get().getDate(), LocalDate.of(2055, Month.OCTOBER, 19),
+                "Deepavali 2055 should be October 19");
+    }
+
+    @Test
+    public void testDeepavali2056AbsentSilently() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        Optional<HolidayDate> deepavali = calendar.calculate(2056).stream()
+                .filter(hd -> "Deepavali".equals(hd.getHoliday().getName()))
+                .findFirst();
+        assertFalse(deepavali.isPresent(),
+                "Deepavali must be silently absent for 2056 — beyond the table ceiling");
     }
 
 }
