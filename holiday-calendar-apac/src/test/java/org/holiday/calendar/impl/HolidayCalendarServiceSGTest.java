@@ -163,7 +163,7 @@ public class HolidayCalendarServiceSGTest {
 
     @Test
     public void testDataValidThroughReturnedYear() {
-        assertEquals(service.dataValidThrough().getAsInt(), 2030,
+        assertEquals(service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year")), 2030,
             "dataValidThrough() returns the minimum ceiling across all four lookup-table observances; " +
             "VesakDay (#111) and HariRayaPuasa (#112) extend to 2055, but HariRayaHaji and Deepavali " +
             "still end at 2030, so the minimum remains 2030");
@@ -173,13 +173,13 @@ public class HolidayCalendarServiceSGTest {
     public void testDataValidThroughViaFactory() {
         OptionalInt result = factory.dataValidThrough("SG");
         assertTrue(result.isPresent());
-        assertEquals(result.getAsInt(), service.dataValidThrough().getAsInt(),
+        assertEquals(result.getAsInt(), service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year")),
             "factory.dataValidThrough(\"SG\") must delegate to the service and return the same year");
     }
 
     @Test
     public void testCalculateAtDataValidThroughReturnsAllHolidays() {
-        int boundaryYear = service.dataValidThrough().getAsInt();
+        int boundaryYear = service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year"));
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(boundaryYear);
         assertFalse(holidays.isEmpty(),
@@ -190,7 +190,7 @@ public class HolidayCalendarServiceSGTest {
 
     @Test
     public void testCalculateBeyondDataValidThroughDropsLookupTableHolidays() {
-        int boundaryYear = service.dataValidThrough().getAsInt();
+        int boundaryYear = service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year"));
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidaysAtBoundary = calendar.calculate(boundaryYear);
         // Must not throw — silent omission is the documented calculate() contract
@@ -264,6 +264,9 @@ public class HolidayCalendarServiceSGTest {
                 .findFirst();
         assertFalse(hariRaya.isPresent(),
                 "Hari Raya Haji must be silently absent for 2056 — beyond the table ceiling");
+    }
+
+    @Test
     public void testHariRayaPuasa2055PresentAndCorrect() {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(2055);
