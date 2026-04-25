@@ -33,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import static org.testng.Assert.*;
 
@@ -188,6 +189,53 @@ public class HolidayCalendarServiceCNYTest {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(2023);
         assertHolidayDate(holidays, "New Year's Day", LocalDate.of(2023, Month.JANUARY, 1));
+    }
+
+    // --- dataValidThrough / compensatoryDataValidThrough ---
+
+    @Test
+    public void testDataValidThroughReturnsEmpty() {
+        // All CNY public holidays are algorithmic — calculate() has no upper bound.
+        // Returning empty is the honest contract; returning a bounded year would
+        // mislead callers into thinking calculate() breaks after that year.
+        OptionalInt result = service.dataValidThrough();
+        assertFalse(result.isPresent(),
+                "CNY calendar is fully algorithmic; dataValidThrough() must return OptionalInt.empty()");
+    }
+
+    @Test
+    public void testCompensatoryDataValidThrough() {
+        int ceiling = service.compensatoryDataValidThrough();
+        assertTrue(ceiling > 0, "compensatoryDataValidThrough() must return a positive year");
+        assertEquals(ceiling, 2026, "Compensatory working day data currently covers through 2026");
+    }
+
+    @Test
+    public void testCalculateBeyondCompensatoryBoundWorksCorrectly() {
+        // Canary: proves calculate() is NOT affected by the compensatory data ceiling.
+        // If dataValidThrough() were incorrectly overridden to return a bounded year,
+        // this test would expose the lie by proving calculate() still works fully.
+        int yearBeyondCeiling = service.compensatoryDataValidThrough() + 1;
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(yearBeyondCeiling);
+        assertEquals(holidays.size(), 21,
+                "calculate() must return all 21 holidays for years beyond the compensatory data ceiling");
+    }
+
+    @Test
+    public void testGetCompensatoryWorkingDaysAtCeiling() {
+        int ceiling = service.compensatoryDataValidThrough();
+        List<LocalDate> days = service.getCompensatoryWorkingDays(ceiling);
+        assertFalse(days.isEmpty(),
+                "getCompensatoryWorkingDays() must return a non-empty list for the ceiling year");
+    }
+
+    @Test
+    public void testGetCompensatoryWorkingDaysBeyondCeiling() {
+        int yearBeyondCeiling = service.compensatoryDataValidThrough() + 1;
+        List<LocalDate> days = service.getCompensatoryWorkingDays(yearBeyondCeiling);
+        assertNotNull(days);
+        assertTrue(days.isEmpty(),
+                "getCompensatoryWorkingDays() must return empty for a year beyond the data ceiling");
     }
 
     // --- Compensatory working days ---
