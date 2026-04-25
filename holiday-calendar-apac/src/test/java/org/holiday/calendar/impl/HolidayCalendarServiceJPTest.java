@@ -70,10 +70,7 @@ public class HolidayCalendarServiceJPTest {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(2025);
         for (int i = 1; i < holidays.size(); i++) {
-            assertTrue(
-                holidays.get(i).getDate().compareTo(holidays.get(i - 1).getDate()) >= 0,
-                "Holidays should be in chronological order"
-            );
+            assertFalse(holidays.get(i).getDate().isBefore(holidays.get(i - 1).getDate()), "Holidays should be in chronological order");
         }
     }
 
