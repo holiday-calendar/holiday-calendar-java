@@ -319,12 +319,18 @@ public class HolidayCalendarServiceJPTest {
     }
 
     @Test
-    public void testConstitutionMemorialDaySunday2026_RollsToMonday() {
-        // May 3 2026 is Sunday → May 4 (Monday)
+    public void testConstitutionMemorialDaySunday2026_CascadesToMayFifth() {
+        // May 3 2026 is Sunday → naive roll to May 4 (Monday), but May 4 is already
+        // Greenery Day → cascade to May 6 (Wednesday)
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2026);
         Optional<HolidayDate> h = findByName(holidays, "Constitution Memorial Day");
         assertTrue(h.isPresent());
-        assertEquals(h.get().getDate(), LocalDate.of(2026, Month.MAY, 4));
+        assertEquals(h.get().getDate(), LocalDate.of(2026, Month.MAY, 6));
+        // Greenery Day stays on May 4; May 4 must have exactly one entry
+        long may4Count = holidays.stream()
+                .filter(hd -> hd.getDate().equals(LocalDate.of(2026, Month.MAY, 4)))
+                .count();
+        assertEquals(may4Count, 1L, "May 4 2026 must have exactly 1 entry (Greenery Day only)");
     }
 
     // ── No spurious sandwiched-day entries (issue #125 secondary effect) ──────
@@ -352,14 +358,54 @@ public class HolidayCalendarServiceJPTest {
     }
 
     @Test
-    public void testGoldenWeek2031_EntriesOnMayFifth() {
-        // May 3=Sat (Constitution stays), May 4=Sun (Greenery rolls to May 5), May 5=Mon (Children's)
-        // → two HolidayDate entries for May 5 2031
+    public void testGoldenWeek2031_GreeneryDayCascadesToMaySixth() {
+        // May 3=Sat (Constitution stays), May 4=Sun (Greenery naive roll → May 5), May 5=Mon (Children's)
+        // → collision: Greenery cascades to May 6 (Wednesday)
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2031);
-        long count = holidays.stream()
+        Optional<HolidayDate> greenery = findByName(holidays, "Greenery Day");
+        assertTrue(greenery.isPresent());
+        assertEquals(greenery.get().getDate(), LocalDate.of(2031, Month.MAY, 6),
+                "Greenery Day (May 4 Sun) must cascade to May 6 — May 5 is already Children's Day");
+        // May 5 must have exactly one entry (Children's Day only)
+        long may5Count = holidays.stream()
                 .filter(hd -> hd.getDate().equals(LocalDate.of(2031, Month.MAY, 5)))
                 .count();
-        assertEquals(count, 2L, "May 5, 2031 should have exactly 2 holiday entries (Greenery Day + Children's Day)");
+        assertEquals(may5Count, 1L, "May 5 2031 must have exactly 1 entry (Children's Day only)");
+    }
+
+    // ── Cascading substitute holiday rule — issue #126 ────────────────────────
+
+    @DataProvider(name = "jpGoldenWeekCascadeYears")
+    public Object[][] jpGoldenWeekCascadeYears() {
+        return new Object[][] {
+            { 2026, "Constitution Memorial Day", LocalDate.of(2026, Month.MAY, 4), LocalDate.of(2026, Month.MAY, 6) },
+            { 2031, "Greenery Day",              LocalDate.of(2031, Month.MAY, 5), LocalDate.of(2031, Month.MAY, 6) },
+            { 2036, "Greenery Day",              LocalDate.of(2036, Month.MAY, 5), LocalDate.of(2036, Month.MAY, 6) },
+            { 2037, "Constitution Memorial Day", LocalDate.of(2037, Month.MAY, 4), LocalDate.of(2037, Month.MAY, 6) },
+            { 2042, "Greenery Day",              LocalDate.of(2042, Month.MAY, 5), LocalDate.of(2042, Month.MAY, 6) },
+            { 2043, "Constitution Memorial Day", LocalDate.of(2043, Month.MAY, 4), LocalDate.of(2043, Month.MAY, 6) },
+            { 2048, "Constitution Memorial Day", LocalDate.of(2048, Month.MAY, 4), LocalDate.of(2048, Month.MAY, 6) },
+            { 2053, "Greenery Day",              LocalDate.of(2053, Month.MAY, 5), LocalDate.of(2053, Month.MAY, 6) },
+            { 2054, "Constitution Memorial Day", LocalDate.of(2054, Month.MAY, 4), LocalDate.of(2054, Month.MAY, 6) },
+        };
+    }
+
+    @Test(dataProvider = "jpGoldenWeekCascadeYears")
+    public void testJP_GoldenWeekCascade(int year, String name, LocalDate collision, LocalDate cascaded) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+        // Cascaded date is present under the correct holiday name
+        Optional<HolidayDate> hd = holidays.stream()
+                .filter(h -> name.equals(h.getHoliday().getName()) && cascaded.equals(h.getDate()))
+                .findFirst();
+        assertTrue(hd.isPresent(), year + ": " + name + " must be observed on " + cascaded);
+        // Holiday does not appear at the naive collision date
+        long countAtCollision = holidays.stream()
+                .filter(h -> name.equals(h.getHoliday().getName()) && collision.equals(h.getDate()))
+                .count();
+        assertEquals(countAtCollision, 0L, year + ": " + name + " must not appear at " + collision);
+        // No date appears more than once in the full list
+        long uniqueDates = holidays.stream().map(HolidayDate::date).distinct().count();
+        assertEquals(uniqueDates, holidays.size(), year + ": no two holidays should share a date");
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
