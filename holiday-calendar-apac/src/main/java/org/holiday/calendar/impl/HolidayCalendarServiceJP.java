@@ -45,7 +45,7 @@ public class HolidayCalendarServiceJP extends AbstractHolidayCalendarService {
         HolidayCalendar base = HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
-                .dateRoll(DateRolls.followingMonday())
+                .dateRoll(DateRolls.sundayToMonday())
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
                 .holidays(JapaneseHolidays.baseHolidays())
                 .build();

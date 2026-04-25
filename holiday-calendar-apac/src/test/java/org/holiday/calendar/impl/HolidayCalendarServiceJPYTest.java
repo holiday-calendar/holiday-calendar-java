@@ -22,6 +22,7 @@ import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.HolidayCalendarFactory;
 import org.holiday.calendar.HolidayDate;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
@@ -69,10 +70,7 @@ public class HolidayCalendarServiceJPYTest {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(2025);
         for (int i = 1; i < holidays.size(); i++) {
-            assertTrue(
-                holidays.get(i).getDate().compareTo(holidays.get(i - 1).getDate()) >= 0,
-                "Holidays should be in chronological order"
-            );
+            assertFalse(holidays.get(i).getDate().isBefore(holidays.get(i - 1).getDate()), "Holidays should be in chronological order");
         }
     }
 
@@ -134,6 +132,109 @@ public class HolidayCalendarServiceJPYTest {
                            && hd.getDate().equals(LocalDate.of(2009, Month.SEPTEMBER, 22)))
                 .findFirst();
         assertTrue(sandwiched.isPresent(), "Sep 22, 2009 should be a National Holiday in JPY calendar");
+    }
+
+    // ── Saturday holidays must NOT roll (issue #125) ─────────────────────────
+
+    @DataProvider(name = "jpySaturdayHolidays")
+    public Object[][] jpySaturdayHolidays() {
+        return new Object[][] {
+            { 2028, "New Year's Day",             LocalDate.of(2028, 1,  1)  },
+            { 2028, "Showa Day",                  LocalDate.of(2028, 4,  29) },
+            { 2029, "Children's Day",             LocalDate.of(2029, 5,  5)  },
+            { 2030, "Emperor's Birthday",         LocalDate.of(2030, 2,  23) },
+            { 2031, "Constitution Memorial Day",  LocalDate.of(2031, 5,  3)  },
+            { 2033, "New Year's Day",             LocalDate.of(2033, 1,  1)  },
+            { 2034, "National Foundation Day",    LocalDate.of(2034, 2,  11) },
+            { 2034, "Autumnal Equinox Day",       LocalDate.of(2034, 9,  23) },
+        };
+    }
+
+    @Test(dataProvider = "jpySaturdayHolidays")
+    public void testJPY_SaturdayHoliday_NoRoll(int year, String name, LocalDate expected) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+        Optional<HolidayDate> h = findByName(holidays, name);
+        assertTrue(h.isPresent(), name + " should be present in JPY " + year);
+        assertEquals(h.get().getDate(), expected,
+                name + " on Saturday should remain at natural date in JPY calendar");
+    }
+
+    @Test
+    public void testNewYearsDay2028_StaysJanFirst_NoClashWithBOJClosures() {
+        // Jan 1 2028 is Saturday: New Year's Day stays Jan 1 (no roll).
+        // BOJ Year-Start closures (Jan 2, Jan 3) are rollable=false and unaffected.
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2028);
+        Optional<HolidayDate> newYearsDay = findByName(holidays, "New Year's Day");
+        assertTrue(newYearsDay.isPresent());
+        assertEquals(newYearsDay.get().getDate(), LocalDate.of(2028, Month.JANUARY, 1),
+                "New Year's Day must stay on Jan 1 (Saturday) — no substitute");
+        assertTrue(findByDate(holidays, LocalDate.of(2028, Month.JANUARY, 2)).isPresent(),
+                "Jan 2 BOJ Year-Start Holiday must still be present");
+        assertTrue(findByDate(holidays, LocalDate.of(2028, Month.JANUARY, 3)).isPresent(),
+                "Jan 3 BOJ Year-Start Holiday must still be present");
+    }
+
+    // ── Sunday holidays still roll to Monday (regression guards) ─────────────
+
+    @Test
+    public void testNationalFoundationDaySunday2029_RollsToMonday_JPY() {
+        // Feb 11 2029 is Sunday → Feb 12 (Monday)
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2029);
+        Optional<HolidayDate> h = findByName(holidays, "National Foundation Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2029, Month.FEBRUARY, 12));
+    }
+
+    @Test
+    public void testConstitutionMemorialDaySunday2026_RollsToMonday_JPY() {
+        // May 3 2026 is Sunday → May 4 (Monday)
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2026);
+        Optional<HolidayDate> h = findByName(holidays, "Constitution Memorial Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2026, Month.MAY, 4));
+    }
+
+    // ── No spurious sandwiched-day entries (issue #125 secondary effect) ──────
+
+    @Test
+    public void testNoSpuriousSandwichedDay2028_JPY() {
+        // Old code: Showa Day (Apr 29 Sat) rolled to May 1 → phantom National Holiday on May 2.
+        // After fix: Apr 29 stays; no 2-day gap to Constitution (May 3).
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2028);
+        boolean phantomMay2 = holidays.stream()
+                .anyMatch(hd -> "National Holiday".equals(hd.getHoliday().getName())
+                        && hd.getDate().equals(LocalDate.of(2028, Month.MAY, 2)));
+        assertFalse(phantomMay2, "May 2, 2028 must not be a spurious National Holiday in JPY calendar");
+    }
+
+    @Test
+    public void testNoSpuriousSandwichedDay2031_JPY() {
+        // May 3=Sat (Constitution stays), May 4=Sun (middle), May 5=Mon (Children's).
+        // Middle day is Sunday → detector must NOT inject a National Holiday on May 4.
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2031);
+        boolean phantomMay4 = holidays.stream()
+                .anyMatch(hd -> "National Holiday".equals(hd.getHoliday().getName())
+                        && hd.getDate().equals(LocalDate.of(2031, Month.MAY, 4)));
+        assertFalse(phantomMay4, "May 4, 2031 must not be a spurious National Holiday in JPY calendar");
+    }
+
+    // ── Known pre-existing behavior: Jan 1=Sunday produces duplicate Jan 2 in JPY ──
+    //
+    // When New Year's Day (Jan 1) falls on Sunday it rolls to Jan 2, which is
+    // already occupied by the non-rollable BOJ Year-Start Holiday.  The JPY
+    // output contains two HolidayDate entries for Jan 2 in those years (e.g. 2034).
+    // This is pre-existing behaviour, unaffected by the issue-#125 fix.
+
+    @Test
+    public void testJPY_NewYearsDay2034_DuplicateJan2_KnownBehavior() {
+        // Jan 1 2034 is Sunday → New Year's Day rolls to Jan 2.
+        // BOJ Year-Start Holiday is fixed, rollable=false, also on Jan 2.
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2034);
+        long jan2Count = holidays.stream()
+                .filter(hd -> hd.getDate().equals(LocalDate.of(2034, Month.JANUARY, 2)))
+                .count();
+        assertEquals(jan2Count, 2L,
+                "Jan 2 2034 should have 2 entries (New Year's Day rolled + BOJ Year-Start)");
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────

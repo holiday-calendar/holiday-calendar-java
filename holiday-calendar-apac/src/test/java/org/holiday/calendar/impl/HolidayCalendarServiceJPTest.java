@@ -22,6 +22,7 @@ import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.HolidayCalendarFactory;
 import org.holiday.calendar.HolidayDate;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
@@ -69,10 +70,7 @@ public class HolidayCalendarServiceJPTest {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(2025);
         for (int i = 1; i < holidays.size(); i++) {
-            assertTrue(
-                holidays.get(i).getDate().compareTo(holidays.get(i - 1).getDate()) >= 0,
-                "Holidays should be in chronological order"
-            );
+            assertFalse(holidays.get(i).getDate().isBefore(holidays.get(i - 1).getDate()), "Holidays should be in chronological order");
         }
     }
 
@@ -210,6 +208,158 @@ public class HolidayCalendarServiceJPTest {
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(1995);
         assertFalse(findByName(holidays, "Marine Day").isPresent(),
                     "Marine Day should not appear before 1996");
+    }
+
+    // ── Saturday holidays must NOT roll (issue #125) ─────────────────────────
+
+    @Test
+    public void testNewYearsDaySaturday2028_NoRoll() {
+        // Jan 1 2028 is Saturday — no substitute under Japanese law
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2028);
+        Optional<HolidayDate> h = findByName(holidays, "New Year's Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2028, Month.JANUARY, 1));
+    }
+
+    @Test
+    public void testShowaDaySaturday2028_NoRoll() {
+        // Apr 29 2028 is Saturday
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2028);
+        Optional<HolidayDate> h = findByName(holidays, "Showa Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2028, Month.APRIL, 29));
+    }
+
+    @Test
+    public void testChildrensDaySaturday2029_NoRoll() {
+        // May 5 2029 is Saturday
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2029);
+        Optional<HolidayDate> h = findByName(holidays, "Children's Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2029, Month.MAY, 5));
+    }
+
+    @Test
+    public void testEmperorsBirthdaySaturday2030_NoRoll() {
+        // Feb 23 2030 is Saturday
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2030);
+        Optional<HolidayDate> h = findByName(holidays, "Emperor's Birthday");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2030, Month.FEBRUARY, 23));
+    }
+
+    @Test
+    public void testConstitutionMemorialDaySaturday2031_NoRoll() {
+        // May 3 2031 is Saturday
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2031);
+        Optional<HolidayDate> h = findByName(holidays, "Constitution Memorial Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2031, Month.MAY, 3));
+    }
+
+    @Test
+    public void testNewYearsDaySaturday2033_NoRoll() {
+        // Jan 1 2033 is Saturday
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2033);
+        Optional<HolidayDate> h = findByName(holidays, "New Year's Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2033, Month.JANUARY, 1));
+    }
+
+    @Test
+    public void testAutumnalEquinox2034_Saturday_NoRoll() {
+        // Sep 23 2034 is Saturday — equinox dates computed via astronomical formula
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2034);
+        Optional<HolidayDate> h = findByName(holidays, "Autumnal Equinox Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2034, Month.SEPTEMBER, 23));
+    }
+
+    @DataProvider(name = "jpSaturdayHolidays")
+    public Object[][] jpSaturdayHolidays() {
+        return new Object[][] {
+            { 2028, "New Year's Day",             LocalDate.of(2028, 1,  1)  },
+            { 2028, "Showa Day",                  LocalDate.of(2028, 4,  29) },
+            { 2029, "Children's Day",             LocalDate.of(2029, 5,  5)  },
+            { 2030, "Emperor's Birthday",         LocalDate.of(2030, 2,  23) },
+            { 2031, "Constitution Memorial Day",  LocalDate.of(2031, 5,  3)  },
+            { 2033, "New Year's Day",             LocalDate.of(2033, 1,  1)  },
+            { 2034, "National Foundation Day",    LocalDate.of(2034, 2,  11) },
+            { 2034, "Autumnal Equinox Day",       LocalDate.of(2034, 9,  23) },
+        };
+    }
+
+    @Test(dataProvider = "jpSaturdayHolidays")
+    public void testJP_SaturdayHoliday_NoRoll(int year, String name, LocalDate expected) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+        Optional<HolidayDate> h = findByName(holidays, name);
+        assertTrue(h.isPresent(), name + " should be present in " + year);
+        assertEquals(h.get().getDate(), expected,
+                name + " on Saturday should remain at natural date");
+    }
+
+    // ── Sunday holidays still roll to Monday (regression guards) ─────────────
+
+    @Test
+    public void testNationalFoundationDaySunday2029_RollsToMonday() {
+        // Feb 11 2029 is Sunday → Feb 12 (Monday)
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2029);
+        Optional<HolidayDate> h = findByName(holidays, "National Foundation Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2029, Month.FEBRUARY, 12));
+    }
+
+    @Test
+    public void testShowaDaySunday2029_RollsToMonday() {
+        // Apr 29 2029 is Sunday → Apr 30 (Monday)
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2029);
+        Optional<HolidayDate> h = findByName(holidays, "Showa Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2029, Month.APRIL, 30));
+    }
+
+    @Test
+    public void testConstitutionMemorialDaySunday2026_RollsToMonday() {
+        // May 3 2026 is Sunday → May 4 (Monday)
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2026);
+        Optional<HolidayDate> h = findByName(holidays, "Constitution Memorial Day");
+        assertTrue(h.isPresent());
+        assertEquals(h.get().getDate(), LocalDate.of(2026, Month.MAY, 4));
+    }
+
+    // ── No spurious sandwiched-day entries (issue #125 secondary effect) ──────
+
+    @Test
+    public void testNoSpuriousSandwichedDay2028() {
+        // Old code: Showa Day (Apr 29 Sat) rolled to May 1; gap to Constitution (May 3) = 2 days
+        // → phantom National Holiday on May 2 (Tuesday). After fix: Apr 29 stays; no 2-day gap.
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2028);
+        boolean phantomMay2 = holidays.stream()
+                .anyMatch(hd -> "National Holiday".equals(hd.getHoliday().getName())
+                        && hd.getDate().equals(LocalDate.of(2028, Month.MAY, 2)));
+        assertFalse(phantomMay2, "May 2, 2028 must not be a spurious National Holiday");
+    }
+
+    @Test
+    public void testNoSpuriousSandwichedDay2031() {
+        // May 3 (Sat) stays, May 4 (Sun) is the middle, May 5 (Mon) is Children's Day.
+        // Detector sees Sunday in the gap → must NOT inject a National Holiday on May 4.
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2031);
+        boolean phantomMay4 = holidays.stream()
+                .anyMatch(hd -> "National Holiday".equals(hd.getHoliday().getName())
+                        && hd.getDate().equals(LocalDate.of(2031, Month.MAY, 4)));
+        assertFalse(phantomMay4, "May 4, 2031 must not be a spurious National Holiday (middle day is Sunday)");
+    }
+
+    @Test
+    public void testGoldenWeek2031_EntriesOnMayFifth() {
+        // May 3=Sat (Constitution stays), May 4=Sun (Greenery rolls to May 5), May 5=Mon (Children's)
+        // → two HolidayDate entries for May 5 2031
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2031);
+        long count = holidays.stream()
+                .filter(hd -> hd.getDate().equals(LocalDate.of(2031, Month.MAY, 5)))
+                .count();
+        assertEquals(count, 2L, "May 5, 2031 should have exactly 2 holiday entries (Greenery Day + Children's Day)");
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
