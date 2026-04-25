@@ -95,54 +95,61 @@ class JapaneseHolidayCalendar extends HolidayCalendar {
 
     private List<HolidayDate> applyCascade(List<HolidayDate> base, int year) {
         List<HolidayDate> result = new ArrayList<>(base);
-        // occupiedDates drives the candidate-advance loop.  It is a Set, so when two
-        // holidays share a date before cascade it stores that date only once; we therefore
-        // use a separate list scan to detect a collision with a different holiday.
         Set<LocalDate> occupiedDates = new HashSet<>();
         for (HolidayDate hd : base) {
             occupiedDates.add(hd.date());
         }
 
         for (int i = 0; i < result.size(); i++) {
-            HolidayDate hd = result.get(i);
-            Holiday h = hd.holiday();
-
-            if (!h.isRollable()) continue;
-
-            LocalDate rawDate = h.dateForYear(year).orElse(null);
-            if (rawDate == null || rawDate.getDayOfWeek() != DayOfWeek.SUNDAY) continue;
-
-            LocalDate expectedMonday = rawDate.plusDays(1);
-            if (!hd.date().equals(expectedMonday)) continue;
-
-            // Check whether any OTHER holiday occupies expectedMonday.  We scan the
-            // result list directly rather than using occupiedDates because the Set stores
-            // each date once — two holidays sharing the same date would produce a single
-            // entry, making it impossible to distinguish "self" from "other".
-            boolean hasOtherHolidayOnMonday = false;
-            for (int j = 0; j < result.size(); j++) {
-                if (j != i && expectedMonday.equals(result.get(j).date())) {
-                    hasOtherHolidayOnMonday = true;
-                    break;
-                }
+            LocalDate cascaded = findCascadeTarget(result, i, year, occupiedDates);
+            if (cascaded != null) {
+                result.set(i, new HolidayDate(result.get(i).holiday(), cascaded));
+                occupiedDates.add(cascaded);
             }
-            if (!hasOtherHolidayOnMonday) continue;
-
-            // True collision: advance day-by-day to the next free weekday within the same year.
-            // expectedMonday stays in occupiedDates because the other holiday still occupies it.
-            LocalDate candidate = expectedMonday.plusDays(1);
-            while (candidate.getYear() == year
-                    && (occupiedDates.contains(candidate)
-                        || candidate.getDayOfWeek() == DayOfWeek.SATURDAY
-                        || candidate.getDayOfWeek() == DayOfWeek.SUNDAY)) {
-                candidate = candidate.plusDays(1);
-            }
-            if (candidate.getYear() != year) continue;
-
-            result.set(i, new HolidayDate(h, candidate));
-            occupiedDates.add(candidate);
         }
 
         return result.stream().sorted(Comparator.comparing(HolidayDate::date)).toList();
+    }
+
+    private LocalDate findCascadeTarget(List<HolidayDate> result, int i, int year,
+                                        Set<LocalDate> occupiedDates) {
+        HolidayDate hd = result.get(i);
+        Holiday h = hd.holiday();
+
+        if (!h.isRollable()) return null;
+
+        LocalDate rawDate = h.dateForYear(year).orElse(null);
+        if (rawDate == null || rawDate.getDayOfWeek() != DayOfWeek.SUNDAY) return null;
+
+        LocalDate expectedMonday = rawDate.plusDays(1);
+        if (!hd.date().equals(expectedMonday)) return null;
+
+        // Scan the list rather than occupiedDates: the Set stores each date once, so
+        // two holidays sharing the same date look identical in the Set — we need to
+        // know whether a *different* holiday occupies expectedMonday.
+        if (!hasOtherHolidayOn(result, i, expectedMonday)) return null;
+
+        // expectedMonday stays in occupiedDates (the other holiday still occupies it).
+        return firstFreeWeekday(expectedMonday, year, occupiedDates);
+    }
+
+    private boolean hasOtherHolidayOn(List<HolidayDate> result, int excludeIndex, LocalDate date) {
+        for (int j = 0; j < result.size(); j++) {
+            if (j != excludeIndex && date.equals(result.get(j).date())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private LocalDate firstFreeWeekday(LocalDate after, int year, Set<LocalDate> occupiedDates) {
+        LocalDate candidate = after.plusDays(1);
+        while (candidate.getYear() == year
+                && (occupiedDates.contains(candidate)
+                    || candidate.getDayOfWeek() == DayOfWeek.SATURDAY
+                    || candidate.getDayOfWeek() == DayOfWeek.SUNDAY)) {
+            candidate = candidate.plusDays(1);
+        }
+        return candidate.getYear() == year ? candidate : null;
     }
 }
