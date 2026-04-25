@@ -210,6 +210,74 @@ public class HolidayCalendarServiceJPTest {
                     "Marine Day should not appear before 1996");
     }
 
+    // ── 2021 Tokyo Olympics holiday relocations (issue #127) ─────────────────
+
+    @DataProvider(name = "jp2021OlympicsHolidays")
+    public Object[][] jp2021OlympicsHolidays() {
+        return new Object[][] {
+            { "Marine Day",   LocalDate.of(2021, Month.JULY,    22) },
+            { "Sports Day",   LocalDate.of(2021, Month.JULY,    23) },
+            { "Mountain Day", LocalDate.of(2021, Month.AUGUST,   9) },
+        };
+    }
+
+    @Test(dataProvider = "jp2021OlympicsHolidays")
+    public void testJP_2021_TokyoOlympicsRelocations(String name, LocalDate expected) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2021);
+        Optional<HolidayDate> h = findByName(holidays, name);
+        assertTrue(h.isPresent(), "2021: " + name + " must be present");
+        assertEquals(h.get().getDate(), expected,
+                "2021: " + name + " must be on relocated date, not formula date");
+    }
+
+    @DataProvider(name = "jp2021FormulaDatesMustBeAbsent")
+    public Object[][] jp2021FormulaDatesMustBeAbsent() {
+        return new Object[][] {
+            { "Marine Day",   LocalDate.of(2021, Month.JULY,    19) },
+            { "Sports Day",   LocalDate.of(2021, Month.OCTOBER, 11) },
+            { "Mountain Day", LocalDate.of(2021, Month.AUGUST,  11) },
+        };
+    }
+
+    @Test(dataProvider = "jp2021FormulaDatesMustBeAbsent")
+    public void testJP_2021_FormulaDateAbsent(String name, LocalDate formulaDate) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2021);
+        long count = holidays.stream()
+                .filter(hd -> name.equals(hd.getHoliday().getName())
+                           && formulaDate.equals(hd.getDate()))
+                .count();
+        assertEquals(count, 0L, "2021: " + name + " must NOT appear on formula date " + formulaDate);
+    }
+
+    @DataProvider(name = "jpBoundaryYears")
+    public Object[][] jpBoundaryYears() {
+        return new Object[][] {
+            { 2020, "Marine Day",   LocalDate.of(2020, Month.JULY,    20) },
+            { 2020, "Sports Day",   LocalDate.of(2020, Month.OCTOBER, 12) },
+            { 2020, "Mountain Day", LocalDate.of(2020, Month.AUGUST,  11) },
+            { 2022, "Marine Day",   LocalDate.of(2022, Month.JULY,    18) },
+            { 2022, "Sports Day",   LocalDate.of(2022, Month.OCTOBER, 10) },
+            { 2022, "Mountain Day", LocalDate.of(2022, Month.AUGUST,  11) },
+        };
+    }
+
+    @Test(dataProvider = "jpBoundaryYears")
+    public void testJP_BoundaryYears_FormulaUnchanged(int year, String name, LocalDate expected) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+        Optional<HolidayDate> h = findByName(holidays, name);
+        assertTrue(h.isPresent(), year + ": " + name + " must be present");
+        assertEquals(h.get().getDate(), expected,
+                year + ": " + name + " must use formula, not 2021 override");
+    }
+
+    @Test
+    public void testJP_NoDateDuplicatesIn2021() {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2021);
+        long uniqueDates = holidays.stream().map(HolidayDate::date).distinct().count();
+        assertEquals(uniqueDates, (long) holidays.size(),
+                "2021: no two holidays should share a date");
+    }
+
     // ── Saturday holidays must NOT roll (issue #125) ─────────────────────────
 
     @Test

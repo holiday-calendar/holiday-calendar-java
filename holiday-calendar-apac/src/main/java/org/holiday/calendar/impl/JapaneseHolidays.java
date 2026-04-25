@@ -144,7 +144,10 @@ class JapaneseHolidays {
                                  "Observed from 2016.")
                     .type(Holiday.Type.FLOATING)
                     .rollable(true)
-                    .observance(y -> y >= 2016 ? LocalDate.of(y, Month.AUGUST, 11) : null)
+                    .observance(y -> {
+                        if (y == 2021) return LocalDate.of(2021, Month.AUGUST, 9);
+                        return y >= 2016 ? LocalDate.of(y, Month.AUGUST, 11) : null;
+                    })
                     .build(),
 
             Holiday.builder()
