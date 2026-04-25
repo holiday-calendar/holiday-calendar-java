@@ -186,12 +186,18 @@ public class HolidayCalendarServiceJPYTest {
     }
 
     @Test
-    public void testConstitutionMemorialDaySunday2026_RollsToMonday_JPY() {
-        // May 3 2026 is Sunday → May 4 (Monday)
+    public void testConstitutionMemorialDaySunday2026_CascadesToMaySixth_JPY() {
+        // May 3 2026 is Sunday → naive roll to May 4 (Monday), but May 4 is already
+        // Greenery Day → cascade to May 6 (Wednesday)
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2026);
         Optional<HolidayDate> h = findByName(holidays, "Constitution Memorial Day");
         assertTrue(h.isPresent());
-        assertEquals(h.get().getDate(), LocalDate.of(2026, Month.MAY, 4));
+        assertEquals(h.get().getDate(), LocalDate.of(2026, Month.MAY, 6));
+        // May 4 must have exactly one entry (Greenery Day only)
+        long may4Count = holidays.stream()
+                .filter(hd -> hd.getDate().equals(LocalDate.of(2026, Month.MAY, 4)))
+                .count();
+        assertEquals(may4Count, 1L, "May 4 2026 must have exactly 1 entry (Greenery Day only) in JPY");
     }
 
     // ── No spurious sandwiched-day entries (issue #125 secondary effect) ──────
@@ -218,23 +224,74 @@ public class HolidayCalendarServiceJPYTest {
         assertFalse(phantomMay4, "May 4, 2031 must not be a spurious National Holiday in JPY calendar");
     }
 
-    // ── Known pre-existing behavior: Jan 1=Sunday produces duplicate Jan 2 in JPY ──
+    // ── New Year's Day cascade when Jan 1=Sunday (JPY-specific, issue #126) ──────
     //
-    // When New Year's Day (Jan 1) falls on Sunday it rolls to Jan 2, which is
-    // already occupied by the non-rollable BOJ Year-Start Holiday.  The JPY
-    // output contains two HolidayDate entries for Jan 2 in those years (e.g. 2034).
-    // This is pre-existing behaviour, unaffected by the issue-#125 fix.
+    // When New Year's Day (Jan 1) falls on Sunday its naive Monday substitute is
+    // Jan 2, which is already a non-rollable BOJ Year-Start Holiday.  Jan 3 is
+    // also a BOJ Year-Start Holiday.  The cascade advances New Year's Day to Jan 4
+    // (the first free weekday), leaving Jan 2 and Jan 3 untouched.
 
-    @Test
-    public void testJPY_NewYearsDay2034_DuplicateJan2_KnownBehavior() {
-        // Jan 1 2034 is Sunday → New Year's Day rolls to Jan 2.
-        // BOJ Year-Start Holiday is fixed, rollable=false, also on Jan 2.
-        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2034);
+    @DataProvider(name = "jpyNewYearCascadeYears")
+    public Object[][] jpyNewYearCascadeYears() {
+        return new Object[][] {
+            { 2034, LocalDate.of(2034, Month.JANUARY, 4) },
+            { 2040, LocalDate.of(2040, Month.JANUARY, 4) },
+            { 2045, LocalDate.of(2045, Month.JANUARY, 4) },
+            { 2051, LocalDate.of(2051, Month.JANUARY, 4) },
+        };
+    }
+
+    @Test(dataProvider = "jpyNewYearCascadeYears")
+    public void testJPY_NewYearCascade(int year, LocalDate cascaded) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+        // New Year's Day must be on the cascaded date
+        Optional<HolidayDate> nyd = findByName(holidays, "New Year's Day");
+        assertTrue(nyd.isPresent(), year + ": New Year's Day must be present");
+        assertEquals(nyd.get().getDate(), cascaded,
+                year + ": New Year's Day (Jan 1 Sun) must cascade to " + cascaded);
+        // Jan 2 must have exactly one entry (BOJ Year-Start only, no duplicate)
         long jan2Count = holidays.stream()
-                .filter(hd -> hd.getDate().equals(LocalDate.of(2034, Month.JANUARY, 2)))
+                .filter(hd -> hd.getDate().equals(LocalDate.of(year, Month.JANUARY, 2)))
                 .count();
-        assertEquals(jan2Count, 2L,
-                "Jan 2 2034 should have 2 entries (New Year's Day rolled + BOJ Year-Start)");
+        assertEquals(jan2Count, 1L, year + ": Jan 2 must have exactly 1 entry (BOJ Year-Start only)");
+        // Jan 3 BOJ Year-Start Holiday must still be present
+        assertTrue(findByDate(holidays, LocalDate.of(year, Month.JANUARY, 3)).isPresent(),
+                year + ": Jan 3 BOJ Year-Start Holiday must still be present");
+    }
+
+    // ── Golden Week cascade years (inherited from JP, issue #126) ─────────────
+
+    @DataProvider(name = "jpyGoldenWeekCascadeYears")
+    public Object[][] jpyGoldenWeekCascadeYears() {
+        return new Object[][] {
+            { 2026, "Constitution Memorial Day", LocalDate.of(2026, Month.MAY, 4), LocalDate.of(2026, Month.MAY, 6) },
+            { 2031, "Greenery Day",              LocalDate.of(2031, Month.MAY, 5), LocalDate.of(2031, Month.MAY, 6) },
+            { 2036, "Greenery Day",              LocalDate.of(2036, Month.MAY, 5), LocalDate.of(2036, Month.MAY, 6) },
+            { 2037, "Constitution Memorial Day", LocalDate.of(2037, Month.MAY, 4), LocalDate.of(2037, Month.MAY, 6) },
+            { 2042, "Greenery Day",              LocalDate.of(2042, Month.MAY, 5), LocalDate.of(2042, Month.MAY, 6) },
+            { 2043, "Constitution Memorial Day", LocalDate.of(2043, Month.MAY, 4), LocalDate.of(2043, Month.MAY, 6) },
+            { 2048, "Constitution Memorial Day", LocalDate.of(2048, Month.MAY, 4), LocalDate.of(2048, Month.MAY, 6) },
+            { 2053, "Greenery Day",              LocalDate.of(2053, Month.MAY, 5), LocalDate.of(2053, Month.MAY, 6) },
+            { 2054, "Constitution Memorial Day", LocalDate.of(2054, Month.MAY, 4), LocalDate.of(2054, Month.MAY, 6) },
+        };
+    }
+
+    @Test(dataProvider = "jpyGoldenWeekCascadeYears")
+    public void testJPY_GoldenWeekCascade(int year, String name, LocalDate collision, LocalDate cascaded) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+        // Cascaded date is present under the correct holiday name
+        Optional<HolidayDate> hd = holidays.stream()
+                .filter(h -> name.equals(h.getHoliday().getName()) && cascaded.equals(h.getDate()))
+                .findFirst();
+        assertTrue(hd.isPresent(), year + ": " + name + " must be observed on " + cascaded + " in JPY");
+        // Holiday does not appear at the naive collision date
+        long countAtCollision = holidays.stream()
+                .filter(h -> name.equals(h.getHoliday().getName()) && collision.equals(h.getDate()))
+                .count();
+        assertEquals(countAtCollision, 0L, year + ": " + name + " must not appear at " + collision + " in JPY");
+        // No date appears more than once in the full list
+        long uniqueDates = holidays.stream().map(HolidayDate::date).distinct().count();
+        assertEquals(uniqueDates, holidays.size(), year + ": no two JPY holidays should share a date");
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
