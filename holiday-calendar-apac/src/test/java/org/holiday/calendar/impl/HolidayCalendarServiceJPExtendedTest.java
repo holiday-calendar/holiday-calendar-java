@@ -57,16 +57,46 @@ public class HolidayCalendarServiceJPExtendedTest {
     }
 
     // =========================================================================
-    // 1. OLYMPIC YEAR OVERRIDES (2021)
+    // 1. OLYMPIC YEAR OVERRIDES (2020 AND 2021)
     // =========================================================================
-    // The Tokyo 2020 Olympics (held in 2021 due to COVID delay) caused three
-    // holidays to be relocated in 2021 by special government ordinance:
-    //   Sports Day (Jul 23), Marine Day (Jul 22), Mountain Day (Aug 9).
+    // The Tokyo 2020 Olympics special measures act relocated three holidays in
+    // both 2020 and 2021.
     //
-    // NOTE: The corresponding 2020 Olympic relocations (Sports Day Jul 24,
-    // Marine Day Jul 23, Mountain Day Aug 10) are not yet implemented and are
-    // tracked as a separate defect issue.
+    // 2021 relocations (implemented, #127):
+    //   Sports Day → Jul 23, Marine Day → Jul 22, Mountain Day → Aug 9
+    //
+    // 2020 relocations (NOT YET IMPLEMENTED — tracked as a separate defect):
+    //   Sports Day → Jul 24, Marine Day → Jul 23, Mountain Day → Aug 10
+    // The 2020 tests below are disabled and will be re-enabled once fixed.
     // =========================================================================
+
+    // 2020 tests disabled — bug tracked in separate issue
+    @Test(enabled = false)
+    public void testSportsDayOlympic2020() {
+        List<HolidayDate> holidays = calendar.calculate(2020);
+        Optional<HolidayDate> h = findByName(holidays, "Sports Day");
+        assertTrue(h.isPresent(), "Sports Day must be present in 2020");
+        assertEquals(h.get().getDate(), LocalDate.of(2020, Month.JULY, 24),
+                     "Sports Day 2020 should be Jul 24 (Olympic relocation)");
+    }
+
+    @Test(enabled = false)
+    public void testMarineDayOlympic2020() {
+        List<HolidayDate> holidays = calendar.calculate(2020);
+        Optional<HolidayDate> h = findByName(holidays, "Marine Day");
+        assertTrue(h.isPresent(), "Marine Day must be present in 2020");
+        assertEquals(h.get().getDate(), LocalDate.of(2020, Month.JULY, 23),
+                     "Marine Day 2020 should be Jul 23 (Olympic relocation)");
+    }
+
+    @Test(enabled = false)
+    public void testMountainDayOlympic2020() {
+        List<HolidayDate> holidays = calendar.calculate(2020);
+        Optional<HolidayDate> h = findByName(holidays, "Mountain Day");
+        assertTrue(h.isPresent(), "Mountain Day must be present in 2020");
+        assertEquals(h.get().getDate(), LocalDate.of(2020, Month.AUGUST, 10),
+                     "Mountain Day 2020 should be Aug 10 (Olympic relocation)");
+    }
 
     /**
      * Sports Day 2021 was relocated from its normal 2nd-Monday-in-October
