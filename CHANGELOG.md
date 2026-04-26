@@ -27,6 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JP/JPY: 2020 Tokyo Olympics holiday relocations not implemented (#132)
 - JPY: BOJ cascade logic incorrectly bypassed the BOJ Year-Start Holiday when rolling New Year's Day (#133)
 
-## [1.0.0] - 2025-01-01
+## [1.0.0] - 2026-04-16
 
 Initial release.
