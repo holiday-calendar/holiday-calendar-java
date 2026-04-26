@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Extended Hari Raya Haji (SG) lookup table through 2055 (#113)
 - Extended Deepavali (SG) lookup table through 2055 (#114)
 - Bounded and documented CNY compensatory working day year range (#115)
-- JP/JPY 30-year data coverage audit and findings document (#116)
+- Extended JP/JPY range tests and 振替休日 sentinel coverage through 2055 (#116)
 - 30-year integration test suite covering all 17 calendar codes (2026–2055) (#117)
 
 ### Fixed
