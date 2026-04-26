@@ -70,8 +70,8 @@ public class HolidayCalendarServiceJPExtendedTest {
     // The 2020 tests below are disabled and will be re-enabled once fixed.
     // =========================================================================
 
-    // 2020 tests disabled — bug tracked in separate issue
-    @Test(enabled = false)
+    // 2020 relocations implemented — issue #132
+    @Test
     public void testSportsDayOlympic2020() {
         List<HolidayDate> holidays = calendar.calculate(2020);
         Optional<HolidayDate> h = findByName(holidays, "Sports Day");
@@ -80,7 +80,7 @@ public class HolidayCalendarServiceJPExtendedTest {
                      "Sports Day 2020 should be Jul 24 (Olympic relocation)");
     }
 
-    @Test(enabled = false)
+    @Test
     public void testMarineDayOlympic2020() {
         List<HolidayDate> holidays = calendar.calculate(2020);
         Optional<HolidayDate> h = findByName(holidays, "Marine Day");
@@ -89,7 +89,7 @@ public class HolidayCalendarServiceJPExtendedTest {
                      "Marine Day 2020 should be Jul 23 (Olympic relocation)");
     }
 
-    @Test(enabled = false)
+    @Test
     public void testMountainDayOlympic2020() {
         List<HolidayDate> holidays = calendar.calculate(2020);
         Optional<HolidayDate> h = findByName(holidays, "Mountain Day");
@@ -614,7 +614,7 @@ public class HolidayCalendarServiceJPExtendedTest {
                 .map(HolidayDate::getDate)
                 .distinct()
                 .count();
-        assertEquals(distinctCount, (long) holidays.size(),
+        assertEquals(distinctCount, holidays.size(),
                      year + ": holiday list must not contain duplicate observed dates");
     }
 

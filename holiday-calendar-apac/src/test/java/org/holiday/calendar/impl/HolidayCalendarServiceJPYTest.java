@@ -173,12 +173,51 @@ public class HolidayCalendarServiceJPYTest {
         assertEquals(count, 0L, "2021: " + name + " must NOT appear on formula date " + formulaDate);
     }
 
+    // ── 2020 Tokyo Olympics holiday relocations (issue #132) ─────────────────
+
+    @DataProvider(name = "jpy2020OlympicsHolidays")
+    public Object[][] jpy2020OlympicsHolidays() {
+        return new Object[][] {
+            { "Marine Day",   LocalDate.of(2020, Month.JULY,    23) },
+            { "Sports Day",   LocalDate.of(2020, Month.JULY,    24) },
+            { "Mountain Day", LocalDate.of(2020, Month.AUGUST,  10) },
+        };
+    }
+
+    @Test(dataProvider = "jpy2020OlympicsHolidays")
+    public void testJPY_2020_TokyoOlympicsRelocations(String name, LocalDate expected) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2020);
+        Optional<HolidayDate> h = findByName(holidays, name);
+        assertTrue(h.isPresent(), "2020: " + name + " must be present");
+        assertEquals(h.get().getDate(), expected,
+                "2020: " + name + " must be on relocated date, not formula date");
+    }
+
+    @DataProvider(name = "jpy2020FormulaDatesMustBeAbsent")
+    public Object[][] jpy2020FormulaDatesMustBeAbsent() {
+        return new Object[][] {
+            { "Marine Day",   LocalDate.of(2020, Month.JULY,    20) },
+            { "Sports Day",   LocalDate.of(2020, Month.OCTOBER, 12) },
+            { "Mountain Day", LocalDate.of(2020, Month.AUGUST,  11) },
+        };
+    }
+
+    @Test(dataProvider = "jpy2020FormulaDatesMustBeAbsent")
+    public void testJPY_2020_FormulaDateAbsent(String name, LocalDate formulaDate) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2020);
+        long count = holidays.stream()
+                .filter(hd -> name.equals(hd.getHoliday().getName())
+                           && formulaDate.equals(hd.getDate()))
+                .count();
+        assertEquals(count, 0L, "2020: " + name + " must NOT appear on formula date " + formulaDate);
+    }
+
     @DataProvider(name = "jpyBoundaryYears")
     public Object[][] jpyBoundaryYears() {
         return new Object[][] {
-            { 2020, "Marine Day",   LocalDate.of(2020, Month.JULY,    20) },
-            { 2020, "Sports Day",   LocalDate.of(2020, Month.OCTOBER, 12) },
-            { 2020, "Mountain Day", LocalDate.of(2020, Month.AUGUST,  11) },
+            { 2020, "Marine Day",   LocalDate.of(2020, Month.JULY,    23) },
+            { 2020, "Sports Day",   LocalDate.of(2020, Month.JULY,    24) },
+            { 2020, "Mountain Day", LocalDate.of(2020, Month.AUGUST,  10) },
             { 2022, "Marine Day",   LocalDate.of(2022, Month.JULY,    18) },
             { 2022, "Sports Day",   LocalDate.of(2022, Month.OCTOBER, 10) },
             { 2022, "Mountain Day", LocalDate.of(2022, Month.AUGUST,  11) },
@@ -186,19 +225,19 @@ public class HolidayCalendarServiceJPYTest {
     }
 
     @Test(dataProvider = "jpyBoundaryYears")
-    public void testJPY_BoundaryYears_FormulaUnchanged(int year, String name, LocalDate expected) {
+    public void testJPY_BoundaryYears_OlympicAndFormulaYears(int year, String name, LocalDate expected) {
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
         Optional<HolidayDate> h = findByName(holidays, name);
         assertTrue(h.isPresent(), year + ": " + name + " must be present");
         assertEquals(h.get().getDate(), expected,
-                year + ": " + name + " must use formula, not 2021 override");
+                year + ": " + name + " must be on the expected date");
     }
 
     @Test
     public void testJPY_NoDateDuplicatesIn2021() {
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2021);
         long uniqueDates = holidays.stream().map(HolidayDate::date).distinct().count();
-        assertEquals(uniqueDates, (long) holidays.size(),
+        assertEquals(uniqueDates, holidays.size(),
                 "2021: no two holidays should share a date");
     }
 
