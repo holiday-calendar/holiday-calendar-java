@@ -135,7 +135,9 @@ class JapaneseHolidayCalendar extends HolidayCalendar {
 
     private boolean hasOtherHolidayOn(List<HolidayDate> result, int excludeIndex, LocalDate date) {
         for (int j = 0; j < result.size(); j++) {
-            if (j != excludeIndex && date.equals(result.get(j).date())) {
+            if (j != excludeIndex
+                    && date.equals(result.get(j).date())
+                    && result.get(j).holiday().isRollable()) {   // only rollable national holidays block cascade
                 return true;
             }
         }
