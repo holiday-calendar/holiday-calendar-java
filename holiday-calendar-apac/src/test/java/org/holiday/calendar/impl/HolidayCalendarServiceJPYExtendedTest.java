@@ -81,11 +81,15 @@ public class HolidayCalendarServiceJPYExtendedTest {
     @Test(dataProvider = "allYears2026to2055")
     public void testJan2PresentEveryYear(int year) {
         List<HolidayDate> holidays = calendar.calculate(year);
-        Optional<HolidayDate> h = findByDate(holidays, LocalDate.of(year, Month.JANUARY, 2));
-        assertTrue(h.isPresent(),
+        // In years where Jan 1=Sunday (2034, 2040, 2045, 2051) Jan 2 holds two entries:
+        // New Year's Day (rolled) and Year-Start Holiday.  Use anyMatch to avoid
+        // nondeterministic ordering from findFirst() over a shared-date pair.
+        LocalDate jan2 = LocalDate.of(year, Month.JANUARY, 2);
+        boolean yearStartPresent = holidays.stream()
+                .anyMatch(hd -> jan2.equals(hd.getDate())
+                             && "Year-Start Holiday".equals(hd.getHoliday().getName()));
+        assertTrue(yearStartPresent,
                    year + ": Jan 2 Year-Start Holiday must be present every year");
-        assertEquals(h.get().getHoliday().getName(), "Year-Start Holiday",
-                     year + ": Jan 2 holiday name");
     }
 
     @Test(dataProvider = "allYears2026to2055")
@@ -190,9 +194,8 @@ public class HolidayCalendarServiceJPYExtendedTest {
     // 2030: JP=16 + 3 BOJ = 19
     // 2032: JP=17 (Silver Week sandwich) + 3 BOJ = 20
     // 2035: JP=16 + 3 BOJ = 19
-    // 2040: JP=16 + 3 BOJ = 19.  Jan 1 Sun rolls to Jan 2; cascade incorrectly
-    //        treats Year-Start Holiday as a blocker (tracked defect), so New
-    //        Year's Day cascades to Jan 4 rather than coexisting on Jan 2.
+    // 2040: JP=16 + 3 BOJ = 19.  Jan 1 Sun → New Year's Day co-exists with
+    //        Year-Start Holiday on Jan 2 (fix for #133); no cascade to Jan 4.
     // 2045: JP=16 (Showa Day Apr 29 Sat stays, no Golden Week sandwich) + 3 BOJ = 19
     // 2050: JP=16 + 3 BOJ = 19.  Jan 1 Sat stays Jan 1 (no roll per #125).
     // 2055: JP=16 + 3 BOJ = 19
@@ -218,6 +221,62 @@ public class HolidayCalendarServiceJPYExtendedTest {
         assertEquals(holidays.size(), expected,
                      year + ": expected " + expected + " JPY holidays, got " + holidays.size()
                      + " | dates: " + holidays.stream().map(h -> h.getDate().toString()).toList());
+    }
+
+    // =========================================================================
+    // 4. NEW YEAR'S DAY CO-EXISTS WITH BOJ YEAR-START HOLIDAY ON JAN 2
+    // =========================================================================
+    // When Jan 1 = Sunday, New Year's Day rolls to Jan 2 (Mon).  The BOJ
+    // Year-Start Holiday (rollable=false) also sits on Jan 2.  Under the
+    // Holidays Act Art. 3 §3, only a rollable national holiday on the naive
+    // Monday blocks cascade — a non-rollable BOJ closure must NOT.  Therefore
+    // New Year's Day co-exists with Year-Start Holiday on Jan 2 and does NOT
+    // cascade to Jan 4.  Affected years: 2034, 2040, 2045, 2051.
+    // =========================================================================
+
+    @DataProvider(name = "newYearJan1SundayYears")
+    Iterator<Object[]> newYearJan1SundayYears() {
+        return List.of(
+            new Object[]{2034},
+            new Object[]{2040},
+            new Object[]{2045},
+            new Object[]{2051}
+        ).iterator();
+    }
+
+    @Test(dataProvider = "newYearJan1SundayYears")
+    public void testNewYearsDayCoexistsWithYearStartHolidayOnJan2(int year) {
+        List<HolidayDate> holidays = calendar.calculate(year);
+        LocalDate jan2 = LocalDate.of(year, Month.JANUARY, 2);
+        LocalDate jan3 = LocalDate.of(year, Month.JANUARY, 3);
+        LocalDate jan4 = LocalDate.of(year, Month.JANUARY, 4);
+
+        // New Year's Day must be on Jan 2 (rolled from Jan 1 Sunday)
+        boolean nydOnJan2 = holidays.stream()
+                .anyMatch(hd -> jan2.equals(hd.getDate())
+                             && "New Year's Day".equals(hd.getHoliday().getName()));
+        assertTrue(nydOnJan2, year + ": New Year's Day must be observed on Jan 2, not cascaded to Jan 4");
+
+        // Jan 2 must have exactly 2 entries: New Year's Day + Year-Start Holiday
+        long jan2Count = holidays.stream().filter(hd -> jan2.equals(hd.getDate())).count();
+        assertEquals(jan2Count, 2L,
+                year + ": Jan 2 must have 2 entries (New Year's Day + Year-Start Holiday)");
+
+        // Year-Start Holiday must still be present on Jan 2
+        boolean yearStartOnJan2 = holidays.stream()
+                .anyMatch(hd -> jan2.equals(hd.getDate())
+                             && "Year-Start Holiday".equals(hd.getHoliday().getName()));
+        assertTrue(yearStartOnJan2, year + ": Year-Start Holiday must remain on Jan 2");
+
+        // Jan 3 must have exactly 1 entry (Year-Start Holiday only)
+        long jan3Count = holidays.stream().filter(hd -> jan3.equals(hd.getDate())).count();
+        assertEquals(jan3Count, 1L, year + ": Jan 3 must have exactly 1 entry (Year-Start Holiday)");
+
+        // New Year's Day must NOT cascade to Jan 4
+        boolean nydOnJan4 = holidays.stream()
+                .anyMatch(hd -> jan4.equals(hd.getDate())
+                             && "New Year's Day".equals(hd.getHoliday().getName()));
+        assertFalse(nydOnJan4, year + ": New Year's Day must NOT appear on Jan 4 (no spurious cascade)");
     }
 
     // =========================================================================

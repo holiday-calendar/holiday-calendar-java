@@ -331,36 +331,38 @@ public class HolidayCalendarServiceJPYTest {
         assertFalse(phantomMay4, "May 4, 2031 must not be a spurious National Holiday in JPY calendar");
     }
 
-    // ── New Year's Day cascade when Jan 1=Sunday (JPY-specific, issue #126) ──────
+    // ── New Year's Day when Jan 1=Sunday (JPY-specific, issue #133) ─────────────
     //
     // When New Year's Day (Jan 1) falls on Sunday its naive Monday substitute is
-    // Jan 2, which is already a non-rollable BOJ Year-Start Holiday.  Jan 3 is
-    // also a BOJ Year-Start Holiday.  The cascade advances New Year's Day to Jan 4
-    // (the first free weekday), leaving Jan 2 and Jan 3 untouched.
+    // Jan 2, which is also occupied by the non-rollable BOJ Year-Start Holiday.
+    // Under Article 3 §3, cascade only fires when another *rollable* national
+    // holiday blocks the substitute day — a BOJ closure does not qualify.
+    // Therefore New Year's Day co-exists with the Year-Start Holiday on Jan 2;
+    // cascade does NOT advance it to Jan 4.
 
     @DataProvider(name = "jpyNewYearCascadeYears")
     public Object[][] jpyNewYearCascadeYears() {
         return new Object[][] {
-            { 2034, LocalDate.of(2034, Month.JANUARY, 4) },
-            { 2040, LocalDate.of(2040, Month.JANUARY, 4) },
-            { 2045, LocalDate.of(2045, Month.JANUARY, 4) },
-            { 2051, LocalDate.of(2051, Month.JANUARY, 4) },
+            { 2034, LocalDate.of(2034, Month.JANUARY, 2) },
+            { 2040, LocalDate.of(2040, Month.JANUARY, 2) },
+            { 2045, LocalDate.of(2045, Month.JANUARY, 2) },
+            { 2051, LocalDate.of(2051, Month.JANUARY, 2) },
         };
     }
 
     @Test(dataProvider = "jpyNewYearCascadeYears")
-    public void testJPY_NewYearCascade(int year, LocalDate cascaded) {
+    public void testJPY_NewYearCascade(int year, LocalDate observed) {
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
-        // New Year's Day must be on the cascaded date
+        // New Year's Day must be on the observed date (Jan 2, rolled from Jan 1 Sun)
         Optional<HolidayDate> nyd = findByName(holidays, "New Year's Day");
         assertTrue(nyd.isPresent(), year + ": New Year's Day must be present");
-        assertEquals(nyd.get().getDate(), cascaded,
-                year + ": New Year's Day (Jan 1 Sun) must cascade to " + cascaded);
-        // Jan 2 must have exactly one entry (BOJ Year-Start only, no duplicate)
+        assertEquals(nyd.get().getDate(), observed,
+                year + ": New Year's Day (Jan 1 Sun) must be observed on " + observed);
+        // Jan 2 must have exactly two entries: New Year's Day + BOJ Year-Start Holiday
         long jan2Count = holidays.stream()
                 .filter(hd -> hd.getDate().equals(LocalDate.of(year, Month.JANUARY, 2)))
                 .count();
-        assertEquals(jan2Count, 1L, year + ": Jan 2 must have exactly 1 entry (BOJ Year-Start only)");
+        assertEquals(jan2Count, 2L, year + ": Jan 2 must have exactly 2 entries (New Year's Day + Year-Start Holiday)");
         // Jan 3 BOJ Year-Start Holiday must still be present
         assertTrue(findByDate(holidays, LocalDate.of(year, Month.JANUARY, 3)).isPresent(),
                 year + ": Jan 3 BOJ Year-Start Holiday must still be present");
