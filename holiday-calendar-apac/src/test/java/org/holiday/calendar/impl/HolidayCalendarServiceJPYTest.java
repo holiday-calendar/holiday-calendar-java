@@ -237,7 +237,7 @@ public class HolidayCalendarServiceJPYTest {
     public void testJPY_NoDateDuplicatesIn2021() {
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2021);
         long uniqueDates = holidays.stream().map(HolidayDate::date).distinct().count();
-        assertEquals(uniqueDates, (long) holidays.size(),
+        assertEquals(uniqueDates, holidays.size(),
                 "2021: no two holidays should share a date");
     }
 

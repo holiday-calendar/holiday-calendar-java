@@ -614,7 +614,7 @@ public class HolidayCalendarServiceJPExtendedTest {
                 .map(HolidayDate::getDate)
                 .distinct()
                 .count();
-        assertEquals(distinctCount, (long) holidays.size(),
+        assertEquals(distinctCount, holidays.size(),
                      year + ": holiday list must not contain duplicate observed dates");
     }
 
