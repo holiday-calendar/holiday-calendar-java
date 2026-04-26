@@ -7,7 +7,7 @@
     <groupId>org.holiday.calendar</groupId>
     <artifactId>holiday-calendar-java</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <name>Holiday Calendar</name>
     <description>Holiday Calendar Library for Java</description>
@@ -37,7 +37,7 @@
         <url>${project.url}</url>
         <connection>scm:git:https://${repo.domain}/${repo.user}/${repo.name}.git</connection>
         <developerConnection>scm:git:git@${repo.domain}:${repo.user}/${repo.name}.git</developerConnection>
-        <tag>v1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
@@ -87,14 +87,14 @@
         <!-- Plugin versions -->
         <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
         <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
-        <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
         <maven-jacoco-plugin.version>0.8.14</maven-jacoco-plugin.version>
         <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
         <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
-        <sonar-maven-plugin.version>5.5.0.6356</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.6.0.6792</sonar-maven-plugin.version>
     </properties>
 
     <dependencyManagement>

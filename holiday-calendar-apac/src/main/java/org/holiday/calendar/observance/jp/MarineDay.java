@@ -40,6 +40,12 @@ public class MarineDay extends AbstractObservance {
 
     @Override
     protected LocalDate computeDate(int year) {
+        if (year == 2020) {
+            return LocalDate.of(2020, Month.JULY, 23);
+        }
+        if (year == 2021) {
+            return LocalDate.of(2021, Month.JULY, 22);
+        }
         if (year < 2000) {
             return LocalDate.of(year, Month.JULY, 20);
         }

@@ -57,6 +57,22 @@ public final class DateRolls {
     }
 
     /**
+     * Only Sunday rolls forward to the following Monday; Saturday is returned
+     * unchanged (no substitute observance).
+     *
+     * <p>Implements the Japanese substitute-holiday rule (振替休日): Article 3,
+     * paragraph 2 of the Act on National Holidays (国民の祝日に関する法律, 1948,
+     * amended 2007) creates a make-up Monday only when a national holiday falls
+     * on Sunday. A Saturday holiday has no substitute — it falls on an already-
+     * closed day and is returned at its natural date.
+     *
+     * @see #followingMonday() for a roll that advances both Saturday and Sunday
+     */
+    public static DateRoll sundayToMonday() {
+        return date -> date.getDayOfWeek() == DayOfWeek.SUNDAY ? date.plusDays(1) : date;
+    }
+
+    /**
      * Compose two rolls: apply {@code first}, then apply {@code second}.
      */
     public static DateRoll compose(DateRoll first, DateRoll second) {

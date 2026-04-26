@@ -18,6 +18,8 @@
 
 package org.holiday.calendar;
 
+import java.util.OptionalInt;
+
 /**
  * Required behavior of a service which provides the {@link HolidayCalendar}
  * object assigned to a unique <em>code</em> identifier.
@@ -61,6 +63,38 @@ public interface HolidayCalendarService {
      */
     default String getRegion() {
         return null;
+    }
+
+    /**
+     * Returns the latest year for which this service provides authoritative
+     * holiday data for <em>all</em> lookup-table-backed holidays in this calendar.
+     *
+     * <p>An empty result indicates that every holiday in this calendar is
+     * computed algorithmically and therefore has no known upper bound &mdash; all
+     * years are equally authoritative (e.g. Easter-based or nth-weekday rules).
+     *
+     * <p>A non-empty result indicates that one or more holidays are backed by a
+     * finite, officially-gazetted lookup table. The returned value is the last
+     * year for which all such tables have been populated. For years beyond this
+     * value, {@link HolidayCalendar#calculate(int)} will silently omit those
+     * holidays without throwing an exception. This method is an advisory signal
+     * only &mdash; it does not alter {@code calculate()} behaviour. Callers that
+     * require complete data should verify that the requested year does not
+     * exceed this bound before invoking {@code calculate()}.
+     *
+     * <p>Implementations backed by lookup tables <strong>must</strong> override
+     * this method and return {@code OptionalInt.of(lastTableYear)}, where
+     * {@code lastTableYear} is the minimum of the last year covered by each
+     * individual lookup table in the calendar. Subclasses of
+     * {@link AbstractHolidayCalendarService} that use lookup tables should
+     * override this method accordingly.
+     *
+     * @return the last year for which data is fully authoritative, or
+     *         {@link OptionalInt#empty()} if the calendar is fully algorithmic
+     *         with no known upper bound
+     */
+    default OptionalInt dataValidThrough() {
+        return OptionalInt.empty();
     }
 
 }

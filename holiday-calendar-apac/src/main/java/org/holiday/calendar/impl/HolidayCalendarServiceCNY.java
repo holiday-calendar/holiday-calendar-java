@@ -43,6 +43,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 
 /**
  * Service for provision of the China (PBOC / CNAPS) holiday calendar.
@@ -71,12 +72,24 @@ import java.util.Map;
  * closures, not openings), but are accessible via
  * {@link #getCompensatoryWorkingDays(int)}.
  *
- * <p><strong>Annual update required:</strong> compensatory working day data
- * must be updated each year once the State Council issues its holiday notice,
- * typically published in late November or early December of the preceding year.
- * See <a href="http://www.gov.cn/">www.gov.cn</a> for official notices.
- * Requesting a year beyond the known data range logs a warning and returns an
- * empty list.
+ * <h2>Data Validity Ranges</h2>
+ *
+ * <p>All public holidays in this calendar are computed algorithmically via
+ * Time4J Chinese calendar mathematics. {@link HolidayCalendar#calculate(int)}
+ * is authoritative for any year with no upper bound. Compensatory (make-up)
+ * working day data is manually curated from State Council notices and has a
+ * finite upper bound; call {@link #compensatoryDataValidThrough()} to obtain it.
+ *
+ * <h2>Annual Update Process</h2>
+ *
+ * <ol>
+ *   <li>Monitor <a href="http://www.gov.cn/">www.gov.cn</a> in November–December
+ *       for the following year's holiday notice.</li>
+ *   <li>Append new rows to {@code cny-compensatory-working-days.csv} in
+ *       {@code src/main/resources/org/holiday/calendar/impl/}. The format is:
+ *       {@code year,YYYY-MM-DD,comment}.</li>
+ *   <li>Run {@code mvn -pl holiday-calendar-apac test} to verify no regressions.</li>
+ * </ol>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
@@ -97,6 +110,10 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
      */
     private static final class CompensatoryDaysHolder {
         static final Map<Integer, List<LocalDate>> DATA = loadFromCsv();
+        static final int MAX_YEAR = DATA.keySet().stream()
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElse(0);
 
         private static Map<Integer, List<LocalDate>> loadFromCsv() {
             Map<Integer, List<LocalDate>> result = new HashMap<>();
@@ -133,22 +150,50 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
                     frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
             return Collections.unmodifiableMap(frozen);
         }
+    }
 
-        private static void parseLine(String[] parts, int lineNumber, String line,
-                                      Map<Integer, List<LocalDate>> result) {
-            try {
-                int year = Integer.parseInt(parts[0].strip());
-                LocalDate date = LocalDate.parse(parts[1].strip());
-                result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
-            } catch (NumberFormatException | DateTimeParseException e) {
-                LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
-                        lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
-            }
+    static void parseLine(String[] parts, int lineNumber, String line,
+                          Map<Integer, List<LocalDate>> result) {
+        try {
+            int year = Integer.parseInt(parts[0].strip());
+            LocalDate date = LocalDate.parse(parts[1].strip());
+            result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
+        } catch (NumberFormatException | DateTimeParseException e) {
+            LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
+                    lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
         }
     }
 
     public HolidayCalendarServiceCNY() {
         super(CODE, NAME);
+    }
+
+    /**
+     * Returns {@link OptionalInt#empty()} because all CNY public
+     * holidays are computed algorithmically (Time4J Chinese calendar math).
+     * {@link HolidayCalendar#calculate(int)} is authoritative for any year
+     * with no upper bound. For the compensatory working day ceiling, see
+     * {@link #compensatoryDataValidThrough()}.
+     */
+    @Override
+    public OptionalInt dataValidThrough() {
+        return OptionalInt.empty();
+    }
+
+    /**
+     * Returns the last year for which official State Council compensatory
+     * (make-up) working day data is present in this release.
+     *
+     * <p>The return value is derived dynamically from the loaded CSV data and
+     * updates automatically when new rows are appended — no separate constant
+     * needs to be changed.
+     *
+     * @return the highest year with compensatory working day data, or {@code 0}
+     *         if the CSV contains no valid entries
+     * @see #getCompensatoryWorkingDays(int)
+     */
+    public int compensatoryDataValidThrough() {
+        return CompensatoryDaysHolder.MAX_YEAR;
     }
 
     @Override
@@ -362,10 +407,10 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
     public List<LocalDate> getCompensatoryWorkingDays(int year) {
         List<LocalDate> dates = CompensatoryDaysHolder.DATA.get(year);
         if (dates == null) {
-            LOGGER.warn("Compensatory working day data for {} is not available. " +
-                    "Update {} with the State Council annual notice " +
-                    "once published at http://www.gov.cn/",
-                    year, COMPENSATORY_DAYS_CSV);
+            LOGGER.warn("Compensatory working day data for {} is not available " +
+                    "(data valid through {}). Update {} with the State Council annual " +
+                    "notice once published at http://www.gov.cn/",
+                    year, CompensatoryDaysHolder.MAX_YEAR, COMPENSATORY_DAYS_CSV);
             return Collections.emptyList();
         }
         return dates;

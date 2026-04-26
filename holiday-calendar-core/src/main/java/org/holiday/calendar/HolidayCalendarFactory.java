@@ -22,6 +22,7 @@ package org.holiday.calendar;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.StreamSupport;
+import java.util.OptionalInt;
 
 /**
  * Factory for creation of {@link HolidayCalendar} objects.
@@ -74,6 +75,27 @@ public class HolidayCalendarFactory {
                 .filter(Objects::nonNull)
                 .sorted()
                 .toList();
+    }
+
+    /**
+     * Returns the latest year for which the calendar identified by {@code code}
+     * provides authoritative data, by delegating to
+     * {@link HolidayCalendarService#dataValidThrough()} on the service that
+     * provides that code.
+     *
+     * <p>An empty result means the calendar is fully algorithmic with no known
+     * upper bound. A non-empty result means at least one holiday in the calendar
+     * is backed by a lookup table that ends at the returned year; calculations
+     * for later years will silently omit those holidays.
+     *
+     * @param code short code identifier of the desired holiday calendar
+     * @return the last authoritative year, or {@link OptionalInt#empty()} if
+     *         the calendar is fully algorithmic with no known upper bound
+     * @throws HolidayCalendarNotFoundException if {@code code} does not match
+     *         any registered service
+     */
+    public OptionalInt dataValidThrough(String code) {
+        return getService(code).dataValidThrough();
     }
 
 }

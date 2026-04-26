@@ -144,7 +144,13 @@ class JapaneseHolidays {
                                  "Observed from 2016.")
                     .type(Holiday.Type.FLOATING)
                     .rollable(true)
-                    .observance(y -> y >= 2016 ? LocalDate.of(y, Month.AUGUST, 11) : null)
+                    .observance(y -> {
+                        // Olympic relocations: lambda returns final observed date directly,
+                        // bypassing the rollable(true) pipeline (neither date is a Sunday).
+                        if (y == 2020) return LocalDate.of(2020, Month.AUGUST, 10);
+                        if (y == 2021) return LocalDate.of(2021, Month.AUGUST,  9);
+                        return y >= 2016 ? LocalDate.of(y, Month.AUGUST, 11) : null;
+                    })
                     .build(),
 
             Holiday.builder()
