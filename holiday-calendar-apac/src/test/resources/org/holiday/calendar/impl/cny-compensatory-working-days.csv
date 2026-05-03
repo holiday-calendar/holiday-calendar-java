@@ -7,9 +7,9 @@
 # Annual update: append rows for the new year once the State Council notice
 # is published (typically November-December of the preceding year).
 #
-# NOTE: this test-resource copy of the CSV intentionally contains one malformed
-# entry (no comma, i.e. fewer than 2 fields) at the end to exercise the
-# parts.length < 2 warning branch in CompensatoryDaysHolder.loadFromCsv().
+# NOTE: malformed-row coverage (warn-and-skip for lines with fewer than 2 fields,
+# unparseable year, or unparseable date) has moved to CsvObservanceLoaderTest,
+# which uses dedicated fixture files under src/test/resources/org/holiday/calendar/util/.
 2020,2020-01-19,New Year's bridge
 2020,2020-02-01,Spring Festival bridge
 2020,2020-04-26,Labour Day bridge
@@ -55,4 +55,3 @@
 2026,2026-05-09,Labour Day bridge
 2026,2026-09-20,National Day bridge
 2026,2026-10-10,National Day bridge
-MALFORMED-NO-COMMA

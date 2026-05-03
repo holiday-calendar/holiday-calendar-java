@@ -1,0 +1,7 @@
+# loadMultiple happy-path fixture
+# Format: year,YYYY-MM-DD[,comment]
+#
+2020,2020-01-19,New Year's bridge
+2020,2020-02-01,Spring Festival bridge
+2021,2021-02-12
+2021,2021-04-25,Labour Day bridge

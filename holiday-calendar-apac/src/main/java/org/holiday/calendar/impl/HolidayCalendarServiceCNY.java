@@ -26,21 +26,16 @@ import org.holiday.calendar.observance.lunar.ChineseNewYearDay;
 import org.holiday.calendar.observance.lunar.DragonBoatFestival;
 import org.holiday.calendar.observance.lunar.MidAutumnFestival;
 import org.holiday.calendar.observance.lunar.QingmingFestival;
+import org.holiday.calendar.util.CsvObservanceLoader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
@@ -116,42 +111,16 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
                 .orElse(0);
 
         private static Map<Integer, List<LocalDate>> loadFromCsv() {
-            Map<Integer, List<LocalDate>> result = new HashMap<>();
-            try (InputStream is = HolidayCalendarServiceCNY.class.getResourceAsStream(COMPENSATORY_DAYS_CSV)) {
-                if (is == null) {
-                    throw new IllegalStateException("Required resource not found: " + COMPENSATORY_DAYS_CSV);
-                }
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-                    int lineNumber = 0;
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        lineNumber++;
-                        line = line.strip();
-                        if (!line.isEmpty() && !line.startsWith("#")) {
-                            String[] parts = line.split(",", 3);
-                            if (parts.length < 2) {
-                                LOGGER.warn("Skipping malformed line {} in {}: '{}'",
-                                        lineNumber, COMPENSATORY_DAYS_CSV, line);
-                            } else {
-                                parseLine(parts, lineNumber, line, result);
-                            }
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                LOGGER.error("Failed to load compensatory working days from {}", COMPENSATORY_DAYS_CSV, e);
-                throw new ExceptionInInitializerError(e);
-            } catch (IllegalStateException e) {
-                LOGGER.error(e.getMessage());
-                throw new ExceptionInInitializerError(e);
-            }
-            Map<Integer, List<LocalDate>> frozen = HashMap.newHashMap(result.size());
-            result.forEach((year, dates) ->
-                    frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
-            return Collections.unmodifiableMap(frozen);
+            return CsvObservanceLoader.loadMultiple(
+                    HolidayCalendarServiceCNY.class, COMPENSATORY_DAYS_CSV);
         }
     }
 
+    /**
+     * @deprecated No longer on the production load path; the CSV parsing logic now lives in
+     *             {@link CsvObservanceLoader}. Preserved for test compatibility only.
+     */
+    @Deprecated
     static void parseLine(String[] parts, int lineNumber, String line,
                           Map<Integer, List<LocalDate>> result) {
         try {
