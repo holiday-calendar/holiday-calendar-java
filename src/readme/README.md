@@ -63,21 +63,21 @@ Then add the modules you need:
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>@project.version@</version>
 </dependency>
 
 <!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>@project.version@</version>
 </dependency>
 
 <!-- APAC calendars: SG, JP, JPY, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>@project.version@</version>
 </dependency>
 ```
 

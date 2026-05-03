@@ -50,6 +50,10 @@
                     <includes>
                         <include>**/*IT.java</include>
                     </includes>
+                    <systemPropertyVariables>
+                        <project.version>${project.version}</project.version>
+                        <project.root.basedir>${project.basedir}/..</project.root.basedir>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
