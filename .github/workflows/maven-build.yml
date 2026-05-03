@@ -41,3 +41,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=holiday-calendar_holiday-calendar-java
+      - name: Show README.md diff (diagnostic)
+        if: always()
+        run: git diff README.md
+      - name: Verify README.md matches generated output
+        run: |
+          git diff --exit-code README.md || {
+            echo "::error file=README.md::README.md was modified by the build but not committed."
+            echo "Run 'mvn validate -N' from the repo root and commit the updated README.md."
+            exit 1
+          }
