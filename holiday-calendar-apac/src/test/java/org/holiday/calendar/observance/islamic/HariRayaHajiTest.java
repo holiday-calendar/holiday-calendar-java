@@ -209,7 +209,17 @@ public class HariRayaHajiTest {
     }
 
     // -------------------------------------------------------------------------
-    // Group 8: Structural guard — table covers exactly 37 years (2019–2055)
+    // Group 8: Date year must match the key year for all covered years
+    // -------------------------------------------------------------------------
+
+    @Test(dataProvider = "allCoveredYears")
+    public void testDateYearMatchesKey(int year, LocalDate expected) {
+        assertEquals(expected.getYear(), year,
+            "HariRayaHaji date year must match the key year for " + year);
+    }
+
+    // -------------------------------------------------------------------------
+    // Group 9: Structural guard — table covers exactly 37 years (2019–2055)
     // -------------------------------------------------------------------------
 
     @Test
