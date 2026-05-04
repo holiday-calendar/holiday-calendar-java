@@ -1,0 +1,4 @@
+# One bad year field, two good rows
+2020,2020-01-19,Good row
+not-a-year,2021-02-12,Bad year field
+2022,2022-01-29,Good row
