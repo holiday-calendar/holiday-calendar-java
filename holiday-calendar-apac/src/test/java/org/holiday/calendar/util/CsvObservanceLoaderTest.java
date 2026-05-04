@@ -18,6 +18,7 @@
 
 package org.holiday.calendar.util;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
@@ -210,10 +211,19 @@ public class CsvObservanceLoaderTest {
         assertTrue(result.containsKey(2022));
     }
 
-    @Test(groups = "csv.loader.error")
-    public void testLoadSingleMalformedYearSkippedValidRowsPresent() {
+    @DataProvider(name = "singleMalformedFiles")
+    public Object[][] singleMalformedFiles() {
+        return new Object[][] {
+            { "csv-malformed-year.csv" },
+            { "csv-malformed-date.csv" },
+            { "csv-missing-fields.csv" }
+        };
+    }
+
+    @Test(groups = "csv.loader.error", dataProvider = "singleMalformedFiles")
+    public void testLoadSingleMalformedRowSkippedValidRowsPresent(String csvFile) {
         Map<Integer, LocalDate> result = CsvObservanceLoader.loadSingle(
-                CsvObservanceLoaderTest.class, BASE + "csv-malformed-year.csv");
+                CsvObservanceLoaderTest.class, BASE + csvFile);
         assertEquals(result.size(), 2);
         assertTrue(result.containsKey(2020));
         assertTrue(result.containsKey(2022));
@@ -229,26 +239,8 @@ public class CsvObservanceLoaderTest {
     }
 
     @Test(groups = "csv.loader.error")
-    public void testLoadSingleMalformedDateSkippedValidRowsPresent() {
-        Map<Integer, LocalDate> result = CsvObservanceLoader.loadSingle(
-                CsvObservanceLoaderTest.class, BASE + "csv-malformed-date.csv");
-        assertEquals(result.size(), 2);
-        assertTrue(result.containsKey(2020));
-        assertTrue(result.containsKey(2022));
-    }
-
-    @Test(groups = "csv.loader.error")
     public void testLoadMultipleMissingFieldsSkippedValidRowsPresent() {
         Map<Integer, List<LocalDate>> result = CsvObservanceLoader.loadMultiple(
-                CsvObservanceLoaderTest.class, BASE + "csv-missing-fields.csv");
-        assertEquals(result.size(), 2);
-        assertTrue(result.containsKey(2020));
-        assertTrue(result.containsKey(2022));
-    }
-
-    @Test(groups = "csv.loader.error")
-    public void testLoadSingleMissingFieldsSkippedValidRowsPresent() {
-        Map<Integer, LocalDate> result = CsvObservanceLoader.loadSingle(
                 CsvObservanceLoaderTest.class, BASE + "csv-missing-fields.csv");
         assertEquals(result.size(), 2);
         assertTrue(result.containsKey(2020));

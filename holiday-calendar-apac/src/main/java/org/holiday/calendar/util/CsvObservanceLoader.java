@@ -110,26 +110,30 @@ public final class CsvObservanceLoader {
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
                 line = line.strip();
-                if (line.isEmpty() || line.startsWith("#")) {
-                    continue;
-                }
-                String[] parts = line.split(",", 3);
-                if (parts.length < 2) {
-                    LOGGER.warn("Skipping malformed line {} in {}: '{}'", lineNumber, classpathResource, line);
-                    continue;
-                }
-                try {
-                    int year = Integer.parseInt(parts[0].strip());
-                    LocalDate date = LocalDate.parse(parts[1].strip());
-                    accumulator.accept(year, date);
-                } catch (NumberFormatException | DateTimeParseException e) {
-                    LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
-                            lineNumber, classpathResource, line, e.getMessage());
+                if (!line.isEmpty() && !line.startsWith("#")) {
+                    parseLine(line, lineNumber, classpathResource, accumulator);
                 }
             }
         } catch (IOException e) {
             LOGGER.error("Failed to load observance data from {}", classpathResource, e);
             throw new ExceptionInInitializerError(e);
+        }
+    }
+
+    private static void parseLine(String line, int lineNumber, String classpathResource,
+                                  BiConsumer<Integer, LocalDate> accumulator) {
+        String[] parts = line.split(",", 3);
+        if (parts.length < 2) {
+            LOGGER.warn("Skipping malformed line {} in {}: '{}'", lineNumber, classpathResource, line);
+            return;
+        }
+        try {
+            int year = Integer.parseInt(parts[0].strip());
+            LocalDate date = LocalDate.parse(parts[1].strip());
+            accumulator.accept(year, date);
+        } catch (NumberFormatException | DateTimeParseException e) {
+            LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
+                    lineNumber, classpathResource, line, e.getMessage());
         }
     }
 }

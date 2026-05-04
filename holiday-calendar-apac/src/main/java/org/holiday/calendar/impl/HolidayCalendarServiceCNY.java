@@ -33,8 +33,6 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -113,23 +111,6 @@ public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
         private static Map<Integer, List<LocalDate>> loadFromCsv() {
             return CsvObservanceLoader.loadMultiple(
                     HolidayCalendarServiceCNY.class, COMPENSATORY_DAYS_CSV);
-        }
-    }
-
-    /**
-     * @deprecated No longer on the production load path; the CSV parsing logic now lives in
-     *             {@link CsvObservanceLoader}. Preserved for test compatibility only.
-     */
-    @Deprecated
-    static void parseLine(String[] parts, int lineNumber, String line,
-                          Map<Integer, List<LocalDate>> result) {
-        try {
-            int year = Integer.parseInt(parts[0].strip());
-            LocalDate date = LocalDate.parse(parts[1].strip());
-            result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
-        } catch (NumberFormatException | DateTimeParseException e) {
-            LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
-                    lineNumber, COMPENSATORY_DAYS_CSV, line, e.getMessage());
         }
     }
 
