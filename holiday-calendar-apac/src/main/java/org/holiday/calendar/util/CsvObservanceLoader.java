@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 /**
  * Utility for loading observance date tables from classpath CSV resources.
@@ -72,27 +73,7 @@ public final class CsvObservanceLoader {
      */
     public static Map<Integer, LocalDate> loadSingle(Class<?> anchor, String classpathResource) {
         Map<Integer, LocalDate> result = new LinkedHashMap<>();
-        try (InputStream is = openStream(anchor, classpathResource);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-            int lineNumber = 0;
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lineNumber++;
-                line = line.strip();
-                if (line.isEmpty() || line.startsWith("#")) {
-                    continue;
-                }
-                String[] parts = line.split(",", 3);
-                if (parts.length < 2) {
-                    LOGGER.warn("Skipping malformed line {} in {}: '{}'", lineNumber, classpathResource, line);
-                    continue;
-                }
-                parseSingleLine(parts, lineNumber, classpathResource, line, result);
-            }
-        } catch (IOException e) {
-            LOGGER.error("Failed to load observance data from {}", classpathResource, e);
-            throw new ExceptionInInitializerError(e);
-        }
+        scan(anchor, classpathResource, result::put);
         return Collections.unmodifiableMap(result);
     }
 
@@ -110,8 +91,20 @@ public final class CsvObservanceLoader {
      */
     public static Map<Integer, List<LocalDate>> loadMultiple(Class<?> anchor, String classpathResource) {
         Map<Integer, List<LocalDate>> result = new HashMap<>();
-        try (InputStream is = openStream(anchor, classpathResource);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        scan(anchor, classpathResource,
+                (year, date) -> result.computeIfAbsent(year, k -> new ArrayList<>()).add(date));
+        Map<Integer, List<LocalDate>> frozen = HashMap.newHashMap(result.size());
+        result.forEach((year, dates) -> frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
+        return Collections.unmodifiableMap(frozen);
+    }
+
+    private static void scan(Class<?> anchor, String classpathResource,
+                             BiConsumer<Integer, LocalDate> accumulator) {
+        InputStream is = anchor.getResourceAsStream(classpathResource);
+        if (is == null) {
+            throw new IllegalStateException("Required resource not found: " + classpathResource);
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             int lineNumber = 0;
             String line;
             while ((line = reader.readLine()) != null) {
@@ -125,44 +118,18 @@ public final class CsvObservanceLoader {
                     LOGGER.warn("Skipping malformed line {} in {}: '{}'", lineNumber, classpathResource, line);
                     continue;
                 }
-                parseMultipleLine(parts, lineNumber, classpathResource, line, result);
+                try {
+                    int year = Integer.parseInt(parts[0].strip());
+                    LocalDate date = LocalDate.parse(parts[1].strip());
+                    accumulator.accept(year, date);
+                } catch (NumberFormatException | DateTimeParseException e) {
+                    LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}",
+                            lineNumber, classpathResource, line, e.getMessage());
+                }
             }
         } catch (IOException e) {
             LOGGER.error("Failed to load observance data from {}", classpathResource, e);
             throw new ExceptionInInitializerError(e);
-        }
-        Map<Integer, List<LocalDate>> frozen = HashMap.newHashMap(result.size());
-        result.forEach((year, dates) -> frozen.put(year, Collections.unmodifiableList(new ArrayList<>(dates))));
-        return Collections.unmodifiableMap(frozen);
-    }
-
-    private static InputStream openStream(Class<?> anchor, String classpathResource) {
-        InputStream is = anchor.getResourceAsStream(classpathResource);
-        if (is == null) {
-            throw new IllegalStateException("Required resource not found: " + classpathResource);
-        }
-        return is;
-    }
-
-    private static void parseSingleLine(String[] parts, int lineNumber, String resource, String line,
-                                        Map<Integer, LocalDate> result) {
-        try {
-            int year = Integer.parseInt(parts[0].strip());
-            LocalDate date = LocalDate.parse(parts[1].strip());
-            result.put(year, date);
-        } catch (NumberFormatException | DateTimeParseException e) {
-            LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}", lineNumber, resource, line, e.getMessage());
-        }
-    }
-
-    private static void parseMultipleLine(String[] parts, int lineNumber, String resource, String line,
-                                          Map<Integer, List<LocalDate>> result) {
-        try {
-            int year = Integer.parseInt(parts[0].strip());
-            LocalDate date = LocalDate.parse(parts[1].strip());
-            result.computeIfAbsent(year, k -> new ArrayList<>()).add(date);
-        } catch (NumberFormatException | DateTimeParseException e) {
-            LOGGER.warn("Skipping malformed line {} in {}: '{}' — {}", lineNumber, resource, line, e.getMessage());
         }
     }
 }
