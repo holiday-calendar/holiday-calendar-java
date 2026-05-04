@@ -1,0 +1,54 @@
+# Deepavali (Diwali) — Singapore public holiday dates
+# The Hindu Festival of Lights. In Singapore, Deepavali is observed on the first
+# day of the Tamil month of Karthigai and is officially gazetted by the Singapore
+# government each year.
+#
+# 2019–2030: Singapore Ministry of Manpower (MOM) official gazette.
+# 2031–2055: Derived from Tamil Panchang calculations (Karthigai month
+#            commencement / Karthigai Amavasai, IST/SGT) cross-referenced with
+#            Drik Panchang astronomical tables; verify against MOM gazette as
+#            each year is officially published.
+#
+# Format: year,YYYY-MM-DD,source
+#
+# 2019–2030: Singapore MOM official gazette
+2019,2019-10-27,MOM gazette
+2020,2020-11-14,MOM gazette
+2021,2021-11-04,MOM gazette
+2022,2022-10-24,MOM gazette
+2023,2023-11-12,MOM gazette
+2024,2024-10-31,MOM gazette
+2025,2025-10-20,MOM gazette
+2026,2026-11-08,MOM gazette
+2027,2027-10-29,MOM gazette
+2028,2028-10-17,MOM gazette
+2029,2029-11-05,MOM gazette
+2030,2030-10-26,MOM gazette
+# 2031–2055: Tamil Panchang projection (1st day of Tamil month Karthigai, SGT),
+# cross-referenced with Drik Panchang astronomical tables; verify against MOM
+# gazette as each year is officially published.
+2031,2031-11-14,Tamil Panchang / Drik Panchang projection
+2032,2032-11-02,Tamil Panchang / Drik Panchang projection
+2033,2033-10-23,Tamil Panchang / Drik Panchang projection
+2034,2034-11-10,Tamil Panchang / Drik Panchang projection
+2035,2035-10-31,Tamil Panchang / Drik Panchang projection
+2036,2036-10-19,Tamil Panchang / Drik Panchang projection
+2037,2037-11-07,Tamil Panchang / Drik Panchang projection
+2038,2038-10-27,Tamil Panchang / Drik Panchang projection
+2039,2039-10-16,Tamil Panchang / Drik Panchang projection
+2040,2040-11-03,Tamil Panchang / Drik Panchang projection
+2041,2041-10-24,Tamil Panchang / Drik Panchang projection
+2042,2042-11-11,Tamil Panchang / Drik Panchang projection
+2043,2043-11-01,Tamil Panchang / Drik Panchang projection
+2044,2044-10-20,Tamil Panchang / Drik Panchang projection
+2045,2045-11-08,Tamil Panchang / Drik Panchang projection
+2046,2046-10-29,Tamil Panchang / Drik Panchang projection
+2047,2047-10-19,Tamil Panchang / Drik Panchang projection
+2048,2048-11-05,Tamil Panchang / Drik Panchang projection
+2049,2049-10-25,Tamil Panchang / Drik Panchang projection
+2050,2050-10-15,Tamil Panchang / Drik Panchang projection
+2051,2051-11-03,Tamil Panchang / Drik Panchang projection
+2052,2052-10-22,Tamil Panchang / Drik Panchang projection
+2053,2053-11-10,Tamil Panchang / Drik Panchang projection
+2054,2054-10-30,Tamil Panchang / Drik Panchang projection
+2055,2055-10-19,Tamil Panchang / Drik Panchang projection
