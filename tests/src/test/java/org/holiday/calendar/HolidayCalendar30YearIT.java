@@ -29,7 +29,7 @@ import java.util.Map;
 import static org.testng.Assert.*;
 
 /**
- * 30-year integration test suite validating all 17 implemented holiday calendars
+ * 30-year integration test suite validating all 18 implemented holiday calendars
  * over the 2026–2055 target range (issue #117).
  *
  * <p>For every calendar code the suite verifies:
@@ -69,6 +69,7 @@ public class HolidayCalendar30YearIT {
                 new Object[]{"JP"},
                 new Object[]{"JPY"},
                 new Object[]{"SG"},
+                new Object[]{"SGD"},
                 new Object[]{"UK"},
                 new Object[]{"US"},
                 new Object[]{"USD"}

@@ -34,6 +34,7 @@ Key design goals:
 | `JP` | Japan (TSE) Holidays |
 | `JPY` | Japan (BOJ) Holidays |
 | `SG` | Singapore (SGX) Holidays |
+| `SGD` | Singapore (MAS/MEPS+) Holidays |
 | `UK` | United Kingdom National Holidays |
 | `US` | United States National Holidays |
 | `USD` | United States (Federal Reserve) Holidays |
@@ -73,7 +74,7 @@ Then add the modules you need:
   <version>@project.version@</version>
 </dependency>
 
-<!-- APAC calendars: SG, JP, JPY, CNY -->
+<!-- APAC calendars: SG, SGD, JP, JPY, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
@@ -120,7 +121,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "UK", "US", "USD"]
+// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "SGD", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
