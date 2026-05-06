@@ -22,7 +22,7 @@
  * <p>Provides holiday calendar implementations and observances for Asia-Pacific
  * countries, including lunar, Islamic, and Hindu calendar-based holidays.
  * Supports Singapore SGX (SG), Singapore MAS MEPS+ (SGD), Tokyo Stock Exchange (JP),
- * Bank of Japan (JPY), and People's Bank of China (CNY).
+ * Bank of Japan (JPY), People's Bank of China (CNY), and China national (CN).
  */
 module org.holiday.calendar.apac {
     requires org.holiday.calendar.core;
@@ -40,5 +40,6 @@ module org.holiday.calendar.apac {
         org.holiday.calendar.impl.HolidayCalendarServiceSG,
         org.holiday.calendar.impl.HolidayCalendarServiceSGD,
         org.holiday.calendar.impl.HolidayCalendarServiceJP,
-        org.holiday.calendar.impl.HolidayCalendarServiceJPY;
+        org.holiday.calendar.impl.HolidayCalendarServiceJPY,
+        org.holiday.calendar.impl.HolidayCalendarServiceCN;
 }
