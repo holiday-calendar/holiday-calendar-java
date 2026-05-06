@@ -131,17 +131,21 @@ public class HolidayCalendarServiceCNTest {
     }
 
     // =========================================================================
-    // 3. SPRING FESTIVAL GOLDEN-MASTER DATES (DAYS 1–3)
+    // 3–6. FLOATING HOLIDAY GOLDEN-MASTER DATES
     // =========================================================================
 
     /**
-     * Spring Festival natural (lunar calendar) dates for Days 1–3.
-     * Spring Festival is {@code rollable(false)}: China's block-shift mechanism
-     * cannot be replicated per-day, so dates are reported on their natural positions.
+     * Golden-master dates for all floating holidays.
+     *
+     * <p>Spring Festival (Days 1–3) is {@code rollable(false)}: China's block-shift
+     * mechanism cannot be replicated per-day, so dates are the natural lunar calendar
+     * positions. Single-day floating holidays (Qingming, Dragon Boat, Mid-Autumn) are
+     * {@code rollable(true)} and show post-roll observed dates.
      */
-    @DataProvider(name = "springFestivalDates")
-    public Object[][] springFestivalDates() {
+    @DataProvider(name = "floatingHolidayDates")
+    public Object[][] floatingHolidayDates() {
         return new Object[][] {
+            // Spring Festival — rollable=false, natural dates
             {"Spring Festival (Day 1)", 2024, LocalDate.of(2024, Month.FEBRUARY, 10)}, // Sat — stays
             {"Spring Festival (Day 1)", 2025, LocalDate.of(2025, Month.JANUARY,  29)}, // Wed — stays
             {"Spring Festival (Day 1)", 2026, LocalDate.of(2026, Month.FEBRUARY, 17)}, // Tue — stays
@@ -154,24 +158,7 @@ public class HolidayCalendarServiceCNTest {
             {"Spring Festival (Day 3)", 2025, LocalDate.of(2025, Month.JANUARY,  31)},
             {"Spring Festival (Day 3)", 2026, LocalDate.of(2026, Month.FEBRUARY, 19)},
             {"Spring Festival (Day 3)", 2027, LocalDate.of(2027, Month.FEBRUARY,  8)},
-        };
-    }
-
-    @Test(dataProvider = "springFestivalDates",
-          description = "Spring Festival date matches expected natural date (rollable=false)")
-    public void testSpringFestivalDate(String holidayName, int year, LocalDate expectedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        assertHolidayDate(holidays, holidayName, expectedDate, holidayName + " " + year);
-    }
-
-    // =========================================================================
-    // 4–6. SINGLE-DAY FLOATING HOLIDAY GOLDEN-MASTER DATES
-    // =========================================================================
-
-    @DataProvider(name = "floatingHolidayDates")
-    public Object[][] floatingHolidayDates() {
-        return new Object[][] {
+            // Single-day floating holidays — rollable=true, post-roll observed dates
             {"Qingming Festival",    2024, LocalDate.of(2024, Month.APRIL,      4)}, // Thu — no roll
             {"Qingming Festival",    2025, LocalDate.of(2025, Month.APRIL,      4)}, // Fri — no roll
             {"Qingming Festival",    2026, LocalDate.of(2026, Month.APRIL,      6)}, // Mon — no roll
@@ -185,7 +172,7 @@ public class HolidayCalendarServiceCNTest {
     }
 
     @Test(dataProvider = "floatingHolidayDates",
-          description = "Floating holiday date matches expected post-roll observed date")
+          description = "Floating holiday date matches expected observed date")
     public void testFloatingHolidayDate(String holidayName, int year, LocalDate expectedDate) {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(year);
