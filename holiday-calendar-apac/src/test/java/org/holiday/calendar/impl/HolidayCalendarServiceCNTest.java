@@ -135,128 +135,61 @@ public class HolidayCalendarServiceCNTest {
     // =========================================================================
 
     /**
-     * Spring Festival Day 1 natural (lunar calendar) dates.
+     * Spring Festival natural (lunar calendar) dates for Days 1–3.
      * Spring Festival is {@code rollable(false)}: China's block-shift mechanism
      * cannot be replicated per-day, so dates are reported on their natural positions.
      */
-    @DataProvider(name = "springFestivalDay1Dates")
-    public Object[][] springFestivalDay1Dates() {
+    @DataProvider(name = "springFestivalDates")
+    public Object[][] springFestivalDates() {
         return new Object[][] {
-            {2024, LocalDate.of(2024, Month.FEBRUARY, 10)}, // Sat Feb 10 — stays (rollable=false)
-            {2025, LocalDate.of(2025, Month.JANUARY,  29)}, // Wed Jan 29 — stays
-            {2026, LocalDate.of(2026, Month.FEBRUARY, 17)}, // Tue Feb 17 — stays
-            {2027, LocalDate.of(2027, Month.FEBRUARY,  6)}, // Sat Feb  6 — stays (rollable=false)
+            {"Spring Festival (Day 1)", 2024, LocalDate.of(2024, Month.FEBRUARY, 10)}, // Sat — stays
+            {"Spring Festival (Day 1)", 2025, LocalDate.of(2025, Month.JANUARY,  29)}, // Wed — stays
+            {"Spring Festival (Day 1)", 2026, LocalDate.of(2026, Month.FEBRUARY, 17)}, // Tue — stays
+            {"Spring Festival (Day 1)", 2027, LocalDate.of(2027, Month.FEBRUARY,  6)}, // Sat — stays
+            {"Spring Festival (Day 2)", 2024, LocalDate.of(2024, Month.FEBRUARY, 11)}, // Sun — stays
+            {"Spring Festival (Day 2)", 2025, LocalDate.of(2025, Month.JANUARY,  30)},
+            {"Spring Festival (Day 2)", 2026, LocalDate.of(2026, Month.FEBRUARY, 18)},
+            {"Spring Festival (Day 2)", 2027, LocalDate.of(2027, Month.FEBRUARY,  7)}, // Sun — stays
+            {"Spring Festival (Day 3)", 2024, LocalDate.of(2024, Month.FEBRUARY, 12)},
+            {"Spring Festival (Day 3)", 2025, LocalDate.of(2025, Month.JANUARY,  31)},
+            {"Spring Festival (Day 3)", 2026, LocalDate.of(2026, Month.FEBRUARY, 19)},
+            {"Spring Festival (Day 3)", 2027, LocalDate.of(2027, Month.FEBRUARY,  8)},
         };
     }
 
-    @Test(dataProvider = "springFestivalDay1Dates",
-          description = "Spring Festival Day 1 observed date matches expected post-roll date")
-    public void testSpringFestivalDay1Date(int year, LocalDate expectedObservedDate) {
+    @Test(dataProvider = "springFestivalDates",
+          description = "Spring Festival date matches expected natural date (rollable=false)")
+    public void testSpringFestivalDate(String holidayName, int year, LocalDate expectedDate) {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(year);
-        assertHolidayDate(holidays, "Spring Festival (Day 1)", expectedObservedDate,
-                "Spring Festival (Day 1) " + year);
+        assertHolidayDate(holidays, holidayName, expectedDate, holidayName + " " + year);
     }
 
-    @DataProvider(name = "springFestivalDay2Dates")
-    public Object[][] springFestivalDay2Dates() {
+    // =========================================================================
+    // 4–6. SINGLE-DAY FLOATING HOLIDAY GOLDEN-MASTER DATES
+    // =========================================================================
+
+    @DataProvider(name = "floatingHolidayDates")
+    public Object[][] floatingHolidayDates() {
         return new Object[][] {
-            {2024, LocalDate.of(2024, Month.FEBRUARY, 11)},
-            {2025, LocalDate.of(2025, Month.JANUARY,  30)},
-            {2026, LocalDate.of(2026, Month.FEBRUARY, 18)},
-            {2027, LocalDate.of(2027, Month.FEBRUARY,  7)},
+            {"Qingming Festival",    2024, LocalDate.of(2024, Month.APRIL,      4)}, // Thu — no roll
+            {"Qingming Festival",    2025, LocalDate.of(2025, Month.APRIL,      4)}, // Fri — no roll
+            {"Qingming Festival",    2026, LocalDate.of(2026, Month.APRIL,      6)}, // Mon — no roll
+            {"Dragon Boat Festival", 2024, LocalDate.of(2024, Month.JUNE,      10)}, // Mon — no roll
+            {"Dragon Boat Festival", 2025, LocalDate.of(2025, Month.JUNE,       2)}, // raw Sat May 31 → Mon
+            {"Dragon Boat Festival", 2026, LocalDate.of(2026, Month.JUNE,      19)}, // Fri — no roll
+            {"Mid-Autumn Festival",  2024, LocalDate.of(2024, Month.SEPTEMBER, 17)}, // Tue — no roll
+            {"Mid-Autumn Festival",  2025, LocalDate.of(2025, Month.OCTOBER,    6)}, // Mon — no roll
+            {"Mid-Autumn Festival",  2026, LocalDate.of(2026, Month.SEPTEMBER, 25)}, // Fri — no roll
         };
     }
 
-    @Test(dataProvider = "springFestivalDay2Dates",
-          description = "Spring Festival Day 2 observed date matches expected post-roll date")
-    public void testSpringFestivalDay2Date(int year, LocalDate expectedObservedDate) {
+    @Test(dataProvider = "floatingHolidayDates",
+          description = "Floating holiday date matches expected post-roll observed date")
+    public void testFloatingHolidayDate(String holidayName, int year, LocalDate expectedDate) {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> holidays = calendar.calculate(year);
-        assertHolidayDate(holidays, "Spring Festival (Day 2)", expectedObservedDate,
-                "Spring Festival (Day 2) " + year);
-    }
-
-    @DataProvider(name = "springFestivalDay3Dates")
-    public Object[][] springFestivalDay3Dates() {
-        return new Object[][] {
-            {2024, LocalDate.of(2024, Month.FEBRUARY, 12)},
-            {2025, LocalDate.of(2025, Month.JANUARY,  31)},
-            {2026, LocalDate.of(2026, Month.FEBRUARY, 19)},
-            {2027, LocalDate.of(2027, Month.FEBRUARY,  8)},
-        };
-    }
-
-    @Test(dataProvider = "springFestivalDay3Dates",
-          description = "Spring Festival Day 3 observed date matches expected post-roll date")
-    public void testSpringFestivalDay3Date(int year, LocalDate expectedObservedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        assertHolidayDate(holidays, "Spring Festival (Day 3)", expectedObservedDate,
-                "Spring Festival (Day 3) " + year);
-    }
-
-    // =========================================================================
-    // 4. QINGMING FESTIVAL GOLDEN-MASTER DATES
-    // =========================================================================
-
-    @DataProvider(name = "qingmingDates")
-    public Object[][] qingmingDates() {
-        return new Object[][] {
-            {2024, LocalDate.of(2024, Month.APRIL,  4)}, // Thu — no roll
-            {2025, LocalDate.of(2025, Month.APRIL,  4)}, // Fri — no roll
-            {2026, LocalDate.of(2026, Month.APRIL,  6)}, // Mon Apr 6 — no roll
-        };
-    }
-
-    @Test(dataProvider = "qingmingDates",
-          description = "Qingming Festival date matches the solar-term calculation for each year")
-    public void testQingmingDate(int year, LocalDate expectedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        assertHolidayDate(holidays, "Qingming Festival", expectedDate, "Qingming Festival " + year);
-    }
-
-    // =========================================================================
-    // 5. DRAGON BOAT FESTIVAL GOLDEN-MASTER DATES
-    // =========================================================================
-
-    @DataProvider(name = "dragonBoatDates")
-    public Object[][] dragonBoatDates() {
-        return new Object[][] {
-            {2024, LocalDate.of(2024, Month.JUNE,  10)}, // Mon — no roll
-            {2025, LocalDate.of(2025, Month.JUNE,   2)}, // raw Sat May 31 → Mon Jun 2 (rollable=true)
-            {2026, LocalDate.of(2026, Month.JUNE,  19)}, // Fri — no roll
-        };
-    }
-
-    @Test(dataProvider = "dragonBoatDates",
-          description = "Dragon Boat Festival date matches the 5th-day-of-5th-lunar-month calculation")
-    public void testDragonBoatDate(int year, LocalDate expectedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        assertHolidayDate(holidays, "Dragon Boat Festival", expectedDate, "Dragon Boat Festival " + year);
-    }
-
-    // =========================================================================
-    // 6. MID-AUTUMN FESTIVAL GOLDEN-MASTER DATES
-    // =========================================================================
-
-    @DataProvider(name = "midAutumnDates")
-    public Object[][] midAutumnDates() {
-        return new Object[][] {
-            {2024, LocalDate.of(2024, Month.SEPTEMBER, 17)}, // Tue — no roll
-            {2025, LocalDate.of(2025, Month.OCTOBER,    6)}, // Mon Oct 6 — no roll
-            {2026, LocalDate.of(2026, Month.SEPTEMBER, 25)}, // Fri Sep 25 — no roll
-        };
-    }
-
-    @Test(dataProvider = "midAutumnDates",
-          description = "Mid-Autumn Festival date matches the 15th-day-of-8th-lunar-month calculation")
-    public void testMidAutumnDate(int year, LocalDate expectedDate) {
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        List<HolidayDate> holidays = calendar.calculate(year);
-        assertHolidayDate(holidays, "Mid-Autumn Festival", expectedDate, "Mid-Autumn Festival " + year);
+        assertHolidayDate(holidays, holidayName, expectedDate, holidayName + " " + year);
     }
 
     // =========================================================================
