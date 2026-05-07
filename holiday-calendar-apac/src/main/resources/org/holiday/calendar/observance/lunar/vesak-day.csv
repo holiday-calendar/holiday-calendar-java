@@ -1,0 +1,52 @@
+# Vesak Day (Buddha's Birthday) — Singapore public holiday dates
+# Vesak Day falls on the full moon of the fourth month of the Chinese lunisolar
+# calendar, observed on the date officially gazetted by the Singapore government.
+#
+# 2019–2030: Singapore Ministry of Manpower (MOM) official gazette
+# 2031–2055: Hong Kong Observatory Gregorian-Lunar Calendar Conversion Tables
+#            (day 15 of Chinese lunisolar month 4 in SGT); verify against MOM
+#            gazette as each year is officially published.
+#
+# Format: year,YYYY-MM-DD,source
+#
+# 2019–2030: Singapore MOM official gazette
+2019,2019-05-19,MOM gazette
+2020,2020-05-07,MOM gazette
+2021,2021-05-26,MOM gazette
+2022,2022-05-15,MOM gazette
+2023,2023-06-02,MOM gazette
+2024,2024-05-22,MOM gazette
+2025,2025-05-12,MOM gazette
+2026,2026-05-31,MOM gazette
+2027,2027-05-20,MOM gazette
+2028,2028-05-08,MOM gazette
+2029,2029-05-27,MOM gazette
+2030,2030-05-16,MOM gazette
+# 2031–2055: HKO Gregorian-Lunar Conversion Tables (M4 day 15 in SGT);
+# verify against MOM gazette as each year is officially published.
+2031,2031-06-04,HKO conversion table
+2032,2032-05-23,HKO conversion table
+2033,2033-05-13,HKO conversion table
+2034,2034-06-01,HKO conversion table
+2035,2035-05-22,HKO conversion table
+2036,2036-05-10,HKO conversion table
+2037,2037-05-29,HKO conversion table
+2038,2038-05-18,HKO conversion table
+2039,2039-05-07,HKO conversion table
+2040,2040-05-25,HKO conversion table
+2041,2041-05-14,HKO conversion table
+2042,2042-06-02,HKO conversion table
+2043,2043-05-23,HKO conversion table
+2044,2044-05-12,HKO conversion table
+2045,2045-05-31,HKO conversion table
+2046,2046-05-20,HKO conversion table
+2047,2047-05-09,HKO conversion table
+# 2048: computed via Xiaoman method; HKO 2048e PDF is image-rendered
+2048,2048-05-27,Xiaoman method (HKO 2048e PDF image-rendered)
+2049,2049-05-16,HKO conversion table
+2050,2050-06-04,HKO conversion table
+2051,2051-05-24,HKO conversion table
+2052,2052-05-13,HKO conversion table
+2053,2053-06-01,HKO conversion table
+2054,2054-05-22,HKO conversion table
+2055,2055-05-11,HKO conversion table

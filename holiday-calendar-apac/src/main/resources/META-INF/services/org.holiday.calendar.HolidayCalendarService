@@ -1,4 +1,6 @@
 org.holiday.calendar.impl.HolidayCalendarServiceCNY
 org.holiday.calendar.impl.HolidayCalendarServiceSG
+org.holiday.calendar.impl.HolidayCalendarServiceSGD
 org.holiday.calendar.impl.HolidayCalendarServiceJP
 org.holiday.calendar.impl.HolidayCalendarServiceJPY
+org.holiday.calendar.impl.HolidayCalendarServiceCN

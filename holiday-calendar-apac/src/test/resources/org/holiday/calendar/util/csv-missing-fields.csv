@@ -1,0 +1,4 @@
+# One row with only one field (no comma), two good rows
+2020,2020-01-19,Good row
+MALFORMED-NO-COMMA
+2022,2022-01-29,Good row

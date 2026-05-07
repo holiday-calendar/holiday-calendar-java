@@ -7,7 +7,7 @@
     <parent>
         <artifactId>holiday-calendar-java</artifactId>
         <groupId>org.holiday.calendar</groupId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </parent>
 
     <artifactId>tests</artifactId>
@@ -34,9 +34,16 @@
             <artifactId>holiday-calendar-apac</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- Test dependencies -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -50,6 +57,10 @@
                     <includes>
                         <include>**/*IT.java</include>
                     </includes>
+                    <systemPropertyVariables>
+                        <project.version>${project.version}</project.version>
+                        <project.root.basedir>${project.basedir}/..</project.root.basedir>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>

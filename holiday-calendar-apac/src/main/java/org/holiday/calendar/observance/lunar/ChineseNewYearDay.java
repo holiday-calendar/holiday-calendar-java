@@ -29,9 +29,10 @@ import java.time.LocalDate;
  * holiday window, numbered from Day 1 (the first day of the first lunar month)
  * through Day 7.
  *
- * <p>The seven-day Spring Festival window is the statutory public holiday period
- * in China as published by the State Council. Days are consecutive Gregorian
- * calendar days from Day 1 (Chinese New Year's Day) onward.</p>
+ * <p>Days are consecutive Gregorian calendar days beginning from Day 1
+ * (Chinese New Year's Day). The valid range {@code 1–7} supports both the
+ * three-day statutory minimum window (national {@code CN} calendar, Days 1–3)
+ * and the seven-day PBOC operational window ({@code CNY} calendar, Days 1–7).</p>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
@@ -42,7 +43,9 @@ public class ChineseNewYearDay extends AbstractObservance {
     /**
      * Constructs an observance for the given day of the Spring Festival window.
      *
-     * @param dayNumber day within the Spring Festival window, in range {@code 1–7}
+     * @param dayNumber day within the Spring Festival window, in range {@code 1–7};
+     *                  values 1–3 model the statutory national ({@code CN}) calendar,
+     *                  values 1–7 model the PBOC operational ({@code CNY}) calendar
      * @throws IllegalArgumentException if {@code dayNumber} is not in range 1–7
      */
     public ChineseNewYearDay(int dayNumber) {

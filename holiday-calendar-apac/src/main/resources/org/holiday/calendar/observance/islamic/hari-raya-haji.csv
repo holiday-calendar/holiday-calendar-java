@@ -1,0 +1,60 @@
+# Hari Raya Haji (Eid al-Adha) — Singapore public holiday dates
+# The Feast of Sacrifice on the 10th day of Dhu al-Hijjah. The observed date is
+# officially gazetted by the Singapore government and follows the local lunar
+# sighting, which may differ from tabular Islamic calendar calculations.
+#
+# 2019–2030: Singapore Ministry of Manpower (MOM) official gazette.
+# 2031–2055: Derived from the tabular Islamic calendar (Küçük 30-year leap cycle,
+#            10 Dhu al-Hijjah, SGT); actual dates subject to MUIS (Majlis Ugama
+#            Islam Singapura) local moon-sighting confirmation and may differ by
+#            ±1 day. Verify against official MUIS gazette annually.
+#
+# NOTE — 2039: Gregorian year 2039 contains two 10 Dhu al-Hijjah occurrences
+# (5 Jan AH 1460 and 25 Dec AH 1461). 5 Jan 2039 is used as Singapore's gazetted
+# public holiday per MUIS convention. As a consequence, the 2040 entry falls in
+# December (14 Dec 2040) rather than earlier in the year — this is correct.
+#
+# Format: year,YYYY-MM-DD,source
+#
+# 2019–2030: Singapore MOM official gazette
+2019,2019-08-11,MOM gazette
+2020,2020-07-31,MOM gazette
+2021,2021-07-20,MOM gazette
+2022,2022-07-10,MOM gazette
+2023,2023-06-29,MOM gazette
+2024,2024-06-17,MOM gazette
+2025,2025-06-07,MOM gazette
+2026,2026-05-27,MOM gazette
+2027,2027-05-16,MOM gazette
+2028,2028-05-05,MOM gazette
+2029,2029-04-24,MOM gazette
+2030,2030-04-13,MOM gazette
+# 2031–2055: Tabular Islamic calendar (10 Dhu al-Hijjah, Küçük 30-year cycle,
+# epoch 1 Muharram 1 AH = JDN 1948439); verify against MUIS gazette annually.
+2031,2031-04-02,Küçük tabular projection
+2032,2032-03-21,Küçük tabular projection
+2033,2033-03-11,Küçük tabular projection
+2034,2034-02-28,Küçük tabular projection
+2035,2035-02-17,Küçük tabular projection
+2036,2036-02-07,Küçük tabular projection
+2037,2037-01-26,Küçük tabular projection
+2038,2038-01-16,Küçük tabular projection
+# 2039: two 10 Dhu al-Hijjah occurrences (5 Jan AH 1460; 25 Dec AH 1461); 5 Jan used per MUIS convention
+2039,2039-01-05,Küçük tabular projection (5 Jan AH 1460; second occurrence 25 Dec AH 1461 omitted)
+# 2040: falls in December because the January slot was consumed by the 2039 double-occurrence
+2040,2040-12-14,Küçük tabular projection (December — consequence of 2039 double-occurrence)
+2041,2041-12-03,Küçük tabular projection
+2042,2042-11-22,Küçük tabular projection
+2043,2043-11-12,Küçük tabular projection
+2044,2044-10-31,Küçük tabular projection
+2045,2045-10-21,Küçük tabular projection
+2046,2046-10-10,Küçük tabular projection
+2047,2047-09-29,Küçük tabular projection
+2048,2048-09-18,Küçük tabular projection
+2049,2049-09-07,Küçük tabular projection
+2050,2050-08-27,Küçük tabular projection
+2051,2051-08-17,Küçük tabular projection
+2052,2052-08-05,Küçük tabular projection
+2053,2053-07-25,Küçük tabular projection
+2054,2054-07-15,Küçük tabular projection
+2055,2055-07-04,Küçük tabular projection

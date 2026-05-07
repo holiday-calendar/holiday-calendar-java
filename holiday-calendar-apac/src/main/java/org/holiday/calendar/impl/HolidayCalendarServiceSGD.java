@@ -25,16 +25,27 @@ import org.holiday.calendar.function.DateRolls;
 import java.util.OptionalInt;
 
 /**
- * Service for provision of Singapore Exchange (SGX) holiday calendar.
+ * Service for provision of the Singapore MAS MEPS+ holiday calendar.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * <p>Calendar code: {@code SGD}. MEPS+ (MAS Electronic Payment System Plus) is
+ * Singapore's real-time gross settlement (RTGS) system for SGD interbank payments.
+ * Settlement holidays follow Singapore's statutory public holiday schedule.
+ *
+ * <p>Roll strategy: {@link DateRolls#noRoll()} — RTGS settlement requires both
+ * counterparties to be available on the same calendar date; there is no roll-forward
+ * convention. All holidays are {@code rollable(false)}.
+ *
+ * <p>Reference: MAS MEPS+ Service Agreement (effective 1 Oct 2025), which defines
+ * "business day" as any Monday–Friday excluding Singapore public holidays.
+ * No additional bank-specific closure days (analogous to BOJ Jan 2, Jan 3, Dec 31)
+ * are published by MAS for MEPS+.
  */
-public class HolidayCalendarServiceSG extends AbstractHolidayCalendarService {
+public class HolidayCalendarServiceSGD extends AbstractHolidayCalendarService {
 
-    private static final String CODE = "SG";
-    private static final String NAME = "Singapore (SGX) Holidays";
+    private static final String CODE = "SGD";
+    private static final String NAME = "Singapore (MAS/MEPS+) Holidays";
 
-    public HolidayCalendarServiceSG() {
+    public HolidayCalendarServiceSGD() {
         super(CODE, NAME);
     }
 
@@ -48,10 +59,9 @@ public class HolidayCalendarServiceSG extends AbstractHolidayCalendarService {
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
-                .dateRoll(DateRolls.followingMonday())
+                .dateRoll(DateRolls.noRoll())
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
-                .holidays(SingaporeHolidays.baseHolidays(true))
+                .holidays(SingaporeHolidays.baseHolidays(false))
                 .build();
     }
-
 }
