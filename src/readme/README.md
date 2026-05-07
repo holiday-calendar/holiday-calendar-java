@@ -26,6 +26,7 @@ Key design goals:
 | `CAD` | Bank of Canada (Lynx) Holiday Schedule |
 | `CH` | Switzerland (SIX) Holidays |
 | `CHF` | Switzerland (SIC/SNB) Holidays |
+| `CN` | China National Holidays |
 | `CNY` | China (PBOC) Holidays |
 | `DE` | Germany (Xetra) Holidays |
 | `EUR` | Euro (TARGET2) Holidays |
@@ -74,7 +75,7 @@ Then add the modules you need:
   <version>@project.version@</version>
 </dependency>
 
-<!-- APAC calendars: SG, SGD, JP, JPY, CNY -->
+<!-- APAC calendars: SG, SGD, JP, JPY, CN, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
@@ -121,7 +122,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "SGD", "UK", "US", "USD"]
+// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "SGD", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
