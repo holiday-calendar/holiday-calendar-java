@@ -94,4 +94,36 @@ public class DateRollsTest {
         LocalDate sat = LocalDate.of(2028, 1, 1);
         assertEquals(DateRolls.noRoll().rollToObservedDate(sat), sat);
     }
+
+    // ── followingSunday ───────────────────────────────────────────────────────
+
+    @Test
+    public void testFollowingSunday_Friday_RollsToSunday() {
+        // Jan 3 2025 is Friday → Jan 5 2025 (Sunday)
+        LocalDate fri = LocalDate.of(2025, 1, 3);
+        assertEquals(DateRolls.followingSunday().rollToObservedDate(fri), LocalDate.of(2025, 1, 5));
+    }
+
+    @Test
+    public void testFollowingSunday_Saturday_RollsToSunday() {
+        // Jan 4 2025 is Saturday → Jan 5 2025 (Sunday)
+        LocalDate sat = LocalDate.of(2025, 1, 4);
+        assertEquals(DateRolls.followingSunday().rollToObservedDate(sat), LocalDate.of(2025, 1, 5));
+    }
+
+    @DataProvider(name = "gccWorkdays")
+    public Object[][] gccWorkdays() {
+        return new Object[][] {
+            { LocalDate.of(2025, 1, 5)  },  // Sunday
+            { LocalDate.of(2025, 1, 6)  },  // Monday
+            { LocalDate.of(2025, 1, 7)  },  // Tuesday
+            { LocalDate.of(2025, 1, 8)  },  // Wednesday
+            { LocalDate.of(2025, 1, 9)  },  // Thursday
+        };
+    }
+
+    @Test(dataProvider = "gccWorkdays")
+    public void testFollowingSunday_Workday_NoRoll(LocalDate workday) {
+        assertEquals(DateRolls.followingSunday().rollToObservedDate(workday), workday);
+    }
 }

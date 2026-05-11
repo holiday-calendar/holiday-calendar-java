@@ -49,6 +49,7 @@
         <module>holiday-calendar-core</module>
         <module>holiday-calendar-western</module>
         <module>holiday-calendar-apac</module>
+        <module>holiday-calendar-mena</module>
         <module>tests</module>
     </modules>
 
