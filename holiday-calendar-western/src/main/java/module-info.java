@@ -26,7 +26,6 @@
 module org.holiday.calendar.western {
     requires org.holiday.calendar.core;
 
-    exports org.holiday.calendar.observance;
     exports org.holiday.calendar.observance.christian;
     exports org.holiday.calendar.observance.au;
     exports org.holiday.calendar.observance.ca;

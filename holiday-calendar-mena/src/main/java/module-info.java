@@ -24,4 +24,6 @@ module org.holiday.calendar.mena {
     // requires org.holiday.calendar.western; // Add when a Christian observance (Good Friday, Christmas) is needed
     requires net.time4j.base;
     requires org.slf4j;
+
+    exports org.holiday.calendar.observance.islamic.mena;
 }

@@ -18,7 +18,7 @@
 
 package org.holiday.calendar.observance.ca;
 
-import org.holiday.calendar.observance.AbstractObservanceTest;
+import org.holiday.calendar.western.test.AbstractObservanceTest;
 
 import java.time.LocalDate;
 import java.time.Month;

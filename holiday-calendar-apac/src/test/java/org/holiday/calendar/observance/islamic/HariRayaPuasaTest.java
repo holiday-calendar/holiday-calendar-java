@@ -18,6 +18,7 @@
 
 package org.holiday.calendar.observance.islamic;
 
+import org.holiday.calendar.observance.islamic.apac.HariRayaPuasa;
 import org.holiday.calendar.observance.lunar.VesakDay;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
