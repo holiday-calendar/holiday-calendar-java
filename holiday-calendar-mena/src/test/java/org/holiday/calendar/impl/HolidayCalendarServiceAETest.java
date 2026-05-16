@@ -289,7 +289,7 @@ public class HolidayCalendarServiceAETest {
                 .toList();
         assertEquals(eidOccurrences.size(), 1,
                 "2033 has two Eid al-Fitr occurrences but only January is recorded");
-        assertEquals(eidOccurrences.get(0).date(), LocalDate.of(2033, Month.JANUARY, 3),
+        assertEquals(eidOccurrences.getFirst().date(), LocalDate.of(2033, Month.JANUARY, 3),
                 "The single 2033 Eid al-Fitr occurrence must be January 3");
     }
 
