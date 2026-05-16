@@ -25,8 +25,12 @@
  * associated functional interfaces.
  */
 module org.holiday.calendar.core {
+    requires org.slf4j;
+
     exports org.holiday.calendar;
     exports org.holiday.calendar.function;
+    exports org.holiday.calendar.observance;
+    exports org.holiday.calendar.util;
 
     uses org.holiday.calendar.HolidayCalendarService;
 }

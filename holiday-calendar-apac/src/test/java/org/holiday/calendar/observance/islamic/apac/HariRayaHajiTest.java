@@ -16,7 +16,7 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package org.holiday.calendar.observance.islamic;
+package org.holiday.calendar.observance.islamic.apac;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
