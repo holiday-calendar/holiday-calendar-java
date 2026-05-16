@@ -81,7 +81,7 @@
 
         <!-- Dependency versions -->
         <logback.version>1.4.12</logback.version>
-        <slf4j.version>2.0.17</slf4j.version>
+        <slf4j.version>2.0.18</slf4j.version>
         <testng.version>7.12.0</testng.version>
         <time4j.version>5.9.4</time4j.version>
 
