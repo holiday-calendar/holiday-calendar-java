@@ -20,6 +20,8 @@ Key design goals:
 
 | Code | Region |
 |------|--------|
+| `AE` | UAE (National) Holidays |
+| `AED` | UAE (CBUAE/DFM/ADX) Holidays |
 | `AU` | Australian Securities Exchange (ASX) Holidays |
 | `AUD` | Australia (RBA) Holidays |
 | `CA` | Canada National Holidays |
@@ -81,6 +83,13 @@ Then add the modules you need:
   <artifactId>holiday-calendar-apac</artifactId>
   <version>1.3.0-SNAPSHOT</version>
 </dependency>
+
+<!-- MENA calendars: AE, AED -->
+<dependency>
+  <groupId>org.holiday.calendar</groupId>
+  <artifactId>holiday-calendar-mena</artifactId>
+  <version>1.3.0-SNAPSHOT</version>
+</dependency>
 ```
 
 ## Usage
@@ -122,7 +131,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "SGD", "UK", "US", "USD"]
+// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "SGD", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar

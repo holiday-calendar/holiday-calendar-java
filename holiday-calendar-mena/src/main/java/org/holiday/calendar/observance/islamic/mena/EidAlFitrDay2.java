@@ -16,18 +16,38 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.islamic.mena;
+
+import org.holiday.calendar.observance.AbstractObservance;
+
+import java.time.LocalDate;
+
 /**
- * Holiday Calendar - MENA regional calendar module.
+ * Observance of the second day of Eid al-Fitr (2 Shawwal AH), marking the
+ * continuation of the Eid al-Fitr celebration.
+ *
+ * <p>The date is synthesized by advancing the first-day date ({@link EidAlFitr})
+ * by one calendar day. Data validity range and country-specific CSV source are
+ * inherited from the first-day observance.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-module org.holiday.calendar.mena {
-    requires org.holiday.calendar.core;
-    // requires org.holiday.calendar.western; // Add when a Christian observance (Good Friday, Christmas) is needed
-    requires net.time4j.base;
-    requires org.slf4j;
+public class EidAlFitrDay2 extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.islamic.mena;
+    private final EidAlFitr base;
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceAE,
-        org.holiday.calendar.impl.HolidayCalendarServiceAED;
+    public EidAlFitrDay2(String countryCode) {
+        this.base = new EidAlFitr(countryCode);
+    }
+
+    @Override
+    protected LocalDate computeDate(int year) {
+        return base.apply(year).plusDays(1);
+    }
+
+    @Override
+    protected boolean isValidYear(int year) {
+        return base.test(year);
+    }
+
 }

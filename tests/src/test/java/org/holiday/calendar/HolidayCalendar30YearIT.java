@@ -29,7 +29,7 @@ import java.util.Map;
 import static org.testng.Assert.*;
 
 /**
- * 30-year integration test suite validating all 19 implemented holiday calendars
+ * 30-year integration test suite validating all 21 implemented holiday calendars
  * over the 2026–2055 target range (issue #117).
  *
  * <p>For every calendar code the suite verifies:
@@ -55,6 +55,8 @@ public class HolidayCalendar30YearIT {
     @DataProvider(name = "allCalendarCodes")
     public Iterator<Object[]> allCalendarCodes() {
         return List.of(
+                new Object[]{"AE"},
+                new Object[]{"AED"},
                 new Object[]{"AU"},
                 new Object[]{"AUD"},
                 new Object[]{"CA"},
