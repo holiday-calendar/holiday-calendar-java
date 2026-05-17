@@ -16,20 +16,38 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.islamic.mena;
+
+import org.holiday.calendar.observance.AbstractObservance;
+
+import java.time.LocalDate;
+
 /**
- * Holiday Calendar - MENA regional calendar module.
+ * Observance of the third day of Eid al-Adha (12 Dhu al-Hijjah AH), marking
+ * the continuation of the Feast of Sacrifice.
+ *
+ * <p>The date is synthesized by advancing the first-day date ({@link EidAlAdha})
+ * by two calendar days. Data validity range and country-specific CSV source are
+ * inherited from the first-day observance.</p>
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-module org.holiday.calendar.mena {
-    requires org.holiday.calendar.core;
-    // requires org.holiday.calendar.western; // Add when a Christian observance (Good Friday, Christmas) is needed
-    requires net.time4j.base;
-    requires org.slf4j;
+public class EidAlAdhaDay3 extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.islamic.mena;
+    private final EidAlAdha base;
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceAE,
-        org.holiday.calendar.impl.HolidayCalendarServiceAED,
-        org.holiday.calendar.impl.HolidayCalendarServiceSA,
-        org.holiday.calendar.impl.HolidayCalendarServiceSAR;
+    public EidAlAdhaDay3(String countryCode) {
+        this.base = new EidAlAdha(countryCode);
+    }
+
+    @Override
+    protected LocalDate computeDate(int year) {
+        return base.apply(year).plusDays(2);
+    }
+
+    @Override
+    protected boolean isValidYear(int year) {
+        return base.test(year);
+    }
+
 }
