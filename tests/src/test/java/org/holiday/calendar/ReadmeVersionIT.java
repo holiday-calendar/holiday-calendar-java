@@ -117,7 +117,7 @@ public class ReadmeVersionIT {
                 String.join("\n  ", placeholderLines));
     }
 
-    @Test(description = "src/readme/README.md must contain exactly 3 @project.version@ placeholder tokens")
+    @Test(description = "src/readme/README.md must contain exactly 4 @project.version@ placeholder tokens")
     public void testTemplateContainsVersionPlaceholders() throws IOException {
         List<String> templateLines = Files.readAllLines(templatePath);
 
@@ -125,10 +125,10 @@ public class ReadmeVersionIT {
                 .filter(line -> line.contains(VERSION_PLACEHOLDER))
                 .count();
 
-        assertEquals(placeholderCount, 3L,
-                "Expected exactly 3 occurrences of '" + VERSION_PLACEHOLDER +
+        assertEquals(placeholderCount, 4L,
+                "Expected exactly 4 occurrences of '" + VERSION_PLACEHOLDER +
                 "' in " + templatePath.getFileName() +
-                " (one per dependency block: holiday-calendar-core, holiday-calendar-western, holiday-calendar-apac), " +
+                " (one per dependency block: holiday-calendar-core, holiday-calendar-western, holiday-calendar-apac, holiday-calendar-mena), " +
                 "but found " + placeholderCount + ".\n" +
                 "  If you added a new dependency block, update this assertion.\n" +
                 "  If placeholders were replaced with a hardcoded version, restore them.");
