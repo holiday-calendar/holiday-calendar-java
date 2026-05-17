@@ -1,2 +1,4 @@
 org.holiday.calendar.impl.HolidayCalendarServiceAE
 org.holiday.calendar.impl.HolidayCalendarServiceAED
+org.holiday.calendar.impl.HolidayCalendarServiceSA
+org.holiday.calendar.impl.HolidayCalendarServiceSAR
