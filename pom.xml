@@ -232,7 +232,7 @@
                         <inherited>false</inherited>
                         <configuration>
                             <outputDirectory>${project.basedir}</outputDirectory>
-                            <overwrite>true</overwrite>
+                            <changeDetection>always</changeDetection>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/readme</directory>

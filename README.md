@@ -34,6 +34,8 @@ Key design goals:
 | `EUR` | Euro (TARGET2) Holidays |
 | `FR` | France (Euronext Paris) Holidays |
 | `GBP` | United Kingdom (CHAPS) Holidays |
+| `IL` | Israel (National) Holidays |
+| `ILS` | Israel (TASE/Bank of Israel) Holidays |
 | `JP` | Japan (TSE) Holidays |
 | `JPY` | Japan (BOJ) Holidays |
 | `SA` | Saudi Arabia (National) Holidays |
@@ -86,7 +88,7 @@ Then add the modules you need:
   <version>1.3.0-SNAPSHOT</version>
 </dependency>
 
-<!-- MENA calendars: AE, AED, SA, SAR -->
+<!-- MENA calendars: AE, AED, IL, ILS, SA, SAR -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
@@ -133,7 +135,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SA", "SAR", "SG", "SGD", "UK", "US", "USD"]
+// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "SA", "SAR", "SG", "SGD", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
