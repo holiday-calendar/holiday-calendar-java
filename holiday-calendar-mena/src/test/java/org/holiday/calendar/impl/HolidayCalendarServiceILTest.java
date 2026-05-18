@@ -38,8 +38,8 @@ import static org.testng.Assert.*;
 
 public class HolidayCalendarServiceILTest {
 
-    // 9 Hebrew-calendar holidays per year
-    private static final int IL_HOLIDAY_COUNT = 9;
+    // 10 Hebrew-calendar holidays per year (9 shared with ILS + Yom Hazikaron)
+    private static final int IL_HOLIDAY_COUNT = 10;
 
     private final HolidayCalendarServiceIL service = new HolidayCalendarServiceIL();
     private HolidayCalendarFactory factory;
@@ -139,6 +139,7 @@ public class HolidayCalendarServiceILTest {
             new Object[]{"Shemini Atzeret / Simchat Torah"},
             new Object[]{"Passover"},
             new Object[]{"Passover (7th Day)"},
+            new Object[]{"Yom Hazikaron"},
             new Object[]{"Yom Ha'atzmaut"},
             new Object[]{"Shavuot"}
         ).iterator();
@@ -339,6 +340,55 @@ public class HolidayCalendarServiceILTest {
         assertEquals(findFirst("Yom Ha'atzmaut", 2028).orElseThrow().date(),
                 LocalDate.of(2028, Month.MAY, 2),
                 "Yom Ha'atzmaut 2028 (Iyar 5 = Monday) must shift to Tuesday May 2");
+    }
+
+    // -------------------------------------------------------------------------
+    // Yom Hazikaron — always one day before observed Yom Ha'atzmaut
+    // -------------------------------------------------------------------------
+
+    // 2025: Yom Ha'atzmaut = May 1 (Thu, shifted from Sat) → Yom Hazikaron = Apr 30 (Wed)
+    @Test
+    public void testYomHazikaron2025() {
+        assertEquals(findFirst("Yom Hazikaron", 2025).orElseThrow().date(),
+                LocalDate.of(2025, Month.APRIL, 30),
+                "Yom Hazikaron 2025 must be 2025-04-30");
+    }
+
+    // 2026: Yom Ha'atzmaut = Apr 22 (Wed, no shift) → Yom Hazikaron = Apr 21 (Tue)
+    @Test
+    public void testYomHazikaron2026() {
+        assertEquals(findFirst("Yom Hazikaron", 2026).orElseThrow().date(),
+                LocalDate.of(2026, Month.APRIL, 21),
+                "Yom Hazikaron 2026 must be 2026-04-21");
+    }
+
+    // 2024: Yom Ha'atzmaut = May 14 (Tue, shifted from Mon) → Yom Hazikaron = May 13 (Mon)
+    @Test
+    public void testYomHazikaron2024() {
+        assertEquals(findFirst("Yom Hazikaron", 2024).orElseThrow().date(),
+                LocalDate.of(2024, Month.MAY, 13),
+                "Yom Hazikaron 2024 must be 2024-05-13");
+    }
+
+    // Invariant: Yom Hazikaron must always be exactly one day before Yom Ha'atzmaut
+    @Test
+    public void testYomHazikaron_AlwaysOneDayBeforeIndependenceDay() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        for (int year = 2020; year <= 2055; year++) {
+            final int y = year;
+            LocalDate memorial = calendar.calculate(year).stream()
+                    .filter(h -> "Yom Hazikaron".equals(h.holiday().getName()))
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("Yom Hazikaron missing for year " + y))
+                    .date();
+            LocalDate independence = calendar.calculate(year).stream()
+                    .filter(h -> "Yom Ha'atzmaut".equals(h.holiday().getName()))
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("Yom Ha'atzmaut missing for year " + y))
+                    .date();
+            assertEquals(memorial, independence.minusDays(1),
+                    "Yom Hazikaron must be exactly one day before Yom Ha'atzmaut in year " + year);
+        }
     }
 
     // Invariant: after shift rule, observed date must never be Friday or Saturday

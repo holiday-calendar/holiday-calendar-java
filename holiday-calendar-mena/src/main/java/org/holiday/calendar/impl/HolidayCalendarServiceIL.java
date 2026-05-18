@@ -25,18 +25,21 @@ import org.holiday.calendar.function.DateRolls;
 /**
  * Service for provision of Israel national public holiday calendar.
  *
- * <p>Calendar code: {@code IL}. Covers public holidays observed in Israel as
- * published by the Israeli government and confirmed against TASE market
- * closure announcements.
+ * <p>Calendar code: {@code IL}. Covers statutory national public holidays
+ * recognized by the Israeli government, including days of mourning and
+ * remembrance where government offices and schools close. For TASE and
+ * Bank of Israel settlement closures only, see {@code ILS}.
  *
  * <p>Weekend: Friday + Saturday (Israeli work week; Sunday is the first
  * business day). Fixed holidays that fall on Friday or Saturday roll to the
  * following Sunday per {@link DateRolls#followingSunday()}.
  *
- * <p>All nine holidays are computed algorithmically via
+ * <p>All ten holidays are computed algorithmically via
  * {@code net.time4j.calendar.HebrewCalendar}; no lookup tables or data
  * ceiling applies. Independence Day (Yom Ha'atzmaut) applies a statutory
  * postponement rule; see {@link org.holiday.calendar.observance.hebrew.IndependenceDay}.
+ * Yom Hazikaron (Memorial Day) is coupled to Independence Day and always
+ * observed one day before it.
  *
  * <p>MSCI classification: Developed Market (DM) — the only Developed Market
  * in the MENA module.
@@ -60,7 +63,7 @@ public class HolidayCalendarServiceIL extends AbstractHolidayCalendarService {
                 // Israeli weekend is Fri+Sat; fixed holidays rolling to following Sunday
                 .dateRoll(DateRolls.followingSunday())
                 .weekendDays(IsraelHolidays.ISRAEL_WEEKEND)
-                .holidays(IsraelHolidays.baseHolidays())
+                .holidays(IsraelHolidays.ilHolidays())
                 .build();
     }
 
