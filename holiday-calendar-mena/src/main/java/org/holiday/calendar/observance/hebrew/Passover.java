@@ -16,23 +16,31 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
+package org.holiday.calendar.observance.hebrew;
+
+import net.time4j.PlainDate;
+import net.time4j.calendar.HebrewCalendar;
+import net.time4j.calendar.HebrewMonth;
+import org.holiday.calendar.observance.AbstractObservance;
+
+import java.time.LocalDate;
+
 /**
- * Holiday Calendar - MENA regional calendar module.
+ * Observance of Passover (15 Nisan) — the first day of Pesach.
+ *
+ * <p>Israel observes a 7-day Passover (Nisan 15–21); only the first and last
+ * days are public holidays. The Hebrew year for Nisan in a given Gregorian
+ * year is {@code gregorianYear + 3760}.
+ *
+ * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-module org.holiday.calendar.mena {
-    requires org.holiday.calendar.core;
-    // requires org.holiday.calendar.western; // Add when a Christian observance (Good Friday, Christmas) is needed
-    requires net.time4j.base;
-    requires org.slf4j;
+public class Passover extends AbstractObservance {
 
-    exports org.holiday.calendar.observance.islamic.mena;
-    exports org.holiday.calendar.observance.hebrew;
+    @Override
+    protected LocalDate computeDate(int year) {
+        return HebrewCalendar.of(year + 3760, HebrewMonth.NISAN, 15)
+                .transform(PlainDate.axis())
+                .toTemporalAccessor();
+    }
 
-    provides org.holiday.calendar.HolidayCalendarService with
-        org.holiday.calendar.impl.HolidayCalendarServiceAE,
-        org.holiday.calendar.impl.HolidayCalendarServiceAED,
-        org.holiday.calendar.impl.HolidayCalendarServiceSA,
-        org.holiday.calendar.impl.HolidayCalendarServiceSAR,
-        org.holiday.calendar.impl.HolidayCalendarServiceIL,
-        org.holiday.calendar.impl.HolidayCalendarServiceILS;
 }
