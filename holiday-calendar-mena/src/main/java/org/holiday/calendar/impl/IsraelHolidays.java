@@ -52,6 +52,11 @@ import java.util.List;
  * <ul>
  *   <li>Yom Hazikaron (4 Iyar) — TASE remains open; not a market closure day.</li>
  *   <li>Sigd (29 Heshvan) — low market relevance; not a TASE closure day.</li>
+ *   <li>Hoshana Raba (21 Tishri) — TASE closes on this day, but the Bank of
+ *       Israel operates with reduced hours (not a full settlement closure).
+ *       ILS represents Bank of Israel settlement availability; since the central
+ *       bank is open on 21 Tishri, it is not an ILS closure day. TASE-only
+ *       trading calendars should add this date separately.</li>
  * </ul>
  */
 class IsraelHolidays {
