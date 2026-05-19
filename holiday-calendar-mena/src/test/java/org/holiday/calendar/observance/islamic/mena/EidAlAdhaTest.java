@@ -94,4 +94,38 @@ public class EidAlAdhaTest {
     public void testCaseInsensitiveCountryCode() {
         assertEquals(new EidAlAdha("ae").apply(2025), new EidAlAdha("AE").apply(2025));
     }
+
+    // -------------------------------------------------------------------------
+    // Known dates — TR (Diyanet ilmi takvim)
+    // 2025 divergence: Diyanet = June 5; Saudi/UAE Umm al-Qura = June 6
+    // -------------------------------------------------------------------------
+
+    @DataProvider
+    Iterator<Object[]> knownDatesTR() {
+        return List.of(
+            new Object[]{2024, LocalDate.of(2024, 6, 16)},
+            new Object[]{2025, LocalDate.of(2025, 6, 5)},   // one day earlier than AE/SA
+            new Object[]{2026, LocalDate.of(2026, 5, 26)},
+            new Object[]{2055, LocalDate.of(2055, 7, 3)}
+        ).iterator();
+    }
+
+    @Test(dataProvider = "knownDatesTR")
+    public void testKnownDatesTR(int year, LocalDate expected) {
+        assertEquals(new EidAlAdha("TR").apply(year), expected,
+                "Eid al-Adha " + year + " per Diyanet must be " + expected);
+    }
+
+    // Canonical Diyanet vs. Umm al-Qura divergence: 2025 Eid al-Adha
+    @Test
+    public void testTR2025DiffersFromAE() {
+        LocalDate trDate = new EidAlAdha("TR").apply(2025);
+        LocalDate aeDate = new EidAlAdha("AE").apply(2025);
+        assertEquals(trDate, LocalDate.of(2025, 6, 5),
+                "Diyanet Eid al-Adha 2025 must be June 5");
+        assertEquals(aeDate, LocalDate.of(2025, 6, 6),
+                "UAE SCA Eid al-Adha 2025 must be June 6");
+        assertNotEquals(trDate, aeDate,
+                "Diyanet and Umm al-Qura Eid al-Adha 2025 must differ by one day");
+    }
 }

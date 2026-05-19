@@ -148,4 +148,31 @@ public class EidAlFitrTest {
     public void testTestReturnsFalseForBeyondCeiling() {
         assertFalse(new EidAlFitr("AE").test(EidAlFitr.DATA_VALID_THROUGH + 1));
     }
+
+    // -------------------------------------------------------------------------
+    // Known dates — TR (Diyanet ilmi takvim)
+    // -------------------------------------------------------------------------
+
+    @DataProvider
+    Iterator<Object[]> knownDatesTR() {
+        return List.of(
+            new Object[]{2024, LocalDate.of(2024, 4, 10)},
+            new Object[]{2025, LocalDate.of(2025, 3, 30)},
+            new Object[]{2026, LocalDate.of(2026, 3, 19)},
+            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+        ).iterator();
+    }
+
+    @Test(dataProvider = "knownDatesTR")
+    public void testKnownDatesTR(int year, LocalDate expected) {
+        assertEquals(new EidAlFitr("TR").apply(year), expected,
+                "Eid al-Fitr " + year + " per Diyanet must be " + expected);
+    }
+
+    // TR 2025 matches AE: both Diyanet and UAE SCA agree on March 30 for 1446 AH
+    @Test
+    public void testTR2025MatchesAE() {
+        assertEquals(new EidAlFitr("TR").apply(2025), new EidAlFitr("AE").apply(2025),
+                "Eid al-Fitr 2025: Diyanet (TR) and UAE SCA (AE) must agree on March 30");
+    }
 }
