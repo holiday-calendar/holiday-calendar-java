@@ -35,6 +35,7 @@ import java.time.LocalDate;
  * day of week of natural 5 Iyar:
  *
  * <table>
+ *   <caption>Independence Day postponement rules</caption>
  *   <tr><th>Natural 5 Iyar</th><th>Observed date</th></tr>
  *   <tr><td>Sunday</td><td>Monday (+1) — Iyar 4 would be Shabbat</td></tr>
  *   <tr><td>Monday</td><td>Tuesday (+1) — Iyar 4 would be Sunday (post-Shabbat)</td></tr>
