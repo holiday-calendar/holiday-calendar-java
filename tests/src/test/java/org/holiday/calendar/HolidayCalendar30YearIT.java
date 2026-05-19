@@ -77,6 +77,8 @@ public class HolidayCalendar30YearIT {
                 new Object[]{"SAR"},
                 new Object[]{"SG"},
                 new Object[]{"SGD"},
+                new Object[]{"TR"},
+                new Object[]{"TRY"},
                 new Object[]{"UK"},
                 new Object[]{"US"},
                 new Object[]{"USD"}

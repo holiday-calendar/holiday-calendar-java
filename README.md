@@ -90,7 +90,7 @@ Then add the modules you need:
   <version>1.3.0</version>
 </dependency>
 
-<!-- MENA calendars: AE, AED, IL, ILS, SA, SAR -->
+<!-- MENA calendars: AE, AED, IL, ILS, SA, SAR, TR, TRY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
@@ -137,7 +137,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "SA", "SAR", "SG", "SGD", "UK", "US", "USD"]
+// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
