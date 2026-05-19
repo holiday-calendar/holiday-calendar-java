@@ -34,5 +34,7 @@ module org.holiday.calendar.mena {
         org.holiday.calendar.impl.HolidayCalendarServiceSA,
         org.holiday.calendar.impl.HolidayCalendarServiceSAR,
         org.holiday.calendar.impl.HolidayCalendarServiceIL,
-        org.holiday.calendar.impl.HolidayCalendarServiceILS;
+        org.holiday.calendar.impl.HolidayCalendarServiceILS,
+        org.holiday.calendar.impl.HolidayCalendarServiceTR,
+        org.holiday.calendar.impl.HolidayCalendarServiceTRY;
 }
