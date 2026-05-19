@@ -42,6 +42,8 @@ Key design goals:
 | `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays |
 | `SG` | Singapore (SGX) Holidays |
 | `SGD` | Singapore (MAS/MEPS+) Holidays |
+| `TR`  | Turkey (National) Holidays |
+| `TRY` | Turkey (BIST/TCMB) Holidays |
 | `UK` | United Kingdom National Holidays |
 | `US` | United States National Holidays |
 | `USD` | United States (Federal Reserve) Holidays |

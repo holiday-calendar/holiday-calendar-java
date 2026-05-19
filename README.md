@@ -42,6 +42,8 @@ Key design goals:
 | `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays |
 | `SG` | Singapore (SGX) Holidays |
 | `SGD` | Singapore (MAS/MEPS+) Holidays |
+| `TR`  | Turkey (National) Holidays |
+| `TRY` | Turkey (BIST/TCMB) Holidays |
 | `UK` | United Kingdom National Holidays |
 | `US` | United States National Holidays |
 | `USD` | United States (Federal Reserve) Holidays |
@@ -71,28 +73,28 @@ Then add the modules you need:
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.3.0</version>
 </dependency>
 
 <!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.3.0</version>
 </dependency>
 
 <!-- APAC calendars: SG, SGD, JP, JPY, CN, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.3.0</version>
 </dependency>
 
 <!-- MENA calendars: AE, AED, IL, ILS, SA, SAR -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.3.0</version>
 </dependency>
 ```
 
