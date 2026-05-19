@@ -16,43 +16,38 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package org.holiday.calendar.observance;
+package org.holiday.calendar.observance.islamic.mena;
 
-import org.holiday.calendar.function.Observance;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.holiday.calendar.observance.AbstractObservance;
 
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.List;
-
-import static org.testng.Assert.assertEquals;
 
 /**
- * Abstract superclass of standard {@link Observance} unit tests.
+ * Observance of the third day of Eid al-Adha (12 Dhu al-Hijjah AH), marking
+ * the continuation of the Feast of Sacrifice.
+ *
+ * <p>The date is synthesized by advancing the first-day date ({@link EidAlAdha})
+ * by two calendar days. Data validity range and country-specific CSV source are
+ * inherited from the first-day observance.</p>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public abstract class AbstractObservanceTest {
+public class EidAlAdhaDay3 extends AbstractObservance {
 
-    protected final Observance observance;
+    private final EidAlAdha base;
 
-    public AbstractObservanceTest(final Observance observance) {
-        this.observance = observance;
+    public EidAlAdhaDay3(String countryCode) {
+        this.base = new EidAlAdha(countryCode);
     }
 
-    @Test(dataProvider = "data")
-    public void testApply(int yearToCalculate, LocalDate expected) {
-        LocalDate actual = observance.apply(yearToCalculate);
-        assertEquals(actual, expected);
+    @Override
+    protected LocalDate computeDate(int year) {
+        return base.apply(year).plusDays(2);
     }
 
-    @DataProvider
-    public Iterator<Object[]> data() {
-        List<Object[]> data = createData();
-        return data.iterator();
+    @Override
+    protected boolean isValidYear(int year) {
+        return base.test(year);
     }
-
-    protected abstract List<Object[]> createData();
 
 }

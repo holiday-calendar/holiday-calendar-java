@@ -73,6 +73,22 @@ public final class DateRolls {
     }
 
     /**
+     * Friday and Saturday both roll forward to Sunday.
+     *
+     * <p>Implements the GCC market rule (Saudi Arabia, UAE, Kuwait, Qatar, Bahrain, Oman):
+     * the weekend is Friday + Saturday; Sunday is the first business day of the week.
+     *
+     * @see #followingMonday() for the analogous Sat/Sun → Mon rule used by Western markets
+     */
+    public static DateRoll followingSunday() {
+        return date -> {
+            if (date.getDayOfWeek() == DayOfWeek.FRIDAY)   return date.plusDays(2);
+            if (date.getDayOfWeek() == DayOfWeek.SATURDAY) return date.plusDays(1);
+            return date;
+        };
+    }
+
+    /**
      * Compose two rolls: apply {@code first}, then apply {@code second}.
      */
     public static DateRoll compose(DateRoll first, DateRoll second) {

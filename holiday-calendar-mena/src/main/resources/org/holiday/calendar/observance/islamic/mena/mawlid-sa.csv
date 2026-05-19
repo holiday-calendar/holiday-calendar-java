@@ -1,0 +1,51 @@
+# Prophet's Birthday (Mawlid an-Nabi / Al-Mawlid Al-Nabawi, 12 Rabi' al-Awwal)
+# Saudi Arabia public holiday dates.
+# Commemorates the birth of the Prophet Muhammad.
+#
+# Note: Tadawul officially recognises Mawlid an-Nabi as a market closure day.
+# Verify each year against official Tadawul/SAMA announcements.
+#
+# 2024–2026: Saudi Exchange (Tadawul) / SAMA official holiday announcements.
+# 2027–2055: Projected from the Umm al-Qura tabular Islamic calendar
+#            (12 Rabi' al-Awwal AH, approximately 70 days after 1 Muharram).
+#            Verify against official Tadawul/SAMA announcements as each year is published.
+#
+# NOTE — 2047: Gregorian year 2047 contains two 12 Rabi' al-Awwal occurrences
+# (~January 1 AH 1469 and ~December 21 AH 1470). Only the first (January) occurrence
+# is recorded.
+#
+# Format: year,YYYY-MM-DD,source
+2024,2024-09-15,Tadawul official
+2025,2025-09-04,Tadawul official
+2026,2026-08-24,Tadawul official
+# 2027–2055: Umm al-Qura tabular projection; verify against official announcements
+2027,2027-08-13,Umm al-Qura projection
+2028,2028-08-01,Umm al-Qura projection
+2029,2029-07-21,Umm al-Qura projection
+2030,2030-07-10,Umm al-Qura projection
+2031,2031-06-29,Umm al-Qura projection
+2032,2032-06-17,Umm al-Qura projection
+2033,2033-06-06,Umm al-Qura projection
+2034,2034-05-26,Umm al-Qura projection
+2035,2035-05-15,Umm al-Qura projection
+2036,2036-05-03,Umm al-Qura projection
+2037,2037-04-22,Umm al-Qura projection
+2038,2038-04-11,Umm al-Qura projection
+2039,2039-03-31,Umm al-Qura projection
+2040,2040-03-19,Umm al-Qura projection
+2041,2041-03-08,Umm al-Qura projection
+2042,2042-02-26,Umm al-Qura projection
+2043,2043-02-15,Umm al-Qura projection
+2044,2044-02-03,Umm al-Qura projection
+2045,2045-01-23,Umm al-Qura projection
+2046,2046-01-12,Umm al-Qura projection
+# 2047: two 12 Rabi' al-Awwal occurrences (~Jan 1 AH 1469 and ~Dec 21 AH 1470); Jan 1 recorded
+2047,2047-01-01,Umm al-Qura projection (January occurrence only; December occurrence omitted)
+2048,2048-12-09,Umm al-Qura projection
+2049,2049-11-28,Umm al-Qura projection
+2050,2050-11-17,Umm al-Qura projection
+2051,2051-11-06,Umm al-Qura projection
+2052,2052-10-24,Umm al-Qura projection
+2053,2053-10-13,Umm al-Qura projection
+2054,2054-10-03,Umm al-Qura projection
+2055,2055-09-22,Umm al-Qura projection

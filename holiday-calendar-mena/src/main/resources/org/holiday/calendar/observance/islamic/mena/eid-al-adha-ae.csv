@@ -1,0 +1,50 @@
+# Eid al-Adha (10 Dhu al-Hijjah) — UAE public holiday dates
+# The Feast of Sacrifice. The observed date follows the UAE moon-sighting
+# committee ruling and may differ by ±1 day from Saudi Arabia.
+#
+# 2024–2026: UAE Securities and Commodities Authority (SCA) / Dubai Financial
+#            Market official holiday announcements.
+# 2027–2055: Projected from the Umm al-Qura tabular Islamic calendar
+#            (10 Dhu al-Hijjah AH, Küçük 30-year cycle).
+#            Verify against official SCA/DFM announcements as each year is published.
+#
+# NOTE — 2039: Gregorian year 2039 contains two 10 Dhu al-Hijjah occurrences
+# (~January 4 AH 1460 and ~December 24 AH 1461). Only the first (January) occurrence
+# is recorded. As a consequence, the 2040 entry falls in December.
+#
+# Format: year,YYYY-MM-DD,source
+2024,2024-06-16,UAE SCA official
+2025,2025-06-06,UAE SCA official
+2026,2026-05-26,UAE SCA official
+# 2027–2055: Umm al-Qura tabular projection; verify against official announcements
+2027,2027-05-15,Umm al-Qura projection
+2028,2028-05-04,Umm al-Qura projection
+2029,2029-04-23,Umm al-Qura projection
+2030,2030-04-12,Umm al-Qura projection
+2031,2031-04-01,Umm al-Qura projection
+2032,2032-03-20,Umm al-Qura projection
+2033,2033-03-10,Umm al-Qura projection
+2034,2034-02-27,Umm al-Qura projection
+2035,2035-02-16,Umm al-Qura projection
+2036,2036-02-06,Umm al-Qura projection
+2037,2037-01-25,Umm al-Qura projection
+2038,2038-01-15,Umm al-Qura projection
+# 2039: two 10 Dhu al-Hijjah occurrences (~Jan 4 AH 1460; ~Dec 24 AH 1461); Jan 4 recorded
+2039,2039-01-04,Umm al-Qura projection (January occurrence only; December occurrence omitted)
+# 2040: falls in December because January slot was consumed by 2039 double-occurrence
+2040,2040-12-13,Umm al-Qura projection
+2041,2041-12-02,Umm al-Qura projection
+2042,2042-11-21,Umm al-Qura projection
+2043,2043-11-11,Umm al-Qura projection
+2044,2044-10-30,Umm al-Qura projection
+2045,2045-10-20,Umm al-Qura projection
+2046,2046-10-09,Umm al-Qura projection
+2047,2047-09-28,Umm al-Qura projection
+2048,2048-09-17,Umm al-Qura projection
+2049,2049-09-06,Umm al-Qura projection
+2050,2050-08-26,Umm al-Qura projection
+2051,2051-08-16,Umm al-Qura projection
+2052,2052-08-04,Umm al-Qura projection
+2053,2053-07-24,Umm al-Qura projection
+2054,2054-07-14,Umm al-Qura projection
+2055,2055-07-03,Umm al-Qura projection

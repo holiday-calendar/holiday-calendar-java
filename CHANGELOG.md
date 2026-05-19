@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-05-19
+
+### Added
+
+- New `holiday-calendar-mena` Maven module scaffolding (#155)
+- Islamic holiday CSV lookup infrastructure for MENA calendars (#156)
+- `holiday-calendar-mena` added to tests aggregation module (#157)
+- UAE holiday calendars: AE (national) + AED (CBUAE/DFM/ADX) (#158)
+- Saudi Arabia holiday calendars: SA (national) + SAR (Tadawul/SAMA) (#159)
+- Israel holiday calendars: IL (national) + ILS (TASE/Bank of Israel) (#160)
+- Turkey holiday calendars: TR (national) + TRY (BIST/TCMB) (#161)
+- Yom Hazikaron (4 Iyar) added to IL national calendar (#177)
+
+### Fixed
+
+- Undefined `aggregate.report.dir` in child module `sonar.coverage.jacoco.xmlReportPaths` (#171)
+
 ## [1.2.0] - 2026-05-07
 
 ### Added

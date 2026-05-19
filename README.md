@@ -20,6 +20,8 @@ Key design goals:
 
 | Code | Region |
 |------|--------|
+| `AE` | UAE (National) Holidays |
+| `AED` | UAE (CBUAE/DFM/ADX) Holidays |
 | `AU` | Australian Securities Exchange (ASX) Holidays |
 | `AUD` | Australia (RBA) Holidays |
 | `CA` | Canada National Holidays |
@@ -32,10 +34,16 @@ Key design goals:
 | `EUR` | Euro (TARGET2) Holidays |
 | `FR` | France (Euronext Paris) Holidays |
 | `GBP` | United Kingdom (CHAPS) Holidays |
+| `IL` | Israel (National) Holidays |
+| `ILS` | Israel (TASE/Bank of Israel) Holidays |
 | `JP` | Japan (TSE) Holidays |
 | `JPY` | Japan (BOJ) Holidays |
+| `SA` | Saudi Arabia (National) Holidays |
+| `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays |
 | `SG` | Singapore (SGX) Holidays |
 | `SGD` | Singapore (MAS/MEPS+) Holidays |
+| `TR`  | Turkey (National) Holidays |
+| `TRY` | Turkey (BIST/TCMB) Holidays |
 | `UK` | United Kingdom National Holidays |
 | `US` | United States National Holidays |
 | `USD` | United States (Federal Reserve) Holidays |
@@ -65,21 +73,28 @@ Then add the modules you need:
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
 </dependency>
 
 <!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
 </dependency>
 
 <!-- APAC calendars: SG, SGD, JP, JPY, CN, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
+</dependency>
+
+<!-- MENA calendars: AE, AED, IL, ILS, SA, SAR, TR, TRY -->
+<dependency>
+  <groupId>org.holiday.calendar</groupId>
+  <artifactId>holiday-calendar-mena</artifactId>
+  <version>1.3.0</version>
 </dependency>
 ```
 
@@ -122,7 +137,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "JP", "JPY", "SG", "SGD", "UK", "US", "USD"]
+// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar

@@ -7,7 +7,7 @@
     <parent>
         <artifactId>holiday-calendar-java</artifactId>
         <groupId>org.holiday.calendar</groupId>
-        <version>1.2.0</version>
+        <version>1.3.0</version>
     </parent>
 
     <artifactId>tests</artifactId>
@@ -32,6 +32,11 @@
         <dependency>
             <groupId>org.holiday.calendar</groupId>
             <artifactId>holiday-calendar-apac</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.holiday.calendar</groupId>
+            <artifactId>holiday-calendar-mena</artifactId>
             <version>${project.version}</version>
         </dependency>
 

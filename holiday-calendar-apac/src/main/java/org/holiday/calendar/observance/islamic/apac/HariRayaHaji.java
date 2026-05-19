@@ -16,7 +16,7 @@
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  ******************************************************************************/
 
-package org.holiday.calendar.observance.islamic;
+package org.holiday.calendar.observance.islamic.apac;
 
 import org.holiday.calendar.observance.AbstractObservance;
 import org.holiday.calendar.util.CsvObservanceLoader;
@@ -25,31 +25,30 @@ import java.time.LocalDate;
 import java.util.Map;
 
 /**
- * Observance of Hari Raya Puasa (Eid al-Fitr), marking the end of Ramadan.
- * In Singapore, the observed date is officially gazetted by the government
- * and follows the local lunar sighting, which may differ from tabular
- * Islamic calendar calculations.
+ * Observance of Hari Raya Haji (Eid al-Adha), the Feast of Sacrifice on the
+ * 10th day of Dhu al-Hijjah. In Singapore, the observed date is officially
+ * gazetted by the government and follows the local lunar sighting, which may
+ * differ from tabular Islamic calendar calculations.
  *
- * <p>Dates for 2019–2030 are sourced from official Singapore Ministry of Manpower (MOM)
- * public holiday gazette notifications and MUIS (Majlis Ugama Islam Singapura) announcements.
- * Dates for 2031–2055 are projected from the Umm al-Qura tabular Islamic calendar
- * (1 Shawwal AH, adjusted to SGT via Singapore's Imkan ar-Rukyah +1-day offset); verify
- * against MUIS/MOM gazette announcements at <a href="https://data.gov.sg/collections/691/view">...</a> as
- * each year is officially published.</p>
+ * <p>Dates for 2019–2030 are sourced from official Singapore public holiday
+ * gazette announcements. Dates for 2031–2055 are derived from the tabular
+ * Islamic calendar (Küçük 30-year leap cycle, 10 Dhu al-Hijjah, SGT), pending
+ * official MUIS (Majlis Ugama Islam Singapura) gazette confirmation. All entries
+ * should be verified against MUIS announcements as Singapore approaches each year.</p>
  *
- * <p>Note: Gregorian year 2033 contains two Eid al-Fitr occurrences (~January 4 and
- * ~December 24). Only the first (January) occurrence is recorded; the December
- * occurrence cannot be represented under the single-date-per-year-key design.</p>
+ * <p>2039 contains two 10 Dhu al-Hijjah occurrences (5 Jan AH 1460; 25 Dec AH 1461);
+ * 5 Jan is used as Singapore's gazetted public holiday per MUIS convention. As a
+ * result, the 2040 entry falls in December.</p>
  *
- * <p>Date data is loaded at runtime from {@code hari-raya-puasa.csv} in this package.</p>
+ * <p>Date data is loaded at runtime from {@code hari-raya-haji.csv} in this package.</p>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HariRayaPuasa extends AbstractObservance {
+public class HariRayaHaji extends AbstractObservance {
 
     private static final class DatesHolder {
         static final Map<Integer, LocalDate> DATA =
-            CsvObservanceLoader.loadSingle(HariRayaPuasa.class, "hari-raya-puasa.csv");
+            CsvObservanceLoader.loadSingle(HariRayaHaji.class, "hari-raya-haji.csv");
     }
 
     @Override

@@ -31,7 +31,7 @@ module org.holiday.calendar.apac {
     requires org.slf4j;
 
     exports org.holiday.calendar.observance.lunar;
-    exports org.holiday.calendar.observance.islamic;
+    exports org.holiday.calendar.observance.islamic.apac;
     exports org.holiday.calendar.observance.hindu;
     exports org.holiday.calendar.observance.jp;
 
