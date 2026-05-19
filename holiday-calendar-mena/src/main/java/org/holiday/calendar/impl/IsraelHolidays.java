@@ -21,6 +21,7 @@ package org.holiday.calendar.impl;
 import org.holiday.calendar.Holiday;
 import org.holiday.calendar.observance.hebrew.IndependenceDay;
 import org.holiday.calendar.observance.hebrew.Passover;
+import org.holiday.calendar.observance.hebrew.YomHazikaron;
 import org.holiday.calendar.observance.hebrew.PassoverEnd;
 import org.holiday.calendar.observance.hebrew.RoshHashanah;
 import org.holiday.calendar.observance.hebrew.RoshHashanahDay2;
@@ -30,13 +31,18 @@ import org.holiday.calendar.observance.hebrew.Sukkot;
 import org.holiday.calendar.observance.hebrew.YomKippur;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Package-private factory building the Israel public holiday list shared by
- * the national ({@code IL}) and settlement ({@code ILS}) calendars.
+ * Package-private factory building the Israel public holiday lists for the
+ * national ({@code IL}) and settlement ({@code ILS}) calendars.
  *
- * <p>All nine holidays are computed algorithmically via
+ * <p>{@link #baseHolidays()} returns the nine holidays shared by both calendars.
+ * {@link #ilHolidays()} returns ten holidays for the {@code IL} national calendar,
+ * adding Yom Hazikaron (Israeli Memorial Day, 4 Iyar).
+ *
+ * <p>All holidays are computed algorithmically via
  * {@code net.time4j.calendar.HebrewCalendar}; no CSV lookup tables are used.
  * All holidays are declared {@code rollable(false)} because Hebrew calendar
  * dates are observed on specific calendar days regardless of the day of week.
@@ -50,7 +56,9 @@ import java.util.List;
  *
  * <p>Omitted holidays (conscious decisions):
  * <ul>
- *   <li>Yom Hazikaron (4 Iyar) — TASE remains open; not a market closure day.</li>
+ *   <li>Yom HaShoah (27 Nisan) — Holocaust Remembrance Day is a national
+ *       commemoration day, but it is not a statutory public rest holiday under
+ *       the Work and Rest Hours Law. TASE also remains open.</li>
  *   <li>Sigd (29 Heshvan) — low market relevance; not a TASE closure day.</li>
  *   <li>Hoshana Raba (21 Tishri) — TASE closes on this day, but the Bank of
  *       Israel operates with reduced hours (not a full settlement closure).
@@ -65,6 +73,28 @@ class IsraelHolidays {
     static final List<DayOfWeek> ISRAEL_WEEKEND = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
 
     private IsraelHolidays() {}
+
+    /**
+     * Returns the ten holidays for the {@code IL} national calendar.
+     * Includes all nine holidays from {@link #baseHolidays()} plus Yom Hazikaron
+     * (Israeli Memorial Day, 4 Iyar), which is a statutory national day where
+     * government offices and schools close. TASE remains open on Yom Hazikaron,
+     * so it is not included in the {@code ILS} settlement calendar.
+     */
+    static List<Holiday> ilHolidays() {
+        List<Holiday> holidays = new ArrayList<>(baseHolidays());
+        holidays.add(7,
+            Holiday.builder()
+                    .name("Yom Hazikaron")
+                    .description("Israeli Memorial Day (4 Iyar); observed date is always the " +
+                                 "day before Yom Ha'atzmaut per the 1963 statutory shift rule")
+                    .type(Holiday.Type.FLOATING)
+                    .rollable(false)
+                    .observance(new YomHazikaron())
+                    .build()
+        );
+        return List.copyOf(holidays);
+    }
 
     static List<Holiday> baseHolidays() {
         return List.of(
