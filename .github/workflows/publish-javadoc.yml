@@ -14,9 +14,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   publish-javadoc:
     runs-on: ubuntu-latest
@@ -24,9 +21,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: 21
           distribution: 'adopt'
@@ -38,13 +35,13 @@ jobs:
         run: mvn -B --no-transfer-progress javadoc:aggregate
       - name: Setup Pages
         if: ${{ !endsWith(steps.get_version.outputs.version, '-SNAPSHOT') }}
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload Pages artifact
         if: ${{ !endsWith(steps.get_version.outputs.version, '-SNAPSHOT') }}
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: target/reports/apidocs/
       - name: Deploy to GitHub Pages
         if: ${{ !endsWith(steps.get_version.outputs.version, '-SNAPSHOT') }}
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
