@@ -73,28 +73,28 @@ Then add the modules you need:
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
 <!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
 <!-- APAC calendars: SG, SGD, JP, JPY, CN, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
 <!-- MENA calendars: AE, AED, IL, ILS, SA, SAR, TR, TRY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 ```
 

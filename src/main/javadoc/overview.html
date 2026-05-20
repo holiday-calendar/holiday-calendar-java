@@ -31,7 +31,7 @@
       {@link org.holiday.calendar.HolidayCalendarService}.</p>
 
   <h1>Modules</h1>
-  <p>This API is divided into three modules to enable client software to depend
+  <p>This API is divided into four modules to enable client software to depend
       only on the regions it requires.</p>
   <dl>
     <dt><strong>holiday-calendar-core</strong></dt>
@@ -55,6 +55,14 @@
         Tokyo Stock Exchange (JP), Bank of Japan (JPY), and
         People's Bank of China (CNY). Uses Time4J for accurate
         non-Gregorian date calculations such as Chinese New Year.</dd>
+    <dt><strong>holiday-calendar-mena</strong></dt>
+    <dd>Holiday calendars for Middle East and North Africa markets:
+        UAE national (AE), UAE DFM / CBUAE (AED),
+        Saudi Arabia national (SA), Saudi Exchange / SAMA (SAR),
+        Israel national (IL), Tel Aviv Stock Exchange / Bank of Israel (ILS),
+        Turkey national (TR), Borsa İstanbul / TCMB (TRY),
+        Qatar national (QA), and Qatar Stock Exchange / QCB (QAR).
+        Uses CSV lookup tables for Islamic lunar holidays.</dd>
   </dl>
 </body>
 </html>
