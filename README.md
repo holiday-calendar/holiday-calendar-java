@@ -38,6 +38,8 @@ Key design goals:
 | `ILS` | Israel (TASE/Bank of Israel) Holidays |
 | `JP` | Japan (TSE) Holidays |
 | `JPY` | Japan (BOJ) Holidays |
+| `QA` | Qatar (National) Holidays |
+| `QAR` | Qatar (QSE/QCB) Holidays |
 | `SA` | Saudi Arabia (National) Holidays |
 | `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays |
 | `SG` | Singapore (SGX) Holidays |
@@ -73,28 +75,28 @@ Then add the modules you need:
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
 <!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
 <!-- APAC calendars: SG, SGD, JP, JPY, CN, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
-<!-- MENA calendars: AE, AED, IL, ILS, SA, SAR, TR, TRY -->
+<!-- MENA calendars: AE, AED, IL, ILS, QA, QAR, SA, SAR, TR, TRY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -137,7 +139,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
+// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "QA", "QAR", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar

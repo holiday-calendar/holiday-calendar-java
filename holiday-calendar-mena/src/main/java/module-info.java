@@ -27,6 +27,7 @@ module org.holiday.calendar.mena {
 
     exports org.holiday.calendar.observance.islamic.mena;
     exports org.holiday.calendar.observance.hebrew;
+    exports org.holiday.calendar.observance.qa;
 
     provides org.holiday.calendar.HolidayCalendarService with
         org.holiday.calendar.impl.HolidayCalendarServiceAE,
@@ -36,5 +37,7 @@ module org.holiday.calendar.mena {
         org.holiday.calendar.impl.HolidayCalendarServiceIL,
         org.holiday.calendar.impl.HolidayCalendarServiceILS,
         org.holiday.calendar.impl.HolidayCalendarServiceTR,
-        org.holiday.calendar.impl.HolidayCalendarServiceTRY;
+        org.holiday.calendar.impl.HolidayCalendarServiceTRY,
+        org.holiday.calendar.impl.HolidayCalendarServiceQA,
+        org.holiday.calendar.impl.HolidayCalendarServiceQAR;
 }
