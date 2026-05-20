@@ -1,0 +1,55 @@
+# Eid al-Fitr (1 Shawwal) — Kuwait public holiday dates
+# Marks the end of Ramadan. The observed date follows the Kuwait Ministry of Awqaf
+# and Islamic Affairs Crescent Sighting Committee ruling.
+#
+# Kuwait observes moon-sighting independently of Saudi Arabia and may differ by ±1 day
+# from Umm al-Qura tabular dates.
+#
+# 2024–2025: CBK / Boursa Kuwait official holiday announcements; aligned with GCC
+#            consensus in both years. Verify against CBK circulars if required.
+# 2026:      Boursa Kuwait official holiday announcement (Boursa Kuwait market
+#            holidays page, 2026 calendar). Kuwait observed +1 day relative to SA.
+# 2027–2055: Projected from the Umm al-Qura tabular Islamic calendar (1 Shawwal AH).
+#            Verify against official CBK / Boursa Kuwait announcements as each year
+#            is published.
+#
+# NOTE — 2033: Gregorian year 2033 contains two Eid al-Fitr occurrences
+# (~January 3 and ~December 22). Only the first (January) occurrence is recorded
+# here. The December occurrence cannot be represented under the single-date-per-
+# year-key design.
+#
+# Format: year,YYYY-MM-DD,source
+2024,2024-04-10,CBK official
+2025,2025-03-30,CBK official
+2026,2026-03-20,Boursa Kuwait official
+# 2027–2055: Umm al-Qura tabular projection; verify against official CBK / Boursa Kuwait announcements
+2027,2027-03-09,Umm al-Qura projection
+2028,2028-02-26,Umm al-Qura projection
+2029,2029-02-15,Umm al-Qura projection
+2030,2030-02-04,Umm al-Qura projection
+2031,2031-01-24,Umm al-Qura projection
+2032,2032-01-14,Umm al-Qura projection
+# 2033: two Eid al-Fitr occurrences (~Jan 3 and ~Dec 22); only January recorded
+2033,2033-01-03,Umm al-Qura projection (January occurrence only; December occurrence omitted)
+2034,2034-12-12,Umm al-Qura projection
+2035,2035-12-01,Umm al-Qura projection
+2036,2036-11-19,Umm al-Qura projection
+2037,2037-11-09,Umm al-Qura projection
+2038,2038-10-29,Umm al-Qura projection
+2039,2039-10-19,Umm al-Qura projection
+2040,2040-10-08,Umm al-Qura projection
+2041,2041-09-27,Umm al-Qura projection
+2042,2042-09-16,Umm al-Qura projection
+2043,2043-09-05,Umm al-Qura projection
+2044,2044-08-24,Umm al-Qura projection
+2045,2045-08-14,Umm al-Qura projection
+2046,2046-08-04,Umm al-Qura projection
+2047,2047-07-24,Umm al-Qura projection
+2048,2048-07-13,Umm al-Qura projection
+2049,2049-07-02,Umm al-Qura projection
+2050,2050-06-21,Umm al-Qura projection
+2051,2051-06-10,Umm al-Qura projection
+2052,2052-05-30,Umm al-Qura projection
+2053,2053-05-19,Umm al-Qura projection
+2054,2054-05-09,Umm al-Qura projection
+2055,2055-04-28,Umm al-Qura projection

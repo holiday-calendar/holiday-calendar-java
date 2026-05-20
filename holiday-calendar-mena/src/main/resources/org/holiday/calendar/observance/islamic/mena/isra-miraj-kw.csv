@@ -1,0 +1,52 @@
+# Isra and Mi'raj (27 Rajab) — Kuwait public holiday dates
+# Commemorates the night journey and ascension of the Prophet Muhammad.
+# 27 Rajab AH = 1 Muharram (Islamic New Year) + 204 days.
+#
+# Kuwait observes moon-sighting independently of Saudi Arabia and may differ by ±1 day
+# from Umm al-Qura tabular dates.
+#
+# 2024–2026: CBK / Boursa Kuwait official holiday announcements.
+# 2027–2055: Projected from the Umm al-Qura tabular Islamic calendar (27 Rajab AH).
+#            Verify against official CBK / Boursa Kuwait announcements as each year
+#            is published.
+#
+# NOTE — 2027: Gregorian year 2027 contains two 27 Rajab occurrences
+# (~January 6 AH 1448 and ~December 25 AH 1449). Only the first (January)
+# occurrence is recorded here. The December occurrence cannot be represented
+# under the single-date-per-year-key design.
+#
+# Format: year,YYYY-MM-DD,source
+2024,2024-02-08,CBK official
+2025,2025-01-27,CBK official
+2026,2026-01-16,CBK official
+# 2027–2055: Umm al-Qura tabular projection; verify against official CBK / Boursa Kuwait announcements
+# 2027: two 27 Rajab occurrences (~Jan 6 AH 1448 and ~Dec 25 AH 1449); Jan 6 recorded
+2027,2027-01-06,Umm al-Qura projection (January occurrence only; December occurrence omitted)
+2028,2028-12-13,Umm al-Qura projection
+2029,2029-12-02,Umm al-Qura projection
+2030,2030-11-21,Umm al-Qura projection
+2031,2031-11-10,Umm al-Qura projection
+2032,2032-10-29,Umm al-Qura projection
+2033,2033-10-18,Umm al-Qura projection
+2034,2034-10-07,Umm al-Qura projection
+2035,2035-09-26,Umm al-Qura projection
+2036,2036-09-14,Umm al-Qura projection
+2037,2037-09-03,Umm al-Qura projection
+2038,2038-08-23,Umm al-Qura projection
+2039,2039-08-12,Umm al-Qura projection
+2040,2040-08-01,Umm al-Qura projection
+2041,2041-07-21,Umm al-Qura projection
+2042,2042-07-10,Umm al-Qura projection
+2043,2043-06-29,Umm al-Qura projection
+2044,2044-06-17,Umm al-Qura projection
+2045,2045-06-06,Umm al-Qura projection
+2046,2046-05-26,Umm al-Qura projection
+2047,2047-05-15,Umm al-Qura projection
+2048,2048-05-03,Umm al-Qura projection
+2049,2049-04-22,Umm al-Qura projection
+2050,2050-04-11,Umm al-Qura projection
+2051,2051-03-31,Umm al-Qura projection
+2052,2052-03-19,Umm al-Qura projection
+2053,2053-03-08,Umm al-Qura projection
+2054,2054-02-25,Umm al-Qura projection
+2055,2055-02-14,Umm al-Qura projection

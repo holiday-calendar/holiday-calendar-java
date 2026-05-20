@@ -36,6 +36,8 @@ Key design goals:
 | `GBP` | United Kingdom (CHAPS) Holidays |
 | `IL` | Israel (National) Holidays |
 | `ILS` | Israel (TASE/Bank of Israel) Holidays |
+| `KW` | Kuwait (National) Holidays |
+| `KWD` | Kuwait (Boursa Kuwait/CBK) Holidays |
 | `JP` | Japan (TSE) Holidays |
 | `JPY` | Japan (BOJ) Holidays |
 | `QA` | Qatar (National) Holidays |
@@ -92,7 +94,7 @@ Then add the modules you need:
   <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
-<!-- MENA calendars: AE, AED, IL, ILS, QA, QAR, SA, SAR, TR, TRY -->
+<!-- MENA calendars: AE, AED, IL, ILS, KW, KWD, QA, QAR, SA, SAR, TR, TRY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
@@ -139,7 +141,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "QA", "QAR", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
+// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "KW", "KWD", "QA", "QAR", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar
