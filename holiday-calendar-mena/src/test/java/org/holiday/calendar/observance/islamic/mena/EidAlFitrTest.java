@@ -175,4 +175,30 @@ public class EidAlFitrTest {
         assertEquals(new EidAlFitr("TR").apply(2025), new EidAlFitr("AE").apply(2025),
                 "Eid al-Fitr 2025: Diyanet (TR) and UAE SCA (AE) must agree on March 30");
     }
+
+    // -------------------------------------------------------------------------
+    // Known dates — QA (Qatar Central Bank official)
+    // -------------------------------------------------------------------------
+
+    @DataProvider
+    Iterator<Object[]> knownDatesQA() {
+        return List.of(
+            new Object[]{2024, LocalDate.of(2024, 4, 10)},
+            new Object[]{2025, LocalDate.of(2025, 3, 30)},
+            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+        ).iterator();
+    }
+
+    @Test(dataProvider = "knownDatesQA")
+    public void testKnownDatesQA(int year, LocalDate expected) {
+        assertEquals(new EidAlFitr("QA").apply(year), expected,
+                "Eid al-Fitr " + year + " per QCB must be " + expected);
+    }
+
+    // QA 2025 matches AE: both Qatar and UAE arrive at same date via Umm al-Qura
+    @Test
+    public void testQA2025MatchesAE() {
+        assertEquals(new EidAlFitr("QA").apply(2025), new EidAlFitr("AE").apply(2025),
+                "Eid al-Fitr 2025: Qatar (QCB) and UAE (SCA) must agree on March 30");
+    }
 }

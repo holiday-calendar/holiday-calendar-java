@@ -128,4 +128,30 @@ public class EidAlAdhaTest {
         assertNotEquals(trDate, aeDate,
                 "Diyanet and Umm al-Qura Eid al-Adha 2025 must differ by one day");
     }
+
+    // -------------------------------------------------------------------------
+    // Known dates — QA (Qatar Central Bank official)
+    // -------------------------------------------------------------------------
+
+    @DataProvider
+    Iterator<Object[]> knownDatesQA() {
+        return List.of(
+            new Object[]{2024, LocalDate.of(2024, 6, 16)},
+            new Object[]{2025, LocalDate.of(2025, 6, 6)},
+            new Object[]{2055, LocalDate.of(2055, 7, 3)}
+        ).iterator();
+    }
+
+    @Test(dataProvider = "knownDatesQA")
+    public void testKnownDatesQA(int year, LocalDate expected) {
+        assertEquals(new EidAlAdha("QA").apply(year), expected,
+                "Eid al-Adha " + year + " per QCB must be " + expected);
+    }
+
+    // QA 2025 matches AE: Qatar and UAE both use Umm al-Qura; Jun 6 confirmed QCB official
+    @Test
+    public void testQA2025MatchesAE() {
+        assertEquals(new EidAlAdha("QA").apply(2025), new EidAlAdha("AE").apply(2025),
+                "Eid al-Adha 2025: Qatar (QCB) and UAE (SCA) must agree on June 6");
+    }
 }

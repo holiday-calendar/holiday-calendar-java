@@ -126,4 +126,39 @@ public class DateRollsTest {
     public void testFollowingSunday_Workday_NoRoll(LocalDate workday) {
         assertEquals(DateRolls.followingSunday().rollToObservedDate(workday), workday);
     }
+
+    // ── previousThursdayOrFollowingSunday ─────────────────────────────────────
+    // Qatar Amiri Diwan rule: Friday → preceding Thursday; Saturday → following Sunday
+
+    @Test
+    public void testPreviousThursdayOrFollowingSunday_Friday_RollsToThursday() {
+        // Dec 18, 2020 is Friday → Dec 17, 2020 (Thursday); confirmed Amiri Diwan
+        LocalDate fri = LocalDate.of(2020, 12, 18);
+        assertEquals(DateRolls.previousThursdayOrFollowingSunday().rollToObservedDate(fri),
+                LocalDate.of(2020, 12, 17));
+    }
+
+    @Test
+    public void testPreviousThursdayOrFollowingSunday_Saturday_RollsToSunday() {
+        // Dec 18, 2021 is Saturday → Dec 19, 2021 (Sunday); confirmed Amiri Diwan
+        LocalDate sat = LocalDate.of(2021, 12, 18);
+        assertEquals(DateRolls.previousThursdayOrFollowingSunday().rollToObservedDate(sat),
+                LocalDate.of(2021, 12, 19));
+    }
+
+    @DataProvider(name = "qatarWorkdays")
+    public Object[][] qatarWorkdays() {
+        return new Object[][] {
+            { LocalDate.of(2025, 1, 5)  },  // Sunday
+            { LocalDate.of(2025, 1, 6)  },  // Monday
+            { LocalDate.of(2025, 1, 7)  },  // Tuesday
+            { LocalDate.of(2025, 1, 8)  },  // Wednesday
+            { LocalDate.of(2025, 1, 9)  },  // Thursday
+        };
+    }
+
+    @Test(dataProvider = "qatarWorkdays")
+    public void testPreviousThursdayOrFollowingSunday_Workday_NoRoll(LocalDate workday) {
+        assertEquals(DateRolls.previousThursdayOrFollowingSunday().rollToObservedDate(workday), workday);
+    }
 }
