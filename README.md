@@ -31,6 +31,8 @@ Key design goals:
 | `CN` | China National Holidays |
 | `CNY` | China (PBOC) Holidays |
 | `DE` | Germany (Xetra) Holidays |
+| `EG` | Egypt (National) Holidays |
+| `EGP` | Egypt (EGX/CBE) Holidays |
 | `EUR` | Euro (TARGET2) Holidays |
 | `FR` | France (Euronext Paris) Holidays |
 | `GBP` | United Kingdom (CHAPS) Holidays |
@@ -94,7 +96,7 @@ Then add the modules you need:
   <version>1.4.0-SNAPSHOT</version>
 </dependency>
 
-<!-- MENA calendars: AE, AED, IL, ILS, KW, KWD, QA, QAR, SA, SAR, TR, TRY -->
+<!-- MENA calendars: AE, AED, EG, EGP, IL, ILS, KW, KWD, QA, QAR, SA, SAR, TR, TRY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
