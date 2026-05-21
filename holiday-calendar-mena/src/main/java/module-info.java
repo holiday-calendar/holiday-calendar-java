@@ -21,10 +21,11 @@
  */
 module org.holiday.calendar.mena {
     requires org.holiday.calendar.core;
-    // requires org.holiday.calendar.western; // Add when a Christian observance (Good Friday, Christmas) is needed
+    requires org.holiday.calendar.western;
     requires net.time4j.base;
     requires org.slf4j;
 
+    exports org.holiday.calendar.observance.eg;
     exports org.holiday.calendar.observance.islamic.mena;
     exports org.holiday.calendar.observance.hebrew;
     exports org.holiday.calendar.observance.qa;
@@ -40,6 +41,8 @@ module org.holiday.calendar.mena {
         org.holiday.calendar.impl.HolidayCalendarServiceTRY,
         org.holiday.calendar.impl.HolidayCalendarServiceQA,
         org.holiday.calendar.impl.HolidayCalendarServiceQAR,
+        org.holiday.calendar.impl.HolidayCalendarServiceEG,
+        org.holiday.calendar.impl.HolidayCalendarServiceEGP,
         org.holiday.calendar.impl.HolidayCalendarServiceKW,
         org.holiday.calendar.impl.HolidayCalendarServiceKWD;
 }

@@ -24,7 +24,11 @@
             <artifactId>holiday-calendar-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- holiday-calendar-western added when a Christian observance (Good Friday, Christmas) is needed -->
+        <dependency>
+            <groupId>org.holiday.calendar</groupId>
+            <artifactId>holiday-calendar-western</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>net.time4j</groupId>
