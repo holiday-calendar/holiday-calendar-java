@@ -95,28 +95,21 @@ public class HolidayCalendarServiceEGTest {
 
     // ── total count ───────────────────────────────────────────────────────────
 
-    @Test
-    public void testCalculate2024() {
-        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2024);
-        assertNotNull(holidays);
-        assertEquals(holidays.size(), EG_HOLIDAY_COUNT,
-                "Expected " + EG_HOLIDAY_COUNT + " holidays for 2024, got: " + holidays.size());
+    @DataProvider
+    Iterator<Object[]> years() {
+        return Arrays.asList(
+            new Object[]{2024},
+            new Object[]{2025},
+            new Object[]{2026}
+        ).iterator();
     }
 
-    @Test
-    public void testCalculate2025() {
-        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2025);
+    @Test(dataProvider = "years")
+    public void testCalculate(int year) {
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
         assertNotNull(holidays);
         assertEquals(holidays.size(), EG_HOLIDAY_COUNT,
-                "Expected " + EG_HOLIDAY_COUNT + " holidays for 2025, got: " + holidays.size());
-    }
-
-    @Test
-    public void testCalculate2026() {
-        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2026);
-        assertNotNull(holidays);
-        assertEquals(holidays.size(), EG_HOLIDAY_COUNT,
-                "Expected " + EG_HOLIDAY_COUNT + " holidays for 2026, got: " + holidays.size());
+                "Expected " + EG_HOLIDAY_COUNT + " holidays for " + year + ", got: " + holidays.size());
     }
 
     // ── chronological order ───────────────────────────────────────────────────
