@@ -44,5 +44,7 @@ module org.holiday.calendar.mena {
         org.holiday.calendar.impl.HolidayCalendarServiceEG,
         org.holiday.calendar.impl.HolidayCalendarServiceEGP,
         org.holiday.calendar.impl.HolidayCalendarServiceKW,
-        org.holiday.calendar.impl.HolidayCalendarServiceKWD;
+        org.holiday.calendar.impl.HolidayCalendarServiceKWD,
+        org.holiday.calendar.impl.HolidayCalendarServiceBH,
+        org.holiday.calendar.impl.HolidayCalendarServiceBHD;
 }
