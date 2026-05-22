@@ -12,3 +12,5 @@ org.holiday.calendar.impl.HolidayCalendarServiceQA
 org.holiday.calendar.impl.HolidayCalendarServiceQAR
 org.holiday.calendar.impl.HolidayCalendarServiceKW
 org.holiday.calendar.impl.HolidayCalendarServiceKWD
+org.holiday.calendar.impl.HolidayCalendarServiceBH
+org.holiday.calendar.impl.HolidayCalendarServiceBHD
