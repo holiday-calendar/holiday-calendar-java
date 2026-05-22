@@ -16,3 +16,5 @@ org.holiday.calendar.impl.HolidayCalendarServiceBH
 org.holiday.calendar.impl.HolidayCalendarServiceBHD
 org.holiday.calendar.impl.HolidayCalendarServiceMA
 org.holiday.calendar.impl.HolidayCalendarServiceMAD
+org.holiday.calendar.impl.HolidayCalendarServiceJO
+org.holiday.calendar.impl.HolidayCalendarServiceJOD
