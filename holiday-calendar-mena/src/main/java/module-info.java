@@ -21,12 +21,14 @@
  */
 module org.holiday.calendar.mena {
     requires org.holiday.calendar.core;
-    // requires org.holiday.calendar.western; // Add when a Christian observance (Good Friday, Christmas) is needed
+    requires org.holiday.calendar.western;
     requires net.time4j.base;
     requires org.slf4j;
 
+    exports org.holiday.calendar.observance.eg;
     exports org.holiday.calendar.observance.islamic.mena;
     exports org.holiday.calendar.observance.hebrew;
+    exports org.holiday.calendar.observance.qa;
 
     provides org.holiday.calendar.HolidayCalendarService with
         org.holiday.calendar.impl.HolidayCalendarServiceAE,
@@ -36,5 +38,17 @@ module org.holiday.calendar.mena {
         org.holiday.calendar.impl.HolidayCalendarServiceIL,
         org.holiday.calendar.impl.HolidayCalendarServiceILS,
         org.holiday.calendar.impl.HolidayCalendarServiceTR,
-        org.holiday.calendar.impl.HolidayCalendarServiceTRY;
+        org.holiday.calendar.impl.HolidayCalendarServiceTRY,
+        org.holiday.calendar.impl.HolidayCalendarServiceQA,
+        org.holiday.calendar.impl.HolidayCalendarServiceQAR,
+        org.holiday.calendar.impl.HolidayCalendarServiceEG,
+        org.holiday.calendar.impl.HolidayCalendarServiceEGP,
+        org.holiday.calendar.impl.HolidayCalendarServiceKW,
+        org.holiday.calendar.impl.HolidayCalendarServiceKWD,
+        org.holiday.calendar.impl.HolidayCalendarServiceBH,
+        org.holiday.calendar.impl.HolidayCalendarServiceBHD,
+        org.holiday.calendar.impl.HolidayCalendarServiceMA,
+        org.holiday.calendar.impl.HolidayCalendarServiceMAD,
+        org.holiday.calendar.impl.HolidayCalendarServiceJO,
+        org.holiday.calendar.impl.HolidayCalendarServiceJOD;
 }

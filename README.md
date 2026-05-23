@@ -18,35 +18,47 @@ Key design goals:
 
 ### Supported Calendars
 
-| Code | Region |
-|------|--------|
-| `AE` | UAE (National) Holidays |
-| `AED` | UAE (CBUAE/DFM/ADX) Holidays |
+| Code | Region                                        |
+|------|-----------------------------------------------|
+| `AE` | United Arab Emirates (National) Holidays      |
+| `AED` | United Arab Emirates (CBUAE/DFM/ADX) Holidays |
 | `AU` | Australian Securities Exchange (ASX) Holidays |
-| `AUD` | Australia (RBA) Holidays |
-| `CA` | Canada National Holidays |
-| `CAD` | Bank of Canada (Lynx) Holiday Schedule |
-| `CH` | Switzerland (SIX) Holidays |
-| `CHF` | Switzerland (SIC/SNB) Holidays |
-| `CN` | China National Holidays |
-| `CNY` | China (PBOC) Holidays |
-| `DE` | Germany (Xetra) Holidays |
-| `EUR` | Euro (TARGET2) Holidays |
-| `FR` | France (Euronext Paris) Holidays |
-| `GBP` | United Kingdom (CHAPS) Holidays |
-| `IL` | Israel (National) Holidays |
-| `ILS` | Israel (TASE/Bank of Israel) Holidays |
-| `JP` | Japan (TSE) Holidays |
-| `JPY` | Japan (BOJ) Holidays |
-| `SA` | Saudi Arabia (National) Holidays |
-| `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays |
-| `SG` | Singapore (SGX) Holidays |
-| `SGD` | Singapore (MAS/MEPS+) Holidays |
-| `TR`  | Turkey (National) Holidays |
-| `TRY` | Turkey (BIST/TCMB) Holidays |
-| `UK` | United Kingdom National Holidays |
-| `US` | United States National Holidays |
-| `USD` | United States (Federal Reserve) Holidays |
+| `AUD` | Australia (RBA) Holidays                      |
+| `BH` | Bahrain (National) Holidays                   |
+| `BHD` | Bahrain (Boursa Bahrain/CBB) Holidays         |
+| `CA` | Canada National Holidays                      |
+| `CAD` | Bank of Canada (Lynx) Holiday Schedule        |
+| `CH` | Switzerland (SIX) Holidays                    |
+| `CHF` | Switzerland (SIC/SNB) Holidays                |
+| `CN` | China National Holidays                       |
+| `CNY` | China (PBOC) Holidays                         |
+| `DE` | Germany (Xetra) Holidays                      |
+| `EG` | Egypt (National) Holidays                     |
+| `EGP` | Egypt (EGX/CBE) Holidays                      |
+| `EUR` | Euro (TARGET2) Holidays                       |
+| `FR` | France (Euronext Paris) Holidays              |
+| `GBP` | United Kingdom (CHAPS) Holidays               |
+| `IL` | Israel (National) Holidays                    |
+| `ILS` | Israel (TASE/Bank of Israel) Holidays         |
+| `JO` | Jordan (National) Holidays |
+| `JOD` | Jordan (ASE/CBJ) Holidays |
+| `JP` | Japan (TSE) Holidays                          |
+| `JPY` | Japan (BOJ) Holidays                          |
+| `KW` | Kuwait (National) Holidays                    |
+| `KWD` | Kuwait (Boursa Kuwait/CBK) Holidays           |
+| `MA` | Morocco (National) Holidays                   |
+| `MAD` | Morocco (CSE/BAM) Holidays                    |
+| `QA` | Qatar (National) Holidays                     |
+| `QAR` | Qatar (QSE/QCB) Holidays                      |
+| `SA` | Saudi Arabia (National) Holidays              |
+| `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays          |
+| `SG` | Singapore (SGX) Holidays                      |
+| `SGD` | Singapore (MAS/MEPS+) Holidays                |
+| `TR`  | Turkey (National) Holidays                    |
+| `TRY` | Turkey (BIST/TCMB) Holidays                   |
+| `UK` | United Kingdom National Holidays              |
+| `US` | United States National Holidays               |
+| `USD` | United States (Federal Reserve) Holidays      |
 
 For information on adding new calendars or maintaining existing ones, see the [Contributing Guide](CONTRIBUTING.md).
 
@@ -73,28 +85,28 @@ Then add the modules you need:
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-core</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0</version>
 </dependency>
 
 <!-- Western calendars: US, USD, CA, CAD, UK, GBP, CH, CHF, DE, EUR, FR, AU, AUD -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-western</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0</version>
 </dependency>
 
 <!-- APAC calendars: SG, SGD, JP, JPY, CN, CNY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-apac</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0</version>
 </dependency>
 
-<!-- MENA calendars: AE, AED, IL, ILS, SA, SAR, TR, TRY -->
+<!-- MENA calendars: AE, AED, BH, BHD, EG, EGP, IL, ILS, JO, JOD, KW, KWD, MA, MAD, QA, QAR, SA, SAR, TR, TRY -->
 <dependency>
   <groupId>org.holiday.calendar</groupId>
   <artifactId>holiday-calendar-mena</artifactId>
-  <version>1.3.1</version>
+  <version>1.4.0</version>
 </dependency>
 ```
 
@@ -137,7 +149,7 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 
 ```java
 List<String> codes = factory.listAvailableCodes();
-// ["AE", "AED", "AU", "AUD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JP", "JPY", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
+// ["AE", "AED", "AU", "AUD", "BH", "BHD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JO", "JOD", "JP", "JPY", "KW", "KWD", "MA", "MAD", "QA", "QAR", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
 ```
 
 ### Define a custom holiday calendar

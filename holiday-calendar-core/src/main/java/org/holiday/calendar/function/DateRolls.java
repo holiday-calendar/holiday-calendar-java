@@ -75,9 +75,10 @@ public final class DateRolls {
     /**
      * Friday and Saturday both roll forward to Sunday.
      *
-     * <p>Implements the GCC market rule (Saudi Arabia, UAE, Kuwait, Qatar, Bahrain, Oman):
+     * <p>Implements the GCC market rule (Saudi Arabia, UAE, Kuwait, Bahrain, Oman):
      * the weekend is Friday + Saturday; Sunday is the first business day of the week.
      *
+     * @see #previousThursdayOrFollowingSunday() for Qatar's asymmetric substitute rule
      * @see #followingMonday() for the analogous Sat/Sun → Mon rule used by Western markets
      */
     public static DateRoll followingSunday() {
@@ -85,6 +86,28 @@ public final class DateRolls {
             if (date.getDayOfWeek() == DayOfWeek.FRIDAY)   return date.plusDays(2);
             if (date.getDayOfWeek() == DayOfWeek.SATURDAY) return date.plusDays(1);
             return date;
+        };
+    }
+
+    /**
+     * Friday rolls back to Thursday; Saturday rolls forward to Sunday.
+     *
+     * <p>Implements the Qatar national holiday substitute rule as announced by the
+     * Amiri Diwan: when a public holiday falls on Friday (the first weekend day),
+     * it is observed on the preceding Thursday; when it falls on Saturday (the
+     * second weekend day), it is observed on the following Sunday.
+     *
+     * <p>Confirmed precedents: Qatar National Day 2020 (18 Dec = Friday → 17 Dec
+     * Thursday official); Qatar National Day 2021 (18 Dec = Saturday → 19 Dec
+     * Sunday official).
+     *
+     * @see #followingSunday() for the always-forward GCC convention used by Saudi Arabia and UAE
+     */
+    public static DateRoll previousThursdayOrFollowingSunday() {
+        return date -> switch (date.getDayOfWeek()) {
+            case FRIDAY   -> date.minusDays(1);
+            case SATURDAY -> date.plusDays(1);
+            default       -> date;
         };
     }
 

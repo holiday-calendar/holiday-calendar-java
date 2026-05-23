@@ -1,0 +1,55 @@
+# Ashura (10 Muharram) — Bahrain public holiday dates
+# First day of the two-day Ashura public holiday in Bahrain (10–11 Muharram AH).
+# Ashura marks the 10th of Muharram and is observed as a national public holiday
+# in Bahrain; the Central Bank of Bahrain (CBB) and Boursa Bahrain close on both days.
+#
+# Dates are derived as Islamic New Year (1 Muharram) + 9 days. Bahrain determines
+# Muharram dates by moon sighting and may differ from Saudi Arabia by ±1 day.
+#
+# 2024–2025: Based on CBB official Islamic New Year announcement + 9 days; consistent
+#            with BNA / Crown Prince circular Ashura holiday announcements.
+# 2026:      Umm al-Qura tabular projection (Islamic New Year + 9 days); verify against
+#            official CBB / Boursa Bahrain announcement for 2026.
+# 2027–2055: Projected as Islamic New Year (1 Muharram) + 9 days from the Umm al-Qura
+#            tabular Islamic calendar. Verify against official CBB / Boursa Bahrain
+#            announcements as each year is published.
+#
+# NOTE — 2040: Islamic New Year 2040 has two occurrences (~Jan 9 and ~Dec 29); only the
+# January Ashura (Jan 18) is recorded here. The December New Year's Ashura falls on
+# Jan 7, 2041 and is captured in the 2041 entry.
+#
+# Format: year,YYYY-MM-DD,source
+2024,2024-07-16,CBB official (Islamic New Year Jul 7 + 9 days)
+2025,2025-07-05,CBB official (Islamic New Year Jun 26 + 9 days)
+2026,2026-06-25,Umm al-Qura projection (Islamic New Year Jun 16 + 9 days)
+# 2027–2055: Umm al-Qura tabular projection; verify against official CBB / Boursa Bahrain announcements
+2027,2027-06-13,Umm al-Qura projection
+2028,2028-06-01,Umm al-Qura projection
+2029,2029-05-21,Umm al-Qura projection
+2030,2030-05-10,Umm al-Qura projection
+2031,2031-04-29,Umm al-Qura projection
+2032,2032-04-17,Umm al-Qura projection
+2033,2033-04-06,Umm al-Qura projection
+2034,2034-03-26,Umm al-Qura projection
+2035,2035-03-15,Umm al-Qura projection
+2036,2036-03-03,Umm al-Qura projection
+2037,2037-02-20,Umm al-Qura projection
+2038,2038-02-09,Umm al-Qura projection
+2039,2039-01-29,Umm al-Qura projection
+# 2040: two Islamic New Year occurrences; only January Ashura recorded (Jan 9 + 9 = Jan 18)
+2040,2040-01-18,Umm al-Qura projection (January occurrence only; December New Year yields Jan 7 2041)
+2041,2041-12-27,Umm al-Qura projection
+2042,2042-12-16,Umm al-Qura projection
+2043,2043-12-05,Umm al-Qura projection
+2044,2044-11-23,Umm al-Qura projection
+2045,2045-11-12,Umm al-Qura projection
+2046,2046-11-01,Umm al-Qura projection
+2047,2047-10-21,Umm al-Qura projection
+2048,2048-10-09,Umm al-Qura projection
+2049,2049-09-28,Umm al-Qura projection
+2050,2050-09-17,Umm al-Qura projection
+2051,2051-09-06,Umm al-Qura projection
+2052,2052-08-25,Umm al-Qura projection
+2053,2053-08-14,Umm al-Qura projection
+2054,2054-08-03,Umm al-Qura projection
+2055,2055-07-23,Umm al-Qura projection

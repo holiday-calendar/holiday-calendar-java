@@ -1,0 +1,55 @@
+# Arafat Day (9 Dhu al-Hijjah) — Jordan public holiday dates
+# The day of standing at Mount Arafat; the day before Eid al-Adha.
+# Dates are derived as Eid al-Adha (10 Dhu al-Hijjah) minus one day.
+#
+# Jordan observes moon-sighting independently of Saudi Arabia and may differ by ±1 day
+# from Umm al-Qura tabular dates.
+#
+# 2024–2026: ASE official holiday announcements; Arafat Day falls one day before
+#            Eid al-Adha in all three years. Note: 2024 Arafat Day (Jun 15) falls
+#            on a Saturday (Jordan weekend); no additional settlement closure arises
+#            under the no-roll convention for JOD.
+# 2027–2055: Projected as one day before the Eid al-Adha date in eid-al-adha-jo.csv
+#            (Umm al-Qura tabular Islamic calendar, 9 Dhu al-Hijjah AH).
+#            Verify against official CBJ / ASE announcements as each year is published.
+#
+# NOTE — 2039: Gregorian year 2039 contains two 10 Dhu al-Hijjah occurrences;
+# only the first (January) Eid al-Adha is recorded, so Arafat Day 2039 is
+# January 3 (one day before January 4 Eid al-Adha).
+#
+# Format: year,YYYY-MM-DD,source
+2024,2024-06-15,ASE official
+2025,2025-06-05,ASE official
+2026,2026-05-26,ASE official
+# 2027–2055: Umm al-Qura tabular projection (Eid al-Adha − 1 day); verify against official announcements
+2027,2027-05-14,Umm al-Qura projection
+2028,2028-05-03,Umm al-Qura projection
+2029,2029-04-22,Umm al-Qura projection
+2030,2030-04-11,Umm al-Qura projection
+2031,2031-03-31,Umm al-Qura projection
+2032,2032-03-19,Umm al-Qura projection
+2033,2033-03-09,Umm al-Qura projection
+2034,2034-02-26,Umm al-Qura projection
+2035,2035-02-15,Umm al-Qura projection
+2036,2036-02-05,Umm al-Qura projection
+2037,2037-01-24,Umm al-Qura projection
+2038,2038-01-14,Umm al-Qura projection
+# 2039: two 10 Dhu al-Hijjah occurrences; Arafat Day is one day before January 4 Eid
+2039,2039-01-03,Umm al-Qura projection (January occurrence only)
+# 2040: falls in December because January slot was consumed by 2039 double-occurrence
+2040,2040-12-12,Umm al-Qura projection
+2041,2041-12-01,Umm al-Qura projection
+2042,2042-11-20,Umm al-Qura projection
+2043,2043-11-10,Umm al-Qura projection
+2044,2044-10-29,Umm al-Qura projection
+2045,2045-10-19,Umm al-Qura projection
+2046,2046-10-08,Umm al-Qura projection
+2047,2047-09-27,Umm al-Qura projection
+2048,2048-09-16,Umm al-Qura projection
+2049,2049-09-05,Umm al-Qura projection
+2050,2050-08-25,Umm al-Qura projection
+2051,2051-08-15,Umm al-Qura projection
+2052,2052-08-03,Umm al-Qura projection
+2053,2053-07-23,Umm al-Qura projection
+2054,2054-07-13,Umm al-Qura projection
+2055,2055-07-02,Umm al-Qura projection
