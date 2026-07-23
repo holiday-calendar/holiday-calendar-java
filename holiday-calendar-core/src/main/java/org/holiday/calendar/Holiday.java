@@ -21,8 +21,10 @@ package org.holiday.calendar;
 import org.holiday.calendar.function.Observance;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.MonthDay;
+import java.time.ZoneId;
 import java.util.Optional;
 
 /**
@@ -34,13 +36,13 @@ import java.util.Optional;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public sealed interface Holiday permits FixedHoliday, FloatingHoliday, SpecialAnniversary {
+public sealed interface Holiday permits FixedHoliday, FloatingHoliday, SpecialAnniversary, EarlyCloseHoliday {
 
     /**
      * Enumerated type of {@link Holiday}.
      */
     enum Type {
-        FIXED, FLOATING, SPECIAL_ANNIVERSARY
+        FIXED, FLOATING, SPECIAL_ANNIVERSARY, EARLY_CLOSE
     }
 
     /**
@@ -55,6 +57,8 @@ public sealed interface Holiday permits FixedHoliday, FloatingHoliday, SpecialAn
         private MonthDay monthDay;
         private Observance observance;
         private LocalDate anniversaryDate;
+        private LocalTime closeTime;
+        private ZoneId zoneId;
 
         /**
          * Package private constructor. Not intended to be called directly by
@@ -111,6 +115,16 @@ public sealed interface Holiday permits FixedHoliday, FloatingHoliday, SpecialAn
             return this;
         }
 
+        public HolidayBuilder closeTime(final LocalTime closeTime) {
+            this.closeTime = closeTime;
+            return this;
+        }
+
+        public HolidayBuilder zoneId(final ZoneId zoneId) {
+            this.zoneId = zoneId;
+            return this;
+        }
+
         /**
          * Build the {@link Holiday} object.
          *
@@ -123,6 +137,7 @@ public sealed interface Holiday permits FixedHoliday, FloatingHoliday, SpecialAn
                 case FIXED            -> new FixedHoliday(name, description, monthDay, rollable);
                 case FLOATING         -> new FloatingHoliday(name, description, observance, rollable);
                 case SPECIAL_ANNIVERSARY -> new SpecialAnniversary(name, description, anniversaryDate, rollable);
+                case EARLY_CLOSE      -> new EarlyCloseHoliday(name, description, observance, closeTime, zoneId);
             };
         }
     }

@@ -170,4 +170,42 @@ public class HolidayCalendar30YearIT {
         }
     }
 
+    // =========================================================================
+    // 5. ILS EARLY CLOSES (TASE half-day closures) OVER 30 YEARS
+    // =========================================================================
+
+    private static final int MIN_EARLY_CLOSES = 6 * RANGE_SIZE; // 6/year * 30 years
+
+    @Test(description = "ILS calculateEarlyCloses across 2026-2055 must yield >= 180 entries, "
+            + "no nulls, and be chronologically ordered")
+    public void testILSEarlyClosesOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("ILS");
+
+        List<HolidayDate> allEarlyCloses = new java.util.ArrayList<>();
+        for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
+            List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(year);
+            assertNotNull(earlyCloses, "ILS: calculateEarlyCloses(" + year + ") must not be null");
+            allEarlyCloses.addAll(earlyCloses);
+        }
+
+        assertTrue(allEarlyCloses.size() >= MIN_EARLY_CLOSES,
+                "ILS: expected >= " + MIN_EARLY_CLOSES + " early-close entries over "
+                        + RANGE_SIZE + " years, got " + allEarlyCloses.size());
+
+        for (int i = 0; i < allEarlyCloses.size(); i++) {
+            HolidayDate hd = allEarlyCloses.get(i);
+            assertNotNull(hd, "ILS: early-close entry at index " + i + " must not be null");
+            assertNotNull(hd.holiday(), "ILS: early-close holiday at index " + i + " must not be null");
+            assertNotNull(hd.date(), "ILS: early-close date at index " + i + " must not be null");
+        }
+
+        for (int i = 1; i < allEarlyCloses.size(); i++) {
+            LocalDate prev = allEarlyCloses.get(i - 1).date();
+            LocalDate curr = allEarlyCloses.get(i).date();
+            assertFalse(curr.isBefore(prev),
+                    "ILS: early-close dates out of order at index " + i
+                            + " — " + prev + " followed by " + curr);
+        }
+    }
+
 }

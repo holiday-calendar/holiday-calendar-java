@@ -35,23 +35,17 @@ import org.holiday.calendar.function.DateRolls;
  *
  * <p>Weekend: Friday + Saturday (Israeli market convention).
  *
- * <p><strong>Scope limitation — half-day closures:</strong> TASE closes early
- * (typically 13:00 IST) on holiday eves: Erev Rosh Hashanah, Erev Yom Kippur,
- * Erev Passover, Erev Shavuot, and Erev Sukkot. The current {@code Holiday}
- * sealed interface models only full-day closures. These half-day eves are
- * <em>not</em> represented in this calendar. Users performing same-day or T+1
- * settlement date calculations for trades placed in the morning of an eve day
- * must apply additional TASE-specific adjustments outside this library.
- *
- * <p><strong>Hoshana Raba (21 Tishri) — intentionally excluded:</strong>
- * TASE closes on Hoshana Raba (the 7th day of Sukkot, 21 Tishri) consistently;
- * this was confirmed in official TASE vacation schedules for 2022–2025.
- * However, the Bank of Israel operates with reduced hours on that day (until
- * approximately 13:15 IST) and does not treat it as a full settlement closure —
- * per official Bank of Israel Markets Department schedules. Since {@code ILS}
- * represents shekel settlement availability (Bank of Israel), and the central
- * bank is open on 21 Tishri, Hoshana Raba is not an ILS closure day. Consumers
- * building TASE-only trading calendars must add 21 Tishri independently.
+ * <p><strong>Hoshana Raba (21 Tishri) — modeled as an early close:</strong>
+ * TASE closes fully on Hoshana Raba (the 7th day of Sukkot, 21 Tishri) consistently;
+ * this was confirmed in official TASE vacation schedules for 2022–2025. However,
+ * the Bank of Israel operates with reduced hours on that day (until approximately
+ * 13:15 IST) rather than a full settlement closure, per official Bank of Israel
+ * Markets Department schedules. Since {@code ILS} represents shekel settlement
+ * availability (Bank of Israel), Hoshana Raba is included as an {@code EARLY_CLOSE}
+ * holiday closing at 13:15 Asia/Jerusalem time — distinct from the 13:00 close
+ * used for the five TASE holiday-eve early closes. Consumers building TASE-only
+ * trading calendars, where the day is a full closure, should treat this date
+ * accordingly rather than relying on the 13:15 close time.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
@@ -72,6 +66,7 @@ public class HolidayCalendarServiceILS extends AbstractHolidayCalendarService {
                 .dateRoll(DateRolls.noRoll())
                 .weekendDays(IsraelHolidays.ISRAEL_WEEKEND)
                 .holidays(IsraelHolidays.baseHolidays())
+                .holidays(IsraelHolidays.earlyCloseHolidays())
                 .build();
     }
 
