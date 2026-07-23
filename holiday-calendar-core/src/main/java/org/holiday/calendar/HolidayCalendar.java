@@ -270,6 +270,18 @@ public class HolidayCalendar {
     }
 
     /**
+     * Determine whether this calendar has any {@link EarlyCloseHoliday}
+     * entries configured. This is a cheap, year-independent check that lets
+     * callers branch without invoking {@link #calculateEarlyCloses(int)}.
+     *
+     * @return {@code true} if this calendar has at least one early-close holiday
+     * @see #calculateEarlyCloses(int)
+     */
+    public boolean hasEarlyCloses() {
+        return holidays.stream().anyMatch(EarlyCloseHoliday.class::isInstance);
+    }
+
+    /**
      * Calculate the dates of the holidays on this calendar for each year in
      * the specified range, returning all results as a single chronologically-
      * sorted list.

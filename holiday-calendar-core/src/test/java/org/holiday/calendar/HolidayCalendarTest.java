@@ -274,6 +274,18 @@ public class HolidayCalendarTest {
         assertTrue(dates.stream().noneMatch(hd -> hd.getHoliday() instanceof EarlyCloseHoliday));
     }
 
+    @Test(groups = "core")
+    public void testHasEarlyCloses_TrueWhenPresent() {
+        HolidayCalendar calendar = createHolidayCalendarWithEarlyCloses();
+        assertTrue(calendar.hasEarlyCloses());
+    }
+
+    @Test(groups = "core")
+    public void testHasEarlyCloses_FalseWhenAbsent() {
+        HolidayCalendar calendar = createHolidayCalendarSifmaUS();
+        assertFalse(calendar.hasEarlyCloses());
+    }
+
     private HolidayCalendar createHolidayCalendarWithEarlyCloses() {
         final Observance observanceA = year -> LocalDate.of(year, Month.MARCH, 10);
         final Observance observanceB = year -> LocalDate.of(year, Month.MARCH, 20);
