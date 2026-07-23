@@ -19,6 +19,12 @@
 package org.holiday.calendar.impl;
 
 import org.holiday.calendar.Holiday;
+import org.holiday.calendar.observance.hebrew.ErevPassover;
+import org.holiday.calendar.observance.hebrew.ErevRoshHashanah;
+import org.holiday.calendar.observance.hebrew.ErevShavuot;
+import org.holiday.calendar.observance.hebrew.ErevSukkot;
+import org.holiday.calendar.observance.hebrew.ErevYomKippur;
+import org.holiday.calendar.observance.hebrew.HoshanaRaba;
 import org.holiday.calendar.observance.hebrew.IndependenceDay;
 import org.holiday.calendar.observance.hebrew.Passover;
 import org.holiday.calendar.observance.hebrew.YomHazikaron;
@@ -31,6 +37,8 @@ import org.holiday.calendar.observance.hebrew.Sukkot;
 import org.holiday.calendar.observance.hebrew.YomKippur;
 
 import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +57,11 @@ import java.util.List;
  * Independence Day is additionally self-adjusting via the statutory
  * postponement rule embedded in {@link IndependenceDay#computeDate}.
  *
- * <p>Scope limitation: TASE closes early on holiday eves (Erev Rosh Hashanah,
- * Erev Yom Kippur, Erev Passover, Erev Shavuot, Erev Sukkot). These half-day
- * closures are not modelled here. See {@link HolidayCalendarServiceILS} for the
- * full limitation notice.
+ * <p>{@link #earlyCloseHolidays()} returns six {@code EARLY_CLOSE} holidays: five
+ * TASE half-day closures on holiday eves (Erev Rosh Hashanah, Erev Yom Kippur, Erev
+ * Passover, Erev Shavuot, Erev Sukkot), each closing at 13:00 Asia/Jerusalem time,
+ * plus Hoshana Raba (21 Tishri), on which the Bank of Israel operates with reduced
+ * hours until approximately 13:15 Asia/Jerusalem time.
  *
  * <p>Omitted holidays (conscious decisions):
  * <ul>
@@ -60,11 +69,6 @@ import java.util.List;
  *       commemoration day, but it is not a statutory public rest holiday under
  *       the Work and Rest Hours Law. TASE also remains open.</li>
  *   <li>Sigd (29 Heshvan) — low market relevance; not a TASE closure day.</li>
- *   <li>Hoshana Raba (21 Tishri) — TASE closes on this day, but the Bank of
- *       Israel operates with reduced hours (not a full settlement closure).
- *       ILS represents Bank of Israel settlement availability; since the central
- *       bank is open on 21 Tishri, it is not an ILS closure day. TASE-only
- *       trading calendars should add this date separately.</li>
  * </ul>
  */
 class IsraelHolidays {
@@ -163,6 +167,74 @@ class IsraelHolidays {
                     .type(Holiday.Type.FLOATING)
                     .rollable(false)
                     .observance(new Shavuot())
+                    .build()
+        );
+    }
+
+    /**
+     * Returns six {@code EARLY_CLOSE} holidays: five representing TASE's half-day
+     * closures on the eves of major Jewish holidays (closing at 13:00 Asia/Jerusalem
+     * time), plus Hoshana Raba (21 Tishri), on which the Bank of Israel operates
+     * with reduced hours until approximately 13:15 Asia/Jerusalem time per official
+     * Bank of Israel Markets Department schedules. None are subject to date rolling.
+     */
+    static List<Holiday> earlyCloseHolidays() {
+        return List.of(
+            Holiday.builder()
+                    .name("Erev Rosh Hashanah")
+                    .description("Eve of the Jewish New Year; TASE half-day closure")
+                    .type(Holiday.Type.EARLY_CLOSE)
+                    .rollable(false)
+                    .observance(new ErevRoshHashanah())
+                    .closeTime(LocalTime.of(13, 0))
+                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .build(),
+            Holiday.builder()
+                    .name("Erev Yom Kippur")
+                    .description("Eve of the Day of Atonement; TASE half-day closure")
+                    .type(Holiday.Type.EARLY_CLOSE)
+                    .rollable(false)
+                    .observance(new ErevYomKippur())
+                    .closeTime(LocalTime.of(13, 0))
+                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .build(),
+            Holiday.builder()
+                    .name("Erev Passover")
+                    .description("Eve of Passover; TASE half-day closure")
+                    .type(Holiday.Type.EARLY_CLOSE)
+                    .rollable(false)
+                    .observance(new ErevPassover())
+                    .closeTime(LocalTime.of(13, 0))
+                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .build(),
+            Holiday.builder()
+                    .name("Erev Shavuot")
+                    .description("Eve of the Feast of Weeks / Pentecost; TASE half-day closure")
+                    .type(Holiday.Type.EARLY_CLOSE)
+                    .rollable(false)
+                    .observance(new ErevShavuot())
+                    .closeTime(LocalTime.of(13, 0))
+                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .build(),
+            Holiday.builder()
+                    .name("Erev Sukkot")
+                    .description("Eve of the Festival of Tabernacles; TASE half-day closure")
+                    .type(Holiday.Type.EARLY_CLOSE)
+                    .rollable(false)
+                    .observance(new ErevSukkot())
+                    .closeTime(LocalTime.of(13, 0))
+                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .build(),
+            Holiday.builder()
+                    .name("Hoshana Raba")
+                    .description("Seventh day of Sukkot (21 Tishri); Bank of Israel operates " +
+                                 "with reduced hours until approximately 13:15 IST, per official " +
+                                 "Bank of Israel Markets Department schedules")
+                    .type(Holiday.Type.EARLY_CLOSE)
+                    .rollable(false)
+                    .observance(new HoshanaRaba())
+                    .closeTime(LocalTime.of(13, 15))
+                    .zoneId(ZoneId.of("Asia/Jerusalem"))
                     .build()
         );
     }

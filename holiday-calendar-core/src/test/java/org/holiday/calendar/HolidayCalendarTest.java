@@ -19,6 +19,7 @@
 package org.holiday.calendar;
 
 import org.holiday.calendar.function.DateRoll;
+import org.holiday.calendar.function.Observance;
 import org.testng.annotations.Test;
 
 import java.time.*;
@@ -229,6 +230,61 @@ public class HolidayCalendarTest {
         LocalDate monday = LocalDate.of(2021, Month.DECEMBER, 20);
         Instant mondayInstant = monday.atStartOfDay(ZoneOffset.UTC).toInstant();
         assertFalse(calendar.isWeekendUTC(mondayInstant));
+    }
+
+    // -------------------------------------------------------------------------
+    // calculateEarlyCloses
+    // -------------------------------------------------------------------------
+
+    @Test(groups = "core")
+    public void testCalculateEarlyCloses_ReturnsOnlyEarlyCloseEntries() {
+        HolidayCalendar calendar = createHolidayCalendarWithEarlyCloses();
+        List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(2025);
+
+        assertEquals(earlyCloses.size(), 2);
+        assertTrue(earlyCloses.stream().allMatch(hd -> hd.getHoliday() instanceof EarlyCloseHoliday));
+    }
+
+    @Test(groups = "core")
+    public void testCalculateEarlyCloses_IsChronologicallyOrdered() {
+        HolidayCalendar calendar = createHolidayCalendarWithEarlyCloses();
+        List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(2025);
+
+        assertEquals(earlyCloses.size(), 2);
+        assertTrue(earlyCloses.get(0).getDate().isBefore(earlyCloses.get(1).getDate()));
+        assertEquals(earlyCloses.get(0).getHoliday().getName(), "Erev A");
+        assertEquals(earlyCloses.get(1).getHoliday().getName(), "Erev B");
+    }
+
+    @Test(groups = "core")
+    public void testCalculateEarlyCloses_EmptyWhenNoEarlyCloses() {
+        HolidayCalendar calendar = createHolidayCalendarSifmaUS();
+        List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(2021);
+        assertNotNull(earlyCloses);
+        assertTrue(earlyCloses.isEmpty());
+    }
+
+    @Test(groups = "core")
+    public void testCalculate_DoesNotIncludeEarlyCloses() {
+        HolidayCalendar calendar = createHolidayCalendarWithEarlyCloses();
+        List<HolidayDate> dates = calendar.calculate(2025);
+
+        assertEquals(dates.size(), 1);
+        assertEquals(dates.getFirst().getHoliday().getName(), "Full Holiday");
+        assertTrue(dates.stream().noneMatch(hd -> hd.getHoliday() instanceof EarlyCloseHoliday));
+    }
+
+    private HolidayCalendar createHolidayCalendarWithEarlyCloses() {
+        final Observance observanceA = year -> LocalDate.of(year, Month.MARCH, 10);
+        final Observance observanceB = year -> LocalDate.of(year, Month.MARCH, 20);
+        final Observance mainObservance = year -> LocalDate.of(year, Month.MARCH, 15);
+        return HolidayCalendar.builder()
+                              .code("TEST-EC")
+                              .name("Early Close Test Calendar")
+                              .holiday(new FloatingHoliday("Full Holiday", "", mainObservance))
+                              .holiday(new EarlyCloseHoliday("Erev B", "", observanceB, LocalTime.of(13, 0), ZoneId.of("Asia/Jerusalem")))
+                              .holiday(new EarlyCloseHoliday("Erev A", "", observanceA, LocalTime.of(13, 0), ZoneId.of("Asia/Jerusalem")))
+                              .build();
     }
 
     private HolidayCalendar createHolidayCalendarSifmaUS() {

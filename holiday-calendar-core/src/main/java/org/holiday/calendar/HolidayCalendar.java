@@ -232,6 +232,7 @@ public class HolidayCalendar {
      */
     public List<HolidayDate> calculate(int year) {
         return holidays.stream()
+            .filter(holiday -> !(holiday instanceof EarlyCloseHoliday))
             .<HolidayDate>mapMulti((holiday, sink) ->
                 holiday.dateForYear(year).ifPresent(date -> {
                     LocalDate observed = holiday.isRollable() && weekendDays.contains(date.getDayOfWeek())
@@ -239,6 +240,30 @@ public class HolidayCalendar {
                         : date;
                     sink.accept(new HolidayDate(holiday, observed));
                 })
+            )
+            .sorted(Comparator.comparing(HolidayDate::getDate))
+            .toList();
+    }
+
+    /**
+     * Calculate the dates of the early-close (partial trading day) holidays on
+     * this calendar for the specified year. Only {@link EarlyCloseHoliday}
+     * instances are considered; these are inherently non-rollable, so no date
+     * rolling is applied.
+     *
+     * <p>Early closes are deliberately excluded from {@link #calculate(int)} and
+     * are reported exclusively by this method.</p>
+     *
+     * @param year Common Era (CE) year for which to obtain early-close dates
+     * @return chronologically-sorted list of early-close holiday dates
+     * @see EarlyCloseHoliday
+     * @see #calculate(int)
+     */
+    public List<HolidayDate> calculateEarlyCloses(int year) {
+        return holidays.stream()
+            .filter(holiday -> holiday instanceof EarlyCloseHoliday)
+            .<HolidayDate>mapMulti((holiday, sink) ->
+                holiday.dateForYear(year).ifPresent(date -> sink.accept(new HolidayDate(holiday, date)))
             )
             .sorted(Comparator.comparing(HolidayDate::getDate))
             .toList();
