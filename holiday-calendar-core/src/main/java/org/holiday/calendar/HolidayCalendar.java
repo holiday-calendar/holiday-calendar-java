@@ -261,7 +261,7 @@ public class HolidayCalendar {
      */
     public List<HolidayDate> calculateEarlyCloses(int year) {
         return holidays.stream()
-            .filter(holiday -> holiday instanceof EarlyCloseHoliday)
+            .filter(EarlyCloseHoliday.class::isInstance)
             .<HolidayDate>mapMulti((holiday, sink) ->
                 holiday.dateForYear(year).ifPresent(date -> sink.accept(new HolidayDate(holiday, date)))
             )

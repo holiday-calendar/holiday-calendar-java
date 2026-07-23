@@ -23,7 +23,6 @@ import org.holiday.calendar.function.Observance;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
@@ -49,23 +48,18 @@ import static java.util.Objects.requireNonNull;
  * @see HolidayCalendar#calculateEarlyCloses(int)
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public final class EarlyCloseHoliday implements Holiday {
-
-    private final String name;
-    private final String description;
-    private final Observance observance;
-    private final LocalTime closeTime;
-    private final ZoneId zoneId;
+public record EarlyCloseHoliday(String name, String description, Observance observance,
+                                 LocalTime closeTime, ZoneId zoneId) implements Holiday {
 
     /**
      * Canonical constructor.
      */
-    public EarlyCloseHoliday(String name, String description, Observance observance, LocalTime closeTime, ZoneId zoneId) {
-        this.name = requireNonNull(name, "Argument 'name' cannot be null");
-        this.description = Optional.ofNullable(description).orElse("");
-        this.observance = requireNonNull(observance, "Argument 'observance' cannot be null");
-        this.closeTime = requireNonNull(closeTime, "Argument 'closeTime' cannot be null");
-        this.zoneId = requireNonNull(zoneId, "Argument 'zoneId' cannot be null");
+    public EarlyCloseHoliday {
+        requireNonNull(name, "Argument 'name' cannot be null");
+        description = Optional.ofNullable(description).orElse("");
+        requireNonNull(observance, "Argument 'observance' cannot be null");
+        requireNonNull(closeTime, "Argument 'closeTime' cannot be null");
+        requireNonNull(zoneId, "Argument 'zoneId' cannot be null");
     }
 
     @Override
@@ -104,22 +98,6 @@ public final class EarlyCloseHoliday implements Holiday {
     @Override
     public Optional<LocalDate> dateForYear(int year) {
         return Optional.ofNullable(observance.apply(year));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EarlyCloseHoliday that)) return false;
-        return name.equals(that.name)
-            && description.equals(that.description)
-            && observance.equals(that.observance)
-            && closeTime.equals(that.closeTime)
-            && zoneId.equals(that.zoneId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, observance, closeTime, zoneId);
     }
 
     @Override

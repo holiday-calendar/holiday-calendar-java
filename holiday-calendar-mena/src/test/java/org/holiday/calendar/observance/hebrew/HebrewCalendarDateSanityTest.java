@@ -22,6 +22,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Iterator;
 import java.util.List;
 
@@ -83,36 +84,36 @@ public class HebrewCalendarDateSanityTest {
         return List.of(
             // Rosh Hashanah (1 Tishri) — source: Hebcal rosh-hashana-{year} pages,
             // cross-checked against Jerusalem Post / israelhayom.com for 2024.
-            new Object[]{"RoshHashanah", 2024, LocalDate.of(2024, 10, 3)},
-            new Object[]{"RoshHashanah", 2025, LocalDate.of(2025, 9, 23)},
-            new Object[]{"RoshHashanah", 2026, LocalDate.of(2026, 9, 12)},
+            new Object[]{"RoshHashanah", 2024, LocalDate.of(2024, Month.OCTOBER, 3)},
+            new Object[]{"RoshHashanah", 2025, LocalDate.of(2025, Month.SEPTEMBER, 23)},
+            new Object[]{"RoshHashanah", 2026, LocalDate.of(2026, Month.SEPTEMBER, 12)},
 
             // Yom Kippur (10 Tishri) — source: Hebcal yom-kippur-{year} pages.
-            new Object[]{"YomKippur", 2024, LocalDate.of(2024, 10, 12)},
-            new Object[]{"YomKippur", 2025, LocalDate.of(2025, 10, 2)},
-            new Object[]{"YomKippur", 2026, LocalDate.of(2026, 9, 21)},
+            new Object[]{"YomKippur", 2024, LocalDate.of(2024, Month.OCTOBER, 12)},
+            new Object[]{"YomKippur", 2025, LocalDate.of(2025, Month.OCTOBER, 2)},
+            new Object[]{"YomKippur", 2026, LocalDate.of(2026, Month.SEPTEMBER, 21)},
 
             // Sukkot, first day (15 Tishri) — source: Hebcal sukkot-{year} pages.
-            new Object[]{"Sukkot", 2024, LocalDate.of(2024, 10, 17)},
-            new Object[]{"Sukkot", 2025, LocalDate.of(2025, 10, 7)},
-            new Object[]{"Sukkot", 2026, LocalDate.of(2026, 9, 26)},
+            new Object[]{"Sukkot", 2024, LocalDate.of(2024, Month.OCTOBER, 17)},
+            new Object[]{"Sukkot", 2025, LocalDate.of(2025, Month.OCTOBER, 7)},
+            new Object[]{"Sukkot", 2026, LocalDate.of(2026, Month.SEPTEMBER, 26)},
 
             // Passover, first day (15 Nisan) — source: Hebcal pesach-{year}?i=on
             // (Israel, single-day first-day observance) pages.
-            new Object[]{"Passover", 2024, LocalDate.of(2024, 4, 23)},
-            new Object[]{"Passover", 2025, LocalDate.of(2025, 4, 13)},
-            new Object[]{"Passover", 2026, LocalDate.of(2026, 4, 2)},
+            new Object[]{"Passover", 2024, LocalDate.of(2024, Month.APRIL, 23)},
+            new Object[]{"Passover", 2025, LocalDate.of(2025, Month.APRIL, 13)},
+            new Object[]{"Passover", 2026, LocalDate.of(2026, Month.APRIL, 2)},
 
             // Shavuot (6 Sivan) — source: Hebcal shavuot-{year}?i=on (Israel) pages.
-            new Object[]{"Shavuot", 2024, LocalDate.of(2024, 6, 12)},
-            new Object[]{"Shavuot", 2025, LocalDate.of(2025, 6, 2)},
-            new Object[]{"Shavuot", 2026, LocalDate.of(2026, 5, 22)},
+            new Object[]{"Shavuot", 2024, LocalDate.of(2024, Month.JUNE, 12)},
+            new Object[]{"Shavuot", 2025, LocalDate.of(2025, Month.JUNE, 2)},
+            new Object[]{"Shavuot", 2026, LocalDate.of(2026, Month.MAY, 22)},
 
             // Hoshana Raba (21 Tishri) — source: Sukkot first day (above) + 6 days,
             // cross-checked directly against independent Hoshana Raba listings.
-            new Object[]{"HoshanaRaba", 2024, LocalDate.of(2024, 10, 23)},
-            new Object[]{"HoshanaRaba", 2025, LocalDate.of(2025, 10, 13)},
-            new Object[]{"HoshanaRaba", 2026, LocalDate.of(2026, 10, 2)}
+            new Object[]{"HoshanaRaba", 2024, LocalDate.of(2024, Month.OCTOBER, 23)},
+            new Object[]{"HoshanaRaba", 2025, LocalDate.of(2025, Month.OCTOBER, 13)},
+            new Object[]{"HoshanaRaba", 2026, LocalDate.of(2026, Month.OCTOBER, 2)}
         ).iterator();
     }
 
@@ -144,29 +145,29 @@ public class HebrewCalendarDateSanityTest {
         return List.of(
             // Erev Rosh Hashanah — directly-sourced eve date (Hebcal: "began at
             // sunset" on this date) = independently confirmed as 1 Tishri minus 1.
-            new Object[]{"ErevRoshHashanah", 2024, LocalDate.of(2024, 10, 2)},
-            new Object[]{"ErevRoshHashanah", 2025, LocalDate.of(2025, 9, 22)},
-            new Object[]{"ErevRoshHashanah", 2026, LocalDate.of(2026, 9, 11)},
+            new Object[]{"ErevRoshHashanah", 2024, LocalDate.of(2024, Month.OCTOBER, 2)},
+            new Object[]{"ErevRoshHashanah", 2025, LocalDate.of(2025, Month.SEPTEMBER, 22)},
+            new Object[]{"ErevRoshHashanah", 2026, LocalDate.of(2026, Month.SEPTEMBER, 11)},
 
             // Erev Yom Kippur — directly-sourced eve date (Hebcal sunset-start).
-            new Object[]{"ErevYomKippur", 2024, LocalDate.of(2024, 10, 11)},
-            new Object[]{"ErevYomKippur", 2025, LocalDate.of(2025, 10, 1)},
-            new Object[]{"ErevYomKippur", 2026, LocalDate.of(2026, 9, 20)},
+            new Object[]{"ErevYomKippur", 2024, LocalDate.of(2024, Month.OCTOBER, 11)},
+            new Object[]{"ErevYomKippur", 2025, LocalDate.of(2025, Month.OCTOBER, 1)},
+            new Object[]{"ErevYomKippur", 2026, LocalDate.of(2026, Month.SEPTEMBER, 20)},
 
             // Erev Sukkot — directly-sourced eve date (Hebcal sunset-start).
-            new Object[]{"ErevSukkot", 2024, LocalDate.of(2024, 10, 16)},
-            new Object[]{"ErevSukkot", 2025, LocalDate.of(2025, 10, 6)},
-            new Object[]{"ErevSukkot", 2026, LocalDate.of(2026, 9, 25)},
+            new Object[]{"ErevSukkot", 2024, LocalDate.of(2024, Month.OCTOBER, 16)},
+            new Object[]{"ErevSukkot", 2025, LocalDate.of(2025, Month.OCTOBER, 6)},
+            new Object[]{"ErevSukkot", 2026, LocalDate.of(2026, Month.SEPTEMBER, 25)},
 
             // Erev Passover — directly-sourced eve date (Hebcal sunset-start).
-            new Object[]{"ErevPassover", 2024, LocalDate.of(2024, 4, 22)},
-            new Object[]{"ErevPassover", 2025, LocalDate.of(2025, 4, 12)},
-            new Object[]{"ErevPassover", 2026, LocalDate.of(2026, 4, 1)},
+            new Object[]{"ErevPassover", 2024, LocalDate.of(2024, Month.APRIL, 22)},
+            new Object[]{"ErevPassover", 2025, LocalDate.of(2025, Month.APRIL, 12)},
+            new Object[]{"ErevPassover", 2026, LocalDate.of(2026, Month.APRIL, 1)},
 
             // Erev Shavuot — directly-sourced eve date (Hebcal sunset-start).
-            new Object[]{"ErevShavuot", 2024, LocalDate.of(2024, 6, 11)},
-            new Object[]{"ErevShavuot", 2025, LocalDate.of(2025, 6, 1)},
-            new Object[]{"ErevShavuot", 2026, LocalDate.of(2026, 5, 21)}
+            new Object[]{"ErevShavuot", 2024, LocalDate.of(2024, Month.JUNE, 11)},
+            new Object[]{"ErevShavuot", 2025, LocalDate.of(2025, Month.JUNE, 1)},
+            new Object[]{"ErevShavuot", 2026, LocalDate.of(2026, Month.MAY, 21)}
         ).iterator();
     }
 

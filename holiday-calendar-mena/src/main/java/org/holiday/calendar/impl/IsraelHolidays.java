@@ -76,6 +76,8 @@ class IsraelHolidays {
     // Israeli weekend: Friday + Saturday; Sunday is the first business day.
     static final List<DayOfWeek> ISRAEL_WEEKEND = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
 
+    private static final ZoneId ISRAEL_ZONE = ZoneId.of("Asia/Jerusalem");
+
     private IsraelHolidays() {}
 
     /**
@@ -187,7 +189,7 @@ class IsraelHolidays {
                     .rollable(false)
                     .observance(new ErevRoshHashanah())
                     .closeTime(LocalTime.of(13, 0))
-                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .zoneId(ISRAEL_ZONE)
                     .build(),
             Holiday.builder()
                     .name("Erev Yom Kippur")
@@ -196,7 +198,7 @@ class IsraelHolidays {
                     .rollable(false)
                     .observance(new ErevYomKippur())
                     .closeTime(LocalTime.of(13, 0))
-                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .zoneId(ISRAEL_ZONE)
                     .build(),
             Holiday.builder()
                     .name("Erev Passover")
@@ -205,7 +207,7 @@ class IsraelHolidays {
                     .rollable(false)
                     .observance(new ErevPassover())
                     .closeTime(LocalTime.of(13, 0))
-                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .zoneId(ISRAEL_ZONE)
                     .build(),
             Holiday.builder()
                     .name("Erev Shavuot")
@@ -214,7 +216,7 @@ class IsraelHolidays {
                     .rollable(false)
                     .observance(new ErevShavuot())
                     .closeTime(LocalTime.of(13, 0))
-                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .zoneId(ISRAEL_ZONE)
                     .build(),
             Holiday.builder()
                     .name("Erev Sukkot")
@@ -223,7 +225,7 @@ class IsraelHolidays {
                     .rollable(false)
                     .observance(new ErevSukkot())
                     .closeTime(LocalTime.of(13, 0))
-                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .zoneId(ISRAEL_ZONE)
                     .build(),
             Holiday.builder()
                     .name("Hoshana Raba")
@@ -234,7 +236,7 @@ class IsraelHolidays {
                     .rollable(false)
                     .observance(new HoshanaRaba())
                     .closeTime(LocalTime.of(13, 15))
-                    .zoneId(ZoneId.of("Asia/Jerusalem"))
+                    .zoneId(ISRAEL_ZONE)
                     .build()
         );
     }
