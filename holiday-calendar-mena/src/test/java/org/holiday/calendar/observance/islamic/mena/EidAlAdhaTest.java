@@ -170,4 +170,37 @@ public class EidAlAdhaTest {
         assertEquals(new EidAlAdha("QA").apply(2025), new EidAlAdha("AE").apply(2025),
                 "Eid al-Adha 2025: Qatar (QCB) and UAE (SCA) must agree on June 6");
     }
+
+    // -------------------------------------------------------------------------
+    // Runtime fallback to IlmiTakvimCalculator (TR only, when the CSV has no row
+    // for an in-range year — all tr CSV rows are currently populated through
+    // DATA_VALID_THROUGH, so these tests exercise computeDate() directly for years
+    // outside the CSV's own range to prove the fallback path itself is correct.
+    // -------------------------------------------------------------------------
+
+    @Test
+    public void computeDateFallsBackToCalculatorForTrWhenCsvHasNoRow() {
+        int year = 2100; // beyond DATA_VALID_THROUGH; no CSV row for any country
+        EidAlAdha tr = new EidAlAdha("tr");
+        assertEquals(tr.computeDate(year),
+                org.holiday.calendar.observance.islamic.mena.ilmitakvim.IlmiTakvimCalculator.eidAlAdha(year),
+                "computeDate must fall back to IlmiTakvimCalculator for tr when the CSV lacks a row");
+    }
+
+    @Test
+    public void computeDateReturnsNullWhenCalculatorFailsForTr() {
+        // Year 3050 is beyond Time4J's supported astronomical range, forcing
+        // IlmiTakvimCalculator to throw; computeDate must catch it and return null.
+        assertNull(new EidAlAdha("tr").computeDate(3050),
+                "computeDate must return null when the ilmi takvim calculation itself fails");
+        assertTrue(listAppender.list.stream().anyMatch(e -> e.getLevel() == Level.WARN),
+                "Expected a WARN log when the ilmi takvim calculation fails");
+    }
+
+    @Test
+    public void computeDateReturnsNullForNonTrCountryWhenCsvHasNoRow() {
+        assertNull(new EidAlAdha("ae").computeDate(2100),
+                "computeDate must return null for non-tr countries when the CSV lacks a row "
+                        + "(no calculator fallback exists for them)");
+    }
 }
