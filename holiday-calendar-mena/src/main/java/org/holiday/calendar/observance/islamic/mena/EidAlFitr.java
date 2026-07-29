@@ -36,6 +36,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Dates for 2027–2055 are projected from the Umm al-Qura tabular Islamic calendar;
  * verify against official announcements as each year is published.</p>
  *
+ * <p>For Turkey ({@code tr}), 2024–2035 are official Diyanet (Presidency of
+ * Religious Affairs) published dates rather than Umm al-Qura projections — Diyanet
+ * publishes several years ahead of the current year. See {@code eid-al-fitr-tr.csv}
+ * for details.</p>
+ *
  * <p>Note: Gregorian year 2033 contains two Eid al-Fitr occurrences (~January 4 and
  * ~December 24). Only the first (January) occurrence is recorded; the December
  * occurrence cannot be represented under the single-date-per-year-key design.</p>

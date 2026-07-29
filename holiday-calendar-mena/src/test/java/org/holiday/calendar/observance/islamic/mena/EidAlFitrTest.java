@@ -150,7 +150,7 @@ public class EidAlFitrTest {
     }
 
     // -------------------------------------------------------------------------
-    // Known dates — TR (Diyanet ilmi takvim)
+    // Known dates — TR (Diyanet ilmi takvim, official published dates 2024-2035)
     // -------------------------------------------------------------------------
 
     @DataProvider
@@ -158,7 +158,11 @@ public class EidAlFitrTest {
         return List.of(
             new Object[]{2024, LocalDate.of(2024, 4, 10)},
             new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2026, LocalDate.of(2026, 3, 19)},
+            new Object[]{2026, LocalDate.of(2026, 3, 20)},  // one day later than AE/SA — see below
+            new Object[]{2027, LocalDate.of(2027, 3, 9)},
+            new Object[]{2035, LocalDate.of(2035, 12, 1)},
+            // 2055 remains an Umm al-Qura projection (Diyanet has not yet published this
+            // far ahead) — not independently verified against a Diyanet source.
             new Object[]{2055, LocalDate.of(2055, 4, 28)}
         ).iterator();
     }
@@ -174,6 +178,19 @@ public class EidAlFitrTest {
     public void testTR2025MatchesAE() {
         assertEquals(new EidAlFitr("TR").apply(2025), new EidAlFitr("AE").apply(2025),
                 "Eid al-Fitr 2025: Diyanet (TR) and UAE SCA (AE) must agree on March 30");
+    }
+
+    // TR 2026 diverges from AE by one day: Diyanet (ilmi takvim) vs UAE SCA
+    @Test
+    public void testTR2026DiffersFromAE() {
+        LocalDate trDate = new EidAlFitr("TR").apply(2026);
+        LocalDate aeDate = new EidAlFitr("AE").apply(2026);
+        assertEquals(trDate, LocalDate.of(2026, 3, 20),
+                "Diyanet Eid al-Fitr 2026 must be March 20");
+        assertEquals(aeDate, LocalDate.of(2026, 3, 19),
+                "UAE SCA Eid al-Fitr 2026 must be March 19");
+        assertNotEquals(trDate, aeDate,
+                "Diyanet and UAE SCA Eid al-Fitr 2026 must differ by one day");
     }
 
     // -------------------------------------------------------------------------

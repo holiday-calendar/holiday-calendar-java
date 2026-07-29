@@ -38,11 +38,15 @@ import java.util.List;
  *
  * <p>All seven Islamic holidays are populated through {@value DATA_VALID_THROUGH}
  * via Diyanet-sourced CSV lookup tables (country code {@code tr}).
- * Dates for 2024–2026 are official Diyanet (Presidency of Religious Affairs) /
- * BIST market calendar announcements; dates for 2027–2055 are projected from
- * the Umm al-Qura tabular Islamic calendar. Diyanet uses ilmi takvim (scientific
- * method), which may differ from the Umm al-Qura calendar by ±1 day — verify
- * projected dates against Diyanet announcements as each year is published.
+ * Dates for 2024–2035 are official Diyanet (Presidency of Religious Affairs)
+ * published dates (Diyanet publishes several years ahead of the current year,
+ * not just 1–2 years as originally assumed — see GitHub issue #180), confirmed
+ * against BIST market calendar announcements for 2024–2026; dates for 2036–2055
+ * are projected from the Umm al-Qura tabular Islamic calendar pending Diyanet's
+ * own publication of those years. Diyanet uses ilmi takvim (scientific method),
+ * which is confirmed to differ from the Umm al-Qura calendar by ±1–2 days in some
+ * years (e.g. 2026 Eid al-Adha: Diyanet 27 May vs. UAE/Umm al-Qura 26 May) — verify
+ * projected 2036–2055 dates against Diyanet announcements as each year is published.
  * Corrections require a new JAR release; no runtime update mechanism exists.
  *
  * <p>Turkey observes three days of Eid al-Fitr (Ramazan Bayramı) and four days

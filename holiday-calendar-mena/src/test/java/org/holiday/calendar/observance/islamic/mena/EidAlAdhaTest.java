@@ -96,16 +96,19 @@ public class EidAlAdhaTest {
     }
 
     // -------------------------------------------------------------------------
-    // Known dates — TR (Diyanet ilmi takvim)
-    // 2025 divergence: Diyanet = June 5; Saudi/UAE Umm al-Qura = June 6
+    // Known dates — TR (Diyanet ilmi takvim, official published dates 2024-2035)
     // -------------------------------------------------------------------------
 
     @DataProvider
     Iterator<Object[]> knownDatesTR() {
         return List.of(
             new Object[]{2024, LocalDate.of(2024, 6, 16)},
-            new Object[]{2025, LocalDate.of(2025, 6, 5)},   // one day earlier than AE/SA
-            new Object[]{2026, LocalDate.of(2026, 5, 26)},
+            new Object[]{2025, LocalDate.of(2025, 6, 6)},
+            new Object[]{2026, LocalDate.of(2026, 5, 27)},  // one day later than AE/SA — see below
+            new Object[]{2027, LocalDate.of(2027, 5, 16)},
+            new Object[]{2035, LocalDate.of(2035, 2, 18)},
+            // 2055 remains an Umm al-Qura projection (Diyanet has not yet published this
+            // far ahead) — not independently verified against a Diyanet source.
             new Object[]{2055, LocalDate.of(2055, 7, 3)}
         ).iterator();
     }
@@ -116,17 +119,27 @@ public class EidAlAdhaTest {
                 "Eid al-Adha " + year + " per Diyanet must be " + expected);
     }
 
-    // Canonical Diyanet vs. Umm al-Qura divergence: 2025 Eid al-Adha
+    // Canonical Diyanet vs. Umm al-Qura/UAE divergence: 2026 Eid al-Adha.
+    // (A previously-recorded 2025 divergence was a data error: 2025-06-05 is Arefe,
+    // the eve of Bayram, not the actual 1st day — Diyanet's published 1st day is
+    // 2025-06-06, matching AE/SA. No divergence exists in 2025.)
     @Test
-    public void testTR2025DiffersFromAE() {
-        LocalDate trDate = new EidAlAdha("TR").apply(2025);
-        LocalDate aeDate = new EidAlAdha("AE").apply(2025);
-        assertEquals(trDate, LocalDate.of(2025, 6, 5),
-                "Diyanet Eid al-Adha 2025 must be June 5");
-        assertEquals(aeDate, LocalDate.of(2025, 6, 6),
-                "UAE SCA Eid al-Adha 2025 must be June 6");
+    public void testTR2026DiffersFromAE() {
+        LocalDate trDate = new EidAlAdha("TR").apply(2026);
+        LocalDate aeDate = new EidAlAdha("AE").apply(2026);
+        assertEquals(trDate, LocalDate.of(2026, 5, 27),
+                "Diyanet Eid al-Adha 2026 must be May 27");
+        assertEquals(aeDate, LocalDate.of(2026, 5, 26),
+                "UAE SCA Eid al-Adha 2026 must be May 26");
         assertNotEquals(trDate, aeDate,
-                "Diyanet and Umm al-Qura Eid al-Adha 2025 must differ by one day");
+                "Diyanet and UAE SCA Eid al-Adha 2026 must differ by one day");
+    }
+
+    // 2025 no longer diverges once the Arefe/Bayram-day data error is corrected
+    @Test
+    public void testTR2025MatchesAE() {
+        assertEquals(new EidAlAdha("TR").apply(2025), new EidAlAdha("AE").apply(2025),
+                "Eid al-Adha 2025: Diyanet (TR) and UAE SCA (AE) must agree on June 6");
     }
 
     // -------------------------------------------------------------------------

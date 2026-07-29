@@ -36,6 +36,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Dates for 2027–2055 are projected from the Umm al-Qura tabular Islamic calendar;
  * verify against official announcements as each year is published.</p>
  *
+ * <p>For Turkey ({@code tr}), 2024–2035 are official Diyanet (Presidency of
+ * Religious Affairs) published dates rather than Umm al-Qura projections — Diyanet
+ * publishes several years ahead of the current year. See {@code eid-al-adha-tr.csv}
+ * for the confirmed 2026 divergence between Diyanet's ilmi takvim and Umm al-Qura.</p>
+ *
  * <p>Date data is loaded at runtime from {@code eid-al-adha-{countryCode}.csv}
  * in this package, where {@code countryCode} is the ISO 3166-1 alpha-2 country
  * code in lower case (e.g. {@code ae}, {@code sa}).</p>

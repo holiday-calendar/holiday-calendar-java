@@ -2,20 +2,28 @@
 # The Feast of Sacrifice.
 #
 # SOURCE TIERS:
-#   2024–2026: Diyanet (Presidency of Religious Affairs) official announcements,
-#              confirmed against BIST market calendar publications.
-#   2027–2055: Umm al-Qura tabular projection (Saudi Arabia's published tabular calendar,
+#   2024–2035: Diyanet (Presidency of Religious Affairs) official published dates,
+#              sourced directly from vakithesaplama.diyanet.gov.tr's "Dini Günler"
+#              (religious days) tables — Diyanet publishes these several years ahead
+#              of the current year, not just 1–2 years as previously assumed (see
+#              GitHub issue #180 for background). Confirmed against BIST market
+#              calendar publications for 2024–2026.
+#   2036–2055: Umm al-Qura tabular projection (Saudi Arabia's published tabular calendar,
 #              Küçük 30-year cycle), used as a best-available approximation because Diyanet
-#              does not publish ilmi takvim (scientific calendar) projections beyond 1–2 years
-#              in advance. Actual Diyanet dates may differ by ±1 day from these Umm al-Qura
-#              values — the 2025 divergence below is the canonical confirmed example.
-#              Replace with ilmi takvim calculations when available (see GitHub issue #180).
+#              has not yet published religious-day tables this far ahead. Actual Diyanet
+#              dates may differ by ±1–2 days from these Umm al-Qura values — the confirmed
+#              2026 divergence below (both tiers "official") illustrates the magnitude of
+#              this risk. Replace with real Diyanet-published dates or an ilmi takvim
+#              calculation as they become available (see GitHub issue #180).
 #              Verify against Diyanet and BIST official announcements as each year is published.
 #              Corrections require a new JAR release — no runtime update mechanism exists.
 #
-# KNOWN DIVERGENCE — 2025: Diyanet declared 10 Dhu al-Hijjah 1446 as 5 June 2025,
-# one day earlier than the Saudi/UAE Umm al-Qura date of 6 June 2025. This is the
-# canonical confirmed example of ilmi takvim vs. Umm al-Qura divergence.
+# KNOWN DIVERGENCE — 2026: Diyanet declared 10 Dhu al-Hijjah 1447 as 27 May 2026,
+# one day later than the UAE SCA-confirmed date of 26 May 2026 (see eid-al-adha-ae.csv).
+# Both tiers are officially confirmed (not projections) — this is the canonical example
+# of ilmi takvim vs. Umm al-Qura / moon-sighting divergence. (A previously-recorded 2025
+# divergence in this file was found to be a data error — 2025-06-05 is Arefe, the eve of
+# Bayram, not the 1st day; Diyanet's own published 1st day is 2025-06-06, matching AE.)
 #
 # NOTE — 2039: Gregorian year 2039 contains two 10 Dhu al-Hijjah occurrences
 # (~January 4 AH 1460 and ~December 24 AH 1461). Only the first (January) occurrence
@@ -23,19 +31,18 @@
 #
 # Format: year,YYYY-MM-DD,source
 2024,2024-06-16,Diyanet official
-# 2025: Diyanet = June 5 (1446 AH); differs from Saudi/UAE Umm al-Qura date of June 6
-2025,2025-06-05,Diyanet official
-2026,2026-05-26,Diyanet official
-# 2027–2055: Umm al-Qura tabular projection; verify against Diyanet announcements (±1 day risk)
-2027,2027-05-15,Umm al-Qura projection
-2028,2028-05-04,Umm al-Qura projection
-2029,2029-04-23,Umm al-Qura projection
-2030,2030-04-12,Umm al-Qura projection
-2031,2031-04-01,Umm al-Qura projection
-2032,2032-03-20,Umm al-Qura projection
-2033,2033-03-10,Umm al-Qura projection
-2034,2034-02-27,Umm al-Qura projection
-2035,2035-02-16,Umm al-Qura projection
+2025,2025-06-06,Diyanet official
+2026,2026-05-27,Diyanet official
+2027,2027-05-16,Diyanet official
+2028,2028-05-05,Diyanet official
+2029,2029-04-24,Diyanet official
+2030,2030-04-13,Diyanet official
+2031,2031-04-02,Diyanet official
+2032,2032-03-22,Diyanet official
+2033,2033-03-11,Diyanet official
+2034,2034-03-01,Diyanet official
+2035,2035-02-18,Diyanet official
+# 2036–2055: Umm al-Qura tabular projection; verify against Diyanet announcements as published
 2036,2036-02-06,Umm al-Qura projection
 2037,2037-01-25,Umm al-Qura projection
 2038,2038-01-15,Umm al-Qura projection

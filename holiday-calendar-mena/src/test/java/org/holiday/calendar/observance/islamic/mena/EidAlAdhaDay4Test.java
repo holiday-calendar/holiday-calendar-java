@@ -33,8 +33,8 @@ public class EidAlAdhaDay4Test {
     Iterator<Object[]> knownDatesTR() {
         return List.of(
             new Object[]{2024, LocalDate.of(2024, 6, 19)},
-            new Object[]{2025, LocalDate.of(2025, 6, 8)},
-            new Object[]{2026, LocalDate.of(2026, 5, 29)},
+            new Object[]{2025, LocalDate.of(2025, 6, 9)},
+            new Object[]{2026, LocalDate.of(2026, 5, 30)},
             new Object[]{2055, LocalDate.of(2055, 7, 6)}
         ).iterator();
     }
