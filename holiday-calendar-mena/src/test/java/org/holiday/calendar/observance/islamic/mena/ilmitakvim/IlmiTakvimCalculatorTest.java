@@ -22,6 +22,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,18 +47,18 @@ public class IlmiTakvimCalculatorTest {
     @DataProvider
     Iterator<Object[]> verifiedEidAlFitrDates() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2026, LocalDate.of(2026, 3, 20)},
-            new Object[]{2027, LocalDate.of(2027, 3, 9)},
-            new Object[]{2028, LocalDate.of(2028, 2, 26)},
-            new Object[]{2029, LocalDate.of(2029, 2, 14)},
-            new Object[]{2030, LocalDate.of(2030, 2, 4)},
-            new Object[]{2031, LocalDate.of(2031, 1, 24)},
-            new Object[]{2032, LocalDate.of(2032, 1, 14)},
-            new Object[]{2033, LocalDate.of(2033, 1, 2)}, // double-occurrence year; January recorded
-            new Object[]{2034, LocalDate.of(2034, 12, 12)},
-            new Object[]{2035, LocalDate.of(2035, 12, 1)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2026, LocalDate.of(2026, Month.MARCH, 20)},
+            new Object[]{2027, LocalDate.of(2027, Month.MARCH, 9)},
+            new Object[]{2028, LocalDate.of(2028, Month.FEBRUARY, 26)},
+            new Object[]{2029, LocalDate.of(2029, Month.FEBRUARY, 14)},
+            new Object[]{2030, LocalDate.of(2030, Month.FEBRUARY, 4)},
+            new Object[]{2031, LocalDate.of(2031, Month.JANUARY, 24)},
+            new Object[]{2032, LocalDate.of(2032, Month.JANUARY, 14)},
+            new Object[]{2033, LocalDate.of(2033, Month.JANUARY, 2)}, // double-occurrence year; January recorded
+            new Object[]{2034, LocalDate.of(2034, Month.DECEMBER, 12)},
+            new Object[]{2035, LocalDate.of(2035, Month.DECEMBER, 1)}
         ).iterator();
     }
 
@@ -74,18 +75,18 @@ public class IlmiTakvimCalculatorTest {
     @DataProvider
     Iterator<Object[]> verifiedEidAlAdhaDates() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 6, 16)},
-            new Object[]{2025, LocalDate.of(2025, 6, 6)},
-            new Object[]{2026, LocalDate.of(2026, 5, 27)},
-            new Object[]{2027, LocalDate.of(2027, 5, 16)},
-            new Object[]{2028, LocalDate.of(2028, 5, 5)},
-            new Object[]{2029, LocalDate.of(2029, 4, 24)},
-            new Object[]{2030, LocalDate.of(2030, 4, 13)},
-            new Object[]{2031, LocalDate.of(2031, 4, 2)},
-            new Object[]{2032, LocalDate.of(2032, 3, 22)},
-            new Object[]{2033, LocalDate.of(2033, 3, 11)},
-            new Object[]{2034, LocalDate.of(2034, 3, 1)},
-            new Object[]{2035, LocalDate.of(2035, 2, 18)}
+            new Object[]{2024, LocalDate.of(2024, Month.JUNE, 16)},
+            new Object[]{2025, LocalDate.of(2025, Month.JUNE, 6)},
+            new Object[]{2026, LocalDate.of(2026, Month.MAY, 27)},
+            new Object[]{2027, LocalDate.of(2027, Month.MAY, 16)},
+            new Object[]{2028, LocalDate.of(2028, Month.MAY, 5)},
+            new Object[]{2029, LocalDate.of(2029, Month.APRIL, 24)},
+            new Object[]{2030, LocalDate.of(2030, Month.APRIL, 13)},
+            new Object[]{2031, LocalDate.of(2031, Month.APRIL, 2)},
+            new Object[]{2032, LocalDate.of(2032, Month.MARCH, 22)},
+            new Object[]{2033, LocalDate.of(2033, Month.MARCH, 11)},
+            new Object[]{2034, LocalDate.of(2034, Month.MARCH, 1)},
+            new Object[]{2035, LocalDate.of(2035, Month.FEBRUARY, 18)}
         ).iterator();
     }
 
@@ -98,8 +99,8 @@ public class IlmiTakvimCalculatorTest {
     // Canonical divergence: Diyanet vs UAE SCA / Umm al-Qura, 2026 Eid al-Adha
     @Test
     public void reproducesCanonical2026AdhaDivergence() {
-        assertEquals(IlmiTakvimCalculator.eidAlAdha(2026), LocalDate.of(2026, 5, 27));
-        assertNotEquals(IlmiTakvimCalculator.eidAlAdha(2026), LocalDate.of(2026, 5, 26),
+        assertEquals(IlmiTakvimCalculator.eidAlAdha(2026), LocalDate.of(2026, Month.MAY, 27));
+        assertNotEquals(IlmiTakvimCalculator.eidAlAdha(2026), LocalDate.of(2026, Month.MAY, 26),
                 "Diyanet and UAE SCA Eid al-Adha 2026 must differ by one day");
     }
 

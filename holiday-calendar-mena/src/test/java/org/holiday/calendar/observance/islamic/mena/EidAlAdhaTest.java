@@ -29,6 +29,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,9 +56,9 @@ public class EidAlAdhaTest {
     @DataProvider
     Iterator<Object[]> knownDatesAE() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 6, 16)},
-            new Object[]{2025, LocalDate.of(2025, 6, 6)},
-            new Object[]{2055, LocalDate.of(2055, 7, 3)}
+            new Object[]{2024, LocalDate.of(2024, Month.JUNE, 16)},
+            new Object[]{2025, LocalDate.of(2025, Month.JUNE, 6)},
+            new Object[]{2055, LocalDate.of(2055, Month.JULY, 3)}
         ).iterator();
     }
 
@@ -102,17 +103,17 @@ public class EidAlAdhaTest {
     @DataProvider
     Iterator<Object[]> knownDatesTR() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 6, 16)},
-            new Object[]{2025, LocalDate.of(2025, 6, 6)},
-            new Object[]{2026, LocalDate.of(2026, 5, 27)},  // one day later than AE/SA — see below
-            new Object[]{2027, LocalDate.of(2027, 5, 16)},
-            new Object[]{2035, LocalDate.of(2035, 2, 18)},
+            new Object[]{2024, LocalDate.of(2024, Month.JUNE, 16)},
+            new Object[]{2025, LocalDate.of(2025, Month.JUNE, 6)},
+            new Object[]{2026, LocalDate.of(2026, Month.MAY, 27)},  // one day later than AE/SA — see below
+            new Object[]{2027, LocalDate.of(2027, Month.MAY, 16)},
+            new Object[]{2035, LocalDate.of(2035, Month.FEBRUARY, 18)},
             // 2036-2055 are IlmiTakvimCalculator projections (Diyanet has not yet
             // published this far ahead) — not independently verified against a
             // Diyanet source; see CsvCalculatorParityTest for CSV/calculator consistency.
-            new Object[]{2040, LocalDate.of(2040, 12, 14)},
-            new Object[]{2050, LocalDate.of(2050, 8, 27)},
-            new Object[]{2055, LocalDate.of(2055, 7, 5)}
+            new Object[]{2040, LocalDate.of(2040, Month.DECEMBER, 14)},
+            new Object[]{2050, LocalDate.of(2050, Month.AUGUST, 27)},
+            new Object[]{2055, LocalDate.of(2055, Month.JULY, 5)}
         ).iterator();
     }
 
@@ -130,9 +131,9 @@ public class EidAlAdhaTest {
     public void testTR2026DiffersFromAE() {
         LocalDate trDate = new EidAlAdha("TR").apply(2026);
         LocalDate aeDate = new EidAlAdha("AE").apply(2026);
-        assertEquals(trDate, LocalDate.of(2026, 5, 27),
+        assertEquals(trDate, LocalDate.of(2026, Month.MAY, 27),
                 "Diyanet Eid al-Adha 2026 must be May 27");
-        assertEquals(aeDate, LocalDate.of(2026, 5, 26),
+        assertEquals(aeDate, LocalDate.of(2026, Month.MAY, 26),
                 "UAE SCA Eid al-Adha 2026 must be May 26");
         assertNotEquals(trDate, aeDate,
                 "Diyanet and UAE SCA Eid al-Adha 2026 must differ by one day");
@@ -152,9 +153,9 @@ public class EidAlAdhaTest {
     @DataProvider
     Iterator<Object[]> knownDatesQA() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 6, 16)},
-            new Object[]{2025, LocalDate.of(2025, 6, 6)},
-            new Object[]{2055, LocalDate.of(2055, 7, 3)}
+            new Object[]{2024, LocalDate.of(2024, Month.JUNE, 16)},
+            new Object[]{2025, LocalDate.of(2025, Month.JUNE, 6)},
+            new Object[]{2055, LocalDate.of(2055, Month.JULY, 3)}
         ).iterator();
     }
 

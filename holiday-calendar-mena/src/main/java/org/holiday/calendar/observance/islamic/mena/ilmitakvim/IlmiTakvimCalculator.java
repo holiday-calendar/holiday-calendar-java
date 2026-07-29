@@ -25,6 +25,7 @@ import net.time4j.calendar.astro.SolarTime;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
 
 /**
@@ -78,13 +79,13 @@ public final class IlmiTakvimCalculator {
      * Verified anchor: 1 Shawwal 1456 AH, per Diyanet's own published "Dini
      * Günler" table (confirmed 2035-12-01).
      */
-    private static final LocalDate FITR_MONTH_START_ANCHOR = LocalDate.of(2035, 12, 1);
+    private static final LocalDate FITR_MONTH_START_ANCHOR = LocalDate.of(2035, Month.DECEMBER, 1);
 
     /**
      * Verified anchor: 1 Dhu al-Hijjah 1456 AH, derived from Diyanet's published
      * Eid al-Adha 2035 date (2035-02-18) minus {@value ADHA_DAY_OFFSET} days.
      */
-    private static final LocalDate ADHA_MONTH_START_ANCHOR = LocalDate.of(2035, 2, 9);
+    private static final LocalDate ADHA_MONTH_START_ANCHOR = LocalDate.of(2035, Month.FEBRUARY, 9);
 
     private IlmiTakvimCalculator() {}
 

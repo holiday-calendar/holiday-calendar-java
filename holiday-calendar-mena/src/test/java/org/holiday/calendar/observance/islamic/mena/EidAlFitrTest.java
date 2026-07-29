@@ -29,6 +29,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Iterator;
 import java.util.List;
 
@@ -59,9 +60,9 @@ public class EidAlFitrTest {
     @DataProvider
     Iterator<Object[]> knownDatesAE() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
@@ -77,9 +78,9 @@ public class EidAlFitrTest {
     @DataProvider
     Iterator<Object[]> knownDatesSA() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
@@ -156,17 +157,17 @@ public class EidAlFitrTest {
     @DataProvider
     Iterator<Object[]> knownDatesTR() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2026, LocalDate.of(2026, 3, 20)},  // one day later than AE/SA — see below
-            new Object[]{2027, LocalDate.of(2027, 3, 9)},
-            new Object[]{2035, LocalDate.of(2035, 12, 1)},
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2026, LocalDate.of(2026, Month.MARCH, 20)},  // one day later than AE/SA — see below
+            new Object[]{2027, LocalDate.of(2027, Month.MARCH, 9)},
+            new Object[]{2035, LocalDate.of(2035, Month.DECEMBER, 1)},
             // 2036-2055 are IlmiTakvimCalculator projections (Diyanet has not yet
             // published this far ahead) — not independently verified against a
             // Diyanet source; see CsvCalculatorParityTest for CSV/calculator consistency.
-            new Object[]{2040, LocalDate.of(2040, 10, 7)},
-            new Object[]{2050, LocalDate.of(2050, 6, 20)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2040, LocalDate.of(2040, Month.OCTOBER, 7)},
+            new Object[]{2050, LocalDate.of(2050, Month.JUNE, 20)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
@@ -188,9 +189,9 @@ public class EidAlFitrTest {
     public void testTR2026DiffersFromAE() {
         LocalDate trDate = new EidAlFitr("TR").apply(2026);
         LocalDate aeDate = new EidAlFitr("AE").apply(2026);
-        assertEquals(trDate, LocalDate.of(2026, 3, 20),
+        assertEquals(trDate, LocalDate.of(2026, Month.MARCH, 20),
                 "Diyanet Eid al-Fitr 2026 must be March 20");
-        assertEquals(aeDate, LocalDate.of(2026, 3, 19),
+        assertEquals(aeDate, LocalDate.of(2026, Month.MARCH, 19),
                 "UAE SCA Eid al-Fitr 2026 must be March 19");
         assertNotEquals(trDate, aeDate,
                 "Diyanet and UAE SCA Eid al-Fitr 2026 must differ by one day");
@@ -203,9 +204,9 @@ public class EidAlFitrTest {
     @DataProvider
     Iterator<Object[]> knownDatesQA() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
