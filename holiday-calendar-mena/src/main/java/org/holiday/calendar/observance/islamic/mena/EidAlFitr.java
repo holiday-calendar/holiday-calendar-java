@@ -19,6 +19,7 @@
 package org.holiday.calendar.observance.islamic.mena;
 
 import org.holiday.calendar.observance.AbstractObservance;
+import org.holiday.calendar.observance.islamic.mena.ilmitakvim.IlmiTakvimCalculator;
 import org.holiday.calendar.util.CsvObservanceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,20 +57,44 @@ public class EidAlFitr extends AbstractObservance {
     static final int DATA_VALID_FROM = 2024;
     static final int DATA_VALID_THROUGH = 2055;
 
+    /**
+     * Country code for which a live {@link IlmiTakvimCalculator} fallback applies
+     * when the CSV table is missing a row for an in-range year (e.g. a future
+     * {@code DATA_VALID_THROUGH} extension made before the CSV is regenerated).
+     * All CSV rows for {@code tr} are currently populated through
+     * {@value #DATA_VALID_THROUGH}, so this fallback is a defensive safety net,
+     * not part of the normal lookup path.
+     */
+    private static final String ILMI_TAKVIM_COUNTRY_CODE = "tr";
+
     private static final Logger log = LoggerFactory.getLogger(EidAlFitr.class);
     private static final ConcurrentHashMap<String, Map<Integer, LocalDate>> CACHE =
             new ConcurrentHashMap<>();
 
+    private final String countryCode;
     private final Map<Integer, LocalDate> dates;
 
     public EidAlFitr(String countryCode) {
-        this.dates = CACHE.computeIfAbsent(countryCode.toLowerCase(),
+        this.countryCode = countryCode.toLowerCase();
+        this.dates = CACHE.computeIfAbsent(this.countryCode,
                 cc -> CsvObservanceLoader.loadSingle(EidAlFitr.class, "eid-al-fitr-" + cc + ".csv"));
     }
 
     @Override
     protected LocalDate computeDate(int year) {
-        return dates.get(year);
+        LocalDate csvDate = dates.get(year);
+        if (csvDate != null) {
+            return csvDate;
+        }
+        if (ILMI_TAKVIM_COUNTRY_CODE.equals(countryCode)) {
+            try {
+                return IlmiTakvimCalculator.eidAlFitr(year);
+            } catch (RuntimeException e) {
+                log.warn("Ilmi takvim calculation failed for Eid al-Fitr {}; no fallback data available", year, e);
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -78,7 +103,8 @@ public class EidAlFitr extends AbstractObservance {
             log.warn("Year {} exceeds data ceiling {}; Eid al-Fitr date unavailable", year, DATA_VALID_THROUGH);
             return false;
         }
-        return dates.containsKey(year);
+        return year >= DATA_VALID_FROM
+                && (dates.containsKey(year) || ILMI_TAKVIM_COUNTRY_CODE.equals(countryCode));
     }
 
 }

@@ -35,7 +35,7 @@ public class EidAlAdhaDay4Test {
             new Object[]{2024, LocalDate.of(2024, 6, 19)},
             new Object[]{2025, LocalDate.of(2025, 6, 9)},
             new Object[]{2026, LocalDate.of(2026, 5, 30)},
-            new Object[]{2055, LocalDate.of(2055, 7, 6)}
+            new Object[]{2055, LocalDate.of(2055, 7, 8)}
         ).iterator();
     }
 

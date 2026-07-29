@@ -107,9 +107,12 @@ public class EidAlAdhaTest {
             new Object[]{2026, LocalDate.of(2026, 5, 27)},  // one day later than AE/SA — see below
             new Object[]{2027, LocalDate.of(2027, 5, 16)},
             new Object[]{2035, LocalDate.of(2035, 2, 18)},
-            // 2055 remains an Umm al-Qura projection (Diyanet has not yet published this
-            // far ahead) — not independently verified against a Diyanet source.
-            new Object[]{2055, LocalDate.of(2055, 7, 3)}
+            // 2036-2055 are IlmiTakvimCalculator projections (Diyanet has not yet
+            // published this far ahead) — not independently verified against a
+            // Diyanet source; see CsvCalculatorParityTest for CSV/calculator consistency.
+            new Object[]{2040, LocalDate.of(2040, 12, 14)},
+            new Object[]{2050, LocalDate.of(2050, 8, 27)},
+            new Object[]{2055, LocalDate.of(2055, 7, 5)}
         ).iterator();
     }
 
