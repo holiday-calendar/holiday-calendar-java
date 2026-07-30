@@ -100,6 +100,13 @@ public class HolidayCalendarServiceCH extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.AUGUST, 1)
                 .build();
+        final Holiday christmasEve = Holiday.builder()
+                .name("Christmas Eve")
+                .description("SIX Swiss Exchange market holiday per official Trading Calendar")
+                .type(Holiday.Type.FIXED)
+                .rollable(true)
+                .monthDay(Month.DECEMBER, 24)
+                .build();
         final Holiday christmasDay = Holiday.builder()
                 .name("Christmas Day")
                 .description("Celebration of traditional Christmas holiday")
@@ -114,6 +121,13 @@ public class HolidayCalendarServiceCH extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 26)
                 .build();
+        final Holiday newYearsEve = Holiday.builder()
+                .name("New Year's Eve")
+                .description("SIX Swiss Exchange market holiday per official Trading Calendar")
+                .type(Holiday.Type.FIXED)
+                .rollable(true)
+                .monthDay(Month.DECEMBER, 31)
+                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
@@ -127,8 +141,10 @@ public class HolidayCalendarServiceCH extends AbstractHolidayCalendarService {
                 .holiday(ascensionDay)
                 .holiday(whitMonday)
                 .holiday(swissNationalDay)
+                .holiday(christmasEve)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
+                .holiday(newYearsEve)
                 .build();
     }
 
