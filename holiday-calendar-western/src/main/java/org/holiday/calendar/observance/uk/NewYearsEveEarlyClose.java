@@ -20,7 +20,6 @@ package org.holiday.calendar.observance.uk;
 
 import org.holiday.calendar.observance.AbstractObservance;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 
