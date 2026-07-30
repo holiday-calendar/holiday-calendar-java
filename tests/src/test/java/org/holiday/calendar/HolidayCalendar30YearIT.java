@@ -208,4 +208,46 @@ public class HolidayCalendar30YearIT {
         }
     }
 
+    // =========================================================================
+    // 6. UK EARLY CLOSES (LSE Christmas Eve / New Year's Eve half-day closures) OVER 30 YEARS
+    // =========================================================================
+
+    // The shift-to-preceding-Friday rule always yields a date (never suppressed),
+    // so the count is deterministic: 2 holidays/year * 30 years.
+    private static final int EXPECTED_UK_EARLY_CLOSES = 2 * RANGE_SIZE;
+
+    @Test(description = "UK calculateEarlyCloses across 2026-2055 must yield exactly 60 entries, "
+            + "no nulls, and be chronologically ordered")
+    public void testUKEarlyClosesOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("UK");
+
+        List<HolidayDate> allEarlyCloses = new java.util.ArrayList<>();
+        for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
+            List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(year);
+            assertNotNull(earlyCloses, "UK: calculateEarlyCloses(" + year + ") must not be null");
+            assertEquals(earlyCloses.size(), 2,
+                    "UK: expected exactly 2 early closes in " + year + ", got " + earlyCloses.size());
+            allEarlyCloses.addAll(earlyCloses);
+        }
+
+        assertEquals(allEarlyCloses.size(), EXPECTED_UK_EARLY_CLOSES,
+                "UK: expected exactly " + EXPECTED_UK_EARLY_CLOSES + " early-close entries over "
+                        + RANGE_SIZE + " years, got " + allEarlyCloses.size());
+
+        for (int i = 0; i < allEarlyCloses.size(); i++) {
+            HolidayDate hd = allEarlyCloses.get(i);
+            assertNotNull(hd, "UK: early-close entry at index " + i + " must not be null");
+            assertNotNull(hd.holiday(), "UK: early-close holiday at index " + i + " must not be null");
+            assertNotNull(hd.date(), "UK: early-close date at index " + i + " must not be null");
+        }
+
+        for (int i = 1; i < allEarlyCloses.size(); i++) {
+            LocalDate prev = allEarlyCloses.get(i - 1).date();
+            LocalDate curr = allEarlyCloses.get(i).date();
+            assertFalse(curr.isBefore(prev),
+                    "UK: early-close dates out of order at index " + i
+                            + " — " + prev + " followed by " + curr);
+        }
+    }
+
 }

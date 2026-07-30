@@ -25,16 +25,27 @@ import org.holiday.calendar.observance.christian.EasterObservance;
 import org.holiday.calendar.observance.christian.EasterMonday;
 import org.holiday.calendar.observance.christian.GoodFriday;
 import org.holiday.calendar.observance.christian.WesternEaster;
+import org.holiday.calendar.observance.uk.ChristmasEveEarlyClose;
 import org.holiday.calendar.observance.uk.EarlyMayBankHoliday;
+import org.holiday.calendar.observance.uk.NewYearsEveEarlyClose;
 import org.holiday.calendar.observance.uk.SpringBankHoliday;
 import org.holiday.calendar.observance.uk.SummerBankHoliday;
 import org.holiday.calendar.observance.uk.UKDateRolls;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 
 /**
  * Service for provision of UK national holiday calendar.
+ *
+ * <p>Includes two {@code EARLY_CLOSE} holidays representing the London Stock
+ * Exchange's Christmas Eve and New Year's Eve half-day closes. The CHAPS
+ * settlement calendar ({@link HolidayCalendarServiceGBP}) does not currently
+ * include these — CHAPS payment settlement and LSE equities trading are
+ * distinct systems, and adding early closes there would need its own
+ * Bank of England-sourced verification.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
@@ -134,6 +145,26 @@ public class HolidayCalendarServiceUK extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 26)
                 .build();
+        final Holiday christmasEveEarlyClose = Holiday.builder()
+                .name("Christmas Eve")
+                .description("LSE half-day close; shifts to the preceding Friday when " +
+                             "December 24 falls on a Saturday or Sunday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new ChristmasEveEarlyClose())
+                .closeTime(LocalTime.of(12, 30))
+                .zoneId(ZoneId.of("Europe/London"))
+                .build();
+        final Holiday newYearsEveEarlyClose = Holiday.builder()
+                .name("New Year's Eve")
+                .description("LSE half-day close; shifts to the preceding Friday when " +
+                             "December 31 falls on a Saturday or Sunday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new NewYearsEveEarlyClose())
+                .closeTime(LocalTime.of(12, 30))
+                .zoneId(ZoneId.of("Europe/London"))
+                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
@@ -152,6 +183,8 @@ public class HolidayCalendarServiceUK extends AbstractHolidayCalendarService {
                 .holiday(summerBankHoliday)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
+                .holiday(christmasEveEarlyClose)
+                .holiday(newYearsEveEarlyClose)
                 .build();
     }
 
