@@ -39,11 +39,14 @@ import java.util.OptionalInt;
  * <p>Islamic holidays (Ramazan Bayramı / Eid al-Fitr × 3 days; Kurban Bayramı /
  * Eid al-Adha × 4 days) are sourced from Diyanet (Presidency of Religious Affairs)
  * ilmi takvim (scientific calendar) via {@code eid-al-fitr-tr.csv} and
- * {@code eid-al-adha-tr.csv}. Dates for 2024–2026 are official Diyanet / BIST
- * announcements; 2027–2055 are projected from the Umm al-Qura tabular Islamic
- * calendar. Diyanet uses ilmi takvim, which may differ from the Umm al-Qura
- * calendar by ±1 day — verify projected dates against official announcements as
- * each year is published. Corrections require a new JAR release.
+ * {@code eid-al-adha-tr.csv}. Dates for 2024–2035 are official Diyanet-published
+ * dates (confirmed against BIST announcements for 2024–2026); 2036–2055 are
+ * computed via an ilmi takvim calculator (true lunar conjunction + Ankara sunset
+ * visibility rule) pending Diyanet's own publication of those years. Diyanet's
+ * method is confirmed to differ from the Umm al-Qura calendar used by other MENA
+ * countries by ±1–2 days in some years — verify projected 2036–2055 dates
+ * against official announcements as each year is
+ * published. Corrections require a new JAR release.
  *
  * <p><strong>Half-day closure not modelled:</strong>
  * Borsa Istanbul (BIST) and TCMB observe a partial closure on 28 October
