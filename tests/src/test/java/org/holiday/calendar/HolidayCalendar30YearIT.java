@@ -597,8 +597,9 @@ public class HolidayCalendar30YearIT {
             assertEquals(names.contains("New Year's Eve"), expected,
                     "AU " + year + ": New Year's Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
 
-            // Cross-list date collision: empty in ordinary years, exactly {Dec 24} in
-            // Dec-25-Saturday years (Christmas Day rolls back onto Christmas Eve).
+            // Cross-list date collision: empty in ordinary years, exactly one date
+            // (December 24) in Dec-25-Saturday years, when Christmas Day rolls back
+            // onto Christmas Eve.
             List<HolidayDate> fullDay = calendar.calculate(year);
             Set<LocalDate> fullDayDates = fullDay.stream().map(HolidayDate::date).collect(Collectors.toSet());
             Set<LocalDate> earlyCloseDates = earlyCloses.stream().map(HolidayDate::date).collect(Collectors.toSet());
