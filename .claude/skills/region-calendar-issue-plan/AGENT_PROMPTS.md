@@ -92,6 +92,22 @@ This repo's reusable conventions to follow:
   via `Holiday.builder()...build()` then `.holiday(...)` in the
   `HolidayCalendar.builder()` chain (or `.holidays(list)` if there's a shared
   factory list like Israel's).
+- SonarCloud rule S8696 (never use `==`/`!=` to compare value-based types —
+  `DayOfWeek`, `Month`, `LocalDate`, etc. — always use `.equals()`) has been
+  flagged and fixed on multiple prior PRs (#204/TR, #205/US, #206/CA) as a
+  CRITICAL reliability bug. Any new code you propose must use `.equals()` for
+  these comparisons from the start (e.g.
+  `DayOfWeek.SATURDAY.equals(someDate.getDayOfWeek())`, not
+  `someDate.getDayOfWeek() == DayOfWeek.SATURDAY`). Critically, SonarCloud's
+  PR analysis re-flags **pre-existing** violations anywhere in a file the PR
+  touches — not just the changed lines — as "new" issues that fail the
+  quality gate. This bit the #206/CA PR: a latent `==` comparison in
+  `HolidayCalendarServiceCA`'s existing `dateRoll` lambda, untouched by that
+  PR's own diff, still failed CI once the file was modified elsewhere. So:
+  when your plan modifies an existing `HolidayCalendarService{CODE}` or
+  `Observance` file, explicitly grep that whole file for `==`/`!=` comparisons
+  against `DayOfWeek`/`Month`/`LocalDate`/other value-based types and include
+  fixing any you find as part of the plan, even if unrelated to this issue.
 
 Propose:
 1. Package/class layout — new Observance class(es), and whether any existing
@@ -112,6 +128,12 @@ Propose:
    consumer might match on? State the impact plainly. Do not assert
    CHANGELOG.md conventions without checking `git log -- CHANGELOG.md` and
    recent precedent commits first.
+7. SonarCloud S8696 sweep — for every existing file this plan modifies (not
+   just newly-created files), report whether you grepped it for `==`/`!=`
+   comparisons against `DayOfWeek`/`Month`/`LocalDate`/other value-based
+   types, and list any found (with line numbers) as required fixes alongside
+   the feature change, so CI doesn't fail on a pre-existing issue the PR
+   incidentally surfaces.
 
 Report a structured, detailed plan (headers per point above).
 ```
