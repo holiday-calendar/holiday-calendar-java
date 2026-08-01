@@ -18,10 +18,6 @@
 
 package org.holiday.calendar.observance.au;
 
-import org.holiday.calendar.observance.AbstractObservance;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.Month;
 
 /**
@@ -31,10 +27,12 @@ import java.time.Month;
  * weekday; when December 31 falls on a Saturday or Sunday, the half-day close
  * is not observed that year at all — unlike the London Stock Exchange (see
  * {@code org.holiday.calendar.observance.uk.NewYearsEveEarlyClose}), ASX does
- * not shift the half-day session to the preceding Friday. This is why
- * {@link #isValidYear(int)} is overridden here to signal absence in
- * ineligible years, rather than {@link #computeDate(int)} shifting to a
- * different day.
+ * not shift the half-day session to the preceding Friday. See
+ * {@link AsxEveEarlyClose} for the shared eligibility logic (a different
+ * use of {@code isValidYear} than its algorithm-validity use in
+ * {@code WesternEaster}/{@code OrthodoxEaster} — see
+ * {@code org.holiday.calendar.observance.ca.ChristmasEveEarlyClose}'s javadoc
+ * for the same note).
  *
  * <p>Verified against ASX's own "ASX Trade trading hours for Christmas and
  * New Year" notices (asxonline.com): the 2025/2026 notice confirms the same
@@ -42,20 +40,10 @@ import java.time.Month;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class NewYearsEveEarlyClose extends AbstractObservance {
+public class NewYearsEveEarlyClose extends AsxEveEarlyClose {
 
-    @Override
-    protected LocalDate computeDate(int year) {
-        return LocalDate.of(year, Month.DECEMBER, 31);
-    }
-
-    @Override
-    protected boolean isValidYear(int year) {
-        DayOfWeek newYearsEve = LocalDate.of(year, Month.DECEMBER, 31).getDayOfWeek();
-        return switch (newYearsEve) {
-            case SATURDAY, SUNDAY -> false;
-            default -> true;
-        };
+    public NewYearsEveEarlyClose() {
+        super(Month.DECEMBER, 31);
     }
 
 }
