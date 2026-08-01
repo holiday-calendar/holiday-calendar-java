@@ -27,8 +27,12 @@ import org.holiday.calendar.observance.christian.EasterMonday;
 import org.holiday.calendar.observance.christian.EasterObservance;
 import org.holiday.calendar.observance.christian.WesternEaster;
 import org.holiday.calendar.observance.christian.WhitMonday;
+import org.holiday.calendar.observance.fr.ChristmasEveEarlyClose;
+import org.holiday.calendar.observance.fr.NewYearsEveEarlyClose;
 
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
@@ -127,6 +131,26 @@ public class HolidayCalendarServiceFR extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 25)
                 .build();
+        final Holiday christmasEveEarlyClose = Holiday.builder()
+                .name("Christmas Eve")
+                .description("Euronext Paris half-day close; suppressed entirely (not shifted) " +
+                             "when December 24 falls on a Saturday or Sunday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new ChristmasEveEarlyClose())
+                .closeTime(LocalTime.of(14, 5))
+                .zoneId(ZoneId.of("Europe/Paris"))
+                .build();
+        final Holiday newYearsEveEarlyClose = Holiday.builder()
+                .name("New Year's Eve")
+                .description("Euronext Paris half-day close; suppressed entirely (not shifted) " +
+                             "when December 31 falls on a Saturday or Sunday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new NewYearsEveEarlyClose())
+                .closeTime(LocalTime.of(14, 5))
+                .zoneId(ZoneId.of("Europe/Paris"))
+                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
@@ -144,6 +168,8 @@ public class HolidayCalendarServiceFR extends AbstractHolidayCalendarService {
                 .holiday(allSaintsDay)
                 .holiday(armisticeDay)
                 .holiday(christmasDay)
+                .holiday(christmasEveEarlyClose)
+                .holiday(newYearsEveEarlyClose)
                 .build();
     }
 
