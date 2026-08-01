@@ -28,6 +28,8 @@ import org.holiday.calendar.observance.christian.EasterObservance;
 import org.holiday.calendar.observance.christian.GoodFriday;
 import org.holiday.calendar.observance.christian.WesternEaster;
 import org.holiday.calendar.observance.christian.WhitMonday;
+import org.holiday.calendar.observance.de.ChristmasEve;
+import org.holiday.calendar.observance.de.NewYearsEve;
 
 import java.time.Month;
 
@@ -100,6 +102,14 @@ public class HolidayCalendarServiceDE extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.OCTOBER, 3)
                 .build();
+        final Holiday christmasEve = Holiday.builder()
+                .name("Christmas Eve")
+                .description("Full non-trading day (Erfüllungstag) at Xetra/Frankfurt Stock "
+                        + "Exchange; omitted (not shifted) when it falls on a weekend")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new ChristmasEve())
+                .build();
         final Holiday christmasDay = Holiday.builder()
                 .name("Christmas Day")
                 .description("Celebration of traditional Christmas holiday")
@@ -114,6 +124,14 @@ public class HolidayCalendarServiceDE extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 26)
                 .build();
+        final Holiday newYearsEve = Holiday.builder()
+                .name("New Year's Eve")
+                .description("Full non-trading day (Erfüllungstag) at Xetra/Frankfurt Stock "
+                        + "Exchange; omitted (not shifted) when it falls on a weekend")
+                .type(Holiday.Type.FLOATING)
+                .rollable(false)
+                .observance(new NewYearsEve())
+                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
@@ -127,8 +145,10 @@ public class HolidayCalendarServiceDE extends AbstractHolidayCalendarService {
                 .holiday(ascensionDay)
                 .holiday(whitMonday)
                 .holiday(germanUnityDay)
+                .holiday(christmasEve)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
+                .holiday(newYearsEve)
                 .build();
     }
 
