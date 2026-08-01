@@ -1,0 +1,49 @@
+/*******************************************************************************
+ * Holiday Calendar - A library for definition and calculation of holiday calendars
+ * Copyright (C) 2021-2026 The Holiday Calendar Project Contributors
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option) any
+ * later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along
+ * with this library; if not, write to the Free Software Foundation, Inc., 59
+ * Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ ******************************************************************************/
+
+package org.holiday.calendar.observance.de;
+
+import org.holiday.calendar.western.test.AbstractObservanceTest;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChristmasEveTest extends AbstractObservanceTest {
+
+    public ChristmasEveTest() {
+        super(new ChristmasEve());
+    }
+
+    @Override
+    protected List<Object[]> createData() {
+        List<Object[]> data = new ArrayList<>();
+        // Primary-sourced against Deutsche Börse's Xetra-Handelskalender PDFs (2023-2026)
+        data.add(new Object[]{ 2023, null });                                   // Dec 24 Sun -> omitted
+        data.add(new Object[]{ 2024, LocalDate.of(2024, Month.DECEMBER, 24) }); // Dec 24 Tue -> full holiday
+        data.add(new Object[]{ 2025, LocalDate.of(2025, Month.DECEMBER, 24) }); // Dec 24 Wed -> full holiday
+        data.add(new Object[]{ 2026, LocalDate.of(2026, Month.DECEMBER, 24) }); // Dec 24 Thu -> full holiday
+        // Arithmetic-inferred (stable rule applied to day-of-week, not independently
+        // confirmed against an archived PDF for these specific years)
+        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.DECEMBER, 24) }); // Dec 24 Fri -> full holiday
+        data.add(new Object[]{ 2022, null });                                   // Dec 24 Sat -> omitted
+        return data;
+    }
+
+}
