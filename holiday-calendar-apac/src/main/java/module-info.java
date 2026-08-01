@@ -34,6 +34,7 @@ module org.holiday.calendar.apac {
     exports org.holiday.calendar.observance.islamic.apac;
     exports org.holiday.calendar.observance.hindu;
     exports org.holiday.calendar.observance.jp;
+    exports org.holiday.calendar.observance.sg;
 
     provides org.holiday.calendar.HolidayCalendarService with
         org.holiday.calendar.impl.HolidayCalendarServiceCNY,
