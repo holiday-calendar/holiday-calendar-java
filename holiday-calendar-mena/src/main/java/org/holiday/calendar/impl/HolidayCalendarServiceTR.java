@@ -48,12 +48,12 @@ import java.util.OptionalInt;
  * against official announcements as each year is
  * published. Corrections require a new JAR release.
  *
- * <p><strong>Half-day closure not modelled:</strong>
- * Borsa Istanbul (BIST) and TCMB observe a partial closure on 28 October
- * (Republic Day Eve): BIST closes at 12:30 local time and TCMB suspends TRY
- * settlement from midday. This calendar does not include 28 October as a holiday.
- * Callers relying on afternoon liquidity or same-day settlement on this date must
- * apply their own adjustment.
+ * <p>Borsa Istanbul (BIST) observes a half-day closure on 28 October (Republic
+ * Day Eve), closing at 12:30 {@code Europe/Istanbul}. This is modelled as an
+ * {@code EARLY_CLOSE} holiday, non-rollable, and reported separately via
+ * {@link HolidayCalendar#calculateEarlyCloses(int)} rather than {@link
+ * HolidayCalendar#calculate(int)}. It does not shift when 28 October falls on
+ * a Saturday or Sunday.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
@@ -79,6 +79,7 @@ public class HolidayCalendarServiceTR extends AbstractHolidayCalendarService {
                 .dateRoll(DateRolls.followingMonday())
                 .weekendDays(TurkeyHolidays.STANDARD_WEEKEND)
                 .holidays(TurkeyHolidays.baseHolidays(true, List.of()))
+                .holidays(TurkeyHolidays.earlyCloseHolidays())
                 .build();
     }
 

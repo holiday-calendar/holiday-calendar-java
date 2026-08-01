@@ -560,16 +560,17 @@ public class HolidayCalendarServiceTRTest {
     }
 
     // =========================================================================
-    // Republic Day Eve (Oct 28) — confirmed absent; half-day not modelled
+    // Republic Day Eve (Oct 28) — early close, not a full-day holiday
     // =========================================================================
 
     @Test
-    public void testRepublicDayEveAbsent2025() {
+    public void testRepublicDayEveAbsentFromCalculate2025() {
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2025);
         boolean oct28Present = holidays.stream()
                 .anyMatch(hd -> hd.date().equals(LocalDate.of(2025, Month.OCTOBER, 28)));
         assertFalse(oct28Present,
-                "Oct 28 (Republic Day Eve) must not be present — half-day closures are not modelled");
+                "Oct 28 (Republic Day Eve) is an EARLY_CLOSE holiday and must not appear in calculate(), "
+                        + "only in calculateEarlyCloses() — see HolidayCalendarServiceTREarlyCloseTest");
     }
 
     // =========================================================================

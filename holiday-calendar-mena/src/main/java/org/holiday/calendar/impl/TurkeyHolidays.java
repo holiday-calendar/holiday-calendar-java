@@ -26,9 +26,12 @@ import org.holiday.calendar.observance.islamic.mena.EidAlAdhaDay4;
 import org.holiday.calendar.observance.islamic.mena.EidAlFitr;
 import org.holiday.calendar.observance.islamic.mena.EidAlFitrDay2;
 import org.holiday.calendar.observance.islamic.mena.EidAlFitrDay3;
+import org.holiday.calendar.observance.tr.RepublicDayEveEarlyClose;
 
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,12 +58,12 @@ import java.util.List;
  * <p>Turkey observes three days of Eid al-Fitr (Ramazan Bayramı) and four days
  * of Eid al-Adha (Kurban Bayramı), consistent with BIST market closure announcements.
  *
- * <p><strong>Half-day closure not modelled:</strong>
- * Borsa Istanbul (BIST) and TCMB observe a partial closure on 28 October
- * (Republic Day Eve): BIST closes at 12:30 local time and TCMB suspends TRY
- * settlement from midday. This calendar does not include 28 October as a holiday.
- * Callers relying on afternoon liquidity or same-day settlement on this date must
- * apply their own adjustment.
+ * <p>Borsa Istanbul (BIST) observes a half-day closure on 28 October (Republic
+ * Day Eve), closing at 12:30 {@code Europe/Istanbul}. This is modelled as an
+ * {@link Holiday.Type#EARLY_CLOSE} holiday via {@link #earlyCloseHolidays()},
+ * consumed by {@link HolidayCalendarServiceTR}. It does not shift when
+ * 28 October falls on a Saturday or Sunday — see {@link RepublicDayEveEarlyClose}.
+ * {@link HolidayCalendarServiceTRY} does not yet include this half-day closure.
  *
  * <p>Note: the 2033 Gregorian year contains two Eid al-Fitr occurrences; only the
  * January occurrence is recorded in the CSV. See {@link EidAlFitr} for details.
@@ -188,5 +191,26 @@ class TurkeyHolidays {
                 .build());
         holidays.addAll(additional);
         return List.copyOf(holidays);
+    }
+
+    /**
+     * Returns the single {@code EARLY_CLOSE} holiday representing BIST's
+     * Republic Day Eve half-day close (28 October, closing at 12:30
+     * {@code Europe/Istanbul}). Does not shift when 28 October falls on a
+     * Saturday or Sunday; see {@link RepublicDayEveEarlyClose}.
+     */
+    static List<Holiday> earlyCloseHolidays() {
+        return List.of(
+            Holiday.builder()
+                    .name("Republic Day Eve")
+                    .description("BIST half-day close ahead of Republic Day; no adjustment when "
+                            + "28 October falls on a Saturday or Sunday")
+                    .type(Holiday.Type.EARLY_CLOSE)
+                    .rollable(false)
+                    .observance(new RepublicDayEveEarlyClose())
+                    .closeTime(LocalTime.of(12, 30))
+                    .zoneId(ZoneId.of("Europe/Istanbul"))
+                    .build()
+        );
     }
 }
