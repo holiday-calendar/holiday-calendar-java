@@ -284,16 +284,16 @@ public class HolidayCalendar30YearIT {
                     "US " + year + ": Day After Thanksgiving must always be present");
 
             DayOfWeek july4Dow = LocalDate.of(year, Month.JULY, 4).getDayOfWeek();
-            boolean july3Expected = july4Dow != DayOfWeek.MONDAY
-                    && july4Dow != DayOfWeek.SATURDAY
-                    && july4Dow != DayOfWeek.SUNDAY;
+            boolean july3Expected = !DayOfWeek.MONDAY.equals(july4Dow)
+                    && !DayOfWeek.SATURDAY.equals(july4Dow)
+                    && !DayOfWeek.SUNDAY.equals(july4Dow);
             assertEquals(names.contains("July 3rd"), july3Expected,
                     "US " + year + ": July 3rd presence must match July 4 dow rule (dow=" + july4Dow + ")");
 
             DayOfWeek dec25Dow = LocalDate.of(year, Month.DECEMBER, 25).getDayOfWeek();
-            boolean dec24Expected = dec25Dow != DayOfWeek.MONDAY
-                    && dec25Dow != DayOfWeek.SATURDAY
-                    && dec25Dow != DayOfWeek.SUNDAY;
+            boolean dec24Expected = !DayOfWeek.MONDAY.equals(dec25Dow)
+                    && !DayOfWeek.SATURDAY.equals(dec25Dow)
+                    && !DayOfWeek.SUNDAY.equals(dec25Dow);
             assertEquals(names.contains("Christmas Eve"), dec24Expected,
                     "US " + year + ": Christmas Eve presence must match December 25 dow rule (dow=" + dec25Dow + ")");
 
