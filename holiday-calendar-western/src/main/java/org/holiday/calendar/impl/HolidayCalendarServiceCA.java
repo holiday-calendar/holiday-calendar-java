@@ -172,7 +172,7 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
                     final boolean isNewYearsDay = newYearsDayDate.isPresent() && dateToRoll.equals(newYearsDayDate.get());
                     final boolean isCanadaDay = canadaDayDate.isPresent() && dateToRoll.equals(canadaDayDate.get());
                     final boolean isRemembranceDay = remembranceDayDate.isPresent() && dateToRoll.equals(remembranceDayDate.get());
-                    if (dateToRoll.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    if (DayOfWeek.SUNDAY.equals(dateToRoll.getDayOfWeek())) {
                         return (isNewYearsDay || isCanadaDay || isRemembranceDay) ? dateToRoll.plusDays(1L) : dateToRoll;
                     }
                     return dateToRoll;
