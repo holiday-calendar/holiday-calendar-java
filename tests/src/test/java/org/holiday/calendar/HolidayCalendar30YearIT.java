@@ -367,4 +367,58 @@ public class HolidayCalendar30YearIT {
         }
     }
 
+    // =========================================================================
+    // 9. SG EARLY CLOSES (SGX Christmas Eve / New Year's Eve half-day closures) OVER 30 YEARS
+    // =========================================================================
+
+    // Both SGX Eve early closes are suppressed (not shifted) when their date falls on a
+    // weekend; since December 24 and December 31 are always exactly 7 days apart, they
+    // always share the same day-of-week within a year, so count is always 0 or 2, never 1.
+    // Expected presence is re-derived from December 24's day-of-week rule for every year
+    // rather than hand-fixtured.
+    @Test(description = "SG calculateEarlyCloses across 2026-2055: count always in {0,2}, "
+            + "Christmas Eve/New Year's Eve presence matches December 24 dow rule (excludes Sat/Sun) "
+            + "and always co-occur, no nulls, chronological order")
+    public void testSGEarlyClosesOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("SG");
+
+        List<HolidayDate> allEarlyCloses = new java.util.ArrayList<>();
+        for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
+            List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(year);
+            assertNotNull(earlyCloses, "SG: calculateEarlyCloses(" + year + ") must not be null");
+
+            int count = earlyCloses.size();
+            assertTrue(count == 0 || count == 2,
+                    "SG " + year + ": expected count in {0,2}, got " + count);
+
+            DayOfWeek dec24Dow = LocalDate.of(year, Month.DECEMBER, 24).getDayOfWeek();
+            boolean expected = !DayOfWeek.SATURDAY.equals(dec24Dow)
+                    && !DayOfWeek.SUNDAY.equals(dec24Dow);
+            Set<String> names = earlyCloses.stream()
+                    .map(hd -> hd.holiday().getName())
+                    .collect(Collectors.toSet());
+            assertEquals(names.contains("Christmas Eve"), expected,
+                    "SG " + year + ": Christmas Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
+            assertEquals(names.contains("New Year's Eve"), expected,
+                    "SG " + year + ": New Year's Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
+
+            allEarlyCloses.addAll(earlyCloses);
+        }
+
+        for (int i = 0; i < allEarlyCloses.size(); i++) {
+            HolidayDate hd = allEarlyCloses.get(i);
+            assertNotNull(hd, "SG: early-close entry at index " + i + " must not be null");
+            assertNotNull(hd.holiday(), "SG: early-close holiday at index " + i + " must not be null");
+            assertNotNull(hd.date(), "SG: early-close date at index " + i + " must not be null");
+        }
+
+        for (int i = 1; i < allEarlyCloses.size(); i++) {
+            LocalDate prev = allEarlyCloses.get(i - 1).date();
+            LocalDate curr = allEarlyCloses.get(i).date();
+            assertFalse(curr.isBefore(prev),
+                    "SG: early-close dates out of order at index " + i
+                            + " — " + prev + " followed by " + curr);
+        }
+    }
+
 }
