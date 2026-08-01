@@ -45,7 +45,7 @@ public class RepublicDayEveEarlyClose extends AbstractObservance {
     @Override
     protected boolean isValidYear(int year) {
         DayOfWeek dayOfWeek = LocalDate.of(year, Month.OCTOBER, 28).getDayOfWeek();
-        return dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY;
+        return !dayOfWeek.equals(DayOfWeek.SATURDAY) && !dayOfWeek.equals(DayOfWeek.SUNDAY);
     }
 
 }
