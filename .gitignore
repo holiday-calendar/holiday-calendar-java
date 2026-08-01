@@ -243,4 +243,6 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 
 ### Claude Code ###
-.claude/
+.claude/*
+!.claude/skills/
+!.claude/skills/**
