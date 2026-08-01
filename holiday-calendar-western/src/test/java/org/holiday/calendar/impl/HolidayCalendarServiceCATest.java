@@ -20,7 +20,8 @@ public class HolidayCalendarServiceCATest extends AbstractHolidayCalendarService
     Iterator<Object[]> expectedHolidayNames() {
         final Object[] familyDay = {"Family Day"};
         final Object[] victoriaDay = {"Victoria Day"};
-        return Arrays.asList(familyDay, victoriaDay).listIterator();
+        final Object[] christmasEve = {"Christmas Eve"};
+        return Arrays.asList(familyDay, victoriaDay, christmasEve).listIterator();
     }
 
     @DataProvider

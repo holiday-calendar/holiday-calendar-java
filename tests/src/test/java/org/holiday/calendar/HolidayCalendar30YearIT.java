@@ -316,4 +316,55 @@ public class HolidayCalendar30YearIT {
         }
     }
 
+    // =========================================================================
+    // 8. CA EARLY CLOSES (TSX Christmas Eve half-day closure) OVER 30 YEARS
+    // =========================================================================
+
+    // TSX's Christmas Eve early close is suppressed (not shifted) when December 24
+    // falls on a weekend, so count is either 0 or 1 per year; expected presence is
+    // re-derived from December 24's day-of-week rule for every year rather than
+    // hand-fixtured.
+    @Test(description = "CA calculateEarlyCloses across 2026-2055: count always in [0,1], "
+            + "Christmas Eve presence matches December 24 dow rule (excludes Sat/Sun), "
+            + "no nulls, chronological order")
+    public void testCAEarlyClosesOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("CA");
+
+        List<HolidayDate> allEarlyCloses = new java.util.ArrayList<>();
+        for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
+            List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(year);
+            assertNotNull(earlyCloses, "CA: calculateEarlyCloses(" + year + ") must not be null");
+
+            int count = earlyCloses.size();
+            assertTrue(count == 0 || count == 1,
+                    "CA " + year + ": expected count in [0,1], got " + count);
+
+            DayOfWeek dec24Dow = LocalDate.of(year, Month.DECEMBER, 24).getDayOfWeek();
+            boolean dec24Expected = !DayOfWeek.SATURDAY.equals(dec24Dow)
+                    && !DayOfWeek.SUNDAY.equals(dec24Dow);
+            Set<String> names = earlyCloses.stream()
+                    .map(hd -> hd.holiday().getName())
+                    .collect(Collectors.toSet());
+            assertEquals(names.contains("Christmas Eve"), dec24Expected,
+                    "CA " + year + ": Christmas Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
+
+            allEarlyCloses.addAll(earlyCloses);
+        }
+
+        for (int i = 0; i < allEarlyCloses.size(); i++) {
+            HolidayDate hd = allEarlyCloses.get(i);
+            assertNotNull(hd, "CA: early-close entry at index " + i + " must not be null");
+            assertNotNull(hd.holiday(), "CA: early-close holiday at index " + i + " must not be null");
+            assertNotNull(hd.date(), "CA: early-close date at index " + i + " must not be null");
+        }
+
+        for (int i = 1; i < allEarlyCloses.size(); i++) {
+            LocalDate prev = allEarlyCloses.get(i - 1).date();
+            LocalDate curr = allEarlyCloses.get(i).date();
+            assertFalse(curr.isBefore(prev),
+                    "CA: early-close dates out of order at index " + i
+                            + " — " + prev + " followed by " + curr);
+        }
+    }
+
 }
