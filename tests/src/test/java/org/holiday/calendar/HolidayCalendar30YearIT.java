@@ -402,7 +402,10 @@ public class HolidayCalendar30YearIT {
                     "New Year's Eve".equals(hd.holiday().getName()) && dec31.equals(hd.date()));
             assertEquals(dec31Present, dec31Expected,
                     "DE " + year + ": New Year's Eve presence/date must match December 31 dow rule (dow=" + dec31Dow + ")");
+        }
+    }
 
+    // =========================================================================
     // 10. SG EARLY CLOSES (SGX Christmas Eve / New Year's Eve half-day closures) OVER 30 YEARS
     // =========================================================================
 
