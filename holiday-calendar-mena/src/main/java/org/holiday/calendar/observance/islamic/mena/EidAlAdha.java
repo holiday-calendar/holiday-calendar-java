@@ -19,6 +19,7 @@
 package org.holiday.calendar.observance.islamic.mena;
 
 import org.holiday.calendar.observance.AbstractObservance;
+import org.holiday.calendar.observance.islamic.mena.ilmitakvim.IlmiTakvimCalculator;
 import org.holiday.calendar.util.CsvObservanceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Dates for 2027–2055 are projected from the Umm al-Qura tabular Islamic calendar;
  * verify against official announcements as each year is published.</p>
  *
+ * <p>For Turkey ({@code tr}), 2024–2035 are official Diyanet (Presidency of
+ * Religious Affairs) published dates rather than Umm al-Qura projections — Diyanet
+ * publishes several years ahead of the current year. See {@code eid-al-adha-tr.csv}
+ * for the confirmed 2026 divergence between Diyanet's ilmi takvim and Umm al-Qura.</p>
+ *
  * <p>Date data is loaded at runtime from {@code eid-al-adha-{countryCode}.csv}
  * in this package, where {@code countryCode} is the ISO 3166-1 alpha-2 country
  * code in lower case (e.g. {@code ae}, {@code sa}).</p>
@@ -47,20 +53,44 @@ public class EidAlAdha extends AbstractObservance {
     static final int DATA_VALID_FROM = 2024;
     static final int DATA_VALID_THROUGH = 2055;
 
+    /**
+     * Country code for which a live {@link IlmiTakvimCalculator} fallback applies
+     * when the CSV table is missing a row for an in-range year (e.g. a future
+     * {@code DATA_VALID_THROUGH} extension made before the CSV is regenerated).
+     * All CSV rows for {@code tr} are currently populated through
+     * {@value #DATA_VALID_THROUGH}, so this fallback is a defensive safety net,
+     * not part of the normal lookup path.
+     */
+    private static final String ILMI_TAKVIM_COUNTRY_CODE = "tr";
+
     private static final Logger log = LoggerFactory.getLogger(EidAlAdha.class);
     private static final ConcurrentHashMap<String, Map<Integer, LocalDate>> CACHE =
             new ConcurrentHashMap<>();
 
+    private final String countryCode;
     private final Map<Integer, LocalDate> dates;
 
     public EidAlAdha(String countryCode) {
-        this.dates = CACHE.computeIfAbsent(countryCode.toLowerCase(),
+        this.countryCode = countryCode.toLowerCase();
+        this.dates = CACHE.computeIfAbsent(this.countryCode,
                 cc -> CsvObservanceLoader.loadSingle(EidAlAdha.class, "eid-al-adha-" + cc + ".csv"));
     }
 
     @Override
     protected LocalDate computeDate(int year) {
-        return dates.get(year);
+        LocalDate csvDate = dates.get(year);
+        if (csvDate != null) {
+            return csvDate;
+        }
+        if (ILMI_TAKVIM_COUNTRY_CODE.equals(countryCode)) {
+            try {
+                return IlmiTakvimCalculator.eidAlAdha(year);
+            } catch (RuntimeException e) {
+                log.warn("Ilmi takvim calculation failed for Eid al-Adha {}; no fallback data available", year, e);
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -69,7 +99,8 @@ public class EidAlAdha extends AbstractObservance {
             log.warn("Year {} exceeds data ceiling {}; Eid al-Adha date unavailable", year, DATA_VALID_THROUGH);
             return false;
         }
-        return dates.containsKey(year);
+        return year >= DATA_VALID_FROM
+                && (dates.containsKey(year) || ILMI_TAKVIM_COUNTRY_CODE.equals(countryCode));
     }
 
 }

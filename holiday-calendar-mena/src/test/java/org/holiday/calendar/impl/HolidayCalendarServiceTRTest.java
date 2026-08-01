@@ -314,20 +314,20 @@ public class HolidayCalendarServiceTRTest {
     @Test
     public void testEidAlFitr2026() {
         assertEquals(findFirst("Eid al-Fitr", 2026).orElseThrow().date(),
-                LocalDate.of(2026, Month.MARCH, 19),
-                "Eid al-Fitr 2026 must be 2026-03-19 per Diyanet");
+                LocalDate.of(2026, Month.MARCH, 20),
+                "Eid al-Fitr 2026 must be 2026-03-20 per Diyanet");
     }
 
     @Test
     public void testEidAlFitrDay2_2026() {
         assertEquals(findFirst("Eid al-Fitr (2nd Day)", 2026).orElseThrow().date(),
-                LocalDate.of(2026, Month.MARCH, 20));
+                LocalDate.of(2026, Month.MARCH, 21));
     }
 
     @Test
     public void testEidAlFitrDay3_2026() {
         assertEquals(findFirst("Eid al-Fitr (3rd Day)", 2026).orElseThrow().date(),
-                LocalDate.of(2026, Month.MARCH, 21));
+                LocalDate.of(2026, Month.MARCH, 22));
     }
 
     // =========================================================================
@@ -361,53 +361,54 @@ public class HolidayCalendarServiceTRTest {
 
     @Test
     public void testEidAlAdha2025() {
-        // Turkey Diyanet = June 5; one day earlier than Saudi/UAE (June 6)
+        // Diyanet's 1st day of Bayram is June 6, matching Saudi/UAE; June 5 is Arefe (the eve)
         assertEquals(findFirst("Eid al-Adha", 2025).orElseThrow().date(),
-                LocalDate.of(2025, Month.JUNE, 5),
-                "Eid al-Adha 2025 must be 2025-06-05 per Diyanet (one day earlier than Saudi/UAE)");
+                LocalDate.of(2025, Month.JUNE, 6),
+                "Eid al-Adha 2025 must be 2025-06-06 per Diyanet");
     }
 
     @Test
     public void testEidAlAdhaDay2_2025() {
         assertEquals(findFirst("Eid al-Adha (2nd Day)", 2025).orElseThrow().date(),
-                LocalDate.of(2025, Month.JUNE, 6));
+                LocalDate.of(2025, Month.JUNE, 7));
     }
 
     @Test
     public void testEidAlAdhaDay3_2025() {
         assertEquals(findFirst("Eid al-Adha (3rd Day)", 2025).orElseThrow().date(),
-                LocalDate.of(2025, Month.JUNE, 7));
+                LocalDate.of(2025, Month.JUNE, 8));
     }
 
     @Test
     public void testEidAlAdhaDay4_2025() {
         assertEquals(findFirst("Eid al-Adha (4th Day)", 2025).orElseThrow().date(),
-                LocalDate.of(2025, Month.JUNE, 8));
+                LocalDate.of(2025, Month.JUNE, 9));
     }
 
     @Test
     public void testEidAlAdha2026() {
+        // Turkey Diyanet = May 27; one day later than Saudi/UAE (May 26) — confirmed divergence
         assertEquals(findFirst("Eid al-Adha", 2026).orElseThrow().date(),
-                LocalDate.of(2026, Month.MAY, 26),
-                "Eid al-Adha 2026 must be 2026-05-26 per Diyanet");
+                LocalDate.of(2026, Month.MAY, 27),
+                "Eid al-Adha 2026 must be 2026-05-27 per Diyanet");
     }
 
     @Test
     public void testEidAlAdhaDay2_2026() {
         assertEquals(findFirst("Eid al-Adha (2nd Day)", 2026).orElseThrow().date(),
-                LocalDate.of(2026, Month.MAY, 27));
+                LocalDate.of(2026, Month.MAY, 28));
     }
 
     @Test
     public void testEidAlAdhaDay3_2026() {
         assertEquals(findFirst("Eid al-Adha (3rd Day)", 2026).orElseThrow().date(),
-                LocalDate.of(2026, Month.MAY, 28));
+                LocalDate.of(2026, Month.MAY, 29));
     }
 
     @Test
     public void testEidAlAdhaDay4_2026() {
         assertEquals(findFirst("Eid al-Adha (4th Day)", 2026).orElseThrow().date(),
-                LocalDate.of(2026, Month.MAY, 29));
+                LocalDate.of(2026, Month.MAY, 30));
     }
 
     // =========================================================================
@@ -554,21 +555,22 @@ public class HolidayCalendarServiceTRTest {
                 .toList();
         assertEquals(eidOccurrences.size(), 1,
                 "2033 has two Eid al-Fitr occurrences but only the first is recorded in the CSV");
-        assertEquals(eidOccurrences.getFirst().date(), LocalDate.of(2033, Month.JANUARY, 3),
-                "The single 2033 Eid al-Fitr occurrence must be January 3");
+        assertEquals(eidOccurrences.getFirst().date(), LocalDate.of(2033, Month.JANUARY, 2),
+                "The single 2033 Eid al-Fitr occurrence must be January 2");
     }
 
     // =========================================================================
-    // Republic Day Eve (Oct 28) — confirmed absent; half-day not modelled
+    // Republic Day Eve (Oct 28) — early close, not a full-day holiday
     // =========================================================================
 
     @Test
-    public void testRepublicDayEveAbsent2025() {
+    public void testRepublicDayEveAbsentFromCalculate2025() {
         List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2025);
         boolean oct28Present = holidays.stream()
                 .anyMatch(hd -> hd.date().equals(LocalDate.of(2025, Month.OCTOBER, 28)));
         assertFalse(oct28Present,
-                "Oct 28 (Republic Day Eve) must not be present — half-day closures are not modelled");
+                "Oct 28 (Republic Day Eve) is an EARLY_CLOSE holiday and must not appear in calculate(), "
+                        + "only in calculateEarlyCloses() — see HolidayCalendarServiceTREarlyCloseTest");
     }
 
     // =========================================================================

@@ -22,13 +22,17 @@ import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
+import org.holiday.calendar.observance.au.ChristmasEveEarlyClose;
 import org.holiday.calendar.observance.au.KingsBirthday;
+import org.holiday.calendar.observance.au.NewYearsEveEarlyClose;
 import org.holiday.calendar.observance.christian.EasterMonday;
 import org.holiday.calendar.observance.christian.EasterObservance;
 import org.holiday.calendar.observance.christian.GoodFriday;
 import org.holiday.calendar.observance.christian.WesternEaster;
 
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
@@ -114,6 +118,26 @@ public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
                 .rollable(true)
                 .monthDay(Month.DECEMBER, 26)
                 .build();
+        final Holiday christmasEveEarlyClose = Holiday.builder()
+                .name("Christmas Eve")
+                .description("ASX half-day close; suppressed entirely (not shifted) " +
+                             "when December 24 falls on a Saturday or Sunday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new ChristmasEveEarlyClose())
+                .closeTime(LocalTime.of(14, 10))
+                .zoneId(ZoneId.of("Australia/Sydney"))
+                .build();
+        final Holiday newYearsEveEarlyClose = Holiday.builder()
+                .name("New Year's Eve")
+                .description("ASX half-day close; suppressed entirely (not shifted) " +
+                             "when December 31 falls on a Saturday or Sunday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new NewYearsEveEarlyClose())
+                .closeTime(LocalTime.of(14, 10))
+                .zoneId(ZoneId.of("Australia/Sydney"))
+                .build();
 
         return HolidayCalendar.builder()
                 .code(CODE)
@@ -129,6 +153,8 @@ public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
                 .holiday(kingsBirthday)
                 .holiday(christmasDay)
                 .holiday(boxingDay)
+                .holiday(christmasEveEarlyClose)
+                .holiday(newYearsEveEarlyClose)
                 .build();
     }
 

@@ -29,7 +29,9 @@ module org.holiday.calendar.western {
     exports org.holiday.calendar.observance.christian;
     exports org.holiday.calendar.observance.au;
     exports org.holiday.calendar.observance.ca;
+    exports org.holiday.calendar.observance.de;
     exports org.holiday.calendar.observance.eu;
+    exports org.holiday.calendar.observance.fr;
     exports org.holiday.calendar.observance.uk;
     exports org.holiday.calendar.observance.us;
 

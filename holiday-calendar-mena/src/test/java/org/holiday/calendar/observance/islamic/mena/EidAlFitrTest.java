@@ -29,6 +29,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Iterator;
 import java.util.List;
 
@@ -59,9 +60,9 @@ public class EidAlFitrTest {
     @DataProvider
     Iterator<Object[]> knownDatesAE() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
@@ -77,9 +78,9 @@ public class EidAlFitrTest {
     @DataProvider
     Iterator<Object[]> knownDatesSA() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
@@ -150,16 +151,23 @@ public class EidAlFitrTest {
     }
 
     // -------------------------------------------------------------------------
-    // Known dates — TR (Diyanet ilmi takvim)
+    // Known dates — TR (Diyanet ilmi takvim, official published dates 2024-2035)
     // -------------------------------------------------------------------------
 
     @DataProvider
     Iterator<Object[]> knownDatesTR() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2026, LocalDate.of(2026, 3, 19)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2026, LocalDate.of(2026, Month.MARCH, 20)},  // one day later than AE/SA — see below
+            new Object[]{2027, LocalDate.of(2027, Month.MARCH, 9)},
+            new Object[]{2035, LocalDate.of(2035, Month.DECEMBER, 1)},
+            // 2036-2055 are IlmiTakvimCalculator projections (Diyanet has not yet
+            // published this far ahead) — not independently verified against a
+            // Diyanet source; see CsvCalculatorParityTest for CSV/calculator consistency.
+            new Object[]{2040, LocalDate.of(2040, Month.OCTOBER, 7)},
+            new Object[]{2050, LocalDate.of(2050, Month.JUNE, 20)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
@@ -176,6 +184,19 @@ public class EidAlFitrTest {
                 "Eid al-Fitr 2025: Diyanet (TR) and UAE SCA (AE) must agree on March 30");
     }
 
+    // TR 2026 diverges from AE by one day: Diyanet (ilmi takvim) vs UAE SCA
+    @Test
+    public void testTR2026DiffersFromAE() {
+        LocalDate trDate = new EidAlFitr("TR").apply(2026);
+        LocalDate aeDate = new EidAlFitr("AE").apply(2026);
+        assertEquals(trDate, LocalDate.of(2026, Month.MARCH, 20),
+                "Diyanet Eid al-Fitr 2026 must be March 20");
+        assertEquals(aeDate, LocalDate.of(2026, Month.MARCH, 19),
+                "UAE SCA Eid al-Fitr 2026 must be March 19");
+        assertNotEquals(trDate, aeDate,
+                "Diyanet and UAE SCA Eid al-Fitr 2026 must differ by one day");
+    }
+
     // -------------------------------------------------------------------------
     // Known dates — QA (Qatar Central Bank official)
     // -------------------------------------------------------------------------
@@ -183,9 +204,9 @@ public class EidAlFitrTest {
     @DataProvider
     Iterator<Object[]> knownDatesQA() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 4, 10)},
-            new Object[]{2025, LocalDate.of(2025, 3, 30)},
-            new Object[]{2055, LocalDate.of(2055, 4, 28)}
+            new Object[]{2024, LocalDate.of(2024, Month.APRIL, 10)},
+            new Object[]{2025, LocalDate.of(2025, Month.MARCH, 30)},
+            new Object[]{2055, LocalDate.of(2055, Month.APRIL, 28)}
         ).iterator();
     }
 
@@ -200,5 +221,38 @@ public class EidAlFitrTest {
     public void testQA2025MatchesAE() {
         assertEquals(new EidAlFitr("QA").apply(2025), new EidAlFitr("AE").apply(2025),
                 "Eid al-Fitr 2025: Qatar (QCB) and UAE (SCA) must agree on March 30");
+    }
+
+    // -------------------------------------------------------------------------
+    // Runtime fallback to IlmiTakvimCalculator (TR only, when the CSV has no row
+    // for an in-range year — all tr CSV rows are currently populated through
+    // DATA_VALID_THROUGH, so these tests exercise computeDate() directly for years
+    // outside the CSV's own range to prove the fallback path itself is correct.
+    // -------------------------------------------------------------------------
+
+    @Test
+    public void computeDateFallsBackToCalculatorForTrWhenCsvHasNoRow() {
+        int year = 2100; // beyond DATA_VALID_THROUGH; no CSV row for any country
+        EidAlFitr tr = new EidAlFitr("tr");
+        assertEquals(tr.computeDate(year),
+                org.holiday.calendar.observance.islamic.mena.ilmitakvim.IlmiTakvimCalculator.eidAlFitr(year),
+                "computeDate must fall back to IlmiTakvimCalculator for tr when the CSV lacks a row");
+    }
+
+    @Test
+    public void computeDateReturnsNullWhenCalculatorFailsForTr() {
+        // Year 3050 is beyond Time4J's supported astronomical range, forcing
+        // IlmiTakvimCalculator to throw; computeDate must catch it and return null.
+        assertNull(new EidAlFitr("tr").computeDate(3050),
+                "computeDate must return null when the ilmi takvim calculation itself fails");
+        assertTrue(listAppender.list.stream().anyMatch(e -> e.getLevel() == Level.WARN),
+                "Expected a WARN log when the ilmi takvim calculation fails");
+    }
+
+    @Test
+    public void computeDateReturnsNullForNonTrCountryWhenCsvHasNoRow() {
+        assertNull(new EidAlFitr("ae").computeDate(2100),
+                "computeDate must return null for non-tr countries when the CSV lacks a row "
+                        + "(no calculator fallback exists for them)");
     }
 }

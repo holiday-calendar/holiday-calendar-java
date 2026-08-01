@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-08-01
+
+### Added
+
+- New `EarlyCloseHoliday` sealed interface type to model half-day market closures with specific close times and timezones (#176)
+- New `HolidayCalendar.calculateEarlyCloses(int year)` API to retrieve early close days separately from regular holidays
+- New `HolidayCalendar.hasEarlyCloses()` convenience method to check if a calendar has early close days
+- Half-day close modeling for 8 regional exchanges:
+  - US NYSE: Thanksgiving Friday, Christmas Eve, July 3rd half-day closes (#205)
+  - CA TSX: Christmas Eve half-day close; confirmed no Dec 31 close (#206, #220)
+  - AU ASX: Christmas Eve and New Year's Eve 14:10 Sydney early closes (#211, #221)
+  - FR Euronext Paris: Christmas Eve and New Year's Eve half-day closes (#210)
+  - UK LSE: Christmas Eve and New Year's Eve half-day closes (#207)
+  - SG SGX: Christmas Eve and New Year's Eve half-day closes (#212)
+  - CH SIX: Christmas Eve and New Year's Eve (no-roll convention) (#208)
+  - DE Xetra: Christmas Eve and New Year's Eve modeling (#209)
+- Improved Turkey Islamic holiday accuracy (#180):
+  - Diyanet astronomical ilmi takvim calculator for years 2036-2055 (beyond published data)
+  - Corrected Arefe/Bayram confusion and invalid data entries
+  - Validated against all 24 published Diyanet dates 2024-2035
+
+### Changed
+
+- **BREAKING**: `Holiday` sealed interface now includes `EarlyCloseHoliday` as a permitted subtype. Existing code using switch/pattern matching on Holiday must account for this new type.
+- **BREAKING**: `HolidayCalendar.calculate(int year)` now explicitly excludes early close days; use `calculateEarlyCloses()` to retrieve them
+- Early close holidays are never rollable (by design; trading hours apply on the actual date)
+
+### Fixed
+
+- SonarCloud duplication and inspection violations in AU/ASX half-day close logic (#221)
+
 ## [1.4.0] - 2026-05-22
 
 ### Added

@@ -22,6 +22,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,10 +33,10 @@ public class EidAlAdhaDay4Test {
     @DataProvider
     Iterator<Object[]> knownDatesTR() {
         return List.of(
-            new Object[]{2024, LocalDate.of(2024, 6, 19)},
-            new Object[]{2025, LocalDate.of(2025, 6, 8)},
-            new Object[]{2026, LocalDate.of(2026, 5, 29)},
-            new Object[]{2055, LocalDate.of(2055, 7, 6)}
+            new Object[]{2024, LocalDate.of(2024, Month.JUNE, 19)},
+            new Object[]{2025, LocalDate.of(2025, Month.JUNE, 9)},
+            new Object[]{2026, LocalDate.of(2026, Month.MAY, 30)},
+            new Object[]{2055, LocalDate.of(2055, Month.JULY, 8)}
         ).iterator();
     }
 

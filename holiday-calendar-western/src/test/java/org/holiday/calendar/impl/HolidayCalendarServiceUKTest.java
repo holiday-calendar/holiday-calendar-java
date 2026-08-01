@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.testng.Assert.*;
 
@@ -77,6 +79,22 @@ public class HolidayCalendarServiceUKTest extends AbstractHolidayCalendarService
                                                                .findFirst();
         assertTrue(foundNewYearsDay.isPresent());
         assertEquals(foundNewYearsDay.get().getDate(), LocalDate.of(2020, Month.JANUARY, 1));
+    }
+
+    @Test
+    public void testEarlyCloseHolidaysAbsentFromCalculate() {
+        HolidayCalendarFactory factory = new HolidayCalendarFactory();
+        HolidayCalendar calendar = factory.create(CODE);
+        assertNotNull(calendar);
+
+        List<HolidayDate> ukHolidays2025 = calendar.calculate(2025);
+        Set<String> names = ukHolidays2025.stream()
+                                           .map(hd -> hd.getHoliday().getName())
+                                           .collect(Collectors.toSet());
+        assertFalse(names.contains("Christmas Eve"),
+                "Christmas Eve is an EARLY_CLOSE holiday and must not appear in calculate()");
+        assertFalse(names.contains("New Year's Eve"),
+                "New Year's Eve is an EARLY_CLOSE holiday and must not appear in calculate()");
     }
 
     @DataProvider
