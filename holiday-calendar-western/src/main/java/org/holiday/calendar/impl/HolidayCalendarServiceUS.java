@@ -27,7 +27,9 @@ import org.holiday.calendar.observance.christian.WesternEaster;
 import org.holiday.calendar.observance.us.*;
 
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 
 /**
  * Service for provision of US national holiday calendar.
@@ -38,6 +40,7 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
 
     private static final String CODE = "US";
     private static final String NAME = "United States National Holidays";
+    private static final ZoneId NYSE_ZONE = ZoneId.of("America/New_York");
 
     public HolidayCalendarServiceUS() {
         super(CODE, NAME);
@@ -126,11 +129,33 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                                             .build();
         final Holiday dayAfterThanksgiving = Holiday.builder()
                                                      .name("Day After Thanksgiving")
-                                                     .description("Day after Thanksgiving (NYSE market closure by convention)")
-                                                     .type(Holiday.Type.FLOATING)
+                                                     .description("NYSE 1:00pm ET early close, the day after Thanksgiving")
+                                                     .type(Holiday.Type.EARLY_CLOSE)
                                                      .rollable(false)
                                                      .observance(new DayAfterThanksgiving())
+                                                     .closeTime(LocalTime.of(13, 0))
+                                                     .zoneId(NYSE_ZONE)
                                                      .build();
+        final Holiday julyThirdEarlyClose = Holiday.builder()
+                                                    .name("July 3rd")
+                                                    .description("NYSE 1:00pm ET early close; occurs only when " +
+                                                                 "July 4 falls Tuesday through Friday")
+                                                    .type(Holiday.Type.EARLY_CLOSE)
+                                                    .rollable(false)
+                                                    .observance(new JulyThirdEarlyClose())
+                                                    .closeTime(LocalTime.of(13, 0))
+                                                    .zoneId(NYSE_ZONE)
+                                                    .build();
+        final Holiday christmasEveEarlyClose = Holiday.builder()
+                                                       .name("Christmas Eve")
+                                                       .description("NYSE 1:00pm ET early close; occurs only when " +
+                                                                    "December 25 falls Tuesday through Friday")
+                                                       .type(Holiday.Type.EARLY_CLOSE)
+                                                       .rollable(false)
+                                                       .observance(new ChristmasEveEarlyClose())
+                                                       .closeTime(LocalTime.of(13, 0))
+                                                       .zoneId(NYSE_ZONE)
+                                                       .build();
         final Holiday christmasDay = Holiday.builder()
                                             .name("Christmas Day")
                                             .description("Celebration of traditional Christmas holiday")
@@ -154,11 +179,13 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                 .holiday(memorialDay)
                 .holiday(juneteenth)
                 .holiday(independenceDay)
+                .holiday(julyThirdEarlyClose)
                 .holiday(laborDay)
                 .holiday(columbusDay)
                 .holiday(veteransDay)
                 .holiday(thanksgiving)
                 .holiday(dayAfterThanksgiving)
+                .holiday(christmasEveEarlyClose)
                 .holiday(christmasDay)
                 .build();
     }

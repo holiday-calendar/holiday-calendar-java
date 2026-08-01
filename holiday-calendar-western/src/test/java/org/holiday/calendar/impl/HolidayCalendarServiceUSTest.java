@@ -1,11 +1,19 @@
 package org.holiday.calendar.impl;
 
+import org.holiday.calendar.HolidayCalendarService;
+import org.holiday.calendar.HolidayDate;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.testng.Assert.assertFalse;
 
 public class HolidayCalendarServiceUSTest extends AbstractHolidayCalendarServiceTest {
 
@@ -40,6 +48,22 @@ public class HolidayCalendarServiceUSTest extends AbstractHolidayCalendarService
         final Object[] christmas23 = {2023, "Christmas Day", LocalDate.of(2023, Month.DECEMBER, 25)};
         return Arrays.asList(veteransDay18, veteransDay19, veteransDay20, veteransDay21, veteransDay22, veteransDay23,
                              christmas18, christmas19, christmas20, christmas21, christmas22, christmas23).listIterator();
+    }
+
+    @Test
+    public void testEarlyCloseHolidaysAbsentFromCalculate() {
+        HolidayCalendarService service = factory.getService(CODE);
+        Set<String> earlyCloseNames = Set.of("Day After Thanksgiving", "Christmas Eve", "July 3rd");
+        for (int year : List.of(2021, 2023, 2024, 2025)) { // mix of 1/2/3-count early-close years
+            List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+            Set<String> actualNames = holidays.stream()
+                    .map(hd -> hd.getHoliday().getName())
+                    .collect(Collectors.toSet());
+            for (String earlyCloseName : earlyCloseNames) {
+                assertFalse(actualNames.contains(earlyCloseName),
+                        earlyCloseName + " must not appear in calculate(" + year + ")");
+            }
+        }
     }
 
 }

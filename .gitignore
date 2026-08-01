@@ -98,14 +98,21 @@ local.properties
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-# .idea/artifacts
-# .idea/compiler.xml
-# .idea/jarRepositories.xml
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
-# *.iml
-# *.ipr
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+*.iml
+*.ipr
+
+# Other per-developer IntelliJ files not covered above (this project uses
+# Maven with auto-import; .idea/copyright/ is intentionally tracked for
+# shared license-header settings)
+.idea/encodings.xml
+.idea/vcs.xml
+.idea/sonarlint.xml
 
 # CMake
 cmake-build-*/
@@ -236,4 +243,6 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 
 ### Claude Code ###
-.claude/
+.claude/*
+!.claude/skills/
+!.claude/skills/**

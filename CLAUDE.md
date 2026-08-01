@@ -33,19 +33,21 @@ This is a multi-module Maven project:
 
 | Module | JPMS Module Name | Purpose |
 |--------|------------------|---------|
-| `holiday-calendar-core` | `holiday.calendar.core` | Core API and abstractions |
-| `holiday-calendar-western` | `holiday.calendar.western` | Western calendars: US, CA, UK, CH, DE, FR, AU |
-| `holiday-calendar-apac` | `holiday.calendar.apac` | APAC calendars: SG (uses Time4J for non-Gregorian) |
+| `holiday-calendar-core` | `org.holiday.calendar.core` | Core API and abstractions |
+| `holiday-calendar-western` | `org.holiday.calendar.western` | Western calendars: US, CA, UK, CH, DE, FR, AU |
+| `holiday-calendar-apac` | `org.holiday.calendar.apac` | APAC calendars: SG, JP, CN (uses Time4J for non-Gregorian) |
+| `holiday-calendar-mena` | `org.holiday.calendar.mena` | MENA calendars: AE, SA, IL, TR, QA, EG, KW, BH, MA, JO (uses Time4J for Islamic calendar) |
 | `tests` | — | Test aggregation and JaCoCo coverage reporting for SonarCloud |
 
 ## Architecture
 
 ### Core Abstractions (`holiday-calendar-core`)
 
-**`Holiday`** (sealed interface) — base for all holidays; three permitted types selected via builder:
+**`Holiday`** (sealed interface) — base for all holidays; four permitted types selected via builder:
 - `FixedHoliday` — same `MonthDay` every year (e.g., New Year's Day)
 - `FloatingHoliday` — date computed per year via an `Observance` function (e.g., Easter)
 - `SpecialAnniversary` — anniversary-based holidays
+- `EarlyCloseHoliday` — half-day market close (`Holiday.Type.EARLY_CLOSE`); carries a `closeTime`/`zoneId`, is always non-rollable, and is excluded from `HolidayCalendar.calculate()` — use `calculateEarlyCloses(int year)` instead. See `IsraelHolidays.earlyCloseHolidays()` (mena) and `HolidayCalendarServiceUK`'s Christmas Eve/New Year's Eve (western) for precedent.
 
 **`HolidayCalendar`** — named collection of holidays with a `DateRoll` strategy and configurable `weekendDays`. Its `calculate(int year)` returns sorted `HolidayDate` instances with rolling applied (respects the `rollable` flag per holiday).
 
@@ -63,10 +65,37 @@ This is a multi-module Maven project:
 
 ### Implementations (`holiday-calendar-western`)
 
-Regional `HolidayCalendarService` implementations: `HolidayCalendarServiceUS`, `HolidayCalendarServiceCA`, `HolidayCalendarServiceUK`, `HolidayCalendarServiceCH`, `HolidayCalendarServiceDE`, `HolidayCalendarServiceFR`, `HolidayCalendarServiceAU`.
+National and market/central-bank `HolidayCalendarService` implementations, one pair per country where both exist:
+- `US` (United States National) / `USD` (Federal Reserve)
+- `CA` (Canada National) / `CAD` (Bank of Canada / Lynx)
+- `UK` (United Kingdom National) / `GBP` (CHAPS)
+- `CH` (Switzerland / SIX) / `CHF` (SIC/SNB)
+- `DE` (Germany / Xetra)
+- `FR` (France / Euronext Paris)
+- `AU` (Australian Securities Exchange) / `AUD` (RBA)
+- `EUR` (TARGET2)
 
 Observances are organized by region under the `observance` package. Easter-related observances live in `observance.christian` and extend `CompositeObservance` (e.g., `GoodFriday`, `EasterMonday`). `WesternEaster` and `OrthodoxEaster` extend `AbstractObservance` directly. Regional sub-packages: `us/`, `ca/`, `uk/`, `eu/`, `au/`.
 
 ### Implementations (`holiday-calendar-apac`)
 
-`HolidayCalendarServiceSG` (SGX). Non-Gregorian holidays use Time4J (`ChineseCalendar` for Chinese New Year) or lookup tables (Vesak Day, Hari Raya Puasa/Haji, Deepavali).
+- `SG` (Singapore SGX) / `SGD` (MAS/MEPS+)
+- `JP` (Tokyo Stock Exchange) / `JPY` (Bank of Japan)
+- `CN` (China National) / `CNY` (People's Bank of China)
+
+Non-Gregorian holidays use Time4J (`ChineseCalendar` for Chinese New Year) or lookup tables (Vesak Day, Hari Raya Puasa/Haji, Deepavali). Observance sub-packages: `observance.lunar`, `observance.islamic.apac`, `observance.hindu`, `observance.jp`.
+
+### Implementations (`holiday-calendar-mena`)
+
+- `AE` (United Arab Emirates National) / `AED` (CBUAE/DFM/ADX)
+- `SA` (Saudi Arabia National) / `SAR` (Tadawul/SAMA)
+- `IL` (Israel National) / `ILS` (TASE/Bank of Israel)
+- `TR` (Turkey National) / `TRY` (BIST/TCMB)
+- `QA` (Qatar National) / `QAR` (QSE/QCB)
+- `EG` (Egypt National) / `EGP` (EGX/CBE)
+- `KW` (Kuwait National) / `KWD` (Boursa Kuwait/CBK)
+- `BH` (Bahrain National) / `BHD` (Boursa Bahrain/CBB)
+- `MA` (Morocco National) / `MAD` (CSE/BAM)
+- `JO` (Jordan National) / `JOD` (ASE/CBJ)
+
+Islamic-calendar holidays (Eid al-Fitr, Eid al-Adha, Islamic New Year, Ashura, etc.) use CSV-backed lookup data with a Diyanet "ilmi takvim" astronomical fallback calculator for years beyond the data ceiling; see `observance.islamic.mena`. `IsraelHolidays` (package-private) centralizes the shared holiday list — including `earlyCloseHolidays()` — consumed by both `HolidayCalendarServiceIL` and `HolidayCalendarServiceILS`. Observance sub-packages: `observance.eg`, `observance.islamic.mena`, `observance.hebrew`, `observance.qa`.
