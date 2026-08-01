@@ -40,6 +40,7 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
 
     private static final String CODE = "US";
     private static final String NAME = "United States National Holidays";
+    private static final ZoneId NYSE_ZONE = ZoneId.of("America/New_York");
 
     public HolidayCalendarServiceUS() {
         super(CODE, NAME);
@@ -133,7 +134,7 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                                                      .rollable(false)
                                                      .observance(new DayAfterThanksgiving())
                                                      .closeTime(LocalTime.of(13, 0))
-                                                     .zoneId(ZoneId.of("America/New_York"))
+                                                     .zoneId(NYSE_ZONE)
                                                      .build();
         final Holiday julyThirdEarlyClose = Holiday.builder()
                                                     .name("July 3rd")
@@ -143,7 +144,7 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                                                     .rollable(false)
                                                     .observance(new JulyThirdEarlyClose())
                                                     .closeTime(LocalTime.of(13, 0))
-                                                    .zoneId(ZoneId.of("America/New_York"))
+                                                    .zoneId(NYSE_ZONE)
                                                     .build();
         final Holiday christmasEveEarlyClose = Holiday.builder()
                                                        .name("Christmas Eve")
@@ -153,7 +154,7 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                                                        .rollable(false)
                                                        .observance(new ChristmasEveEarlyClose())
                                                        .closeTime(LocalTime.of(13, 0))
-                                                       .zoneId(ZoneId.of("America/New_York"))
+                                                       .zoneId(NYSE_ZONE)
                                                        .build();
         final Holiday christmasDay = Holiday.builder()
                                             .name("Christmas Day")
