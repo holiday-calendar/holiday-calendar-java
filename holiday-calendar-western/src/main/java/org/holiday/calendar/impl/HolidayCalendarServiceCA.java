@@ -25,6 +25,7 @@ import org.holiday.calendar.observance.christian.EasterObservance;
 import org.holiday.calendar.observance.christian.EasterMonday;
 import org.holiday.calendar.observance.christian.GoodFriday;
 import org.holiday.calendar.observance.christian.WesternEaster;
+import org.holiday.calendar.observance.ca.ChristmasEveEarlyClose;
 import org.holiday.calendar.observance.ca.CivicHoliday;
 import org.holiday.calendar.observance.ca.FamilyDay;
 import org.holiday.calendar.observance.ca.LabourDay;
@@ -33,7 +34,9 @@ import org.holiday.calendar.observance.ca.VictoriaDay;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.Optional;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
@@ -47,6 +50,7 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
 
     private static final String CODE = "CA";
     private static final String NAME = "Canada National Holidays";
+    private static final ZoneId TSX_ZONE = ZoneId.of("America/Toronto");
 
     public HolidayCalendarServiceCA() {
         super(CODE, NAME);
@@ -133,6 +137,16 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
                 .monthDay(Month.NOVEMBER, 11)
                 .rollable(true)
                 .build();
+        final Holiday christmasEveEarlyClose = Holiday.builder()
+                .name("Christmas Eve")
+                .description("TSX 1:00pm local early close; occurs whenever "
+                             + "December 24 falls Monday through Friday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new ChristmasEveEarlyClose())
+                .closeTime(LocalTime.of(13, 0))
+                .zoneId(TSX_ZONE)
+                .build();
         final Holiday christmas = Holiday.builder()
                 .name("Christmas Day")
                 .description("Christmas Day")
@@ -175,6 +189,7 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
                 .holiday(nationalDayForTruthAndReconciliation)
                 .holiday(thanksgiving)
                 .holiday(remembranceDay)
+                .holiday(christmasEveEarlyClose)
                 .holiday(christmas)
                 .holiday(boxingDay)
                 .build();
