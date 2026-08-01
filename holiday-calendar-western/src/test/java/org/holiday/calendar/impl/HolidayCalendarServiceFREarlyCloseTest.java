@@ -195,8 +195,9 @@ public class HolidayCalendarServiceFREarlyCloseTest {
     }
 
     // -------------------------------------------------------------------------
-    // Cross-list date collision: empty in ordinary years, exactly {Dec 24}
-    // in Dec-25-Saturday years (Christmas Day rolls back onto Christmas Eve)
+    // Cross-list date collision: empty in ordinary years, exactly one date
+    // (December 24) in Dec-25-Saturday years, when Christmas Day rolls back
+    // onto Christmas Eve
     // -------------------------------------------------------------------------
 
     @Test(dataProvider = "frEarlyCloseFixture")
