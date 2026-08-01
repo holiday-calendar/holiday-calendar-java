@@ -459,4 +459,98 @@ public class HolidayCalendar30YearIT {
         }
     }
 
+    // =========================================================================
+    // 11. FR EARLY CLOSES (Euronext Paris Christmas Eve / New Year's Eve half-day closures) OVER 30 YEARS
+    // =========================================================================
+
+    // Both Euronext Eve early closes are suppressed (not shifted) when their date falls on a
+    // weekend; since December 24 and December 31 are always exactly 7 days apart, they always
+    // share the same day-of-week within a year, so count is always 0 or 2, never 1. Expected
+    // presence is re-derived from December 24's day-of-week rule for every year rather than
+    // hand-fixtured.
+    //
+    // FR's Christmas Day and New Year's Day are both rollable under
+    // previousFridayOrFollowingMonday, unlike SG, so this section additionally verifies the two
+    // genuine cross-list date collisions this produces: Christmas Day rolling back onto
+    // December 24 in Dec-25-Saturday years, and New Year's Day rolling back onto the prior
+    // December 31 in Jan-1-Saturday years (a year-boundary-crossing collision that a same-year
+    // intersection check alone would miss).
+    @Test(description = "FR calculateEarlyCloses across 2026-2055: count always in {0,2}, "
+            + "Christmas Eve/New Year's Eve presence matches December 24 dow rule (excludes Sat/Sun) "
+            + "and always co-occur, no nulls, chronological order, and known Christmas Day/New Year's "
+            + "Day roll collisions are accounted for")
+    public void testFREarlyClosesOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("FR");
+
+        List<HolidayDate> allEarlyCloses = new java.util.ArrayList<>();
+        for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
+            List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(year);
+            assertNotNull(earlyCloses, "FR: calculateEarlyCloses(" + year + ") must not be null");
+
+            int count = earlyCloses.size();
+            assertTrue(count == 0 || count == 2,
+                    "FR " + year + ": expected count in {0,2}, got " + count);
+
+            DayOfWeek dec24Dow = LocalDate.of(year, Month.DECEMBER, 24).getDayOfWeek();
+            boolean expected = !DayOfWeek.SATURDAY.equals(dec24Dow)
+                    && !DayOfWeek.SUNDAY.equals(dec24Dow);
+            Set<String> names = earlyCloses.stream()
+                    .map(hd -> hd.holiday().getName())
+                    .collect(Collectors.toSet());
+            assertEquals(names.contains("Christmas Eve"), expected,
+                    "FR " + year + ": Christmas Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
+            assertEquals(names.contains("New Year's Eve"), expected,
+                    "FR " + year + ": New Year's Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
+
+            // Cross-list date collision: empty in ordinary years, exactly {Dec 24} in
+            // Dec-25-Saturday years (Christmas Day rolls back onto Christmas Eve).
+            List<HolidayDate> fullDay = calendar.calculate(year);
+            Set<LocalDate> fullDayDates = fullDay.stream().map(HolidayDate::date).collect(Collectors.toSet());
+            Set<LocalDate> earlyCloseDates = earlyCloses.stream().map(HolidayDate::date).collect(Collectors.toSet());
+            Set<LocalDate> intersection = fullDayDates.stream()
+                    .filter(earlyCloseDates::contains)
+                    .collect(Collectors.toSet());
+            boolean isChristmasDaySaturdayRollYear =
+                    DayOfWeek.SATURDAY.equals(LocalDate.of(year, Month.DECEMBER, 25).getDayOfWeek());
+            if (isChristmasDaySaturdayRollYear) {
+                assertEquals(intersection, Set.of(LocalDate.of(year, Month.DECEMBER, 24)),
+                        "FR " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
+            } else {
+                assertTrue(intersection.isEmpty(), "FR " + year + ": unexpected cross-list date collision: " + intersection);
+            }
+
+            // Cross-year collision: New Year's Day rolling back onto this year's December 31
+            // whenever January 1 of the following year falls on a Saturday.
+            boolean isNewYearsDaySaturdayRollYear =
+                    DayOfWeek.SATURDAY.equals(LocalDate.of(year + 1, Month.JANUARY, 1).getDayOfWeek());
+            if (isNewYearsDaySaturdayRollYear) {
+                LocalDate dec31 = LocalDate.of(year, Month.DECEMBER, 31);
+                boolean newYearsDayPresent = calendar.calculate(year + 1).stream()
+                        .anyMatch(hd -> "New Year's Day".equals(hd.holiday().getName()) && dec31.equals(hd.date()));
+                boolean newYearsEvePresent = names.contains("New Year's Eve");
+                assertTrue(newYearsDayPresent,
+                        "FR " + year + ": New Year's Day (rolled back from Jan 1, " + (year + 1) + ") must appear on Dec 31, " + year);
+                assertTrue(newYearsEvePresent,
+                        "FR " + year + ": New Year's Eve early close must independently appear on Dec 31, " + year);
+            }
+
+            allEarlyCloses.addAll(earlyCloses);
+        }
+
+        for (int i = 0; i < allEarlyCloses.size(); i++) {
+            HolidayDate hd = allEarlyCloses.get(i);
+            assertNotNull(hd, "FR: early-close entry at index " + i + " must not be null");
+            assertNotNull(hd.holiday(), "FR: early-close holiday at index " + i + " must not be null");
+            assertNotNull(hd.date(), "FR: early-close date at index " + i + " must not be null");
+        }
+
+        for (int i = 1; i < allEarlyCloses.size(); i++) {
+            LocalDate prev = allEarlyCloses.get(i - 1).date();
+            LocalDate curr = allEarlyCloses.get(i).date();
+            assertFalse(curr.isBefore(prev),
+                    "FR: early-close dates out of order at index " + i
+                            + " — " + prev + " followed by " + curr);
+        }
+    }
+
 }
