@@ -213,6 +213,29 @@ public class HolidayCalendarServiceSGDTest {
                 "at boundary: " + holidaysAtBoundary.size() + ", beyond: " + holidaysBeyond.size());
     }
 
+    // ── SGX early-close non-leakage ──────────────────────────────────────────
+    // SGX's Christmas Eve / New Year's Eve half-day closes apply only to the SG
+    // (SGX equities) calendar, not SGD (MAS/MEPS+ settlement). Guards against a
+    // future accidental copy-paste of SG's builder logic into SGD.
+
+    @Test
+    public void testCalculateEarlyClosesReturnsEmpty2018() {
+        assertTrue(service.getHolidayCalendar().calculateEarlyCloses(2018).isEmpty(),
+                "SGD must not have any EARLY_CLOSE holidays");
+    }
+
+    @Test
+    public void testCalculateEarlyClosesReturnsEmpty2022() {
+        assertTrue(service.getHolidayCalendar().calculateEarlyCloses(2022).isEmpty(),
+                "SGD must not have any EARLY_CLOSE holidays");
+    }
+
+    @Test
+    public void testCalculateEarlyClosesReturnsEmpty2024() {
+        assertTrue(service.getHolidayCalendar().calculateEarlyCloses(2024).isEmpty(),
+                "SGD must not have any EARLY_CLOSE holidays");
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────────
 
     private Optional<HolidayDate> findByName(List<HolidayDate> holidays, String name) {
