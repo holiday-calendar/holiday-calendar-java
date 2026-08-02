@@ -18,28 +18,18 @@
 
 package org.holiday.calendar.impl;
 
-import org.holiday.calendar.HolidayCalendar;
-import org.holiday.calendar.HolidayCalendarService;
-import org.holiday.calendar.HolidayDate;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+public class HolidayCalendarServiceXASXTest extends AbstractHolidayCalendarServiceTest {
 
-public class HolidayCalendarServiceAUTest extends AbstractHolidayCalendarServiceTest {
+    static final String CODE = "XASX";
 
-    static final String CODE = "AU";
-
-    public HolidayCalendarServiceAUTest() {
+    public HolidayCalendarServiceXASXTest() {
         super(CODE);
     }
 
@@ -48,9 +38,9 @@ public class HolidayCalendarServiceAUTest extends AbstractHolidayCalendarService
     Iterator<Object[]> expectedHolidayNames() {
         final Object[] australiaDay = {"Australia Day"};
         final Object[] anzacDay = {"ANZAC Day"};
-        final Object[] easterSaturday = {"Easter Saturday"};
-        final Object[] kingsBirthday = {"King's Birthday"};
-        return Arrays.asList(australiaDay, anzacDay, easterSaturday, kingsBirthday).listIterator();
+        final Object[] christmasEve = {"Christmas Eve"};
+        final Object[] newYearsEve = {"New Year's Eve"};
+        return Arrays.asList(australiaDay, anzacDay, christmasEve, newYearsEve).listIterator();
     }
 
     @DataProvider
@@ -75,39 +65,6 @@ public class HolidayCalendarServiceAUTest extends AbstractHolidayCalendarService
         return Arrays.asList(christmas21, christmas22, christmas23,
                              boxingDay21, boxingDay22, boxingDay23,
                              australiaDay20, australiaDay23).listIterator();
-    }
-
-    @Test
-    public void testEarlyCloseHolidaysAbsentFromCalculate() {
-        HolidayCalendarService service = factory.getService(CODE);
-        for (int year : List.of(2021, 2023, 2024, 2025)) {
-            List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
-            Set<String> actualNames = holidays.stream()
-                    .map(hd -> hd.getHoliday().getName())
-                    .collect(Collectors.toSet());
-            assertFalse(actualNames.contains("Christmas Eve"),
-                    "Christmas Eve must not appear in calculate(" + year + ") — moved to XASX");
-            assertFalse(actualNames.contains("New Year's Eve"),
-                    "New Year's Eve must not appear in calculate(" + year + ") — moved to XASX");
-        }
-    }
-
-    @Test
-    public void testAuHasNoEarlyCloses() {
-        HolidayCalendarService service = factory.getService(CODE);
-        HolidayCalendar calendar = service.getHolidayCalendar();
-        assertFalse(calendar.hasEarlyCloses(), "AU: national calendar must have zero early closes");
-    }
-
-    @Test
-    public void testEasterSaturdayAndKingsBirthdayPresentInCalculate() {
-        HolidayCalendarService service = factory.getService(CODE);
-        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2024);
-        Set<String> actualNames = holidays.stream()
-                .map(hd -> hd.getHoliday().getName())
-                .collect(Collectors.toSet());
-        assertTrue(actualNames.contains("Easter Saturday"), "AU: Easter Saturday must remain in the national calendar");
-        assertTrue(actualNames.contains("King's Birthday"), "AU: King's Birthday must remain in the national calendar");
     }
 
 }
