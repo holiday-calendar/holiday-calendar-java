@@ -21,31 +21,16 @@ package org.holiday.calendar.impl;
 import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
-import org.holiday.calendar.observance.christian.EasterObservance;
-import org.holiday.calendar.observance.christian.EasterMonday;
-import org.holiday.calendar.observance.christian.GoodFriday;
-import org.holiday.calendar.observance.christian.WesternEaster;
-import org.holiday.calendar.observance.uk.ChristmasEveEarlyClose;
-import org.holiday.calendar.observance.uk.EarlyMayBankHoliday;
-import org.holiday.calendar.observance.uk.NewYearsEveEarlyClose;
-import org.holiday.calendar.observance.uk.SpringBankHoliday;
-import org.holiday.calendar.observance.uk.SummerBankHoliday;
 import org.holiday.calendar.observance.uk.UKDateRolls;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneId;
+import java.util.List;
 
 /**
- * Service for provision of UK national holiday calendar.
- *
- * <p>Includes two {@code EARLY_CLOSE} holidays representing the London Stock
- * Exchange's Christmas Eve and New Year's Eve half-day closes. The CHAPS
- * settlement calendar ({@link HolidayCalendarServiceGBP}) does not currently
- * include these — CHAPS payment settlement and LSE equities trading are
- * distinct systems, and adding early closes there would need its own
- * Bank of England-sourced verification.
+ * Service for provision of the United Kingdom national/government bank
+ * holiday calendar. Distinct from {@link HolidayCalendarServiceXLON}, the
+ * London Stock Exchange (LSE) trading calendar: this calendar contains only
+ * England-and-Wales bank holidays, and never includes early-close (half-day)
+ * trading sessions.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
@@ -60,131 +45,17 @@ public class HolidayCalendarServiceUK extends AbstractHolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
-        final EasterObservance easter = new WesternEaster();
-
-        final Holiday newYearsDay = Holiday.builder()
-                .name("New Year's Day")
-                .description("First day of new year in the Common Era (CE)")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JANUARY, 1)
-                .build();
-        final Holiday goodFriday = Holiday.builder()
-                .name("Good Friday")
-                .description("Commemoration of the crucifixion of Jesus Christ")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new GoodFriday(easter))
-                .build();
-        final Holiday easterMonday = Holiday.builder()
-                .name("Easter Monday")
-                .description("Day after Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EasterMonday(easter))
-                .build();
-        final Holiday earlyMayBankHoliday = Holiday.builder()
-                .name("Early May Bank Holiday")
-                .description("Early May bank holiday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EarlyMayBankHoliday())
-                .build();
-        final Holiday springBankHoliday = Holiday.builder()
-                .name("Spring Bank Holiday")
-                .description("Late May bank holiday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new SpringBankHoliday())
-                .build();
-        final Holiday silverJubileeBankHoliday = Holiday.builder()
-                .name("Silver Jubilee Bank Holiday")
-                .description("Silver Jubilee of Queen Elizabeth II")
-                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
-                .rollable(false)
-                .anniversaryDate(LocalDate.of(1977, Month.JUNE, 7))
-                .build();
-        final Holiday goldenJubileeBankHoliday = Holiday.builder()
-                .name("Golden Jubilee Bank Holiday")
-                .description("Golden Jubilee of Queen Elizabeth II")
-                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
-                .rollable(false)
-                .anniversaryDate(LocalDate.of(2002, Month.JUNE, 3))
-                .build();
-        final Holiday diamondJubileeBankHoliday = Holiday.builder()
-                .name("Diamond Jubilee Bank Holiday")
-                .description("Diamond Jubilee of Queen Elizabeth II")
-                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
-                .rollable(false)
-                .anniversaryDate(LocalDate.of(2012, Month.JUNE, 5))
-                .build();
-        final Holiday platinumJubileeBankHoliday = Holiday.builder()
-                .name("Platinum Jubilee Bank Holiday")
-                .description("Platinum Jubilee of Queen Elizabeth II")
-                .type(Holiday.Type.SPECIAL_ANNIVERSARY)
-                .rollable(false)
-                .anniversaryDate(LocalDate.of(2022, Month.JUNE, 3))
-                .build();
-        final Holiday summerBankHoliday = Holiday.builder()
-                .name("Summer Bank Holiday")
-                .description("Summer bank holiday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new SummerBankHoliday())
-                .build();
-        final Holiday christmasDay = Holiday.builder()
-                .name("Christmas Day")
-                .description("Commemoration of the birth of Jesus Christ")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 25)
-                .build();
-        final Holiday boxingDay = Holiday.builder()
-                .name("Boxing Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 26)
-                .build();
-        final Holiday christmasEveEarlyClose = Holiday.builder()
-                .name("Christmas Eve")
-                .description("LSE half-day close; shifts to the preceding Friday when " +
-                             "December 24 falls on a Saturday or Sunday")
-                .type(Holiday.Type.EARLY_CLOSE)
-                .rollable(false)
-                .observance(new ChristmasEveEarlyClose())
-                .closeTime(LocalTime.of(12, 30))
-                .zoneId(ZoneId.of("Europe/London"))
-                .build();
-        final Holiday newYearsEveEarlyClose = Holiday.builder()
-                .name("New Year's Eve")
-                .description("LSE half-day close; shifts to the preceding Friday when " +
-                             "December 31 falls on a Saturday or Sunday")
-                .type(Holiday.Type.EARLY_CLOSE)
-                .rollable(false)
-                .observance(new NewYearsEveEarlyClose())
-                .closeTime(LocalTime.of(12, 30))
-                .zoneId(ZoneId.of("Europe/London"))
-                .build();
+        final Holiday newYearsDay = UkHolidays.newYearsDay();
+        final Holiday christmasDay = UkHolidays.christmasDay();
+        final Holiday boxingDay = UkHolidays.boxingDay();
+        final List<Holiday> holidays = UkHolidays.baseHolidays();
 
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(UKDateRolls.fixedHolidayRoll(newYearsDay, christmasDay, boxingDay))
                 .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
-                .holiday(newYearsDay)
-                .holiday(goodFriday)
-                .holiday(easterMonday)
-                .holiday(earlyMayBankHoliday)
-                .holiday(springBankHoliday)
-                .holiday(silverJubileeBankHoliday)
-                .holiday(goldenJubileeBankHoliday)
-                .holiday(diamondJubileeBankHoliday)
-                .holiday(platinumJubileeBankHoliday)
-                .holiday(summerBankHoliday)
-                .holiday(christmasDay)
-                .holiday(boxingDay)
-                .holiday(christmasEveEarlyClose)
-                .holiday(newYearsEveEarlyClose)
+                .holidays(holidays)
                 .build();
     }
 
