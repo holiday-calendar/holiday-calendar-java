@@ -12,6 +12,7 @@ body:
         - holiday-calendar-core
         - holiday-calendar-western
         - holiday-calendar-apac
+        - holiday-calendar-mena
         - tests
         - All / Cross-cutting
     validations:
