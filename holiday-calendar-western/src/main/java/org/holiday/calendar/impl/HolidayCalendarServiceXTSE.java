@@ -22,29 +22,44 @@ import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
-import org.holiday.calendar.observance.ca.NationalDayForTruthAndReconciliation;
+import org.holiday.calendar.observance.ca.BoxingDayCAD;
+import org.holiday.calendar.observance.ca.ChristmasEveEarlyClose;
 
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of the Canada national/federal holiday calendar.
- * Distinct from {@link HolidayCalendarServiceXTSE}, the Toronto Stock
- * Exchange (TSX) trading calendar: this calendar contains only holidays
- * observed by the Government of Canada, and never includes early-close
- * (half-day) trading sessions.
+ * Service for provision of the Toronto Stock Exchange (TSX) trading holiday
+ * calendar. Distinct from {@link HolidayCalendarServiceCA}, the Canada
+ * national holiday calendar: this calendar additionally includes a TSX
+ * Christmas Eve early close.
+ *
+ * <p>TSX's weekend substitution rule, per TMX Group's official Holiday
+ * Operating Schedule (verified against the 2021 and 2016 published
+ * schedules, and cross-checked against the 2017 Canada Day schedule): a
+ * statutory holiday falling on Saturday or Sunday rolls <strong>forward</strong>
+ * to the next available business day — never backward. This is identical
+ * to the Bank of Canada (Lynx) settlement convention used by {@code CAD}.
+ * Boxing Day requires collision-aware handling — see {@link BoxingDayCAD},
+ * reused here — since its own roll can collide with Christmas Day's rolled
+ * observance, and vice versa (e.g. in 2021, Christmas Day and Boxing Day
+ * both rolled forward to Monday Dec 27 and Tuesday Dec 28 respectively,
+ * while the ordinary Dec 24 early close proceeded unaffected).</p>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
+public class HolidayCalendarServiceXTSE extends AbstractHolidayCalendarService {
 
-    private static final String CODE = "CA";
-    private static final String NAME = "Canada National Holidays";
+    private static final String CODE = "XTSE";
+    private static final String NAME = "Canada (Toronto Stock Exchange) Holidays";
+    private static final ZoneId TSX_ZONE = ZoneId.of("America/Toronto");
 
-    public HolidayCalendarServiceCA() {
+    public HolidayCalendarServiceXTSE() {
         super(CODE, NAME);
     }
 
@@ -52,29 +67,39 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
     public HolidayCalendar getHolidayCalendar() {
         final Holiday nationalDayForTruthAndReconciliation = Holiday.builder()
                 .name("National Day For Truth and Reconciliation")
-                .description("Recognition of the legacy of the Canadian Indian residential school system; "
-                             + "federal statutory holiday first observed 30 September 2021")
-                .type(Holiday.Type.FLOATING)
-                .rollable(true)
-                .observance(new NationalDayForTruthAndReconciliation())
+                .description("Recognition of the legacy of the Canadian Indian residential school system")
+                .type(Holiday.Type.FIXED)
+                .monthDay(Month.SEPTEMBER, 30)
+                .rollable(false)
+                .build();
+        final Holiday christmasEveEarlyClose = Holiday.builder()
+                .name("Christmas Eve")
+                .description("TSX 1:00pm local early close; occurs whenever "
+                             + "December 24 falls Monday through Friday")
+                .type(Holiday.Type.EARLY_CLOSE)
+                .rollable(false)
+                .observance(new ChristmasEveEarlyClose())
+                .closeTime(LocalTime.of(13, 0))
+                .zoneId(TSX_ZONE)
                 .build();
         final Holiday christmas = Holiday.builder()
                 .name("Christmas Day")
                 .description("Christmas Day")
                 .type(Holiday.Type.FIXED)
                 .monthDay(Month.DECEMBER, 25)
-                .rollable(false)
+                .rollable(true)
                 .build();
         final Holiday boxingDay = Holiday.builder()
                 .name("Boxing Day")
-                .description("Day after Christmas")
-                .type(Holiday.Type.FIXED)
-                .monthDay(Month.DECEMBER, 26)
+                .description("Day after Christmas (observed; collision-aware with Christmas Day)")
+                .type(Holiday.Type.FLOATING)
                 .rollable(false)
+                .observance(new BoxingDayCAD())
                 .build();
 
         final List<Holiday> holidays = new ArrayList<>(CanadaHolidays.baseHolidays());
         holidays.add(nationalDayForTruthAndReconciliation);
+        holidays.add(christmasEveEarlyClose);
         holidays.add(christmas);
         holidays.add(boxingDay);
 

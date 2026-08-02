@@ -51,5 +51,6 @@ module org.holiday.calendar.western {
         org.holiday.calendar.impl.HolidayCalendarServiceUK,
         org.holiday.calendar.impl.HolidayCalendarServiceUS,
         org.holiday.calendar.impl.HolidayCalendarServiceUSD,
-        org.holiday.calendar.impl.HolidayCalendarServiceXNYS;
+        org.holiday.calendar.impl.HolidayCalendarServiceXNYS,
+        org.holiday.calendar.impl.HolidayCalendarServiceXTSE;
 }
