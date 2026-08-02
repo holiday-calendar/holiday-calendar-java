@@ -19,32 +19,25 @@
 package org.holiday.calendar.impl;
 
 import org.holiday.calendar.AbstractHolidayCalendarService;
-import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
-import org.holiday.calendar.observance.christian.AscensionDay;
-import org.holiday.calendar.observance.christian.EasterMonday;
-import org.holiday.calendar.observance.christian.EasterObservance;
-import org.holiday.calendar.observance.christian.WesternEaster;
-import org.holiday.calendar.observance.christian.WhitMonday;
-import org.holiday.calendar.observance.fr.ChristmasEveEarlyClose;
-import org.holiday.calendar.observance.fr.NewYearsEveEarlyClose;
-
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneId;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of France (Euronext Paris) holiday calendar.
+ * Service for provision of the France national public holiday calendar
+ * (jours fériés). Distinct from {@link HolidayCalendarServiceXPAR}, the
+ * Euronext Paris trading calendar: this calendar contains only the 11
+ * national public holidays — Good Friday is correctly absent, as it is not
+ * a French national holiday — and never includes early-close (half-day)
+ * trading sessions.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceFR extends AbstractHolidayCalendarService {
 
     private static final String CODE = "FR";
-    private static final String NAME = "France (Euronext Paris) Holidays";
+    private static final String NAME = "France National Holidays";
 
     public HolidayCalendarServiceFR() {
         super(CODE, NAME);
@@ -52,124 +45,12 @@ public class HolidayCalendarServiceFR extends AbstractHolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
-        final EasterObservance easter = new WesternEaster();
-
-        final Holiday newYearsDay = Holiday.builder()
-                .name("New Year's Day")
-                .description("First day of new year in the Common Era (CE)")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JANUARY, 1)
-                .build();
-        final Holiday easterMonday = Holiday.builder()
-                .name("Easter Monday")
-                .description("Monday after Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EasterMonday(easter))
-                .build();
-        final Holiday labourDay = Holiday.builder()
-                .name("Labour Day")
-                .description("International Workers' Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.MAY, 1)
-                .build();
-        final Holiday victoryInEuropeDay = Holiday.builder()
-                .name("Victory in Europe Day")
-                .description("Victory in Europe Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.MAY, 8)
-                .build();
-        final Holiday ascensionDay = Holiday.builder()
-                .name("Ascension Day")
-                .description("The 40th day of Easter; Jesus Christ's ascension into heaven")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new AscensionDay(easter))
-                .build();
-        final Holiday whitMonday = Holiday.builder()
-                .name("Whit Monday")
-                .description("Monday after Whit Sunday (Pentecost)")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new WhitMonday(easter))
-                .build();
-        final Holiday bastilleDay = Holiday.builder()
-                .name("Bastille Day")
-                .description("Bastille Day (French National Day)")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JULY, 14)
-                .build();
-        final Holiday assumptionDay = Holiday.builder()
-                .name("Assumption Day")
-                .description("Assumption of the Blessed Virgin Mary")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.AUGUST, 15)
-                .build();
-        final Holiday allSaintsDay = Holiday.builder()
-                .name("All Saints' Day")
-                .description("All Saints' Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.NOVEMBER, 1)
-                .build();
-        final Holiday armisticeDay = Holiday.builder()
-                .name("Armistice Day")
-                .description("Armistice Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.NOVEMBER, 11)
-                .build();
-        final Holiday christmasDay = Holiday.builder()
-                .name("Christmas Day")
-                .description("Celebration of traditional Christmas holiday")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 25)
-                .build();
-        final Holiday christmasEveEarlyClose = Holiday.builder()
-                .name("Christmas Eve")
-                .description("Euronext Paris half-day close; suppressed entirely (not shifted) " +
-                             "when December 24 falls on a Saturday or Sunday")
-                .type(Holiday.Type.EARLY_CLOSE)
-                .rollable(false)
-                .observance(new ChristmasEveEarlyClose())
-                .closeTime(LocalTime.of(14, 5))
-                .zoneId(ZoneId.of("Europe/Paris"))
-                .build();
-        final Holiday newYearsEveEarlyClose = Holiday.builder()
-                .name("New Year's Eve")
-                .description("Euronext Paris half-day close; suppressed entirely (not shifted) " +
-                             "when December 31 falls on a Saturday or Sunday")
-                .type(Holiday.Type.EARLY_CLOSE)
-                .rollable(false)
-                .observance(new NewYearsEveEarlyClose())
-                .closeTime(LocalTime.of(14, 5))
-                .zoneId(ZoneId.of("Europe/Paris"))
-                .build();
-
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(DateRolls.previousFridayOrFollowingMonday())
                 .weekendDays(STANDARD_WEEKEND)
-                .holiday(newYearsDay)
-                .holiday(easterMonday)
-                .holiday(labourDay)
-                .holiday(victoryInEuropeDay)
-                .holiday(ascensionDay)
-                .holiday(whitMonday)
-                .holiday(bastilleDay)
-                .holiday(assumptionDay)
-                .holiday(allSaintsDay)
-                .holiday(armisticeDay)
-                .holiday(christmasDay)
-                .holiday(christmasEveEarlyClose)
-                .holiday(newYearsEveEarlyClose)
+                .holidays(FrHolidays.baseHolidays())
                 .build();
     }
 

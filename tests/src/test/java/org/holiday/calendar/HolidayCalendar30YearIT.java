@@ -93,6 +93,7 @@ public class HolidayCalendar30YearIT {
                 new Object[]{"XASX"},
                 new Object[]{"XLON"},
                 new Object[]{"XNYS"},
+                new Object[]{"XPAR"},
                 new Object[]{"XTSE"}
         ).iterator();
     }
@@ -500,7 +501,7 @@ public class HolidayCalendar30YearIT {
     }
 
     // =========================================================================
-    // 11. FR EARLY CLOSES (Euronext Paris Christmas Eve / New Year's Eve half-day closures) OVER 30 YEARS
+    // 11. XPAR EARLY CLOSES (Euronext Paris Christmas Eve / New Year's Eve half-day closures) OVER 30 YEARS
     // =========================================================================
 
     // Both Euronext Eve early closes are suppressed (not shifted) when their date falls on a
@@ -509,27 +510,27 @@ public class HolidayCalendar30YearIT {
     // presence is re-derived from December 24's day-of-week rule for every year rather than
     // hand-fixtured.
     //
-    // FR's Christmas Day and New Year's Day are both rollable under
+    // XPAR's Christmas Day and New Year's Day are both rollable under
     // previousFridayOrFollowingMonday, unlike SG, so this section additionally verifies the two
     // genuine cross-list date collisions this produces: Christmas Day rolling back onto
     // December 24 in Dec-25-Saturday years, and New Year's Day rolling back onto the prior
     // December 31 in Jan-1-Saturday years (a year-boundary-crossing collision that a same-year
     // intersection check alone would miss).
-    @Test(description = "FR calculateEarlyCloses across 2026-2055: count always in {0,2}, "
+    @Test(description = "XPAR calculateEarlyCloses across 2026-2055: count always in {0,2}, "
             + "Christmas Eve/New Year's Eve presence matches December 24 dow rule (excludes Sat/Sun) "
             + "and always co-occur, no nulls, chronological order, and known Christmas Day/New Year's "
             + "Day roll collisions are accounted for")
-    public void testFREarlyClosesOver30Years() {
-        HolidayCalendar calendar = new HolidayCalendarFactory().create("FR");
+    public void testXPAREarlyClosesOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("XPAR");
 
         List<HolidayDate> allEarlyCloses = new java.util.ArrayList<>();
         for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
             List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(year);
-            assertNotNull(earlyCloses, "FR: calculateEarlyCloses(" + year + ") must not be null");
+            assertNotNull(earlyCloses, "XPAR: calculateEarlyCloses(" + year + ") must not be null");
 
             int count = earlyCloses.size();
             assertTrue(count == 0 || count == 2,
-                    "FR " + year + ": expected count in {0,2}, got " + count);
+                    "XPAR " + year + ": expected count in {0,2}, got " + count);
 
             DayOfWeek dec24Dow = LocalDate.of(year, Month.DECEMBER, 24).getDayOfWeek();
             boolean expected = !DayOfWeek.SATURDAY.equals(dec24Dow)
@@ -538,9 +539,9 @@ public class HolidayCalendar30YearIT {
                     .map(hd -> hd.holiday().getName())
                     .collect(Collectors.toSet());
             assertEquals(names.contains("Christmas Eve"), expected,
-                    "FR " + year + ": Christmas Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
+                    "XPAR " + year + ": Christmas Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
             assertEquals(names.contains("New Year's Eve"), expected,
-                    "FR " + year + ": New Year's Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
+                    "XPAR " + year + ": New Year's Eve presence must match December 24 dow rule (dow=" + dec24Dow + ")");
 
             // Cross-list date collision: empty in ordinary years, exactly one date
             // (December 24) in Dec-25-Saturday years, when Christmas Day rolls back
@@ -555,9 +556,9 @@ public class HolidayCalendar30YearIT {
                     DayOfWeek.SATURDAY.equals(LocalDate.of(year, Month.DECEMBER, 25).getDayOfWeek());
             if (isChristmasDaySaturdayRollYear) {
                 assertEquals(intersection, Set.of(LocalDate.of(year, Month.DECEMBER, 24)),
-                        "FR " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
+                        "XPAR " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
             } else {
-                assertTrue(intersection.isEmpty(), "FR " + year + ": unexpected cross-list date collision: " + intersection);
+                assertTrue(intersection.isEmpty(), "XPAR " + year + ": unexpected cross-list date collision: " + intersection);
             }
 
             // Cross-year collision: New Year's Day rolling back onto this year's December 31
@@ -570,9 +571,9 @@ public class HolidayCalendar30YearIT {
                         .anyMatch(hd -> "New Year's Day".equals(hd.holiday().getName()) && dec31.equals(hd.date()));
                 boolean newYearsEvePresent = names.contains("New Year's Eve");
                 assertTrue(newYearsDayPresent,
-                        "FR " + year + ": New Year's Day (rolled back from Jan 1, " + (year + 1) + ") must appear on Dec 31, " + year);
+                        "XPAR " + year + ": New Year's Day (rolled back from Jan 1, " + (year + 1) + ") must appear on Dec 31, " + year);
                 assertTrue(newYearsEvePresent,
-                        "FR " + year + ": New Year's Eve early close must independently appear on Dec 31, " + year);
+                        "XPAR " + year + ": New Year's Eve early close must independently appear on Dec 31, " + year);
             }
 
             allEarlyCloses.addAll(earlyCloses);
@@ -580,16 +581,16 @@ public class HolidayCalendar30YearIT {
 
         for (int i = 0; i < allEarlyCloses.size(); i++) {
             HolidayDate hd = allEarlyCloses.get(i);
-            assertNotNull(hd, "FR: early-close entry at index " + i + " must not be null");
-            assertNotNull(hd.holiday(), "FR: early-close holiday at index " + i + " must not be null");
-            assertNotNull(hd.date(), "FR: early-close date at index " + i + " must not be null");
+            assertNotNull(hd, "XPAR: early-close entry at index " + i + " must not be null");
+            assertNotNull(hd.holiday(), "XPAR: early-close holiday at index " + i + " must not be null");
+            assertNotNull(hd.date(), "XPAR: early-close date at index " + i + " must not be null");
         }
 
         for (int i = 1; i < allEarlyCloses.size(); i++) {
             LocalDate prev = allEarlyCloses.get(i - 1).date();
             LocalDate curr = allEarlyCloses.get(i).date();
             assertFalse(curr.isBefore(prev),
-                    "FR: early-close dates out of order at index " + i
+                    "XPAR: early-close dates out of order at index " + i
                             + " — " + prev + " followed by " + curr);
         }
     }

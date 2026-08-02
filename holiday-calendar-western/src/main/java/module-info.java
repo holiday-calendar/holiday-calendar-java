@@ -54,5 +54,6 @@ module org.holiday.calendar.western {
         org.holiday.calendar.impl.HolidayCalendarServiceXASX,
         org.holiday.calendar.impl.HolidayCalendarServiceXLON,
         org.holiday.calendar.impl.HolidayCalendarServiceXNYS,
+        org.holiday.calendar.impl.HolidayCalendarServiceXPAR,
         org.holiday.calendar.impl.HolidayCalendarServiceXTSE;
 }
