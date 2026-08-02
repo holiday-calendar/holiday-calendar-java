@@ -40,14 +40,14 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code AU} calendar's early-close (ASX half-day closure)
+ * Tests for the {@code XASX} calendar's early-close (ASX half-day closure)
  * holidays: Christmas Eve and New Year's Eve. Because December 24 and
  * December 31 are always exactly 7 days apart, they always share the same
  * day-of-week within a given year — both early closes are always present
  * together or absent together, never one without the other, same shape as
  * FR.
  *
- * <p>AU's Christmas Day and New Year's Day are both {@code rollable(true)}
+ * <p>XASX's Christmas Day and New Year's Day are both {@code rollable(true)}
  * under {@code previousFridayOrFollowingMonday} (the same roll rule FR
  * uses), producing the same two genuine date collisions with the early
  * closes that FR's test suite covers, both verified explicitly below:
@@ -63,23 +63,23 @@ import static org.testng.Assert.*;
  *     same-year intersection check alone.</li>
  * </ul>
  */
-public class HolidayCalendarServiceAUEarlyCloseTest {
+public class HolidayCalendarServiceXASXEarlyCloseTest {
 
     private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(14, 10);
     private static final ZoneId EXPECTED_ZONE = ZoneId.of("Australia/Sydney");
 
-    // 9 full-day holidays registered in HolidayCalendarServiceAU; the two Eve
+    // 9 full-day holidays registered in HolidayCalendarServiceXASX; the two Eve
     // holidays are EARLY_CLOSE and excluded by calculate(), so calculate() sees 9.
     private static final int FULL_DAY_HOLIDAY_COUNT = 9;
 
-    private final HolidayCalendarServiceAU service = new HolidayCalendarServiceAU();
+    private final HolidayCalendarServiceXASX service = new HolidayCalendarServiceXASX();
 
     // -------------------------------------------------------------------------
     // Count / presence per year (verified 2020-2029 ASX cycle)
     // -------------------------------------------------------------------------
 
-    @DataProvider(name = "auEarlyCloseFixture")
-    public Iterator<Object[]> auEarlyCloseFixture() {
+    @DataProvider(name = "xasxEarlyCloseFixture")
+    public Iterator<Object[]> xasxEarlyCloseFixture() {
         List<Object[]> data = Arrays.asList(
                 new Object[]{2020, true},
                 new Object[]{2021, true},
@@ -95,23 +95,23 @@ public class HolidayCalendarServiceAUEarlyCloseTest {
         return data.iterator();
     }
 
-    @Test(dataProvider = "auEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testEarlyCloseCountForYear(int year, boolean present) {
         List<HolidayDate> earlyCloses = service.getHolidayCalendar().calculateEarlyCloses(year);
         assertNotNull(earlyCloses);
-        assertEquals(earlyCloses.size(), present ? 2 : 0, "AU " + year + ": unexpected early-close count");
+        assertEquals(earlyCloses.size(), present ? 2 : 0, "XASX " + year + ": unexpected early-close count");
     }
 
-    @Test(dataProvider = "auEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testChristmasEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("Christmas Eve"), present,
-                "AU " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
+                "XASX " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
     }
 
-    @Test(dataProvider = "auEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testNewYearsEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("New Year's Eve"), present,
-                "AU " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
+                "XASX " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
     }
 
     private Set<String> earlyCloseNames(int year) {
@@ -120,10 +120,10 @@ public class HolidayCalendarServiceAUEarlyCloseTest {
                 .collect(Collectors.toSet());
     }
 
-    @Test(dataProvider = "auEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testEarlyCloseCountAlwaysZeroOrTwo(int year, boolean present) {
         int count = service.getHolidayCalendar().calculateEarlyCloses(year).size();
-        assertNotEquals(count, 1, "AU " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
+        assertNotEquals(count, 1, "XASX " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
     }
 
     // -------------------------------------------------------------------------
@@ -188,7 +188,7 @@ public class HolidayCalendarServiceAUEarlyCloseTest {
         for (int year : List.of(2024, 2027)) {
             List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
             assertNotNull(holidays);
-            assertEquals(holidays.size(), FULL_DAY_HOLIDAY_COUNT, "AU " + year + ": unexpected full-day holiday count");
+            assertEquals(holidays.size(), FULL_DAY_HOLIDAY_COUNT, "XASX " + year + ": unexpected full-day holiday count");
         }
     }
 
@@ -198,7 +198,7 @@ public class HolidayCalendarServiceAUEarlyCloseTest {
     // onto Christmas Eve
     // -------------------------------------------------------------------------
 
-    @Test(dataProvider = "auEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testCrossListDateOverlapOnlyOnKnownChristmasDayRollYears(int year, boolean present) {
         HolidayCalendar calendar = service.getHolidayCalendar();
         Set<LocalDate> fullDayDates = calendar.calculate(year).stream()
@@ -215,9 +215,9 @@ public class HolidayCalendarServiceAUEarlyCloseTest {
                 DayOfWeek.SATURDAY.equals(LocalDate.of(year, Month.DECEMBER, 25).getDayOfWeek());
         if (isChristmasDaySaturdayRollYear) {
             assertEquals(intersection, Set.of(LocalDate.of(year, Month.DECEMBER, 24)),
-                    "AU " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
+                    "XASX " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
         } else {
-            assertTrue(intersection.isEmpty(), "AU " + year + ": unexpected cross-list date collision: " + intersection);
+            assertTrue(intersection.isEmpty(), "XASX " + year + ": unexpected cross-list date collision: " + intersection);
         }
     }
 
@@ -228,7 +228,7 @@ public class HolidayCalendarServiceAUEarlyCloseTest {
 
     @Test
     public void testChristmasDayAndChristmasEveCoexistOn24Dec2027() {
-        // December 25, 2027 is a Saturday and rolls to Friday December 24 under AU's
+        // December 25, 2027 is a Saturday and rolls to Friday December 24 under XASX's
         // previousFridayOrFollowingMonday roll rule -- the same date the non-rolling
         // Christmas Eve EARLY_CLOSE independently occupies (December 24, 2027 is a
         // Friday, a valid early-close weekday). Both facts are true simultaneously and
@@ -255,7 +255,7 @@ public class HolidayCalendarServiceAUEarlyCloseTest {
     @Test
     public void testNewYearsDayAndNewYearsEveCoexistOn31Dec2027() {
         // January 1, 2028 is a Saturday and rolls back to Friday December 31, 2027
-        // under AU's previousFridayOrFollowingMonday roll rule -- the same date the
+        // under XASX's previousFridayOrFollowingMonday roll rule -- the same date the
         // non-rolling New Year's Eve EARLY_CLOSE independently occupies in 2027
         // (December 31, 2027 is a Friday, a valid early-close weekday). This is a
         // genuine same-date coexistence spanning two different year arguments:
