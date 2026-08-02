@@ -18,6 +18,8 @@
 
 package org.holiday.calendar;
 
+import org.holiday.calendar.function.DateRoll;
+import org.holiday.calendar.function.DateRolls;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -92,6 +94,7 @@ public class HolidayCalendar30YearIT {
                 new Object[]{"USD"},
                 new Object[]{"XLON"},
                 new Object[]{"XNYS"},
+                new Object[]{"XSWX"},
                 new Object[]{"XTSE"}
         ).iterator();
     }
@@ -684,6 +687,68 @@ public class HolidayCalendar30YearIT {
             LocalDate curr = allEarlyCloses.get(i).date();
             assertFalse(curr.isBefore(prev),
                     "AU: early-close dates out of order at index " + i
+                            + " — " + prev + " followed by " + curr);
+        }
+    }
+
+    // =========================================================================
+    // 13. XSWX CHRISTMAS EVE / NEW YEAR'S EVE (SIX full non-trading days) OVER 30 YEARS
+    // =========================================================================
+
+    // SIX's Christmas Eve and New Year's Eve are FIXED, rollable(true) full holidays
+    // under previousFridayOrFollowingMonday — unlike DE (omitted on Sat/Sun), they are
+    // never suppressed, only shifted, so calculate() always contains exactly 11 entries.
+    // Expected dates are re-derived directly from the production DateRoll rather than
+    // hand-fixtured, since CH has no existing 30-year test today (it never had early
+    // closes).
+    @Test(description = "XSWX calculate() across 2026-2055: exactly 11 holidays every year, "
+            + "Christmas Eve/New Year's Eve dates match previousFridayOrFollowingMonday roll of "
+            + "December 24/31, no nulls, chronological order")
+    public void testXSWXOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("XSWX");
+        DateRoll roll = DateRolls.previousFridayOrFollowingMonday();
+
+        List<HolidayDate> allHolidays = new java.util.ArrayList<>();
+        for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
+            final int currentYear = year;
+            List<HolidayDate> holidays = calendar.calculate(year);
+            assertNotNull(holidays, "XSWX: calculate(" + year + ") must not be null");
+            assertEquals(holidays.size(), 11,
+                    "XSWX " + year + ": expected exactly 11 holidays, got " + holidays.size());
+
+            LocalDate expectedChristmasEve = roll.rollToObservedDate(LocalDate.of(year, Month.DECEMBER, 24));
+            LocalDate actualChristmasEve = holidays.stream()
+                    .filter(hd -> "Christmas Eve".equals(hd.holiday().getName()))
+                    .map(HolidayDate::date)
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("XSWX " + currentYear + ": Christmas Eve missing"));
+            assertEquals(actualChristmasEve, expectedChristmasEve,
+                    "XSWX " + year + ": Christmas Eve must match previousFridayOrFollowingMonday roll of December 24");
+
+            LocalDate expectedNewYearsEve = roll.rollToObservedDate(LocalDate.of(year, Month.DECEMBER, 31));
+            LocalDate actualNewYearsEve = holidays.stream()
+                    .filter(hd -> "New Year's Eve".equals(hd.holiday().getName()))
+                    .map(HolidayDate::date)
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("XSWX " + currentYear + ": New Year's Eve missing"));
+            assertEquals(actualNewYearsEve, expectedNewYearsEve,
+                    "XSWX " + year + ": New Year's Eve must match previousFridayOrFollowingMonday roll of December 31");
+
+            allHolidays.addAll(holidays);
+        }
+
+        for (int i = 0; i < allHolidays.size(); i++) {
+            HolidayDate hd = allHolidays.get(i);
+            assertNotNull(hd, "XSWX: entry at index " + i + " must not be null");
+            assertNotNull(hd.holiday(), "XSWX: holiday at index " + i + " must not be null");
+            assertNotNull(hd.date(), "XSWX: date at index " + i + " must not be null");
+        }
+
+        for (int i = 1; i < allHolidays.size(); i++) {
+            LocalDate prev = allHolidays.get(i - 1).date();
+            LocalDate curr = allHolidays.get(i).date();
+            assertFalse(curr.isBefore(prev),
+                    "XSWX: dates out of order at index " + i
                             + " — " + prev + " followed by " + curr);
         }
     }

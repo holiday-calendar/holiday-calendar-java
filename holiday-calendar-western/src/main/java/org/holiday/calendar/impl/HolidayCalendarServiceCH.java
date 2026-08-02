@@ -19,29 +19,34 @@
 package org.holiday.calendar.impl;
 
 import org.holiday.calendar.AbstractHolidayCalendarService;
-import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
-import org.holiday.calendar.observance.christian.AscensionDay;
-import org.holiday.calendar.observance.christian.EasterMonday;
-import org.holiday.calendar.observance.christian.EasterObservance;
-import org.holiday.calendar.observance.christian.GoodFriday;
-import org.holiday.calendar.observance.christian.WesternEaster;
-import org.holiday.calendar.observance.christian.WhitMonday;
-
-import java.time.Month;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of Switzerland (SIX Stock Exchange) holiday calendar.
+ * Service for provision of the Switzerland national public holiday
+ * calendar. Distinct from {@link HolidayCalendarServiceXSWX}, the SIX Swiss
+ * Exchange trading calendar: this calendar never includes early-close
+ * (half-day) trading sessions.
+ *
+ * <p>Switzerland has only <strong>one</strong> federally-mandated nationwide
+ * public holiday: Swiss National Day (August 1), enshrined in the Federal
+ * Act on the Swiss National Holiday. Every other holiday in this calendar,
+ * including New Year's Day and Christmas, is decided at the cantonal level
+ * and is adopted by most-but-not-all of the 26 cantons — for example, Good
+ * Friday is not observed in Ticino or Valais. There is no single
+ * unambiguous "Swiss national holiday list" defined by federal law: the 8
+ * non-federal holidays here represent the <strong>majority-cantonal
+ * convention</strong> (holidays observed by most/all cantons), not uniform
+ * federal law.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceCH extends AbstractHolidayCalendarService {
 
     private static final String CODE = "CH";
-    private static final String NAME = "Switzerland (SIX) Holidays";
+    private static final String NAME = "Switzerland National Holidays";
 
     public HolidayCalendarServiceCH() {
         super(CODE, NAME);
@@ -49,102 +54,12 @@ public class HolidayCalendarServiceCH extends AbstractHolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
-        final EasterObservance easter = new WesternEaster();
-
-        final Holiday newYearsDay = Holiday.builder()
-                .name("New Year's Day")
-                .description("First day of new year in the Common Era (CE)")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JANUARY, 1)
-                .build();
-        final Holiday goodFriday = Holiday.builder()
-                .name("Good Friday")
-                .description("Friday before Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new GoodFriday(easter))
-                .build();
-        final Holiday easterMonday = Holiday.builder()
-                .name("Easter Monday")
-                .description("Monday after Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EasterMonday(easter))
-                .build();
-        final Holiday labourDay = Holiday.builder()
-                .name("Labour Day")
-                .description("International Workers' Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.MAY, 1)
-                .build();
-        final Holiday ascensionDay = Holiday.builder()
-                .name("Ascension Day")
-                .description("The 40th day of Easter; Jesus Christ's ascension into heaven")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new AscensionDay(easter))
-                .build();
-        final Holiday whitMonday = Holiday.builder()
-                .name("Whit Monday")
-                .description("Monday after Whit Sunday (Pentecost)")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new WhitMonday(easter))
-                .build();
-        final Holiday swissNationalDay = Holiday.builder()
-                .name("Swiss National Day")
-                .description("Date of the Federal Charter of 1291")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.AUGUST, 1)
-                .build();
-        final Holiday christmasEve = Holiday.builder()
-                .name("Christmas Eve")
-                .description("SIX Swiss Exchange market holiday per official Trading Calendar")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 24)
-                .build();
-        final Holiday christmasDay = Holiday.builder()
-                .name("Christmas Day")
-                .description("Celebration of traditional Christmas holiday")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 25)
-                .build();
-        final Holiday boxingDay = Holiday.builder()
-                .name("Boxing Day")
-                .description("Day after Christmas")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 26)
-                .build();
-        final Holiday newYearsEve = Holiday.builder()
-                .name("New Year's Eve")
-                .description("SIX Swiss Exchange market holiday per official Trading Calendar")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 31)
-                .build();
-
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(DateRolls.previousFridayOrFollowingMonday())
                 .weekendDays(STANDARD_WEEKEND)
-                .holiday(newYearsDay)
-                .holiday(goodFriday)
-                .holiday(easterMonday)
-                .holiday(labourDay)
-                .holiday(ascensionDay)
-                .holiday(whitMonday)
-                .holiday(swissNationalDay)
-                .holiday(christmasEve)
-                .holiday(christmasDay)
-                .holiday(boxingDay)
-                .holiday(newYearsEve)
+                .holidays(ChHolidays.baseHolidays())
                 .build();
     }
 
