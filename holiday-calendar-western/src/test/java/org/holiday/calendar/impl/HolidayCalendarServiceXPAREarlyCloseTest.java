@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code FR} calendar's early-close (Euronext Paris half-day
+ * Tests for the {@code XPAR} calendar's early-close (Euronext Paris half-day
  * closure) holidays: Christmas Eve and New Year's Eve. Because December 24
  * and December 31 are always exactly 7 days apart, they always share the
  * same day-of-week within a given year — both early closes are always
@@ -48,8 +48,8 @@ import static org.testng.Assert.*;
  * shape as SG.
  *
  * <p>Unlike CA (Christmas Day {@code rollable(false)}) and SG (no rollable
- * holiday ever lands on Dec 24/31), FR's Christmas Day and New Year's Day are
- * both {@code rollable(true)} under {@code previousFridayOrFollowingMonday}.
+ * holiday ever lands on Dec 24/31), XPAR's Christmas Day and New Year's Day
+ * are both {@code rollable(true)} under {@code previousFridayOrFollowingMonday}.
  * This produces two genuine, independently-verified date collisions with the
  * early closes, both covered explicitly below rather than relying on a naive
  * "always empty intersection" assertion:
@@ -65,23 +65,24 @@ import static org.testng.Assert.*;
  *     same-year intersection check alone.</li>
  * </ul>
  */
-public class HolidayCalendarServiceFREarlyCloseTest {
+public class HolidayCalendarServiceXPAREarlyCloseTest {
 
     private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(14, 5);
     private static final ZoneId EXPECTED_ZONE = ZoneId.of("Europe/Paris");
 
-    // 11 full-day holidays registered in HolidayCalendarServiceFR; the two Eve
-    // holidays are EARLY_CLOSE and excluded by calculate(), so calculate() sees 11.
-    private static final int FULL_DAY_HOLIDAY_COUNT = 11;
+    // 12 full-day holidays registered in HolidayCalendarServiceXPAR (11 shared with FR
+    // plus Good Friday); the two Eve holidays are EARLY_CLOSE and excluded by
+    // calculate(), so calculate() sees 12.
+    private static final int FULL_DAY_HOLIDAY_COUNT = 12;
 
-    private final HolidayCalendarServiceFR service = new HolidayCalendarServiceFR();
+    private final HolidayCalendarServiceXPAR service = new HolidayCalendarServiceXPAR();
 
     // -------------------------------------------------------------------------
     // Count / presence per year (verified 2020-2029 Euronext cycle)
     // -------------------------------------------------------------------------
 
-    @DataProvider(name = "frEarlyCloseFixture")
-    public Iterator<Object[]> frEarlyCloseFixture() {
+    @DataProvider(name = "xparEarlyCloseFixture")
+    public Iterator<Object[]> xparEarlyCloseFixture() {
         List<Object[]> data = Arrays.asList(
                 new Object[]{2020, true},
                 new Object[]{2021, true},
@@ -97,23 +98,23 @@ public class HolidayCalendarServiceFREarlyCloseTest {
         return data.iterator();
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xparEarlyCloseFixture")
     public void testEarlyCloseCountForYear(int year, boolean present) {
         List<HolidayDate> earlyCloses = service.getHolidayCalendar().calculateEarlyCloses(year);
         assertNotNull(earlyCloses);
-        assertEquals(earlyCloses.size(), present ? 2 : 0, "FR " + year + ": unexpected early-close count");
+        assertEquals(earlyCloses.size(), present ? 2 : 0, "XPAR " + year + ": unexpected early-close count");
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xparEarlyCloseFixture")
     public void testChristmasEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("Christmas Eve"), present,
-                "FR " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
+                "XPAR " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xparEarlyCloseFixture")
     public void testNewYearsEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("New Year's Eve"), present,
-                "FR " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
+                "XPAR " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
     }
 
     private Set<String> earlyCloseNames(int year) {
@@ -122,10 +123,10 @@ public class HolidayCalendarServiceFREarlyCloseTest {
                 .collect(Collectors.toSet());
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xparEarlyCloseFixture")
     public void testEarlyCloseCountAlwaysZeroOrTwo(int year, boolean present) {
         int count = service.getHolidayCalendar().calculateEarlyCloses(year).size();
-        assertNotEquals(count, 1, "FR " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
+        assertNotEquals(count, 1, "XPAR " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
     }
 
     // -------------------------------------------------------------------------
@@ -190,7 +191,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
         for (int year : List.of(2024, 2027)) {
             List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
             assertNotNull(holidays);
-            assertEquals(holidays.size(), FULL_DAY_HOLIDAY_COUNT, "FR " + year + ": unexpected full-day holiday count");
+            assertEquals(holidays.size(), FULL_DAY_HOLIDAY_COUNT, "XPAR " + year + ": unexpected full-day holiday count");
         }
     }
 
@@ -200,7 +201,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
     // onto Christmas Eve
     // -------------------------------------------------------------------------
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xparEarlyCloseFixture")
     public void testCrossListDateOverlapOnlyOnKnownChristmasDayRollYears(int year, boolean present) {
         HolidayCalendar calendar = service.getHolidayCalendar();
         Set<LocalDate> fullDayDates = calendar.calculate(year).stream()
@@ -217,9 +218,9 @@ public class HolidayCalendarServiceFREarlyCloseTest {
                 DayOfWeek.SATURDAY.equals(LocalDate.of(year, Month.DECEMBER, 25).getDayOfWeek());
         if (isChristmasDaySaturdayRollYear) {
             assertEquals(intersection, Set.of(LocalDate.of(year, Month.DECEMBER, 24)),
-                    "FR " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
+                    "XPAR " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
         } else {
-            assertTrue(intersection.isEmpty(), "FR " + year + ": unexpected cross-list date collision: " + intersection);
+            assertTrue(intersection.isEmpty(), "XPAR " + year + ": unexpected cross-list date collision: " + intersection);
         }
     }
 
@@ -230,7 +231,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
 
     @Test
     public void testChristmasDayAndChristmasEveCoexistOn24Dec2027() {
-        // December 25, 2027 is a Saturday and rolls to Friday December 24 under FR's
+        // December 25, 2027 is a Saturday and rolls to Friday December 24 under XPAR's
         // previousFridayOrFollowingMonday roll rule -- the same date the non-rolling
         // Christmas Eve EARLY_CLOSE independently occupies (December 24, 2027 is a
         // Friday, a valid early-close weekday). Both facts are true simultaneously and
@@ -257,7 +258,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
     @Test
     public void testNewYearsDayAndNewYearsEveCoexistOn31Dec2027() {
         // January 1, 2028 is a Saturday and rolls back to Friday December 31, 2027
-        // under FR's previousFridayOrFollowingMonday roll rule -- the same date the
+        // under XPAR's previousFridayOrFollowingMonday roll rule -- the same date the
         // non-rolling New Year's Eve EARLY_CLOSE independently occupies in 2027
         // (December 31, 2027 is a Friday, a valid early-close weekday). This is a
         // genuine same-date coexistence spanning two different year arguments:
