@@ -19,32 +19,24 @@
 package org.holiday.calendar.impl;
 
 import org.holiday.calendar.AbstractHolidayCalendarService;
-import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
-import org.holiday.calendar.observance.au.ChristmasEveEarlyClose;
-import org.holiday.calendar.observance.au.KingsBirthday;
-import org.holiday.calendar.observance.au.NewYearsEveEarlyClose;
-import org.holiday.calendar.observance.christian.EasterMonday;
-import org.holiday.calendar.observance.christian.EasterObservance;
-import org.holiday.calendar.observance.christian.GoodFriday;
-import org.holiday.calendar.observance.christian.WesternEaster;
-
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneId;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of Australia (ASX) holiday calendar.
+ * Service for provision of the Australia national public holiday calendar.
+ * Distinct from {@link HolidayCalendarServiceXASX}, the Australian
+ * Securities Exchange (ASX) trading calendar: this calendar contains only
+ * the 9 national public holidays, and never includes early-close (half-day)
+ * trading sessions.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
 
     private static final String CODE = "AU";
-    private static final String NAME = "Australian Securities Exchange (ASX) Holidays";
+    private static final String NAME = "Australia National Holidays";
 
     public HolidayCalendarServiceAU() {
         super(CODE, NAME);
@@ -52,109 +44,12 @@ public class HolidayCalendarServiceAU extends AbstractHolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
-        final EasterObservance easter = new WesternEaster();
-        final GoodFriday goodFridayObs = new GoodFriday(easter);
-
-        final Holiday newYearsDay = Holiday.builder()
-                .name("New Year's Day")
-                .description("First day of new year in the Common Era (CE)")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JANUARY, 1)
-                .build();
-        final Holiday australiaDay = Holiday.builder()
-                .name("Australia Day")
-                .description("Australia Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JANUARY, 26)
-                .build();
-        final Holiday goodFriday = Holiday.builder()
-                .name("Good Friday")
-                .description("Friday before Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(goodFridayObs)
-                .build();
-        final Holiday easterSaturday = Holiday.builder()
-                .name("Easter Saturday")
-                .description("Day after Good Friday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(year -> goodFridayObs.apply(year).plusDays(1))
-                .build();
-        final Holiday easterMonday = Holiday.builder()
-                .name("Easter Monday")
-                .description("Monday after Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EasterMonday(easter))
-                .build();
-        final Holiday anzacDay = Holiday.builder()
-                .name("ANZAC Day")
-                .description("ANZAC Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.APRIL, 25)
-                .build();
-        final Holiday kingsBirthday = Holiday.builder()
-                .name("King's Birthday")
-                .description("King's Birthday (ASX; 2nd Monday in June)")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new KingsBirthday())
-                .build();
-        final Holiday christmasDay = Holiday.builder()
-                .name("Christmas Day")
-                .description("Celebration of traditional Christmas holiday")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 25)
-                .build();
-        final Holiday boxingDay = Holiday.builder()
-                .name("Boxing Day")
-                .description("Day after Christmas")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 26)
-                .build();
-        final Holiday christmasEveEarlyClose = Holiday.builder()
-                .name("Christmas Eve")
-                .description("ASX half-day close; suppressed entirely (not shifted) " +
-                             "when December 24 falls on a Saturday or Sunday")
-                .type(Holiday.Type.EARLY_CLOSE)
-                .rollable(false)
-                .observance(new ChristmasEveEarlyClose())
-                .closeTime(LocalTime.of(14, 10))
-                .zoneId(ZoneId.of("Australia/Sydney"))
-                .build();
-        final Holiday newYearsEveEarlyClose = Holiday.builder()
-                .name("New Year's Eve")
-                .description("ASX half-day close; suppressed entirely (not shifted) " +
-                             "when December 31 falls on a Saturday or Sunday")
-                .type(Holiday.Type.EARLY_CLOSE)
-                .rollable(false)
-                .observance(new NewYearsEveEarlyClose())
-                .closeTime(LocalTime.of(14, 10))
-                .zoneId(ZoneId.of("Australia/Sydney"))
-                .build();
-
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(DateRolls.previousFridayOrFollowingMonday())
                 .weekendDays(STANDARD_WEEKEND)
-                .holiday(newYearsDay)
-                .holiday(australiaDay)
-                .holiday(goodFriday)
-                .holiday(easterSaturday)
-                .holiday(easterMonday)
-                .holiday(anzacDay)
-                .holiday(kingsBirthday)
-                .holiday(christmasDay)
-                .holiday(boxingDay)
-                .holiday(christmasEveEarlyClose)
-                .holiday(newYearsEveEarlyClose)
+                .holidays(AuHolidays.baseHolidays())
                 .build();
     }
 
