@@ -21,7 +21,9 @@
  *
  * <p>Provides holiday calendar implementations and observances for Western
  * countries: Australia, Canada, France, Germany, Switzerland, the United
- * Kingdom, and the United States.
+ * Kingdom, and the United States. Also provides equities-market/exchange
+ * trading calendars (e.g. the New York Stock Exchange) distinct from their
+ * national-holiday counterparts.
  */
 module org.holiday.calendar.western {
     requires org.holiday.calendar.core;
@@ -49,5 +51,6 @@ module org.holiday.calendar.western {
         org.holiday.calendar.impl.HolidayCalendarServiceUK,
         org.holiday.calendar.impl.HolidayCalendarServiceUS,
         org.holiday.calendar.impl.HolidayCalendarServiceUSD,
+        org.holiday.calendar.impl.HolidayCalendarServiceXNYS,
         org.holiday.calendar.impl.HolidayCalendarServiceXTSE;
 }

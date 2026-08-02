@@ -21,31 +21,39 @@ package org.holiday.calendar.impl;
 import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
+import org.holiday.calendar.observance.christian.EasterObservance;
+import org.holiday.calendar.observance.christian.GoodFriday;
+import org.holiday.calendar.observance.christian.WesternEaster;
 import org.holiday.calendar.observance.us.*;
 
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 
 /**
- * Service for provision of the United States national/federal holiday
- * calendar. Distinct from {@link HolidayCalendarServiceXNYS}, the New York
- * Stock Exchange (NYSE) trading calendar: this calendar contains only
- * holidays observed by the US federal government, and never includes
- * early-close (half-day) trading sessions.
+ * Service for provision of the New York Stock Exchange (NYSE) trading holiday
+ * calendar. Distinct from {@link HolidayCalendarServiceUS}, the United States
+ * national/federal holiday calendar: this calendar additionally includes Good
+ * Friday (observed by NYSE by market convention, not a US federal holiday)
+ * and NYSE's early-close (half-day) trading sessions.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
+public class HolidayCalendarServiceXNYS extends AbstractHolidayCalendarService {
 
-    private static final String CODE = "US";
-    private static final String NAME = "United States National Holidays";
+    private static final String CODE = "XNYS";
+    private static final String NAME = "United States (NYSE) Holidays";
+    private static final ZoneId NYSE_ZONE = ZoneId.of("America/New_York");
 
-    public HolidayCalendarServiceUS() {
+    public HolidayCalendarServiceXNYS() {
         super(CODE, NAME);
     }
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
+        final EasterObservance easter = new WesternEaster();
+
         final Holiday newYearsDay = Holiday.builder()
                                            .name("New Year's Day")
                                            .description("First day of new year in the Common Era (CE)")
@@ -67,6 +75,13 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                                              .rollable(false)
                                              .observance(new PresidentsDay())
                                              .build();
+        final Holiday goodFriday = Holiday.builder()
+                                          .name("Good Friday")
+                                          .description("Good Friday (NYSE market closure by convention)")
+                                          .type(Holiday.Type.FLOATING)
+                                          .rollable(false)
+                                          .observance(new GoodFriday(easter))
+                                          .build();
         final Holiday memorialDay = Holiday.builder()
                                            .name("Memorial Day")
                                            .description("Commemoration of fallen service members of US armed forces")
@@ -116,6 +131,35 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                                             .rollable(false)
                                             .observance(new Thanksgiving())
                                             .build();
+        final Holiday dayAfterThanksgiving = Holiday.builder()
+                                                     .name("Day After Thanksgiving")
+                                                     .description("NYSE 1:00pm ET early close, the day after Thanksgiving")
+                                                     .type(Holiday.Type.EARLY_CLOSE)
+                                                     .rollable(false)
+                                                     .observance(new DayAfterThanksgiving())
+                                                     .closeTime(LocalTime.of(13, 0))
+                                                     .zoneId(NYSE_ZONE)
+                                                     .build();
+        final Holiday julyThirdEarlyClose = Holiday.builder()
+                                                    .name("July 3rd")
+                                                    .description("NYSE 1:00pm ET early close; occurs only when " +
+                                                                 "July 4 falls Tuesday through Friday")
+                                                    .type(Holiday.Type.EARLY_CLOSE)
+                                                    .rollable(false)
+                                                    .observance(new JulyThirdEarlyClose())
+                                                    .closeTime(LocalTime.of(13, 0))
+                                                    .zoneId(NYSE_ZONE)
+                                                    .build();
+        final Holiday christmasEveEarlyClose = Holiday.builder()
+                                                       .name("Christmas Eve")
+                                                       .description("NYSE 1:00pm ET early close; occurs only when " +
+                                                                    "December 25 falls Tuesday through Friday")
+                                                       .type(Holiday.Type.EARLY_CLOSE)
+                                                       .rollable(false)
+                                                       .observance(new ChristmasEveEarlyClose())
+                                                       .closeTime(LocalTime.of(13, 0))
+                                                       .zoneId(NYSE_ZONE)
+                                                       .build();
         final Holiday christmasDay = Holiday.builder()
                                             .name("Christmas Day")
                                             .description("Celebration of traditional Christmas holiday")
@@ -135,13 +179,17 @@ public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
                 .holiday(newYearsDay)
                 .holiday(mlkDay)
                 .holiday(presidentsDay)
+                .holiday(goodFriday)
                 .holiday(memorialDay)
                 .holiday(juneteenth)
                 .holiday(independenceDay)
+                .holiday(julyThirdEarlyClose)
                 .holiday(laborDay)
                 .holiday(columbusDay)
                 .holiday(veteransDay)
                 .holiday(thanksgiving)
+                .holiday(dayAfterThanksgiving)
+                .holiday(christmasEveEarlyClose)
                 .holiday(christmasDay)
                 .build();
     }
