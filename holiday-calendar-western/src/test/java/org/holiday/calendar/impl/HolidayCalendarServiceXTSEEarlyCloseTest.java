@@ -37,21 +37,21 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code CA} calendar's early-close (TSX half-day closure)
- * holiday: Christmas Eve. Unlike US's Christmas Eve early close (keyed off
- * December 25's day of week), CA registers exactly one EARLY_CLOSE holiday,
+ * Tests for the {@code XTSE} calendar's early-close (TSX half-day closure)
+ * holiday: Christmas Eve. Unlike NYSE's Christmas Eve early close (keyed off
+ * December 25's day of week), XTSE registers exactly one EARLY_CLOSE holiday,
  * so the count per year is either 0 or 1 — never more than one.
  */
-public class HolidayCalendarServiceCAEarlyCloseTest {
+public class HolidayCalendarServiceXTSEEarlyCloseTest {
 
     private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(13, 0);
     private static final ZoneId EXPECTED_ZONE = ZoneId.of("America/Toronto");
 
-    // 13 full-day holidays registered in HolidayCalendarServiceCA; Christmas Eve is the
+    // 13 full-day holidays registered in HolidayCalendarServiceXTSE; Christmas Eve is the
     // only EARLY_CLOSE holiday and is excluded by calculate(), so calculate() sees 13.
     private static final int FULL_DAY_HOLIDAY_COUNT = 13;
 
-    private final HolidayCalendarServiceCA service = new HolidayCalendarServiceCA();
+    private final HolidayCalendarServiceXTSE service = new HolidayCalendarServiceXTSE();
 
     // -------------------------------------------------------------------------
     // Count / presence per year (verified 2017-2026 TSX cycle)
@@ -77,13 +77,13 @@ public class HolidayCalendarServiceCAEarlyCloseTest {
     public void testEarlyCloseCountForYear(int year, boolean present) {
         List<HolidayDate> earlyCloses = service.getHolidayCalendar().calculateEarlyCloses(year);
         assertNotNull(earlyCloses);
-        assertEquals(earlyCloses.size(), present ? 1 : 0, "CA " + year + ": unexpected early-close count");
+        assertEquals(earlyCloses.size(), present ? 1 : 0, "XTSE " + year +": unexpected early-close count");
     }
 
     @Test(dataProvider = "caEarlyCloseFixture")
     public void testChristmasEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("Christmas Eve"), present,
-                "CA " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
+                "XTSE " + year +": Christmas Eve presence must match December 24 day-of-week rule");
     }
 
     private Set<String> earlyCloseNames(int year) {
@@ -183,7 +183,7 @@ public class HolidayCalendarServiceCAEarlyCloseTest {
                 .filter(earlyCloseDates::contains)
                 .collect(Collectors.toSet());
         assertTrue(intersection.isEmpty(),
-                "CA " + year + ": dates must not appear in both calculate() and calculateEarlyCloses(): " + intersection);
+                "XTSE " + year +": dates must not appear in both calculate() and calculateEarlyCloses(): " + intersection);
     }
 
     // -------------------------------------------------------------------------
@@ -195,7 +195,7 @@ public class HolidayCalendarServiceCAEarlyCloseTest {
         HolidayCalendar calendar = service.getHolidayCalendar();
         List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(year);
         if (!present) {
-            assertTrue(earlyCloses.isEmpty(), "CA " + year + ": expected no early closes");
+            assertTrue(earlyCloses.isEmpty(), "XTSE " + year +": expected no early closes");
             return;
         }
         LocalDate expected = new ChristmasEveEarlyClose().apply(year);
