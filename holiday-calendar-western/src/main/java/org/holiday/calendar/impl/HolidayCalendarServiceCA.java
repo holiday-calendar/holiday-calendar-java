@@ -22,18 +22,11 @@ import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
-import org.holiday.calendar.observance.christian.EasterObservance;
-import org.holiday.calendar.observance.christian.EasterMonday;
-import org.holiday.calendar.observance.christian.GoodFriday;
-import org.holiday.calendar.observance.christian.WesternEaster;
-import org.holiday.calendar.observance.ca.CivicHoliday;
-import org.holiday.calendar.observance.ca.FamilyDay;
-import org.holiday.calendar.observance.ca.LabourDay;
 import org.holiday.calendar.observance.ca.NationalDayForTruthAndReconciliation;
-import org.holiday.calendar.observance.ca.Thanksgiving;
-import org.holiday.calendar.observance.ca.VictoriaDay;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
@@ -57,64 +50,6 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
-        final EasterObservance easter = new WesternEaster();
-
-        final Holiday newYearsDay = Holiday.builder()
-                .name("New Year's Day")
-                .description("First day of new year in the Common Era (CE)")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JANUARY, 1)
-                .build();
-        final Holiday familyDay = Holiday.builder()
-                .name("Family Day")
-                .description("Day to spend time with the family")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new FamilyDay())
-                .build();
-        final Holiday goodFriday = Holiday.builder()
-                .name("Good Friday")
-                .description("Friday before Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new GoodFriday(easter))
-                .build();
-        final Holiday easterMonday = Holiday.builder()
-                .name("Easter Monday")
-                .description("Monday after Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EasterMonday(easter))
-                .build();
-        final Holiday victoriaDay = Holiday.builder()
-                .name("Victoria Day")
-                .description("Official celebration of birthday of Canada's Sovereign")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new VictoriaDay())
-                .build();
-        final Holiday canadaDay = Holiday.builder()
-                .name("Canada Day")
-                .description("Anniversary of Canadian Confederation")
-                .type(Holiday.Type.FIXED)
-                .monthDay(Month.JULY, 1)
-                .rollable(true)
-                .build();
-        final Holiday civicHoliday = Holiday.builder()
-                .name("Civic Holiday")
-                .description("Civic Holiday (observed; varies by province)")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new CivicHoliday())
-                .build();
-        final Holiday labourDay = Holiday.builder()
-                .name("Labour Day")
-                .description("Celebration of workers in Canada")
-                .type(Holiday.Type.FLOATING)
-                .observance(new LabourDay())
-                .rollable(false)
-                .build();
         final Holiday nationalDayForTruthAndReconciliation = Holiday.builder()
                 .name("National Day For Truth and Reconciliation")
                 .description("Recognition of the legacy of the Canadian Indian residential school system; "
@@ -122,20 +57,6 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
                 .type(Holiday.Type.FLOATING)
                 .rollable(true)
                 .observance(new NationalDayForTruthAndReconciliation())
-                .build();
-        final Holiday thanksgiving = Holiday.builder()
-                .name("Thanksgiving Day")
-                .description("National day for giving thanks")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new Thanksgiving())
-                .build();
-        final Holiday remembranceDay = Holiday.builder()
-                .name("Remembrance Day")
-                .description("Commemoration of armed forces members who have died in the line of duty")
-                .type(Holiday.Type.FIXED)
-                .monthDay(Month.NOVEMBER, 11)
-                .rollable(true)
                 .build();
         final Holiday christmas = Holiday.builder()
                 .name("Christmas Day")
@@ -152,24 +73,17 @@ public class HolidayCalendarServiceCA extends AbstractHolidayCalendarService {
                 .rollable(false)
                 .build();
 
+        final List<Holiday> holidays = new ArrayList<>(CanadaHolidays.baseHolidays());
+        holidays.add(nationalDayForTruthAndReconciliation);
+        holidays.add(christmas);
+        holidays.add(boxingDay);
+
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(DateRolls.followingMonday())
                 .weekendDays(STANDARD_WEEKEND)
-                .holiday(newYearsDay)
-                .holiday(familyDay)
-                .holiday(goodFriday)
-                .holiday(easterMonday)
-                .holiday(victoriaDay)
-                .holiday(canadaDay)
-                .holiday(civicHoliday)
-                .holiday(labourDay)
-                .holiday(nationalDayForTruthAndReconciliation)
-                .holiday(thanksgiving)
-                .holiday(remembranceDay)
-                .holiday(christmas)
-                .holiday(boxingDay)
+                .holidays(holidays)
                 .build();
     }
 
