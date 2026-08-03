@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+> **Breaking changes** — see [MIGRATION.md](MIGRATION.md) for the full upgrade guide from v1.4.0.
+
+### Changed
+
+- **BREAKING**: Separated national holiday calendars from equities-exchange market calendars (#229). `US`, `CA`, `UK`, `AU`, `FR`, `CH`, `DE`, and `SG` now return only pure national public holidays and never carry `EarlyCloseHoliday` entries; the early closes previously modeled on those codes (added in 2.0.0) move to new market-specific calendar codes: `XNYS`, `XTSE`, `XLON`, `XASX`, `XPAR`, `XSWX`, `XETR`, `XSES` (ISO 10383 MIC codes) (#231, #232, #234–#241)
+- `CH` and `DE` gain a national-only calendar for the first time — previously only their market-branded (SIX/Xetra) calendars existed
+- `JP` redocumented as "Japan National Holidays" (was mislabeled "Tokyo Stock Exchange"); no change to holiday data or behavior (#232)
+- Corrected BIST Republic Day Eve (Turkey) early-close time from 12:30 to the statutory 13:00 `Europe/Istanbul`; confirmed as a nationwide statutory half-day rather than a market-only convention, so it remains on both `TR` and `TRY` (#233)
+
+### Added
+
+- New `HolidayCalendarServiceXNYS`, `XTSE`, `XLON`, `XASX`, `XPAR`, `XSWX`, `XETR` (western) and `XSES` (apac) market calendar implementations
+
 ## [2.0.0] - 2026-08-01
 
 ### Added
