@@ -32,17 +32,17 @@ import java.util.List;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code TR} calendar's early-close (nationwide Republic Day Eve
+ * Tests for the {@code TRY} calendar's early-close (nationwide Republic Day Eve
  * half-day per Law No. 2429) holiday, provided by {@link TurkeyHolidays#earlyCloseHolidays()}.
  */
-public class HolidayCalendarServiceTREarlyCloseTest {
+public class HolidayCalendarServiceTRYEarlyCloseTest {
 
     private static final int EARLY_CLOSE_COUNT = 1;
     private static final int FULL_DAY_HOLIDAY_COUNT = 14;
     private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(13, 0);
     private static final ZoneId EXPECTED_ZONE = ZoneId.of("Europe/Istanbul");
 
-    private final HolidayCalendarServiceTR service = new HolidayCalendarServiceTR();
+    private final HolidayCalendarServiceTRY service = new HolidayCalendarServiceTRY();
 
     @Test
     public void testEarlyCloseHolidayCount2025() {

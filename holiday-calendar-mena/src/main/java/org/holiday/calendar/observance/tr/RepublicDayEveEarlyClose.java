@@ -25,13 +25,15 @@ import java.time.LocalDate;
 import java.time.Month;
 
 /**
- * Observance of Borsa İstanbul's (BIST) Republic Day Eve half-day close
- * (October 28). Unlike the LSE's Christmas Eve convention, BIST does not
- * shift this session to the preceding Friday when October 28 falls on a
- * Saturday or Sunday — the market is simply closed for the weekend as usual,
- * with no early-close adjustment that year (confirmed against BIST's 2023
- * holiday schedule, where 28-29 October fell on Saturday-Sunday with no
- * preceding half-day session).
+ * Observance of Turkey's Republic Day Eve nationwide half-day (October 28),
+ * declared by Law No. 2429 (Ulusal Bayram ve Genel Tatiller Hakkında Kanun)
+ * and observed alike by public institutions, Borsa İstanbul (BIST), and the
+ * Central Bank of the Republic of Turkey (TCMB). Unlike the LSE's Christmas
+ * Eve convention, it does not shift to the preceding Friday when October 28
+ * falls on a Saturday or Sunday — institutions are simply closed for the
+ * weekend as usual, with no early-close adjustment that year (confirmed
+ * against BIST's 2023 holiday schedule, where 28-29 October fell on
+ * Saturday-Sunday with no preceding half-day session).
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */

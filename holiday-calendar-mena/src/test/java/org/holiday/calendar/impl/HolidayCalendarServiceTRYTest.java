@@ -38,7 +38,8 @@ import static org.testng.Assert.*;
 
 public class HolidayCalendarServiceTRYTest {
 
-    // 7 fixed + 3 Eid al-Fitr + 4 Eid al-Adha = 14 (Republic Day Eve omitted; half-day not modelled)
+    // 7 fixed + 3 Eid al-Fitr + 4 Eid al-Adha = 14 (Republic Day Eve is an EARLY_CLOSE
+    // holiday, reported separately via calculateEarlyCloses() — not counted here)
     private static final int TRY_HOLIDAY_COUNT = 14;
 
     private final HolidayCalendarServiceTRY service = new HolidayCalendarServiceTRY();
@@ -264,15 +265,16 @@ public class HolidayCalendarServiceTRYTest {
     }
 
     // =========================================================================
-    // Republic Day Eve (Oct 28) — confirmed absent
+    // Republic Day Eve (Oct 28) — early close, not a full-day holiday
     // =========================================================================
 
     @Test
-    public void testRepublicDayEveAbsent2025() {
+    public void testRepublicDayEveAbsentFromCalculate2025() {
         boolean oct28Present = service.getHolidayCalendar().calculate(2025).stream()
                 .anyMatch(hd -> hd.date().equals(LocalDate.of(2025, Month.OCTOBER, 28)));
         assertFalse(oct28Present,
-                "Oct 28 (Republic Day Eve) must not be present — half-day closures are not modelled");
+                "Oct 28 (Republic Day Eve) is an EARLY_CLOSE holiday and must not appear in calculate(), "
+                        + "only in calculateEarlyCloses() — see HolidayCalendarServiceTRYEarlyCloseTest");
     }
 
     // =========================================================================

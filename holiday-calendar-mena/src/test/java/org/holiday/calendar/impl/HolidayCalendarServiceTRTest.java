@@ -38,7 +38,8 @@ import static org.testng.Assert.*;
 
 public class HolidayCalendarServiceTRTest {
 
-    // 7 fixed + 3 Eid al-Fitr + 4 Eid al-Adha = 14 (Republic Day Eve omitted; half-day not modelled)
+    // 7 fixed + 3 Eid al-Fitr + 4 Eid al-Adha = 14 (Republic Day Eve is an EARLY_CLOSE
+    // holiday, reported separately via calculateEarlyCloses() — not counted here)
     private static final int TR_HOLIDAY_COUNT = 14;
 
     private final HolidayCalendarServiceTR service = new HolidayCalendarServiceTR();
