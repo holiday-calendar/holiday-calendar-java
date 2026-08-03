@@ -93,6 +93,7 @@ public class HolidayCalendar30YearIT {
                 new Object[]{"US"},
                 new Object[]{"USD"},
                 new Object[]{"XASX"},
+                new Object[]{"XETR"},
                 new Object[]{"XLON"},
                 new Object[]{"XNYS"},
                 new Object[]{"XPAR"},
@@ -412,7 +413,7 @@ public class HolidayCalendar30YearIT {
     }
 
     // =========================================================================
-    // 9. DE CHRISTMAS EVE / NEW YEAR'S EVE (Xetra/FWB full non-trading days) OVER 30 YEARS
+    // 9. XETR CHRISTMAS EVE / NEW YEAR'S EVE (Xetra/FWB full non-trading days) OVER 30 YEARS
     // =========================================================================
 
     // Xetra/FWB's Christmas Eve and New Year's Eve are full non-trading days, not
@@ -420,14 +421,14 @@ public class HolidayCalendar30YearIT {
     // calculateEarlyCloses(). Each is omitted (not shifted) when its date falls on a
     // weekend; expected presence is re-derived from each date's day-of-week rule for
     // every year rather than hand-fixtured.
-    @Test(description = "DE calculate() across 2026-2055: Christmas Eve/New Year's Eve present "
+    @Test(description = "XETR calculate() across 2026-2055: Christmas Eve/New Year's Eve present "
             + "unrolled whenever not Sat/Sun, absent (not shifted) when Sat/Sun, no nulls")
-    public void testDEChristmasEveAndNewYearsEveOver30Years() {
-        HolidayCalendar calendar = new HolidayCalendarFactory().create("DE");
+    public void testXETRChristmasEveAndNewYearsEveOver30Years() {
+        HolidayCalendar calendar = new HolidayCalendarFactory().create("XETR");
 
         for (int year = FROM_YEAR; year <= TO_YEAR; year++) {
             List<HolidayDate> all = calendar.calculate(year);
-            assertNotNull(all, "DE: calculate(" + year + ") must not be null");
+            assertNotNull(all, "XETR: calculate(" + year + ") must not be null");
 
             LocalDate dec24 = LocalDate.of(year, Month.DECEMBER, 24);
             DayOfWeek dec24Dow = dec24.getDayOfWeek();
@@ -436,7 +437,7 @@ public class HolidayCalendar30YearIT {
             boolean dec24Present = all.stream().anyMatch(hd ->
                     "Christmas Eve".equals(hd.holiday().getName()) && dec24.equals(hd.date()));
             assertEquals(dec24Present, dec24Expected,
-                    "DE " + year + ": Christmas Eve presence/date must match December 24 dow rule (dow=" + dec24Dow + ")");
+                    "XETR " + year + ": Christmas Eve presence/date must match December 24 dow rule (dow=" + dec24Dow + ")");
 
             LocalDate dec31 = LocalDate.of(year, Month.DECEMBER, 31);
             DayOfWeek dec31Dow = dec31.getDayOfWeek();
@@ -445,7 +446,7 @@ public class HolidayCalendar30YearIT {
             boolean dec31Present = all.stream().anyMatch(hd ->
                     "New Year's Eve".equals(hd.holiday().getName()) && dec31.equals(hd.date()));
             assertEquals(dec31Present, dec31Expected,
-                    "DE " + year + ": New Year's Eve presence/date must match December 31 dow rule (dow=" + dec31Dow + ")");
+                    "XETR " + year + ": New Year's Eve presence/date must match December 31 dow rule (dow=" + dec31Dow + ")");
         }
     }
 
