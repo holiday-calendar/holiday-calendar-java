@@ -58,12 +58,14 @@ import java.util.List;
  * <p>Turkey observes three days of Eid al-Fitr (Ramazan Bayramı) and four days
  * of Eid al-Adha (Kurban Bayramı), consistent with BIST market closure announcements.
  *
- * <p>Borsa Istanbul (BIST) observes a half-day closure on 28 October (Republic
- * Day Eve), closing at 12:30 {@code Europe/Istanbul}. This is modelled as an
- * {@link Holiday.Type#EARLY_CLOSE} holiday via {@link #earlyCloseHolidays()},
- * consumed by {@link HolidayCalendarServiceTR}. It does not shift when
- * 28 October falls on a Saturday or Sunday — see {@link RepublicDayEveEarlyClose}.
- * {@link HolidayCalendarServiceTRY} does not yet include this half-day closure.
+ * <p>Law No. 2429 (Ulusal Bayram ve Genel Tatiller Hakkında Kanun) declares
+ * Republic Day Eve (28 October) a nationwide half-day holiday, in effect from
+ * 13:00 {@code Europe/Istanbul}. It applies to all public institutions, not just
+ * Borsa Istanbul (BIST) or the Central Bank of the Republic of Turkey (TCMB), so
+ * it is modelled as an {@link Holiday.Type#EARLY_CLOSE} holiday via {@link
+ * #earlyCloseHolidays()} and consumed by both {@link HolidayCalendarServiceTR}
+ * and {@link HolidayCalendarServiceTRY}. It does not shift when 28 October falls
+ * on a Saturday or Sunday — see {@link RepublicDayEveEarlyClose}.
  *
  * <p>Note: the 2033 Gregorian year contains two Eid al-Fitr occurrences; only the
  * January occurrence is recorded in the CSV. See {@link EidAlFitr} for details.
@@ -78,15 +80,14 @@ class TurkeyHolidays {
     private TurkeyHolidays() {}
 
     /**
-     * Returns the 15 Turkey public holidays.
+     * Returns the 14 Turkey full-day public holidays. Does not include the
+     * Republic Day Eve early close; see {@link #earlyCloseHolidays()}.
      *
      * @param rollableFixed whether fixed-date holidays are rollable; all Islamic
      *                      holidays are always {@code rollable(false)}
-     * @param additional    additional holidays to append (e.g. future BIST-specific
-     *                      closures); pass {@link List#of()} when not needed
      */
-    static List<Holiday> baseHolidays(boolean rollableFixed, List<Holiday> additional) {
-        List<Holiday> holidays = new ArrayList<>(15 + additional.size());
+    static List<Holiday> baseHolidays(boolean rollableFixed) {
+        List<Holiday> holidays = new ArrayList<>(14);
         holidays.add(Holiday.builder()
                 .name("New Year's Day")
                 .description("First day of the new year in the Common Era (CE)")
@@ -189,26 +190,25 @@ class TurkeyHolidays {
                 .rollable(rollableFixed)
                 .monthDay(Month.OCTOBER, 29)
                 .build());
-        holidays.addAll(additional);
         return List.copyOf(holidays);
     }
 
     /**
-     * Returns the single {@code EARLY_CLOSE} holiday representing BIST's
-     * Republic Day Eve half-day close (28 October, closing at 12:30
-     * {@code Europe/Istanbul}). Does not shift when 28 October falls on a
-     * Saturday or Sunday; see {@link RepublicDayEveEarlyClose}.
+     * Returns the single {@code EARLY_CLOSE} holiday representing the
+     * nationwide Republic Day Eve half-day (28 October, in effect from 13:00
+     * {@code Europe/Istanbul} per Law No. 2429). Does not shift when 28 October
+     * falls on a Saturday or Sunday; see {@link RepublicDayEveEarlyClose}.
      */
     static List<Holiday> earlyCloseHolidays() {
         return List.of(
             Holiday.builder()
                     .name("Republic Day Eve")
-                    .description("BIST half-day close ahead of Republic Day; no adjustment when "
-                            + "28 October falls on a Saturday or Sunday")
+                    .description("Nationwide half-day ahead of Republic Day per Law No. 2429; no "
+                            + "adjustment when 28 October falls on a Saturday or Sunday")
                     .type(Holiday.Type.EARLY_CLOSE)
                     .rollable(false)
                     .observance(new RepublicDayEveEarlyClose())
-                    .closeTime(LocalTime.of(12, 30))
+                    .closeTime(LocalTime.of(13, 0))
                     .zoneId(ZoneId.of("Europe/Istanbul"))
                     .build()
         );
