@@ -21,9 +21,21 @@
  *
  * <p>Provides holiday calendar implementations and observances for Asia-Pacific
  * countries, including lunar, Islamic, and Hindu calendar-based holidays.
- * Supports Singapore national (SG), Singapore Exchange (XSES), Singapore MAS
- * MEPS+ (SGD), Japan national (JP), Bank of Japan (JPY), People's Bank of
- * China (CNY), and China national (CN).
+ * Supports Singapore national (SG), Singapore Exchange (XSES) — including its
+ * Christmas Eve/New Year's Eve {@code EARLY_CLOSE} half-day sessions —
+ * Singapore MAS MEPS+ (SGD), Japan national (JP), Bank of Japan (JPY),
+ * People's Bank of China (CNY), and China national (CN). Non-Gregorian dates
+ * are computed via <a href="https://www.time4j.net/">Time4J</a>'s
+ * {@code ChineseCalendar} (Chinese New Year) or sourced from officially
+ * gazetted lookup tables (Vesak Day, Hari Raya Puasa/Haji, Deepavali) loaded
+ * via {@link org.holiday.calendar.util.CsvObservanceLoader}.
+ *
+ * <p>This module's {@code HolidayCalendarService} providers are consumed via
+ * {@link org.holiday.calendar.HolidayCalendarFactory} in the core module:
+ * <pre>{@code
+ * HolidayCalendar sgx = new HolidayCalendarFactory().create("XSES");
+ * List<HolidayDate> earlyCloses2026 = sgx.calculateEarlyCloses(2026);
+ * }</pre>
  */
 module org.holiday.calendar.apac {
     requires org.holiday.calendar.core;

@@ -40,9 +40,24 @@ import static java.util.Objects.requireNonNull;
  *
  * <p>An early close is inherently {@link #isRollable() non-rollable}: it is tied
  * to the specific calendar day preceding the associated full holiday and is never
- * adjusted for weekend observance. Consequently, early closes are excluded from
- * {@link HolidayCalendar#calculate(int)} and are reported separately by
+ * adjusted for weekend observance — e.g. a Christmas Eve early close always occurs
+ * on Dec 24, never rolled to Dec 23 or Dec 26. Consequently, early closes are
+ * excluded from {@link HolidayCalendar#calculate(int)} and are reported separately by
  * {@link HolidayCalendar#calculateEarlyCloses(int)}.</p>
+ *
+ * <p>Instances are immutable, thread-safe {@code record}s constructed via
+ * {@link Holiday#builder()} with {@link Holiday.Type#EARLY_CLOSE}:</p>
+ * <pre>{@code
+ * Holiday christmasEveEarlyClose = Holiday.builder()
+ *     .name("Christmas Eve")
+ *     .description("NYSE 1:00pm ET early close")
+ *     .type(Holiday.Type.EARLY_CLOSE)
+ *     .rollable(false)
+ *     .observance(new ChristmasEveEarlyClose())
+ *     .closeTime(LocalTime.of(13, 0))
+ *     .zoneId(ZoneId.of("America/New_York"))
+ *     .build();
+ * }</pre>
  *
  * @see Observance
  * @see HolidayCalendar#calculateEarlyCloses(int)

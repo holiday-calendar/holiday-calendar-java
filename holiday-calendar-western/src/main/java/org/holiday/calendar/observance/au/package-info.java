@@ -17,30 +17,17 @@
  ******************************************************************************/
 
 /**
- * Functional interfaces to support construction of filters and date
- * calculation algorithms as lambda expressions.
+ * Implementations of {@link org.holiday.calendar.function.Observance} for
+ * holidays observed in Australia.
  *
- * <p>{@link org.holiday.calendar.function.Observance} computes the date of a
- * {@link org.holiday.calendar.FloatingHoliday} or
- * {@link org.holiday.calendar.EarlyCloseHoliday} for a given year and also acts
- * as a {@code Predicate<Integer>} indicating whether the holiday occurs in that
- * year (e.g. a holiday introduced only from a certain year onward):
- * <pre>{@code
- * Observance juneteenth = year -> year >= 2021 ? LocalDate.of(year, Month.JUNE, 19) : null;
- * }</pre>
- *
- * <p>{@link org.holiday.calendar.function.DateRoll} adjusts a calculated date
- * that falls on a weekend to its actual observed date; {@link
- * org.holiday.calendar.function.DateRolls} supplies common strategies used
- * throughout the regional calendar modules:
- * <pre>{@code
- * HolidayCalendar.builder()
- *     .dateRoll(DateRolls.followingMonday())
- *     .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
- *     // ...
- *     .build();
- * }</pre>
+ * <p>Includes national public holidays such as
+ * {@link org.holiday.calendar.observance.au.KingsBirthday} and
+ * {@link org.holiday.calendar.observance.au.BankHoliday}, and the ASX-only
+ * {@code EARLY_CLOSE} observances
+ * {@link org.holiday.calendar.observance.au.ChristmasEveEarlyClose} and
+ * {@link org.holiday.calendar.observance.au.NewYearsEveEarlyClose}, which
+ * share a package-private base implementing the common half-day-close logic.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-package org.holiday.calendar.function;
+package org.holiday.calendar.observance.au;

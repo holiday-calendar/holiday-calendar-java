@@ -20,9 +20,23 @@
  * Holiday Calendar core API module.
  *
  * <p>Provides the core abstractions for defining, building, and calculating
- * holiday calendars: {@code Holiday}, {@code HolidayCalendar},
- * {@code HolidayCalendarService}, {@code HolidayCalendarFactory}, and
- * associated functional interfaces.
+ * holiday calendars: {@code Holiday} (and its permitted subtypes, including
+ * the {@code EarlyCloseHoliday} half-day close), {@code HolidayCalendar},
+ * {@code HolidayCalendarService}, {@code HolidayCalendarFactory}, and the
+ * {@code Observance}/{@code DateRoll} functional interfaces used to plug in
+ * per-region date calculation and weekend-rolling behavior. Regional
+ * implementations (the {@code western}, {@code apac}, and {@code mena}
+ * modules) depend on this module and register their
+ * {@code HolidayCalendarService} providers via {@link java.util.ServiceLoader}.
+ *
+ * <p>Typical read-only usage — locate a calendar by code and calculate a
+ * year's holidays without depending on which module provides it:
+ * <pre>{@code
+ * HolidayCalendarFactory factory = new HolidayCalendarFactory();
+ * HolidayCalendar xnys = factory.create("XNYS");
+ * List<HolidayDate> holidays = xnys.calculate(2026);
+ * List<HolidayDate> earlyCloses = xnys.calculateEarlyCloses(2026);
+ * }</pre>
  */
 module org.holiday.calendar.core {
     requires org.slf4j;
