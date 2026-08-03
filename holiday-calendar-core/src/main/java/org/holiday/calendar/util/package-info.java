@@ -17,30 +17,19 @@
  ******************************************************************************/
 
 /**
- * Functional interfaces to support construction of filters and date
- * calculation algorithms as lambda expressions.
+ * Shared runtime utilities used by {@link org.holiday.calendar.function.Observance}
+ * implementations across the regional calendar modules.
  *
- * <p>{@link org.holiday.calendar.function.Observance} computes the date of a
- * {@link org.holiday.calendar.FloatingHoliday} or
- * {@link org.holiday.calendar.EarlyCloseHoliday} for a given year and also acts
- * as a {@code Predicate<Integer>} indicating whether the holiday occurs in that
- * year (e.g. a holiday introduced only from a certain year onward):
+ * <p>{@link org.holiday.calendar.util.CsvObservanceLoader} loads
+ * officially-gazetted holiday dates (moon-sighting-dependent Islamic holidays,
+ * government-published Lunar New Year and Deepavali dates, etc.) from classpath
+ * CSV resources of the form {@code year,YYYY-MM-DD[,comment]}, since these
+ * dates cannot be computed algorithmically for the full supported year range:
  * <pre>{@code
- * Observance juneteenth = year -> year >= 2021 ? LocalDate.of(year, Month.JUNE, 19) : null;
- * }</pre>
- *
- * <p>{@link org.holiday.calendar.function.DateRoll} adjusts a calculated date
- * that falls on a weekend to its actual observed date; {@link
- * org.holiday.calendar.function.DateRolls} supplies common strategies used
- * throughout the regional calendar modules:
- * <pre>{@code
- * HolidayCalendar.builder()
- *     .dateRoll(DateRolls.followingMonday())
- *     .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
- *     // ...
- *     .build();
+ * private static final Map<Integer, LocalDate> DATES =
+ *     CsvObservanceLoader.loadSingle(EidAlFitr.class, "eid-al-fitr.csv");
  * }</pre>
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-package org.holiday.calendar.function;
+package org.holiday.calendar.util;

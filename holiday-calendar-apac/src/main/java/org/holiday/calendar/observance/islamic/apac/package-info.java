@@ -17,30 +17,20 @@
  ******************************************************************************/
 
 /**
- * Functional interfaces to support construction of filters and date
- * calculation algorithms as lambda expressions.
+ * Implementations of {@link org.holiday.calendar.function.Observance} for
+ * Singapore's Islamic public holidays:
+ * {@link org.holiday.calendar.observance.islamic.apac.HariRayaPuasa} (Eid
+ * al-Fitr) and
+ * {@link org.holiday.calendar.observance.islamic.apac.HariRayaHaji} (Eid
+ * al-Adha).
  *
- * <p>{@link org.holiday.calendar.function.Observance} computes the date of a
- * {@link org.holiday.calendar.FloatingHoliday} or
- * {@link org.holiday.calendar.EarlyCloseHoliday} for a given year and also acts
- * as a {@code Predicate<Integer>} indicating whether the holiday occurs in that
- * year (e.g. a holiday introduced only from a certain year onward):
- * <pre>{@code
- * Observance juneteenth = year -> year >= 2021 ? LocalDate.of(year, Month.JUNE, 19) : null;
- * }</pre>
- *
- * <p>{@link org.holiday.calendar.function.DateRoll} adjusts a calculated date
- * that falls on a weekend to its actual observed date; {@link
- * org.holiday.calendar.function.DateRolls} supplies common strategies used
- * throughout the regional calendar modules:
- * <pre>{@code
- * HolidayCalendar.builder()
- *     .dateRoll(DateRolls.followingMonday())
- *     .weekendDays(HolidayCalendar.STANDARD_WEEKEND)
- *     // ...
- *     .build();
- * }</pre>
+ * <p>Unlike the Umm al-Qura-projected dates used by the MENA module's
+ * {@code observance.islamic.mena} package, Singapore's observed dates follow
+ * official MUIS (Majlis Ugama Islam Singapura) moon-sighting gazettes and are
+ * loaded from classpath CSV lookup tables via
+ * {@link org.holiday.calendar.util.CsvObservanceLoader}, with tabular
+ * projections used only beyond the officially gazetted year range.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-package org.holiday.calendar.function;
+package org.holiday.calendar.observance.islamic.apac;

@@ -17,8 +17,28 @@
  ******************************************************************************/
 
 /**
- * Implementations of {@link org.holiday.calendar.function.Observance}
- * for common holidays observed in multiple regions and contexts.
+ * Base classes for {@link org.holiday.calendar.function.Observance}
+ * implementations, used throughout the regional calendar modules.
+ *
+ * <p>{@link org.holiday.calendar.observance.AbstractObservance} supplies
+ * standard null-guard handling and a year-validity hook, leaving subclasses
+ * to implement only {@code computeDate(int)}:
+ * <pre>{@code
+ * public class Juneteenth extends AbstractObservance {
+ *     protected LocalDate computeDate(int year) {
+ *         return LocalDate.of(year, Month.JUNE, 19);
+ *     }
+ *     protected boolean isValidYear(int year) {
+ *         return year >= 2021;
+ *     }
+ * }
+ * }</pre>
+ *
+ * <p>{@link org.holiday.calendar.observance.CompositeObservance} extends
+ * {@code AbstractObservance} for holidays computed relative to another
+ * observance (most commonly an Easter algorithm), delegating year validity to
+ * that base observance — see the {@code observance.christian} package in the
+ * western module for examples such as Good Friday and Easter Monday.
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */

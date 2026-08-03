@@ -17,7 +17,28 @@
  ******************************************************************************/
 
 /**
- * Holiday Calendar - MENA regional calendar module.
+ * Holiday Calendar MENA (Middle East &amp; North Africa) module.
+ *
+ * <p>Provides national and market/central-bank holiday calendar
+ * implementations for the United Arab Emirates ({@code AE}/{@code AED}),
+ * Saudi Arabia ({@code SA}/{@code SAR}), Israel ({@code IL}/{@code ILS}),
+ * Turkey ({@code TR}/{@code TRY}), Qatar ({@code QA}/{@code QAR}), Egypt
+ * ({@code EG}/{@code EGP}), Kuwait ({@code KW}/{@code KWD}), Bahrain
+ * ({@code BH}/{@code BHD}), Morocco ({@code MA}/{@code MAD}), and Jordan
+ * ({@code JO}/{@code JOD}). Islamic-calendar holidays (Eid al-Fitr, Eid
+ * al-Adha, Islamic New Year, Ashura, etc.) are sourced from officially
+ * gazetted CSV lookup tables via
+ * {@link org.holiday.calendar.util.CsvObservanceLoader}, with a Diyanet
+ * "ilmi takvim" astronomical fallback calculator for years beyond the data
+ * ceiling. Hebrew-calendar holidays for Israel are computed algorithmically
+ * via <a href="https://www.time4j.net/">Time4J</a>'s {@code HebrewCalendar}.
+ *
+ * <p>This module's {@code HolidayCalendarService} providers are consumed via
+ * {@link org.holiday.calendar.HolidayCalendarFactory} in the core module:
+ * <pre>{@code
+ * HolidayCalendar tase = new HolidayCalendarFactory().create("ILS");
+ * List<HolidayDate> earlyCloses2026 = tase.calculateEarlyCloses(2026);
+ * }</pre>
  */
 module org.holiday.calendar.mena {
     requires org.holiday.calendar.core;

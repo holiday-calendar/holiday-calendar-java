@@ -25,7 +25,18 @@
  * equities-market/exchange trading calendars — ASX (XASX), Xetra (XETR),
  * London Stock Exchange (XLON), NYSE (XNYS), Euronext Paris (XPAR), Toronto
  * Stock Exchange (XTSE), and SIX Swiss Exchange (XSWX) — each distinct from
- * its national-holiday counterpart.
+ * its national-holiday counterpart: market calendars additionally include
+ * market-convention closures (e.g. Good Friday on NYSE) and, where
+ * applicable, {@code EARLY_CLOSE} half-day sessions such as NYSE's Christmas
+ * Eve/July 3rd/day-after-Thanksgiving 13:00 ET closes and ASX's 14:10 Sydney
+ * Christmas Eve/New Year's Eve closes.
+ *
+ * <p>This module's {@code HolidayCalendarService} providers are consumed via
+ * {@link org.holiday.calendar.HolidayCalendarFactory} in the core module:
+ * <pre>{@code
+ * HolidayCalendar nyse = new HolidayCalendarFactory().create("XNYS");
+ * List<HolidayDate> holidays2026 = nyse.calculate(2026);
+ * }</pre>
  */
 module org.holiday.calendar.western {
     requires org.holiday.calendar.core;
