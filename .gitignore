@@ -245,4 +245,6 @@ gradle-app.setting
 ### Claude Code ###
 .claude/*
 !.claude/skills/
-!.claude/skills/**
+.claude/skills/*
+!.claude/skills/region-calendar-issue-plan/
+!.claude/skills/region-calendar-issue-plan/**
