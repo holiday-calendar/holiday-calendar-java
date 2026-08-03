@@ -227,8 +227,22 @@ public class HolidayCalendar {
      * year. The {@link HolidayDate dates} returned by this method are
      * adjusted according to the date rolling behavior of this calendar.
      *
+     * <p><strong>Breaking change (since 2.0.0):</strong> this method excludes
+     * {@link EarlyCloseHoliday} entries. In 1.x, early-close (half-day) holidays
+     * were returned alongside full closures; callers upgrading from 1.x that
+     * relied on seeing early closes here must additionally call
+     * {@link #calculateEarlyCloses(int)}. For example, to retrieve both regular
+     * and early-close holidays for a year:
+     * <pre>{@code
+     * List<HolidayDate> fullClosures = calendar.calculate(2026);
+     * List<HolidayDate> earlyCloses = calendar.calculateEarlyCloses(2026);
+     * }</pre>
+     *
      * @param year Common Era (CE) year for which to obtain holiday dates
-     * @return chronologically-sorted list of observed holiday dates
+     * @return chronologically-sorted list of observed holiday dates, excluding
+     *         {@link EarlyCloseHoliday} entries
+     * @see #calculateEarlyCloses(int)
+     * @see #hasEarlyCloses()
      */
     public List<HolidayDate> calculate(int year) {
         return holidays.stream()
@@ -252,12 +266,25 @@ public class HolidayCalendar {
      * rolling is applied.
      *
      * <p>Early closes are deliberately excluded from {@link #calculate(int)} and
-     * are reported exclusively by this method.</p>
+     * are reported exclusively by this method. Each returned {@link HolidayDate}
+     * wraps an {@link EarlyCloseHoliday}, whose {@link EarlyCloseHoliday#getCloseTime()}
+     * and {@link EarlyCloseHoliday#getZoneId()} give the local trading-halt time —
+     * for example, the ASX (Australia) calendar reports a 14:10 {@code Australia/Sydney}
+     * close on Christmas Eve, while NYSE reports a 13:00 {@code America/New_York}
+     * close on the day after Thanksgiving:
+     * <pre>{@code
+     * for (HolidayDate hd : calendar.calculateEarlyCloses(2026)) {
+     *     EarlyCloseHoliday h = (EarlyCloseHoliday) hd.holiday();
+     *     System.out.printf("%s: %s closes at %s %s%n",
+     *         hd.getDate(), h.getName(), h.getCloseTime(), h.getZoneId());
+     * }
+     * }</pre>
      *
      * @param year Common Era (CE) year for which to obtain early-close dates
      * @return chronologically-sorted list of early-close holiday dates
      * @see EarlyCloseHoliday
      * @see #calculate(int)
+     * @see #hasEarlyCloses()
      */
     public List<HolidayDate> calculateEarlyCloses(int year) {
         return holidays.stream()
