@@ -21,9 +21,11 @@
  *
  * <p>Provides holiday calendar implementations and observances for Western
  * countries: Australia, Canada, France, Germany, Switzerland, the United
- * Kingdom, and the United States. Also provides equities-market/exchange
- * trading calendars (e.g. the New York Stock Exchange) distinct from their
- * national-holiday counterparts.
+ * Kingdom, and the United States. Also provides the corresponding
+ * equities-market/exchange trading calendars — ASX (XASX), Xetra (XETR),
+ * London Stock Exchange (XLON), NYSE (XNYS), Euronext Paris (XPAR), Toronto
+ * Stock Exchange (XTSE), and SIX Swiss Exchange (XSWX) — each distinct from
+ * its national-holiday counterpart.
  */
 module org.holiday.calendar.western {
     requires org.holiday.calendar.core;
