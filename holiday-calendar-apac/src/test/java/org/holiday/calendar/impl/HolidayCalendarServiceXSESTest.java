@@ -35,9 +35,9 @@ import java.util.OptionalInt;
 
 import static org.testng.Assert.*;
 
-public class HolidayCalendarServiceSGTest {
+public class HolidayCalendarServiceXSESTest {
 
-    private final HolidayCalendarServiceSG service = new HolidayCalendarServiceSG();
+    private final HolidayCalendarServiceXSES service = new HolidayCalendarServiceXSES();
     private HolidayCalendarFactory factory;
 
     @BeforeClass
@@ -47,25 +47,25 @@ public class HolidayCalendarServiceSGTest {
 
     @Test
     public void testIsProvided() {
-        assertTrue(service.isProvided("SG"));
+        assertTrue(service.isProvided("XSES"));
         assertFalse(service.isProvided("US"));
     }
 
     @Test
     public void testGetCode() {
-        assertEquals(service.getCode(), "SG");
+        assertEquals(service.getCode(), "XSES");
     }
 
     @Test
     public void testGetRegion() {
-        assertEquals(service.getRegion(), "Singapore National Holidays");
+        assertEquals(service.getRegion(), "Singapore Exchange (SGX) Holidays");
     }
 
     @Test
     public void testHolidayCalendarFactoryCreate() {
-        HolidayCalendar calendar = factory.create("SG");
+        HolidayCalendar calendar = factory.create("XSES");
         assertNotNull(calendar);
-        assertEquals(calendar.getCode(), "SG");
+        assertEquals(calendar.getCode(), "XSES");
     }
 
     @Test
@@ -86,18 +86,14 @@ public class HolidayCalendarServiceSGTest {
                     .anyMatch(hd -> "Christmas Eve".equals(hd.getHoliday().getName())
                             || "New Year's Eve".equals(hd.getHoliday().getName()));
             assertFalse(anyEarlyClose,
-                    "SG " + year + ": Christmas Eve/New Year's Eve must not appear — moved to XSES");
+                    "XSES " + year + ": EARLY_CLOSE holidays must not appear in calculate(), only calculateEarlyCloses()");
         }
     }
 
     @Test
-    public void testSgHasNoEarlyCloses() {
+    public void testXsesHasEarlyCloses() {
         HolidayCalendar calendar = service.getHolidayCalendar();
-        assertFalse(calendar.hasEarlyCloses(), "SG: national calendar must have zero early closes");
-        for (int year : List.of(2021, 2023, 2024, 2025)) {
-            assertTrue(calendar.calculateEarlyCloses(year).isEmpty(),
-                    "SG " + year + ": calculateEarlyCloses() must be empty on the national calendar");
-        }
+        assertTrue(calendar.hasEarlyCloses(), "XSES: exchange calendar must have early closes");
     }
 
     @Test
@@ -181,7 +177,7 @@ public class HolidayCalendarServiceSGTest {
     public void testDataValidThroughReturnsPresent() {
         OptionalInt result = service.dataValidThrough();
         assertTrue(result.isPresent(),
-            "SG calendar has lookup-table holidays; must return a bounded year from dataValidThrough()");
+            "XSES calendar has lookup-table holidays; must return a bounded year from dataValidThrough()");
     }
 
     @Test
@@ -194,10 +190,10 @@ public class HolidayCalendarServiceSGTest {
 
     @Test
     public void testDataValidThroughViaFactory() {
-        OptionalInt result = factory.dataValidThrough("SG");
+        OptionalInt result = factory.dataValidThrough("XSES");
         assertTrue(result.isPresent());
         assertEquals(result.getAsInt(), service.dataValidThrough().orElseThrow(() -> new RuntimeException("Expected present boundary year")),
-            "factory.dataValidThrough(\"SG\") must delegate to the service and return the same year");
+            "factory.dataValidThrough(\"XSES\") must delegate to the service and return the same year");
     }
 
     @Test
@@ -208,7 +204,7 @@ public class HolidayCalendarServiceSGTest {
         assertFalse(holidays.isEmpty(),
             "calculate(" + boundaryYear + ") must return holidays — it is within the covered range");
         assertEquals(holidays.size(), 11,
-            "Expected all 11 SG holidays for boundary year " + boundaryYear);
+            "Expected all 11 XSES holidays for boundary year " + boundaryYear);
     }
 
     @Test

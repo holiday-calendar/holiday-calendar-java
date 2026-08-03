@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Package-private factory that builds the shared base set of Japanese national
- * holidays used by both the TSE ({@code JP}) and BOJ ({@code JPY}) calendars.
+ * holidays used by both the national ({@code JP}) and BOJ ({@code JPY}) calendars.
  */
 class JapaneseHolidays {
 
