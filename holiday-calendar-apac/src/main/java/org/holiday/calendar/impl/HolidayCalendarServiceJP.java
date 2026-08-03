@@ -23,18 +23,21 @@ import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
 
 /**
- * Service for provision of the Japan (Tokyo Stock Exchange / TSE) holiday calendar.
+ * Service for provision of the Japan national public holiday calendar.
  *
- * <p>Calendar code: {@code JP}. The TSE calendar is based on Japanese national
- * public holidays with the substitute-holiday rule (振替休日): when a holiday falls
- * on Sunday, the following Monday is observed instead. The sandwiched-day rule
- * (国民の休日) is also applied: a non-holiday weekday between two consecutive
- * national holidays becomes a holiday.
+ * <p>Calendar code: {@code JP}. Based on Japan's national Holiday Act, with the
+ * substitute-holiday rule (振替休日): when a holiday falls on Sunday, the
+ * following Monday is observed instead. The sandwiched-day rule (国民の休日) is
+ * also applied: a non-holiday weekday between two consecutive national
+ * holidays becomes a holiday. This is a pure national calendar with no
+ * exchange- or bank-specific content; see {@link HolidayCalendarServiceJPY}
+ * for the Bank of Japan's settlement calendar, which adds genuine
+ * BOJ-specific closures (Jan 2, Jan 3, Dec 31) on top of this list.
  */
 public class HolidayCalendarServiceJP extends AbstractHolidayCalendarService {
 
     private static final String CODE = "JP";
-    private static final String NAME = "Japan (TSE) Holidays";
+    private static final String NAME = "Japan National Holidays";
 
     public HolidayCalendarServiceJP() {
         super(CODE, NAME);

@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code SG} calendar's early-close (SGX half-day closure)
+ * Tests for the {@code XSES} calendar's early-close (SGX half-day closure)
  * holidays: Christmas Eve and New Year's Eve. Because December 24 and
  * December 31 are always exactly 7 days apart, they always share the same
  * day-of-week within a given year — both early closes are always present
@@ -46,23 +46,23 @@ import static org.testng.Assert.*;
  * difference from CA (single early close) and worth its own dedicated
  * assertions below, beyond the standard count/presence/closeTime/zone checks.
  */
-public class HolidayCalendarServiceSGEarlyCloseTest {
+public class HolidayCalendarServiceXSESEarlyCloseTest {
 
     private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(12, 0);
     private static final ZoneId EXPECTED_ZONE = ZoneId.of("Asia/Singapore");
 
-    // 11 full-day holidays registered in HolidayCalendarServiceSG; the two Eve
+    // 11 full-day holidays registered in HolidayCalendarServiceXSES; the two Eve
     // holidays are EARLY_CLOSE and excluded by calculate(), so calculate() sees 11.
     private static final int FULL_DAY_HOLIDAY_COUNT = 11;
 
-    private final HolidayCalendarServiceSG service = new HolidayCalendarServiceSG();
+    private final HolidayCalendarServiceXSES service = new HolidayCalendarServiceXSES();
 
     // -------------------------------------------------------------------------
     // Count / presence per year (verified 2018-2026 SGX cycle)
     // -------------------------------------------------------------------------
 
-    @DataProvider(name = "sgEarlyCloseFixture")
-    public Iterator<Object[]> sgEarlyCloseFixture() {
+    @DataProvider(name = "xsesEarlyCloseFixture")
+    public Iterator<Object[]> xsesEarlyCloseFixture() {
         List<Object[]> data = Arrays.asList(
                 new Object[]{2018, true},
                 new Object[]{2019, true},
@@ -77,23 +77,23 @@ public class HolidayCalendarServiceSGEarlyCloseTest {
         return data.iterator();
     }
 
-    @Test(dataProvider = "sgEarlyCloseFixture")
+    @Test(dataProvider = "xsesEarlyCloseFixture")
     public void testEarlyCloseCountForYear(int year, boolean present) {
         List<HolidayDate> earlyCloses = service.getHolidayCalendar().calculateEarlyCloses(year);
         assertNotNull(earlyCloses);
-        assertEquals(earlyCloses.size(), present ? 2 : 0, "SG " + year + ": unexpected early-close count");
+        assertEquals(earlyCloses.size(), present ? 2 : 0, "XSES " + year + ": unexpected early-close count");
     }
 
-    @Test(dataProvider = "sgEarlyCloseFixture")
+    @Test(dataProvider = "xsesEarlyCloseFixture")
     public void testChristmasEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("Christmas Eve"), present,
-                "SG " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
+                "XSES " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
     }
 
-    @Test(dataProvider = "sgEarlyCloseFixture")
+    @Test(dataProvider = "xsesEarlyCloseFixture")
     public void testNewYearsEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("New Year's Eve"), present,
-                "SG " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
+                "XSES " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
     }
 
     private Set<String> earlyCloseNames(int year) {
@@ -103,7 +103,7 @@ public class HolidayCalendarServiceSGEarlyCloseTest {
     }
 
     // -------------------------------------------------------------------------
-    // Dual-suppression / dual-presence boundary (the SG-specific difference)
+    // Dual-suppression / dual-presence boundary (the XSES-specific difference)
     // -------------------------------------------------------------------------
 
     @Test
@@ -128,10 +128,10 @@ public class HolidayCalendarServiceSGEarlyCloseTest {
         assertEquals(names, Set.of("Christmas Eve", "New Year's Eve"));
     }
 
-    @Test(dataProvider = "sgEarlyCloseFixture")
+    @Test(dataProvider = "xsesEarlyCloseFixture")
     public void testCountIsNeverExactlyOne(int year, boolean present) {
         int count = service.getHolidayCalendar().calculateEarlyCloses(year).size();
-        assertNotEquals(count, 1, "SG " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
+        assertNotEquals(count, 1, "XSES " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
     }
 
     // -------------------------------------------------------------------------
@@ -185,7 +185,7 @@ public class HolidayCalendarServiceSGEarlyCloseTest {
     // No date appears in both calculate() and calculateEarlyCloses() for the same year
     // -------------------------------------------------------------------------
 
-    @Test(dataProvider = "sgEarlyCloseFixture")
+    @Test(dataProvider = "xsesEarlyCloseFixture")
     public void testNoDateCollisionBetweenFullDayAndEarlyClose(int year, boolean present) {
         HolidayCalendar calendar = service.getHolidayCalendar();
         Set<LocalDate> fullDayDates = calendar.calculate(year).stream()
@@ -198,7 +198,7 @@ public class HolidayCalendarServiceSGEarlyCloseTest {
                 .filter(earlyCloseDates::contains)
                 .collect(Collectors.toSet());
         assertTrue(intersection.isEmpty(),
-                "SG " + year + ": dates must not appear in both calculate() and calculateEarlyCloses(): " + intersection);
+                "XSES " + year + ": dates must not appear in both calculate() and calculateEarlyCloses(): " + intersection);
     }
 
     // -------------------------------------------------------------------------

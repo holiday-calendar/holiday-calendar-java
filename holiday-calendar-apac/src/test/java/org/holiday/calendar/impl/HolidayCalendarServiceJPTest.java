@@ -55,7 +55,7 @@ public class HolidayCalendarServiceJPTest {
 
     @Test
     public void testGetRegion() {
-        assertEquals(service.getRegion(), "Japan (TSE) Holidays");
+        assertEquals(service.getRegion(), "Japan National Holidays");
     }
 
     @Test
