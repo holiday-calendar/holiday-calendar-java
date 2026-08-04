@@ -18,7 +18,7 @@
 
 package org.holiday.calendar.observance.ca;
 
-import org.holiday.calendar.function.Observance;
+import org.holiday.calendar.observance.AbstractObservance;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -35,10 +35,10 @@ import java.time.temporal.TemporalAdjusters;
  *
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
-public class CivicHoliday implements Observance {
+public class CivicHoliday extends AbstractObservance {
 
     @Override
-    public LocalDate apply(Integer year) {
+    protected LocalDate computeDate(int year) {
         return Year.of(year)
                    .atMonth(Month.AUGUST)
                    .atDay(1)
