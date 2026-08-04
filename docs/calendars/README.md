@@ -43,7 +43,14 @@ this index is not expected to be fully populated on day one.
 
 | Code | Name | Category | Doc |
 |------|------|----------|-----|
-<!-- Add one row per merged calendar. -->
+| `CN` | China National Holidays | National | [CN.md](./CN.md) |
+| `CNY` | China (PBOC) Holidays | Central Bank/Settlement | [CNY.md](./CNY.md) |
+| `JP` | Japan National Holidays | National | [JP.md](./JP.md) |
+| `JPY` | Japan (BOJ) Holidays | Central Bank/Settlement | [JPY.md](./JPY.md) |
+| `SG` | Singapore National Holidays | National | [SG.md](./SG.md) |
+| `SGD` | Singapore (MAS/MEPS+) Holidays | Central Bank/Settlement | [SGD.md](./SGD.md) |
+| `XSES` | Singapore Exchange (SGX) Holidays | Market/Exchange | [XSES.md](./XSES.md) |
+<!-- All 7 APAC calendars now documented. -->
 
 ### MENA (`holiday-calendar-mena`)
 
@@ -84,6 +91,9 @@ this index is not expected to be fully populated on day one.
 | `DE` | Western | [DE.md](./DE.md) |
 | `FR` | Western | [FR.md](./FR.md) |
 | `AU` | Western | [AU.md](./AU.md) |
+| `CN` | APAC | [CN.md](./CN.md) |
+| `JP` | APAC | [JP.md](./JP.md) |
+| `SG` | APAC | [SG.md](./SG.md) |
 | `IL` | MENA | [IL.md](./IL.md) |
 | `AE` | MENA | [AE.md](./AE.md) |
 | `SA` | MENA | [SA.md](./SA.md) |
@@ -106,6 +116,9 @@ this index is not expected to be fully populated on day one.
 | `GBP` | Western | [GBP.md](./GBP.md) |
 | `AUD` | Western | [AUD.md](./AUD.md) |
 | `EUR` | Western | [EUR.md](./EUR.md) |
+| `CNY` | APAC | [CNY.md](./CNY.md) |
+| `JPY` | APAC | [JPY.md](./JPY.md) |
+| `SGD` | APAC | [SGD.md](./SGD.md) |
 | `ILS` | MENA | [ILS.md](./ILS.md) |
 | `AED` | MENA | [AED.md](./AED.md) |
 | `SAR` | MENA | [SAR.md](./SAR.md) |
@@ -129,7 +142,8 @@ this index is not expected to be fully populated on day one.
 | `XETR` | Western | [XETR.md](./XETR.md) |
 | `XPAR` | Western | [XPAR.md](./XPAR.md) |
 | `XASX` | Western | [XASX.md](./XASX.md) |
-<!-- Add one row per merged market/exchange calendar. -->
+| `XSES` | APAC | [XSES.md](./XSES.md) |
+<!-- All market/exchange calendars now documented. All 47 calendars are now documented. -->
 
 ## Related Documentation
 
