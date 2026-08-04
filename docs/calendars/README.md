@@ -17,6 +17,7 @@ this index is not expected to be fully populated on day one.
 
 | Code | Name | Category | Doc |
 |------|------|----------|-----|
+| `CH` | Switzerland National Holidays | National | [CH.md](./CH.md) |
 <!-- Add one row per merged calendar, e.g.: | `US` | United States National | National | [US.md](./US.md) | -->
 
 ### APAC (`holiday-calendar-apac`)
@@ -29,6 +30,7 @@ this index is not expected to be fully populated on day one.
 
 | Code | Name | Category | Doc |
 |------|------|----------|-----|
+| `IL` | Israel National Holidays | National | [IL.md](./IL.md) |
 <!-- Add one row per merged calendar. -->
 
 ## By Category
@@ -37,6 +39,8 @@ this index is not expected to be fully populated on day one.
 
 | Code | Region | Doc |
 |------|--------|-----|
+| `CH` | Western | [CH.md](./CH.md) |
+| `IL` | MENA | [IL.md](./IL.md) |
 <!-- Add one row per merged national calendar. -->
 
 ### Central Bank / Settlement
