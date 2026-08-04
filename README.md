@@ -6,6 +6,8 @@
 
 A Java library for defining and calculating holiday calendars. Provides an extensible foundation for generating the calendars used to determine when holidays occur and when they are observed worldwide.
 
+> **Porting to another language?** See [docs/PORTING_GUIDE.md](docs/PORTING_GUIDE.md) for the core abstractions, design patterns, and data formats needed to build a compatible implementation in JavaScript, Python, Go, or any other language.
+
 ## About
 
 Holiday Calendar (Java) answers a common need in financial, scheduling, and business applications: _"Is this date a business day?"_ and _"When is this holiday observed this year?"_
