@@ -16,12 +16,26 @@
 | Name | Type | First Year | Rollable | Notes |
 |------|------|-----------|----------|-------|
 | New Year's Day | FIXED | — | No | |
-| Spring Festival (Days 1–7) | FLOATING | — | No | Full 7-day statutory window (vs. 3 days on `CN`) |
+| Spring Festival (Day 1) | FLOATING | — | No | Full 7-day statutory window (vs. 3 days on `CN`) |
+| Spring Festival (Day 2) | FLOATING | — | No | |
+| Spring Festival (Day 3) | FLOATING | — | No | |
+| Spring Festival (Day 4) | FLOATING | — | No | |
+| Spring Festival (Day 5) | FLOATING | — | No | |
+| Spring Festival (Day 6) | FLOATING | — | No | |
+| Spring Festival (Day 7) | FLOATING | — | No | |
 | Qingming Festival | FLOATING | — | No | Tomb Sweeping Day |
-| Labour Day (Days 1–3) | FIXED | — | No | Full 3-day window (vs. 1 day on `CN`) |
+| Labour Day (Day 1) | FIXED | — | No | Full 3-day window (vs. 1 day on `CN`) |
+| Labour Day (Day 2) | FIXED | — | No | |
+| Labour Day (Day 3) | FIXED | — | No | |
 | Dragon Boat Festival | FLOATING | — | No | |
 | Mid-Autumn Festival | FLOATING | — | No | |
-| National Day (Days 1–7) | FIXED | — | No | Full 7-day "Golden Week" (vs. 3 days on `CN`) |
+| National Day (Day 1) | FIXED | — | No | Full 7-day "Golden Week" (vs. 3 days on `CN`); founding of the PRC (1949) |
+| National Day (Day 2) | FIXED | — | No | |
+| National Day (Day 3) | FIXED | — | No | |
+| National Day (Day 4) | FIXED | — | No | |
+| National Day (Day 5) | FIXED | — | No | |
+| National Day (Day 6) | FIXED | — | No | |
+| National Day (Day 7) | FIXED | — | No | |
 
 ## Early Closes
 
