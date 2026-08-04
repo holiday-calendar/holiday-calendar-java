@@ -50,7 +50,26 @@ this index is not expected to be fully populated on day one.
 | Code | Name | Category | Doc |
 |------|------|----------|-----|
 | `IL` | Israel National Holidays | National | [IL.md](./IL.md) |
-<!-- Add one row per merged calendar. -->
+| `ILS` | Israel (TASE/Bank of Israel) Holidays | Central Bank/Settlement | [ILS.md](./ILS.md) |
+| `AE` | UAE (National) Holidays | National | [AE.md](./AE.md) |
+| `AED` | UAE (CBUAE/DFM/ADX) Holidays | Central Bank/Settlement | [AED.md](./AED.md) |
+| `SA` | Saudi Arabia (National) Holidays | National | [SA.md](./SA.md) |
+| `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays | Central Bank/Settlement | [SAR.md](./SAR.md) |
+| `TR` | Turkey (National) Holidays | National | [TR.md](./TR.md) |
+| `TRY` | Turkey (BIST/TCMB) Holidays | Central Bank/Settlement | [TRY.md](./TRY.md) |
+| `QA` | Qatar (National) Holidays | National | [QA.md](./QA.md) |
+| `QAR` | Qatar (QSE/QCB) Holidays | Central Bank/Settlement | [QAR.md](./QAR.md) |
+| `EG` | Egypt (National) Holidays | National | [EG.md](./EG.md) |
+| `EGP` | Egypt (EGX/CBE) Holidays | Central Bank/Settlement | [EGP.md](./EGP.md) |
+| `KW` | Kuwait (National) Holidays | National | [KW.md](./KW.md) |
+| `KWD` | Kuwait (Boursa Kuwait/CBK) Holidays | Central Bank/Settlement | [KWD.md](./KWD.md) |
+| `BH` | Bahrain (National) Holidays | National | [BH.md](./BH.md) |
+| `BHD` | Bahrain (Boursa Bahrain/CBB) Holidays | Central Bank/Settlement | [BHD.md](./BHD.md) |
+| `MA` | Morocco (National) Holidays | National | [MA.md](./MA.md) |
+| `MAD` | Morocco (CSE/BAM) Holidays | Central Bank/Settlement | [MAD.md](./MAD.md) |
+| `JO` | Jordan (National) Holidays | National | [JO.md](./JO.md) |
+| `JOD` | Jordan (ASE/CBJ) Holidays | Central Bank/Settlement | [JOD.md](./JOD.md) |
+<!-- All 20 MENA calendars now documented. -->
 
 ## By Category
 
@@ -66,7 +85,16 @@ this index is not expected to be fully populated on day one.
 | `FR` | Western | [FR.md](./FR.md) |
 | `AU` | Western | [AU.md](./AU.md) |
 | `IL` | MENA | [IL.md](./IL.md) |
-<!-- Add one row per merged national calendar. -->
+| `AE` | MENA | [AE.md](./AE.md) |
+| `SA` | MENA | [SA.md](./SA.md) |
+| `TR` | MENA | [TR.md](./TR.md) |
+| `QA` | MENA | [QA.md](./QA.md) |
+| `EG` | MENA | [EG.md](./EG.md) |
+| `KW` | MENA | [KW.md](./KW.md) |
+| `BH` | MENA | [BH.md](./BH.md) |
+| `MA` | MENA | [MA.md](./MA.md) |
+| `JO` | MENA | [JO.md](./JO.md) |
+<!-- All national calendars now documented. -->
 
 ### Central Bank / Settlement
 
@@ -78,7 +106,17 @@ this index is not expected to be fully populated on day one.
 | `GBP` | Western | [GBP.md](./GBP.md) |
 | `AUD` | Western | [AUD.md](./AUD.md) |
 | `EUR` | Western | [EUR.md](./EUR.md) |
-<!-- Add one row per merged central-bank/settlement calendar. -->
+| `ILS` | MENA | [ILS.md](./ILS.md) |
+| `AED` | MENA | [AED.md](./AED.md) |
+| `SAR` | MENA | [SAR.md](./SAR.md) |
+| `TRY` | MENA | [TRY.md](./TRY.md) |
+| `QAR` | MENA | [QAR.md](./QAR.md) |
+| `EGP` | MENA | [EGP.md](./EGP.md) |
+| `KWD` | MENA | [KWD.md](./KWD.md) |
+| `BHD` | MENA | [BHD.md](./BHD.md) |
+| `MAD` | MENA | [MAD.md](./MAD.md) |
+| `JOD` | MENA | [JOD.md](./JOD.md) |
+<!-- All central-bank/settlement calendars now documented. -->
 
 ### Market / Exchange
 
