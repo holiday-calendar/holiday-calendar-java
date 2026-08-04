@@ -6,6 +6,11 @@
 
 A Java library for defining and calculating holiday calendars. Provides an extensible foundation for generating the calendars used to determine when holidays occur and when they are observed worldwide.
 
+> **Upgrading from v1.4.0 or earlier?** v2.0.0 introduced the `EarlyCloseHoliday`
+> API, and v2.1.0 separates national holiday calendars from equities-exchange
+> market calendars. See [MIGRATION.md](MIGRATION.md) for the full breaking-changes
+> guide.
+
 > **Porting to another language?** See [docs/PORTING_GUIDE.md](docs/PORTING_GUIDE.md) for the core abstractions, design patterns, and data formats needed to build a compatible implementation in JavaScript, Python, Go, or any other language.
 
 ## About
