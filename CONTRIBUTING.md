@@ -6,6 +6,7 @@ First off, thank you for taking the time to contribute! :+1:
 
 * [Code of Conduct](#code-of-conduct)
 * [Copyright Header](#copyright-header)
+* [Adding a New Observance](#adding-a-new-observance)
 * [How to Contribute](#how-to-contribute)
   * [Create an issue](#create-an-issue)
   * [Report a security vulnerability](#report-a-security-vulnerability)
@@ -26,6 +27,15 @@ All Java source files must include the project's LGPL-2.1 copyright header. IDE 
 **Eclipse:** Import the template via **Window > Preferences > Java > Code Style > Code Templates > Import**, selecting `ide-templates/eclipse/codetemplates.xml`. Eclipse will then insert the header automatically when creating new Java files.
 
 **Visual Studio Code:** Type `hcheader` and press Tab in any `.java` file to expand the full header. No extension required — the snippet is defined in `.vscode/holiday-calendar.code-snippets`.
+
+### Adding a New Observance
+
+Contributing a new floating holiday or half-day-close (early close) date? See
+[docs/OBSERVANCE_PATTERNS.md](docs/OBSERVANCE_PATTERNS.md) for the `Observance`
+interface contract, the implementation patterns used across the codebase
+(algorithm-based, nth-weekday-of-month, CSV-backed lookup, astronomical
+fallback), the Early Close pattern, a step-by-step guide, and the testing
+checklist. Start there before opening a PR that adds or changes an observance.
 
 ### How to Contribute
 
