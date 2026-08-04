@@ -10,7 +10,7 @@ A Java library for defining and calculating holiday calendars. Provides an exten
 
 ## About
 
-Holiday Calendar (Java) answers a common need in financial, scheduling, and business applications: _"Is this date a business day?"_ and _"When is this holiday observed this year?"_
+Holiday Calendar (Java) answers common needs in financial, scheduling, and business applications: _"Is this date a business day?"_ and _"When is this holiday observed this year?"_
 
 Key design goals:
 
@@ -20,47 +20,60 @@ Key design goals:
 
 ### Supported Calendars
 
-| Code | Region                                        |
-|------|-----------------------------------------------|
-| `AE` | United Arab Emirates (National) Holidays      |
-| `AED` | United Arab Emirates (CBUAE/DFM/ADX) Holidays |
-| `AU` | Australian Securities Exchange (ASX) Holidays |
-| `AUD` | Australia (RBA) Holidays                      |
-| `BH` | Bahrain (National) Holidays                   |
-| `BHD` | Bahrain (Boursa Bahrain/CBB) Holidays         |
-| `CA` | Canada National Holidays                      |
-| `CAD` | Bank of Canada (Lynx) Holiday Schedule        |
-| `CH` | Switzerland (SIX) Holidays                    |
-| `CHF` | Switzerland (SIC/SNB) Holidays                |
-| `CN` | China National Holidays                       |
-| `CNY` | China (PBOC) Holidays                         |
-| `DE` | Germany (Xetra) Holidays                      |
-| `EG` | Egypt (National) Holidays                     |
-| `EGP` | Egypt (EGX/CBE) Holidays                      |
-| `EUR` | Euro (TARGET2) Holidays                       |
-| `FR` | France (Euronext Paris) Holidays              |
-| `GBP` | United Kingdom (CHAPS) Holidays               |
-| `IL` | Israel (National) Holidays                    |
-| `ILS` | Israel (TASE/Bank of Israel) Holidays         |
-| `JO` | Jordan (National) Holidays |
-| `JOD` | Jordan (ASE/CBJ) Holidays |
-| `JP` | Japan (TSE) Holidays                          |
-| `JPY` | Japan (BOJ) Holidays                          |
-| `KW` | Kuwait (National) Holidays                    |
-| `KWD` | Kuwait (Boursa Kuwait/CBK) Holidays           |
-| `MA` | Morocco (National) Holidays                   |
-| `MAD` | Morocco (CSE/BAM) Holidays                    |
-| `QA` | Qatar (National) Holidays                     |
-| `QAR` | Qatar (QSE/QCB) Holidays                      |
-| `SA` | Saudi Arabia (National) Holidays              |
-| `SAR` | Saudi Arabia (Tadawul/SAMA) Holidays          |
-| `SG` | Singapore (SGX) Holidays                      |
-| `SGD` | Singapore (MAS/MEPS+) Holidays                |
-| `TR`  | Turkey (National) Holidays                    |
-| `TRY` | Turkey (BIST/TCMB) Holidays                   |
-| `UK` | United Kingdom National Holidays              |
-| `US` | United States National Holidays               |
-| `USD` | United States (Federal Reserve) Holidays      |
+Each region may publish up to three distinct calendars: a **National** calendar (public holidays
+only, no early closes — with one exception, noted below), a **Central Bank/Settlement** calendar
+(currency/RTGS system holidays), and a **Market/Exchange** calendar (a specific exchange's trading
+holidays, generally including half-day early closes). Not every country has all three — see the
+tables below. `factory.create("CODE")` accepts any code from any column.
+
+> **Exception:** `TR` (Turkey's national calendar) is the one national code that includes an
+> early-close entry (Republic Day Eve), because it is a statutory closure rather than a
+> market-only convention. The same entry is also carried by `TRY`.
+
+#### Western (`holiday-calendar-western`)
+
+| Country/Region | National | Central Bank/Settlement | Market/Exchange (MIC) | Early closes? |
+|---|---|---|---|---|
+| Australia | `AU` | `AUD` RBA | `XASX` ASX | ✅ (XASX) |
+| Canada | `CA` | `CAD` Bank of Canada (Lynx) | `XTSE` TSX | ✅ (XTSE) |
+| France | `FR` | — | `XPAR` Euronext Paris | ✅ (XPAR) |
+| Germany | `DE` | — | `XETR` Xetra | — |
+| Switzerland | `CH` | `CHF` SIC/SNB | `XSWX` SIX | — |
+| United Kingdom | `UK` | `GBP` CHAPS | `XLON` LSE | ✅ (XLON) |
+| United States | `US` | `USD` Federal Reserve | `XNYS` NYSE | ✅ (XNYS) |
+| **Eurozone** (multi-country) | — | `EUR` TARGET2 | — | — |
+
+Germany and France have no dedicated currency-code row (no separate settlement system) — the
+shared Eurozone/`EUR` row above serves that role instead of being duplicated per country.
+
+#### APAC (`holiday-calendar-apac`)
+
+| Country/Region | National | Central Bank/Settlement | Market/Exchange (MIC) | Early closes? |
+|---|---|---|---|---|
+| China | `CN` | `CNY` PBOC | — | — |
+| Japan | `JP` | `JPY` BOJ | — | — |
+| Singapore | `SG` | `SGD` MAS/MEPS+ | `XSES` SGX | ✅ (XSES) |
+
+Japan has no dedicated exchange (MIC) calendar — `JP` is documented as national-only.
+
+#### MENA (`holiday-calendar-mena`)
+
+No Market/Exchange (MIC) calendars exist yet in this module — each country has only a National and
+a Currency/Exchange code, with the currency code doubling as the de facto exchange calendar where
+applicable (e.g. `ILS` for TASE, `TRY` for BIST).
+
+| Country | National | Currency/Exchange | Early closes? |
+|---|---|---|---|
+| UAE | `AE` | `AED` CBUAE/DFM/ADX | — |
+| Saudi Arabia | `SA` | `SAR` Tadawul/SAMA | — |
+| Israel | `IL` | `ILS` TASE/Bank of Israel | ✅ (ILS only, 6 entries) |
+| Turkey | `TR` | `TRY` BIST/TCMB | ✅ (both TR and TRY — shared Republic Day Eve entry) |
+| Qatar | `QA` | `QAR` QSE/QCB | — |
+| Egypt | `EG` | `EGP` EGX/CBE | — |
+| Kuwait | `KW` | `KWD` Boursa Kuwait/CBK | — |
+| Bahrain | `BH` | `BHD` Boursa Bahrain/CBB | — |
+| Morocco | `MA` | `MAD` CSE/BAM | — |
+| Jordan | `JO` | `JOD` ASE/CBJ | — |
 
 For information on adding new calendars or maintaining existing ones, see the [Contributing Guide](CONTRIBUTING.md).
 
