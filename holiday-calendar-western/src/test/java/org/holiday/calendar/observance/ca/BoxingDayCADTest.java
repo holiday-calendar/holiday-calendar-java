@@ -28,10 +28,10 @@ import java.util.List;
 
 import static org.testng.Assert.assertNull;
 
-public class ThanksgivingTest extends AbstractObservanceTest {
+public class BoxingDayCADTest extends AbstractObservanceTest {
 
-    public ThanksgivingTest() {
-        super(new Thanksgiving());
+    public BoxingDayCADTest() {
+        super(new BoxingDayCAD());
     }
 
     @Test
@@ -42,11 +42,16 @@ public class ThanksgivingTest extends AbstractObservanceTest {
     @Override
     protected List<Object[]> createData() {
         List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{ 1976, LocalDate.of(1976, Month.OCTOBER, 11) });
-        data.add(new Object[]{ 1977, LocalDate.of(1977, Month.OCTOBER, 10) });
-        data.add(new Object[]{ 1990, LocalDate.of(1990, Month.OCTOBER,  8) });
-        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.OCTOBER, 11) });
-        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.OCTOBER, 10) });
+        // Dec 25 = Friday, Dec 26 = Saturday -> Boxing Day observed Mon 28
+        data.add(new Object[]{ 2020, LocalDate.of(2020, Month.DECEMBER, 28) });
+        // Dec 25 = Saturday -> Christmas observed Mon 27; Boxing Day observed Tue 28
+        data.add(new Object[]{ 2021, LocalDate.of(2021, Month.DECEMBER, 28) });
+        // Dec 25 = Sunday -> Christmas observed Mon 26; Boxing Day observed Tue 27
+        data.add(new Object[]{ 2022, LocalDate.of(2022, Month.DECEMBER, 27) });
+        // Dec 25 = Monday -> no collision, Boxing Day observed on natural date
+        data.add(new Object[]{ 2023, LocalDate.of(2023, Month.DECEMBER, 26) });
+        // Dec 25 = Wednesday -> no collision, Boxing Day observed on natural date
+        data.add(new Object[]{ 2024, LocalDate.of(2024, Month.DECEMBER, 26) });
 
         return data;
     }

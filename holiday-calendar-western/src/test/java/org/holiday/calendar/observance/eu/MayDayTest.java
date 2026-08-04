@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 public class MayDayTest {
 
@@ -37,6 +38,11 @@ public class MayDayTest {
     public void testApply(int yearToCalculate, LocalDate expected) {
         LocalDate actual = mayDay.apply(yearToCalculate);
         assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testApply_NullYear() {
+        assertNull(mayDay.apply(null));
     }
 
     @Test

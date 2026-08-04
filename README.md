@@ -15,7 +15,7 @@ A Java library for defining and calculating holiday calendars. Provides an exten
 
 ## About
 
-Holiday Calendar (Java) answers common needs in financial, scheduling, and business applications: _"Is this date a business day?"_ and _"When is this holiday observed this year?"_
+Holiday Calendar answers common needs in financial, scheduling, and business applications: _"Is this date a business day?"_ and _"When is this holiday observed this year?"_
 
 Key design goals:
 
