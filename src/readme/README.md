@@ -11,6 +11,8 @@ A Java library for defining and calculating holiday calendars. Provides an exten
 > market calendars. See [MIGRATION.md](MIGRATION.md) for the full breaking-changes
 > guide.
 
+> **Porting to another language?** See [docs/PORTING_GUIDE.md](docs/PORTING_GUIDE.md) for the core abstractions, design patterns, and data formats needed to build a compatible implementation in JavaScript, Python, Go, or any other language.
+
 ## About
 
 Holiday Calendar (Java) answers a common need in financial, scheduling, and business applications: _"Is this date a business day?"_ and _"When is this holiday observed this year?"_
