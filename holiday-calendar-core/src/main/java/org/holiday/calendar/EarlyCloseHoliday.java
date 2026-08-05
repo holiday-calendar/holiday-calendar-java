@@ -61,7 +61,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @see Observance
  * @see HolidayCalendar#calculateEarlyCloses(int)
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public record EarlyCloseHoliday(String name, String description, Observance observance,
                                  LocalTime closeTime, ZoneId zoneId) implements Holiday {

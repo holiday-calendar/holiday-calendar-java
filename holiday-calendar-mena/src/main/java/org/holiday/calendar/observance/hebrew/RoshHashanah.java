@@ -31,7 +31,7 @@ import java.time.LocalDate;
  * <p>Computed algorithmically via {@link HebrewCalendar}. The Hebrew year
  * beginning in autumn of the given Gregorian year is {@code gregorianYear + 3761}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class RoshHashanah extends AbstractObservance {
 

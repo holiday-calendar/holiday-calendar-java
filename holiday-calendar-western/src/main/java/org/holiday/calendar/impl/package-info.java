@@ -30,6 +30,6 @@
  * {@link java.util.ServiceLoader}; see {@code module-info.java} for the
  * registered {@code provides} list.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.impl;

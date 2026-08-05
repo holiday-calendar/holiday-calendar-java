@@ -42,6 +42,6 @@
  * {@code net.time4j.calendar.HebrewCalendar}; no lookup tables or data
  * ceiling apply.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.hebrew;

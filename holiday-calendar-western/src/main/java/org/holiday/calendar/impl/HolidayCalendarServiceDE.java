@@ -32,7 +32,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * Year's Eve are correctly absent, as they are Xetra/Frankfurt-specific
  * market closures, not German public holidays.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceDE extends AbstractHolidayCalendarService {
 

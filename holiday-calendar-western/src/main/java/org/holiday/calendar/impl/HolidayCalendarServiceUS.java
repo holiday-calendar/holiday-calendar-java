@@ -33,7 +33,7 @@ import java.time.Month;
  * holidays observed by the US federal government, and never includes
  * early-close (half-day) trading sessions.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceUS extends AbstractHolidayCalendarService {
 

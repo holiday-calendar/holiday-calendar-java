@@ -27,7 +27,7 @@ import java.time.LocalDate;
  * beginning of <em>Holy Week</em>, the last week of the Christian season of
  * Lent.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class PalmSunday extends CompositeObservance {
 

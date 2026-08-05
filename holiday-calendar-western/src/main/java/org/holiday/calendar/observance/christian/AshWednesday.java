@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * Observance of Ash Wednesday - the first day of the Christian season of Lent.
  * This holiday is traditionally observed by <em>Western</em> Christians.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class AshWednesday extends CompositeObservance {
 

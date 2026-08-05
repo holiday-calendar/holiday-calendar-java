@@ -33,7 +33,7 @@ import java.time.LocalDate;
  * <p>The date is computed algorithmically via Time4J's {@code ChineseCalendar},
  * using the Chinese year that begins in the given Gregorian year.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class MidAutumnFestival extends AbstractObservance {
 

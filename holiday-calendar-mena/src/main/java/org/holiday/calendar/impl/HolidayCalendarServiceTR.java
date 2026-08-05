@@ -58,7 +58,7 @@ import java.util.OptionalInt;
  * HolidayCalendarServiceTRY}, since it is a statutory holiday rather than a
  * market-only convention.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceTR extends AbstractHolidayCalendarService {
 

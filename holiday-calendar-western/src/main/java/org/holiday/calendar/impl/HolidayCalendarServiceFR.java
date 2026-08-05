@@ -32,7 +32,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * a French national holiday — and never includes early-close (half-day)
  * trading sessions.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceFR extends AbstractHolidayCalendarService {
 

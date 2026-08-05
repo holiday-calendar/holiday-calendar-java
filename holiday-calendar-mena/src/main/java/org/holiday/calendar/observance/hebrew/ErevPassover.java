@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * Observance of Erev Passover — the eve of Pesach, the day preceding
  * {@link Passover}, on which many Israeli businesses close early.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ErevPassover extends AbstractObservance {
 

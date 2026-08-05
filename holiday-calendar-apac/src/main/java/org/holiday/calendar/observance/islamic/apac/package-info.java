@@ -31,6 +31,6 @@
  * {@link org.holiday.calendar.util.CsvObservanceLoader}, with tabular
  * projections used only beyond the officially gazetted year range.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.islamic.apac;

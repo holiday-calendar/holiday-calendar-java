@@ -35,7 +35,7 @@ import java.time.Month;
  * process commencing from 12:30 London time) — December 24, 2028 itself falls
  * on a Sunday, confirming the shift-to-preceding-Friday rule.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChristmasEveEarlyClose extends AbstractObservance {
 

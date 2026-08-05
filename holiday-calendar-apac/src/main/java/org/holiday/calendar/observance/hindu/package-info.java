@@ -23,6 +23,6 @@
  * annually by the Singapore government and loaded from a classpath CSV lookup
  * table via {@link org.holiday.calendar.util.CsvObservanceLoader}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.hindu;

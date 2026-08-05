@@ -30,7 +30,7 @@ import java.time.temporal.TemporalAdjusters;
  * Observance of Summer bank holiday - a statutory bank holiday in the United
  * Kingdom since 1971. It is observed on the last Monday in August.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class SummerBankHoliday implements Observance {
 

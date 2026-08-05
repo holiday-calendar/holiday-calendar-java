@@ -28,7 +28,7 @@ import java.time.LocalDate;
 /**
  * Observance of Hoshana Raba (21 Tishri) — the seventh and final day of Sukkot.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HoshanaRaba extends AbstractObservance {
 

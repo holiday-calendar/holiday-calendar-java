@@ -38,7 +38,7 @@ import java.util.List;
  * Year's Eve half-day closes. LSE is closed on every bank holiday observed
  * by {@code UK}, including the one-off Jubilee bank holidays.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceXLON extends AbstractHolidayCalendarService {
 

@@ -50,7 +50,7 @@ import java.time.LocalDate;
  * {@code rollable(false)} — the calendar's {@code DateRoll} must not be
  * applied on top of this already-adjusted date.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class IndependenceDay extends AbstractObservance {
 

@@ -29,7 +29,7 @@ import java.time.LocalDate;
  * by one calendar day. Data validity range and country-specific CSV source are
  * inherited from the first-day observance.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class AshuraDay2 extends AbstractObservance {
 

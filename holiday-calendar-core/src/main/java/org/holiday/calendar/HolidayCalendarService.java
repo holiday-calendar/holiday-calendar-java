@@ -24,7 +24,7 @@ import java.util.OptionalInt;
  * Required behavior of a service which provides the {@link HolidayCalendar}
  * object assigned to a unique <em>code</em> identifier.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public interface HolidayCalendarService {
 

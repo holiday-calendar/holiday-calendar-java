@@ -48,7 +48,7 @@ import java.time.Month;
  *       December.</li>
  * </ul>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class BoxingDayCAD implements Observance {
 

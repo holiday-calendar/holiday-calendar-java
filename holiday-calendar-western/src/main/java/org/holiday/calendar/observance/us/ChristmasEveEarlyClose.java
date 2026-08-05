@@ -37,7 +37,7 @@ import java.time.Month;
  * Calendar press releases (ir.theice.com): December 24 is an early close only
  * when December 25 falls Tuesday through Friday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChristmasEveEarlyClose extends AbstractObservance {
 

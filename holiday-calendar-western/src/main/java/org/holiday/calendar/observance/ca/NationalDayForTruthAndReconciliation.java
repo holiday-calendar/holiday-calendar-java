@@ -39,7 +39,7 @@ import java.time.Month;
  * {@link #test(Integer)}, since {@code FixedHoliday} does not support year
  * gating.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class NationalDayForTruthAndReconciliation implements Observance {
 

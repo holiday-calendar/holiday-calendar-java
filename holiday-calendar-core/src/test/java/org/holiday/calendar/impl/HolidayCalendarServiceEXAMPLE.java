@@ -11,7 +11,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 /**
  * Service for provision of Example holiday calendar.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceEXAMPLE extends AbstractHolidayCalendarService {
 

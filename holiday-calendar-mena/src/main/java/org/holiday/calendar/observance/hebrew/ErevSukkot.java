@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * Observance of Erev Sukkot — the eve of the Festival of Tabernacles, the day
  * preceding {@link Sukkot}, on which many Israeli businesses close early.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ErevSukkot extends AbstractObservance {
 

@@ -75,7 +75,7 @@ import org.holiday.calendar.function.DateRolls;
  * trading calendars, where the day is a full closure, should treat this date
  * accordingly rather than relying on the 13:15 close time.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceILS extends AbstractHolidayCalendarService {
 

@@ -84,7 +84,7 @@ import java.util.OptionalInt;
  *   <li>Run {@code mvn -pl holiday-calendar-apac test} to verify no regressions.</li>
  * </ol>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceCNY extends AbstractHolidayCalendarService {
 

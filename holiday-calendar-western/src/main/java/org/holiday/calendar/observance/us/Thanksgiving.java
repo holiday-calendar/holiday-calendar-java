@@ -35,7 +35,7 @@ import java.time.temporal.TemporalAdjusters;
  * <p>Note that this public holiday is similar to, but distinct from, the
  * holiday of the same name in Canada.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class Thanksgiving implements Observance {
 

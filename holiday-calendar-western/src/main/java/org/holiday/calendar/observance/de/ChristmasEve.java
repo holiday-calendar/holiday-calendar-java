@@ -38,7 +38,7 @@ import java.time.Month;
  * <p>Verified against Deutsche Börse's official Xetra-Handelskalender
  * (cashmarket.deutsche-boerse.com), 2023-2026.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChristmasEve extends AbstractObservance {
 

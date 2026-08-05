@@ -23,6 +23,6 @@
  * Tuesday of February, established by Emiri Decree No. 80 of 2011) and
  * {@link org.holiday.calendar.observance.qa.QatarBanksHoliday}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.qa;

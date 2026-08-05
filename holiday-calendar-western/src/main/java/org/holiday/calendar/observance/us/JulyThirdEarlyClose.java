@@ -36,7 +36,7 @@ import java.time.Month;
  * Calendar press releases (ir.theice.com): July 3 is an early close only when
  * July 4 falls Tuesday through Friday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class JulyThirdEarlyClose extends AbstractObservance {
 

@@ -51,7 +51,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * both rolled forward to Monday Dec 27 and Tuesday Dec 28 respectively,
  * while the ordinary Dec 24 early close proceeded unaffected).</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceXTSE extends AbstractHolidayCalendarService {
 

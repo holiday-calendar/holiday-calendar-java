@@ -28,7 +28,7 @@ import java.time.LocalDate;
 /**
  * Observance of Rosh Hashanah (2 Tishri) — the Jewish New Year, second day.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class RoshHashanahDay2 extends AbstractObservance {
 

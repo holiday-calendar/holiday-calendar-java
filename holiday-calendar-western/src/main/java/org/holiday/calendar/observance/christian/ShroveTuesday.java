@@ -27,7 +27,7 @@ import java.time.LocalDate;
  * first day of the Christian season of Lent. In many countries, Shrove Tuesday
  * is known as <em>Mardi Gras</em> or <em>Carnival</em>.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ShroveTuesday extends CompositeObservance {
 

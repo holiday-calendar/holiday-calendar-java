@@ -30,7 +30,7 @@ import java.time.LocalDate;
  * behavior for a {@link HolidayCalendar} as a
  * lambda expression.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 @FunctionalInterface
 public interface DateRoll {

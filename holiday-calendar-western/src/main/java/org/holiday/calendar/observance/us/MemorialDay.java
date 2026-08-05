@@ -33,7 +33,7 @@ import java.time.temporal.TemporalAdjusters;
  * was celebrated on May 30 from 1868 to 1970. As of 1971, this holiday always
  * falls on the last Monday in May.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class MemorialDay implements Observance {
 

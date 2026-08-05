@@ -28,7 +28,7 @@ import java.time.LocalDate;
 /**
  * Observance of Shavuot (6 Sivan) — the Feast of Weeks / Pentecost.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class Shavuot extends AbstractObservance {
 

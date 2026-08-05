@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * Abstract base class for {@link Observance} implementations, providing
  * standard null-guard and year-validity logic.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public abstract class AbstractObservance implements Observance {
 

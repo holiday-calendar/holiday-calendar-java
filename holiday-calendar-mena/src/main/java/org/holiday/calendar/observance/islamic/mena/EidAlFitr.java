@@ -50,7 +50,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * in this package, where {@code countryCode} is the ISO 3166-1 alpha-2 country
  * code in lower case (e.g. {@code ae}, {@code sa}).</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class EidAlFitr extends AbstractObservance {
 
