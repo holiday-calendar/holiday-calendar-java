@@ -31,3 +31,5 @@ Shares the identical 11-holiday base list with `SG` — see [SG.md](./SG.md) for
 ## Sources
 
 - No official SGX primary-source page for the 12:00 SGT (09:00–12:00 half-day) early-close time was independently captured with a stable citation URL in this pass; the time and suppression condition match this project's existing implementation comments
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

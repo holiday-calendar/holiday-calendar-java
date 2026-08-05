@@ -47,3 +47,5 @@ The July 3rd and Christmas Eve early closes share a common suppression pattern â
 
 - Good Friday as NYSE's sole non-federal closure is corroborated across multiple financial-media sources describing the NYSE holiday schedule (e.g. Benzinga, IBTimes); no single official NYSE primary-source page was captured during this pass â€” flagged rather than omitted, per this project's citation standard
 - Early-close times (13:00 ET) and suppression conditions match this project's existing implementation comments; not independently re-verified against an official NYSE circular in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

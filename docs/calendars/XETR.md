@@ -35,3 +35,5 @@ Not applicable — Christmas Eve and New Year's Eve are modeled as full `FLOATIN
 - [Deutsche Börse Xetra — Christmas Eve (trading calendar)](https://www.xetra.com/xetra-en/newsroom/trading-calendar/non-trading-days/Christmas-Eve-2352286) — official primary source
 - [Deutsche Börse Xetra — New Year's Eve (trading calendar)](https://www.xetra.com/xetra-en/newsroom/trading-calendar/non-trading-days/New-Years-Eve-1669824) — official primary source
 - [Deutsche Börse — Trading Calendar Xetra and Frankfurt](https://www.cashmarket.deutsche-boerse.com/cash-en/trading/trading-calendar-and-trading-hours) — official trading calendar and hours reference
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

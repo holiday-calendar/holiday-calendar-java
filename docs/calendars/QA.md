@@ -43,3 +43,5 @@ Not applicable — `QA` carries no `EARLY_CLOSE` entries.
 
 - Qatar National Day's Friday (2020) and Saturday (2021) occurrences are corroborated by [Al Jazeera's 2020 coverage](https://www.aljazeera.com/amp/news/2020/12/18/qatar-celebrates-national-day-2020-amid-covid-pandemic) and [2021 coverage](https://www.aljazeera.com/amp/news/2021/12/18/qatar-celebrates-national-day-2021-ahead-of-fifa-arab-cup-final) — confirming the weekend-day collisions existed, though not the specific observed-substitute dates
 - The `previousThursdayOrFollowingSunday()` roll rule itself and the Islamic New Year / Prophet's Birthday exclusions are documented directly in this project's own source comments (`HolidayCalendarServiceQA.java`, `QatarHolidays.java`); no official Amiri Diwan or QCB primary-source page was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

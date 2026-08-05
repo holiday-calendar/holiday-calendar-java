@@ -27,3 +27,5 @@ Not applicable — `EGP` carries no `EARLY_CLOSE` entries.
 
 - The Arafat Day exclusion rationale is documented directly in this project's own source comments (`EgyptHolidays.java`, `HolidayCalendarServiceEGP.java`); no official CBE/EGX primary-source page was independently captured with a stable citation URL in this pass
 - See [EG.md](./EG.md) for sourcing on the shared holidays
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

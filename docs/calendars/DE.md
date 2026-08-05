@@ -38,3 +38,5 @@ Germany observes many additional public holidays at the individual *Land* (state
 ## Sources
 
 - No single official German federal government page enumerating exactly these 9 nationwide holidays (as distinct from state-level ones) was captured with a stable citation URL in this pass; the 9-holiday nationwide list is well-established public record, consistent across German public-holiday reference sources
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

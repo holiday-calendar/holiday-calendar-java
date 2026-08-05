@@ -43,3 +43,5 @@ Not applicable — `AE` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - No official UAE SCA/DFM primary-source page was captured with a stable citation URL in this pass; the 2024–2026 announced dates and 2027–2055 Umm al-Qura projection methodology are documented directly in this project's own source comments (`UaeHolidays.java`), not independently re-verified against a live UAE government page here
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

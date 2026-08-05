@@ -41,3 +41,5 @@ Not applicable — `GBP` carries no `EARLY_CLOSE` entries.
 - [Bank of England — CHAPS Settlement Calendar](https://www.bankofengland.co.uk/payment-and-settlement/chaps/chaps-settlement-calendar) — cited directly in `HolidayCalendarServiceGBP`'s own Javadoc; official primary source
 - [Labour Relations Agency — Bank holiday confirmed for Queen Elizabeth's funeral](https://www.lra.org.uk/bank-holiday-confirmed-queen-elizabeths-funeral-guidance-employers-and-employees) — confirms Monday September 19, 2022
 - [Highland Council — King's Coronation bank holiday – 8 May 2023](https://www.highland.gov.uk/news/article/15144/king-s-coronation-bank-holiday-8-may-2023) — confirms Monday May 8, 2023
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

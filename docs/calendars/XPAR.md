@@ -35,3 +35,5 @@ The 14:05 CET early-close time for both Christmas Eve and New Year's Eve was ind
 ## Sources
 
 - [Euronext — Trading hours & holidays](https://www.euronext.com/en/trading/trading-hours-holidays) — official primary source; confirms the 14:05 CET (2:05pm) early-close time for Christmas Eve and New Year's Eve, matching this project's implementation exactly. Euronext's own summary lists only 5 full-closure holidays (New Year's Day, Good Friday, Easter Monday, Labour Day, Christmas Day) — narrower than this project's modeled 12-holiday full-closure list; see Notes of Interest
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

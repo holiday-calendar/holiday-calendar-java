@@ -28,3 +28,5 @@ Covers settlement closure days for Borsa Istanbul (BIST) and the Central Bank of
 ## Sources
 
 - See [TR.md](./TR.md) — `TRY` inherits the identical underlying facts and sourcing gaps
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

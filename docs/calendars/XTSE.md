@@ -49,3 +49,5 @@
 
 - TMX Group Holiday Operating Schedule press releases (2016, 2021, 2017 Canada Day) — cited in the implementation's own Javadoc as the verification basis for the forward-only roll rule; not independently re-fetched in this pass, but corroborated generally via [TMX Group Holiday Operating Schedule (Nasdaq mirror, 2025)](https://www.nasdaq.com/press-release/tmx-group-holiday-operating-schedule-2025-12-03) and the 2021 Christmas/Boxing/New Year's roll matching [contemporaneous press coverage](https://www.newswire.ca/news-releases/tmx-group-holiday-operating-schedule-846437582.html)
 - [TMX / TSX — Calendar](https://www.tsx.com/en/trading/calendars-and-trading-hours/calendar) — official current trading-calendar page
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

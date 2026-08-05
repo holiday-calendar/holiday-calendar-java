@@ -35,3 +35,5 @@ Not applicable — `EUR` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - [ECB — TARGET2 Calendar](https://www.ecb.europa.eu/paym/target/target2/profuse/calendar/html/index.en.html) — cited directly in `HolidayCalendarServiceEUR`'s own Javadoc; official primary source for TARGET2's 6 annual closure dates and no-roll convention
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

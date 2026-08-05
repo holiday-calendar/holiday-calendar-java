@@ -53,3 +53,5 @@ Not applicable — `CNY` carries no `EARLY_CLOSE` entries.
 
 - The `getCompensatoryWorkingDays`/`compensatoryDataValidThrough` API design, the annual maintenance process, and the exact day-count windows are documented directly in this project's own source comments (`HolidayCalendarServiceCNY.java`); no official gov.cn primary-source page in English was independently captured with a stable citation URL in this pass
 - See [CN.md](./CN.md) for corroboration of the general *tiaoxiu* mechanism from a third-party source
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

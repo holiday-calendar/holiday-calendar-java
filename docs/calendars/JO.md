@@ -46,3 +46,5 @@ Not applicable — `JO` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - Islamic holiday sourcing (CBJ/ASE 2024–2026 announcements, Umm al-Qura projection for 2027–2055, data ceiling 2055), the Christmas Day ASE-closure confirmation (2025/2026 schedules), and the 4-day Eid durations (confirmed by official ASE and CBJ holiday announcements for 2024–2026) are documented directly in this project's own source comments (`JordanHolidays.java`); no official CBJ/ASE primary-source page was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

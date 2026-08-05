@@ -26,3 +26,5 @@ Covers market closure days for the Amman Stock Exchange (ASE) and Central Bank o
 ## Sources
 
 - See [JO.md](./JO.md) — `JOD` inherits the identical underlying facts and sourcing gaps
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

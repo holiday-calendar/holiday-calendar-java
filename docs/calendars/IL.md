@@ -48,3 +48,5 @@ Not applicable — the `IL` national calendar carries no `EARLY_CLOSE` entries. 
 - [Bank of Israel — ZAHAV RTGS system business days during 2026](https://www.boi.org.il/media/1x1a4n3r/zahav-holidays-2026-eng.pdf) — cited for the Sunday–Friday RTGS operating week / Friday short-day claim in Notes of Interest (PDF; content confirmed via search snippet, not full document extraction)
 - [Ynet News — "After 72 years, why is the Tel Aviv Stock Exchange ending Sunday trading?"](https://www.ynetnews.com/business/article/sjcdaq0xwe) — cited for the TASE Monday–Friday trading-week transition in Notes of Interest
 - No official Israeli government (e.g. Ministry of Interior or Knesset) primary source was located as of 2026-08-04 specifically enumerating the 10 statutory national holidays; the holiday list and the Yom Hazikaron/Yom Ha'atzmaut postponement rules are corroborated by the codebase's own algorithmic implementation (Time4J `HebrewCalendar`) rather than an external citation — flagged here rather than omitted, per this project's citation standard
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

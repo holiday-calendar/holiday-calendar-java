@@ -46,3 +46,5 @@ Not applicable — `BH` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - Islamic holiday sourcing (CBB/Boursa Bahrain 2024–2025 announcements, Umm al-Qura projection for 2026–2055, data ceiling 2055), the Ashura gazetting under the Labour Law, and the National/Accession Day historical dates are documented directly in this project's own source comments (`BahrainHolidays.java`); no official CBB/Boursa Bahrain primary-source page was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

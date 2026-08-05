@@ -39,3 +39,5 @@ Not applicable — `AUD` carries no `EARLY_CLOSE` entries.
 
 - Easter Saturday's WA/Tasmania exclusion and King's Birthday's state variation are documented in [AU.md](./AU.md); not re-verified independently here since `AUD` inherits the same underlying facts
 - No official Reserve Bank of Australia primary-source page confirming the NSW Bank Holiday's inclusion rationale on the RBA settlement calendar was located in this pass; the first-Monday-in-August NSW Bank Holiday itself is well-established public record
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

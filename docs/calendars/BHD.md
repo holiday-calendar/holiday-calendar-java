@@ -26,3 +26,5 @@ Covers market closure days for Boursa Bahrain and the Central Bank of Bahrain (C
 ## Sources
 
 - See [BH.md](./BH.md) — `BHD` inherits the identical underlying facts and sourcing gaps
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

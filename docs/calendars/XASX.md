@@ -29,3 +29,5 @@ The 14:10 (2:10pm) AEDT/AEST early-close time for both Christmas Eve and New Yea
 ## Sources
 
 - [ASX Online — ASX Trade trading hours for Christmas and New Year 2025/2026](https://asxonline.com/content/asxonline/public/notices/2025/november/1402.25.11.html) — official primary source; confirms the 14:10 Sydney-time early close for both Christmas Eve and New Year's Eve, matching this project's implementation exactly
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

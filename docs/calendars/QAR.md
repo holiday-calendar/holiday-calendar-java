@@ -35,3 +35,5 @@ Not applicable — `QAR` carries no `EARLY_CLOSE` entries.
 
 - Qatar Banks Holiday's basis (Cabinet Decision No. 33 of 2009, first Sunday of March) is documented directly in this project's own source comments (`QatarHolidays.java`); no official QCB primary-source page was independently captured with a stable citation URL in this pass
 - See [QA.md](./QA.md) for sourcing on the shared base holidays
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->
