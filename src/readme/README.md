@@ -8,8 +8,8 @@ A Java library for defining and calculating holiday calendars. Provides an exten
 
 > **Upgrading from v1.4.0 or earlier?** v2.0.0 introduced the `EarlyCloseHoliday`
 > API, and v2.1.0 separates national holiday calendars from equities-exchange
-> market calendars. See [MIGRATION.md](MIGRATION.md) for the full breaking-changes
-> guide.
+> market calendars. **Skip v2.0.0 and upgrade straight to v2.1.0 or later** — see
+> [MIGRATION.md](MIGRATION.md) for the full breaking-changes guide.
 
 > **Porting to another language?** See [docs/PORTING_GUIDE.md](docs/PORTING_GUIDE.md) for the core abstractions, design patterns, and data formats needed to build a compatible implementation in JavaScript, Python, Go, or any other language.
 
@@ -80,7 +80,7 @@ applicable (e.g. `ILS` for TASE, `TRY` for BIST).
 | Morocco | `MA` | `MAD` CSE/BAM | — |
 | Jordan | `JO` | `JOD` ASE/CBJ | — |
 
-For information on adding new calendars or maintaining existing ones, see the [Contributing Guide](CONTRIBUTING.md).
+For information on adding new calendars or maintaining existing ones, see the [Contributing Guide](CONTRIBUTING.md). For per-exchange early-close times, time zones, weekend-roll behavior, and primary-source citations, see the [calendar reference docs](docs/calendars/README.md).
 
 ## Installation
 
@@ -170,6 +170,51 @@ List<HolidayDate> combined2025 = combined.calculate(2025);
 ```java
 List<String> codes = factory.listAvailableCodes();
 // ["AE", "AED", "AU", "AUD", "BH", "BHD", "CA", "CAD", "CH", "CHF", "CN", "CNY", "DE", "EUR", "FR", "GBP", "IL", "ILS", "JO", "JOD", "JP", "JPY", "KW", "KWD", "MA", "MAD", "QA", "QAR", "SA", "SAR", "SG", "SGD", "TR", "TRY", "UK", "US", "USD"]
+```
+
+### Retrieve early close holidays
+
+`EarlyCloseHoliday` entries represent partial trading days — e.g. NYSE's 1:00pm ET
+close the day after Thanksgiving. They are excluded from `calculate()` and must be
+retrieved separately via `calculateEarlyCloses(int)`. Use an exchange MIC code such
+as `XNYS` — national codes no longer carry early closes (with the sole exception of
+`TR`; see [Supported Calendars](#supported-calendars)).
+
+```java
+import org.holiday.calendar.EarlyCloseHoliday;
+
+HolidayCalendar xnysCalendar = factory.create("XNYS");
+
+for (HolidayDate hd : xnysCalendar.calculateEarlyCloses(2026)) {
+    EarlyCloseHoliday earlyClose = (EarlyCloseHoliday) hd.getHoliday();
+    System.out.printf("%s  %s closes at %s %s%n",
+        hd.getDate(), earlyClose.getName(), earlyClose.getCloseTime(), earlyClose.getZoneId());
+}
+```
+
+`hasEarlyCloses()` is a cheap, year-independent check for whether a calendar has any
+early-close entries at all, useful for branching without computing a specific year.
+
+```java
+if (xnysCalendar.hasEarlyCloses()) {
+    System.out.println("This calendar publishes early-close trading days.");
+}
+```
+
+To get a single chronologically-sorted view of both full closures and early closes for
+a year, merge the two result lists and re-sort — `HolidayDate` is not `Comparable`, so
+sort with an explicit `Comparator`:
+
+```java
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
+
+List<HolidayDate> allDates2026 = Stream.concat(
+        xnysCalendar.calculate(2026).stream(),
+        xnysCalendar.calculateEarlyCloses(2026).stream())
+    .sorted(Comparator.comparing(HolidayDate::getDate))
+    .toList();
 ```
 
 ### Define a custom holiday calendar
