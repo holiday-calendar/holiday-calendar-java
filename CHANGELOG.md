@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Corrected UAE (`AE`) and Saudi Arabia (`SA`) Eid al-Adha 2026 dates — the CSV rows had recorded Arafat Day's date (26 May 2026) instead of Eid al-Adha's first day (27 May 2026); also corrected the now-inaccurate "known divergence" comment in `eid-al-adha-tr.csv`, since UAE, Saudi Arabia, and Diyanet all agree on 27 May 2026 (#322)
+
 ## [2.1.0] - 2026-08-03
 
 > **Breaking changes** — see [MIGRATION.md](MIGRATION.md) for the full upgrade guide from v1.4.0.

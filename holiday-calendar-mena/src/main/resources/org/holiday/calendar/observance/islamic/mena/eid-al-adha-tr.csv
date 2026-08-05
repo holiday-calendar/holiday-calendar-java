@@ -19,11 +19,13 @@
 #              Verify against Diyanet and BIST official announcements as each year is published.
 #              Corrections require a new JAR release — no runtime update mechanism exists.
 #
-# KNOWN DIVERGENCE — 2026: Diyanet declared 10 Dhu al-Hijjah 1447 as 27 May 2026,
-# one day later than the UAE SCA-confirmed date of 26 May 2026 (see eid-al-adha-ae.csv).
-# Both tiers are officially confirmed (not projections) — this is the canonical example
-# of ilmi takvim vs. Umm al-Qura / moon-sighting divergence. (A previously-recorded 2025
-# divergence in this file was found to be a data error — 2025-06-05 is Arefe, the eve of
+# NOTE — 2026: An earlier version of this comment claimed a 2026 divergence between
+# Diyanet (27 May 2026) and UAE SCA (26 May 2026). That claim was based on an error in
+# eid-al-adha-ae.csv, which had recorded Arafat Day's date (26 May 2026, 9 Dhu al-Hijjah)
+# mislabeled as Eid al-Adha's first day. Once corrected (see issue #322), UAE SCA, Saudi
+# Arabia, and Diyanet all agree: Eid al-Adha 2026 first day is 27 May 2026. There is no
+# genuine ilmi takvim vs. Umm al-Qura divergence for 2026. (A previously-recorded 2025
+# divergence in this file was likewise a data error — 2025-06-05 is Arefe, the eve of
 # Bayram, not the 1st day; Diyanet's own published 1st day is 2025-06-06, matching AE.)
 #
 # NOTE — 2039: Gregorian year 2039 contains two 10 Dhu al-Hijjah occurrences

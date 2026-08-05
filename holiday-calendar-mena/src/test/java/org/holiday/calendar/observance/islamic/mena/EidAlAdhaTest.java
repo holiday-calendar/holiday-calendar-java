@@ -105,7 +105,7 @@ public class EidAlAdhaTest {
         return List.of(
             new Object[]{2024, LocalDate.of(2024, Month.JUNE, 16)},
             new Object[]{2025, LocalDate.of(2025, Month.JUNE, 6)},
-            new Object[]{2026, LocalDate.of(2026, Month.MAY, 27)},  // one day later than AE/SA — see below
+            new Object[]{2026, LocalDate.of(2026, Month.MAY, 27)},  // matches AE/SA — see testTR2026MatchesAE()
             new Object[]{2027, LocalDate.of(2027, Month.MAY, 16)},
             new Object[]{2035, LocalDate.of(2035, Month.FEBRUARY, 18)},
             // 2036-2055 are IlmiTakvimCalculator projections (Diyanet has not yet
@@ -123,20 +123,12 @@ public class EidAlAdhaTest {
                 "Eid al-Adha " + year + " per Diyanet must be " + expected);
     }
 
-    // Canonical Diyanet vs. Umm al-Qura/UAE divergence: 2026 Eid al-Adha.
-    // (A previously-recorded 2025 divergence was a data error: 2025-06-05 is Arefe,
-    // the eve of Bayram, not the actual 1st day — Diyanet's published 1st day is
-    // 2025-06-06, matching AE/SA. No divergence exists in 2025.)
+    // 2026 no longer diverges once the Arafat-Day/Eid-day data error in eid-al-adha-ae.csv
+    // is corrected (see issue #322) — UAE SCA, Saudi Arabia, and Diyanet all agree on 27 May 2026.
     @Test
-    public void testTR2026DiffersFromAE() {
-        LocalDate trDate = new EidAlAdha("TR").apply(2026);
-        LocalDate aeDate = new EidAlAdha("AE").apply(2026);
-        assertEquals(trDate, LocalDate.of(2026, Month.MAY, 27),
-                "Diyanet Eid al-Adha 2026 must be May 27");
-        assertEquals(aeDate, LocalDate.of(2026, Month.MAY, 26),
-                "UAE SCA Eid al-Adha 2026 must be May 26");
-        assertNotEquals(trDate, aeDate,
-                "Diyanet and UAE SCA Eid al-Adha 2026 must differ by one day");
+    public void testTR2026MatchesAE() {
+        assertEquals(new EidAlAdha("TR").apply(2026), new EidAlAdha("AE").apply(2026),
+                "Eid al-Adha 2026: Diyanet (TR) and UAE SCA (AE) must agree on May 27");
     }
 
     // 2025 no longer diverges once the Arefe/Bayram-day data error is corrected
