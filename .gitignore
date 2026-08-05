@@ -248,3 +248,5 @@ gradle-app.setting
 .claude/skills/*
 !.claude/skills/region-calendar-issue-plan/
 !.claude/skills/region-calendar-issue-plan/**
+!.claude/skills/ship-issue/
+!.claude/skills/ship-issue/**
