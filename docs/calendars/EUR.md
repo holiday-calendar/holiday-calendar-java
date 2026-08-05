@@ -1,9 +1,9 @@
 # EUR — Euro (TARGET2) Holidays
 
-**Standard:** ISO 4217 `EUR`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** None — `EUR` represents the Eurozone-wide TARGET2 settlement system as a single calendar, not a per-country decomposition; it is not a sibling of any individual Eurozone country's national calendar (e.g. `DE`, `FR`) in this codebase.
-**Service class:** `HolidayCalendarServiceEUR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 4217 `EUR`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** None — `EUR` represents the Eurozone-wide TARGET2 settlement system as a single calendar, not a per-country decomposition; it is not a sibling of any individual Eurozone country's national calendar (e.g. `DE`, `FR`) in this codebase.
+- **Service class:** `HolidayCalendarServiceEUR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

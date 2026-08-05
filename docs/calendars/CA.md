@@ -1,9 +1,9 @@
 # CA — Canada National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `CA`
-**Category:** National
-**Sibling calendars:** [CAD](./CAD.md) (Bank of Canada/Lynx settlement), [XTSE](./XTSE.md) (Toronto Stock Exchange) — `CA` and `XTSE` share 10 holidays via the `CanadaHolidays` factory; `XTSE` additionally has a Christmas Eve early close. `CAD` independently duplicates most of the same holidays but omits Easter Monday and gates Family Day/National Day for Truth and Reconciliation to specific inception years.
-**Service class:** `HolidayCalendarServiceCA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 3166-1 alpha-2 `CA`
+- **Category:** National
+- **Sibling calendars:** [CAD](./CAD.md) (Bank of Canada/Lynx settlement), [XTSE](./XTSE.md) (Toronto Stock Exchange) — `CA` and `XTSE` share 10 holidays via the `CanadaHolidays` factory; `XTSE` additionally has a Christmas Eve early close. `CAD` independently duplicates most of the same holidays but omits Easter Monday and gates Family Day/National Day for Truth and Reconciliation to specific inception years.
+- **Service class:** `HolidayCalendarServiceCA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

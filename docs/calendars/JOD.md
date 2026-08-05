@@ -1,9 +1,9 @@
 # JOD — Jordan (ASE/CBJ) Holidays
 
-**Standard:** ISO 4217 `JOD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [JO](./JO.md) (national) — `JOD` shares the identical 15-holiday list with `JO`, differing only in rollability (fully non-rollable) and roll strategy.
-**Service class:** `HolidayCalendarServiceJOD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `JOD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [JO](./JO.md) (national) — `JOD` shares the identical 15-holiday list with `JO`, differing only in rollability (fully non-rollable) and roll strategy.
+- **Service class:** `HolidayCalendarServiceJOD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

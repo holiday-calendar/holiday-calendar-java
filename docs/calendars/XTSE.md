@@ -1,9 +1,9 @@
 # XTSE — Toronto Stock Exchange (TSX) Holidays
 
-**Standard:** ISO 10383 MIC `XTSE`
-**Category:** Market/Exchange
-**Sibling calendars:** [CA](./CA.md) (national), [CAD](./CAD.md) (Bank of Canada/Lynx) — `XTSE` shares its 10 base holidays with `CA` via the `CanadaHolidays` factory, then adds National Day For Truth and Reconciliation, a Christmas Eve early close, Christmas Day, and a collision-aware Boxing Day. `XTSE` and `CAD` use the same weekend roll direction (always forward) and the same `BoxingDayCAD` observance class.
-**Service class:** `HolidayCalendarServiceXTSE` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 10383 MIC `XTSE`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [CA](./CA.md) (national), [CAD](./CAD.md) (Bank of Canada/Lynx) — `XTSE` shares its 10 base holidays with `CA` via the `CanadaHolidays` factory, then adds National Day For Truth and Reconciliation, a Christmas Eve early close, Christmas Day, and a collision-aware Boxing Day. `XTSE` and `CAD` use the same weekend roll direction (always forward) and the same `BoxingDayCAD` observance class.
+- **Service class:** `HolidayCalendarServiceXTSE` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

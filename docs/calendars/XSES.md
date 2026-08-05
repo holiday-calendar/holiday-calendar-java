@@ -1,9 +1,9 @@
 # XSES — Singapore Exchange (SGX) Holidays
 
-**Standard:** ISO 10383 MIC `XSES`
-**Category:** Market/Exchange
-**Sibling calendars:** [SG](./SG.md) (national), [SGD](./SGD.md) (MAS/MEPS+) — `XSES` shares the identical 11-holiday base list with both, adding 2 `EARLY_CLOSE` entries neither carries.
-**Service class:** `HolidayCalendarServiceXSES` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
+- **Standard:** ISO 10383 MIC `XSES`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [SG](./SG.md) (national), [SGD](./SGD.md) (MAS/MEPS+) — `XSES` shares the identical 11-holiday base list with both, adding 2 `EARLY_CLOSE` entries neither carries.
+- **Service class:** `HolidayCalendarServiceXSES` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
 
 ## Weekend & Date Roll
 

@@ -1,9 +1,9 @@
 # USD — United States (Federal Reserve) Holidays
 
-**Standard:** ISO 4217 `USD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [US](./US.md) (national), [XNYS](./XNYS.md) (NYSE) — `USD` adds Columbus Day and Veterans Day relative to `XNYS` (which excludes both), and excludes Good Friday and Day After Thanksgiving (NYSE-only market conventions) that `XNYS` includes.
-**Service class:** `HolidayCalendarServiceUSD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 4217 `USD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [US](./US.md) (national), [XNYS](./XNYS.md) (NYSE) — `USD` adds Columbus Day and Veterans Day relative to `XNYS` (which excludes both), and excludes Good Friday and Day After Thanksgiving (NYSE-only market conventions) that `XNYS` includes.
+- **Service class:** `HolidayCalendarServiceUSD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

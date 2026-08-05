@@ -1,9 +1,9 @@
 # FR — France National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `FR`
-**Category:** National
-**Sibling calendars:** [XPAR](./XPAR.md) (Euronext Paris) — `FR` and `XPAR` share all 11 holidays verbatim via the `FrHolidays` factory; `XPAR` additionally adds Good Friday (a market-only convention, not a French national holiday) plus two early closes.
-**Service class:** `HolidayCalendarServiceFR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 3166-1 alpha-2 `FR`
+- **Category:** National
+- **Sibling calendars:** [XPAR](./XPAR.md) (Euronext Paris) — `FR` and `XPAR` share all 11 holidays verbatim via the `FrHolidays` factory; `XPAR` additionally adds Good Friday (a market-only convention, not a French national holiday) plus two early closes.
+- **Service class:** `HolidayCalendarServiceFR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

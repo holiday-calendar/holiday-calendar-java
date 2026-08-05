@@ -1,9 +1,9 @@
 # EGP — Egypt (EGX/CBE) Holidays
 
-**Standard:** ISO 4217 `EGP`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [EG](./EG.md) (national) — `EGP` omits Arafat Day, for 16 holidays vs. `EG`'s 17.
-**Service class:** `HolidayCalendarServiceEGP` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `EGP`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [EG](./EG.md) (national) — `EGP` omits Arafat Day, for 16 holidays vs. `EG`'s 17.
+- **Service class:** `HolidayCalendarServiceEGP` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

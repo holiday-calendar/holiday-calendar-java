@@ -1,9 +1,9 @@
 # AUD — Australia (RBA) Holidays
 
-**Standard:** ISO 4217 `AUD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [AU](./AU.md) (national), [XASX](./XASX.md) (ASX) — `AUD` omits Easter Saturday (which both `AU` and `XASX` carry) and instead adds a New South Wales-specific "Bank Holiday" that neither sibling has.
-**Service class:** `HolidayCalendarServiceAUD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 4217 `AUD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [AU](./AU.md) (national), [XASX](./XASX.md) (ASX) — `AUD` omits Easter Saturday (which both `AU` and `XASX` carry) and instead adds a New South Wales-specific "Bank Holiday" that neither sibling has.
+- **Service class:** `HolidayCalendarServiceAUD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

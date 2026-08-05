@@ -1,9 +1,9 @@
 # SAR — Saudi Arabia (Tadawul/SAMA) Holidays
 
-**Standard:** ISO 4217 `SAR`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [SA](./SA.md) (national) — `SAR` shares the identical 10-holiday list with `SA`, differing only in rollability (fully non-rollable) and roll strategy.
-**Service class:** `HolidayCalendarServiceSAR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `SAR`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [SA](./SA.md) (national) — `SAR` shares the identical 10-holiday list with `SA`, differing only in rollability (fully non-rollable) and roll strategy.
+- **Service class:** `HolidayCalendarServiceSAR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

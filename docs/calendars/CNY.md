@@ -1,9 +1,9 @@
 # CNY — China (PBOC) Holidays
 
-**Standard:** ISO 4217 `CNY`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [CN](./CN.md) (national) — `CNY` models the full operational closure windows (7-day Spring Festival, 3-day Labour Day, 7-day National Day) actually observed by the PBOC/CNAPS system, versus `CN`'s statutory-minimum windows.
-**Service class:** `HolidayCalendarServiceCNY` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
+- **Standard:** ISO 4217 `CNY`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [CN](./CN.md) (national) — `CNY` models the full operational closure windows (7-day Spring Festival, 3-day Labour Day, 7-day National Day) actually observed by the PBOC/CNAPS system, versus `CN`'s statutory-minimum windows.
+- **Service class:** `HolidayCalendarServiceCNY` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
 
 ## Weekend & Date Roll
 

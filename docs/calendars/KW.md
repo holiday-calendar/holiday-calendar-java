@@ -1,9 +1,9 @@
 # KW — Kuwait (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `KW`
-**Category:** National
-**Sibling calendars:** [KWD](./KWD.md) (Boursa Kuwait/CBK settlement) — `KW` and `KWD` share the identical 13-holiday list via `KuwaitHolidays.baseHolidays()`, differing only in rollability and roll strategy.
-**Service class:** `HolidayCalendarServiceKW` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `KW`
+- **Category:** National
+- **Sibling calendars:** [KWD](./KWD.md) (Boursa Kuwait/CBK settlement) — `KW` and `KWD` share the identical 13-holiday list via `KuwaitHolidays.baseHolidays()`, differing only in rollability and roll strategy.
+- **Service class:** `HolidayCalendarServiceKW` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

@@ -1,9 +1,9 @@
 # BHD — Bahrain (Boursa Bahrain/CBB) Holidays
 
-**Standard:** ISO 4217 `BHD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [BH](./BH.md) (national) — `BHD` shares the identical 15-holiday list with `BH`, differing only in rollability (fully non-rollable) and roll strategy.
-**Service class:** `HolidayCalendarServiceBHD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `BHD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [BH](./BH.md) (national) — `BHD` shares the identical 15-holiday list with `BH`, differing only in rollability (fully non-rollable) and roll strategy.
+- **Service class:** `HolidayCalendarServiceBHD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

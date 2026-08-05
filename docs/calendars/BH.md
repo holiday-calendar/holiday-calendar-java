@@ -1,9 +1,9 @@
 # BH — Bahrain (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `BH`
-**Category:** National
-**Sibling calendars:** [BHD](./BHD.md) (Boursa Bahrain/CBB settlement) — `BH` and `BHD` share the identical 15-holiday list via `BahrainHolidays.baseHolidays()`, differing only in rollability and roll strategy.
-**Service class:** `HolidayCalendarServiceBH` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `BH`
+- **Category:** National
+- **Sibling calendars:** [BHD](./BHD.md) (Boursa Bahrain/CBB settlement) — `BH` and `BHD` share the identical 15-holiday list via `BahrainHolidays.baseHolidays()`, differing only in rollability and roll strategy.
+- **Service class:** `HolidayCalendarServiceBH` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

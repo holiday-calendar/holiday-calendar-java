@@ -1,9 +1,9 @@
 # XPAR — Euronext Paris Holidays
 
-**Standard:** ISO 10383 MIC `XPAR`
-**Category:** Market/Exchange
-**Sibling calendars:** [FR](./FR.md) (national) — `XPAR` shares all 11 of `FR`'s holidays verbatim via the `FrHolidays` factory, adding Good Friday and two early closes on top.
-**Service class:** `HolidayCalendarServiceXPAR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 10383 MIC `XPAR`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [FR](./FR.md) (national) — `XPAR` shares all 11 of `FR`'s holidays verbatim via the `FrHolidays` factory, adding Good Friday and two early closes on top.
+- **Service class:** `HolidayCalendarServiceXPAR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

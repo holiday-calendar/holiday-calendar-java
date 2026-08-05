@@ -1,9 +1,9 @@
 # TRY — Turkey (BIST/TCMB) Holidays
 
-**Standard:** ISO 4217 `TRY`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [TR](./TR.md) (national) — `TRY` shares the identical 14-holiday base list and the same Republic Day Eve early close with `TR`, differing only in rollability (fully non-rollable) and roll strategy.
-**Service class:** `HolidayCalendarServiceTRY` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `TRY`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [TR](./TR.md) (national) — `TRY` shares the identical 14-holiday base list and the same Republic Day Eve early close with `TR`, differing only in rollability (fully non-rollable) and roll strategy.
+- **Service class:** `HolidayCalendarServiceTRY` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

@@ -1,9 +1,9 @@
 # SG — Singapore National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `SG`
-**Category:** National
-**Sibling calendars:** [SGD](./SGD.md) (MAS/MEPS+ settlement), [XSES](./XSES.md) (Singapore Exchange) — all three share the identical 11-holiday base list via `SingaporeHolidays.baseHolidays()`; `XSES` additionally carries 2 `EARLY_CLOSE` entries that neither `SG` nor `SGD` has.
-**Service class:** `HolidayCalendarServiceSG` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
+- **Standard:** ISO 3166-1 alpha-2 `SG`
+- **Category:** National
+- **Sibling calendars:** [SGD](./SGD.md) (MAS/MEPS+ settlement), [XSES](./XSES.md) (Singapore Exchange) — all three share the identical 11-holiday base list via `SingaporeHolidays.baseHolidays()`; `XSES` additionally carries 2 `EARLY_CLOSE` entries that neither `SG` nor `SGD` has.
+- **Service class:** `HolidayCalendarServiceSG` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
 
 ## Weekend & Date Roll
 

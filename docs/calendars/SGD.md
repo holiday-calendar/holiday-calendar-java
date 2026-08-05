@@ -1,9 +1,9 @@
 # SGD — Singapore (MAS/MEPS+) Holidays
 
-**Standard:** ISO 4217 `SGD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [SG](./SG.md) (national), [XSES](./XSES.md) (Singapore Exchange) — `SGD` shares the identical 11-holiday list with `SG`, differing only in rollability and roll strategy; unlike `XSES`, it carries no early closes.
-**Service class:** `HolidayCalendarServiceSGD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
+- **Standard:** ISO 4217 `SGD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [SG](./SG.md) (national), [XSES](./XSES.md) (Singapore Exchange) — `SGD` shares the identical 11-holiday list with `SG`, differing only in rollability and roll strategy; unlike `XSES`, it carries no early closes.
+- **Service class:** `HolidayCalendarServiceSGD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
 
 ## Weekend & Date Roll
 

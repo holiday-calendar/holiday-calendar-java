@@ -1,9 +1,9 @@
 # DE — Germany National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `DE`
-**Category:** National
-**Sibling calendars:** [XETR](./XETR.md) (Deutsche Börse Xetra) — `DE` and `XETR` share all 9 holidays verbatim via the `DeHolidays` factory; `XETR` additionally has Christmas Eve and New Year's Eve as market-only closures.
-**Service class:** `HolidayCalendarServiceDE` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 3166-1 alpha-2 `DE`
+- **Category:** National
+- **Sibling calendars:** [XETR](./XETR.md) (Deutsche Börse Xetra) — `DE` and `XETR` share all 9 holidays verbatim via the `DeHolidays` factory; `XETR` additionally has Christmas Eve and New Year's Eve as market-only closures.
+- **Service class:** `HolidayCalendarServiceDE` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

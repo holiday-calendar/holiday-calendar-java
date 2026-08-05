@@ -1,9 +1,9 @@
 # EG — Egypt (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `EG`
-**Category:** National
-**Sibling calendars:** [EGP](./EGP.md) (EGX/CBE settlement) — `EGP` omits Arafat Day (which `EG` carries), for 16 vs. `EG`'s 17 holidays.
-**Service class:** `HolidayCalendarServiceEG` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `EG`
+- **Category:** National
+- **Sibling calendars:** [EGP](./EGP.md) (EGX/CBE settlement) — `EGP` omits Arafat Day (which `EG` carries), for 16 vs. `EG`'s 17 holidays.
+- **Service class:** `HolidayCalendarServiceEG` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

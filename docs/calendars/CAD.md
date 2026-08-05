@@ -1,9 +1,9 @@
 # CAD — Bank of Canada (Lynx) Holiday Schedule
 
-**Standard:** ISO 4217 `CAD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [CA](./CA.md) (national), [XTSE](./XTSE.md) (Toronto Stock Exchange) — `CAD` omits Easter Monday (not a Bank Act statutory holiday) and gates Family Day and National Day For Truth and Reconciliation to specific federal-adoption years, unlike `CA`'s unconditional inclusion.
-**Service class:** `HolidayCalendarServiceCAD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 4217 `CAD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [CA](./CA.md) (national), [XTSE](./XTSE.md) (Toronto Stock Exchange) — `CAD` omits Easter Monday (not a Bank Act statutory holiday) and gates Family Day and National Day For Truth and Reconciliation to specific federal-adoption years, unlike `CA`'s unconditional inclusion.
+- **Service class:** `HolidayCalendarServiceCAD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

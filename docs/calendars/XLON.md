@@ -1,9 +1,9 @@
 # XLON — London Stock Exchange (LSE) Holidays
 
-**Standard:** ISO 10383 MIC `XLON`
-**Category:** Market/Exchange
-**Sibling calendars:** [UK](./UK.md) (national), [GBP](./GBP.md) (CHAPS) — `XLON` shares all 12 base holidays (including all four historical Jubilee entries) with `UK` verbatim via the `UkHolidays` factory, and additionally carries two early closes that neither sibling has.
-**Service class:** `HolidayCalendarServiceXLON` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 10383 MIC `XLON`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [UK](./UK.md) (national), [GBP](./GBP.md) (CHAPS) — `XLON` shares all 12 base holidays (including all four historical Jubilee entries) with `UK` verbatim via the `UkHolidays` factory, and additionally carries two early closes that neither sibling has.
+- **Service class:** `HolidayCalendarServiceXLON` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

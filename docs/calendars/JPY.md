@@ -1,9 +1,9 @@
 # JPY — Japan (Bank of Japan) Holidays
 
-**Standard:** ISO 4217 `JPY`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [JP](./JP.md) (national) — `JPY` shares every `JP` holiday and both the cascade (振替休日) and sandwiched-day (国民の休日) rules verbatim, adding 3 BOJ-specific operational closures on top.
-**Service class:** `HolidayCalendarServiceJPY` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`), wrapped by the same package-private `JapaneseHolidayCalendar` used by `JP`
+- **Standard:** ISO 4217 `JPY`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [JP](./JP.md) (national) — `JPY` shares every `JP` holiday and both the cascade (振替休日) and sandwiched-day (国民の休日) rules verbatim, adding 3 BOJ-specific operational closures on top.
+- **Service class:** `HolidayCalendarServiceJPY` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`), wrapped by the same package-private `JapaneseHolidayCalendar` used by `JP`
 
 ## Weekend & Date Roll
 

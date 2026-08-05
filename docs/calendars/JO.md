@@ -1,9 +1,9 @@
 # JO — Jordan (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `JO`
-**Category:** National
-**Sibling calendars:** [JOD](./JOD.md) (ASE/CBJ settlement) — `JO` and `JOD` share the identical 15-holiday list via `JordanHolidays.baseHolidays()`, differing only in rollability and roll strategy.
-**Service class:** `HolidayCalendarServiceJO` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `JO`
+- **Category:** National
+- **Sibling calendars:** [JOD](./JOD.md) (ASE/CBJ settlement) — `JO` and `JOD` share the identical 15-holiday list via `JordanHolidays.baseHolidays()`, differing only in rollability and roll strategy.
+- **Service class:** `HolidayCalendarServiceJO` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

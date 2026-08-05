@@ -1,9 +1,9 @@
 # CHF — Switzerland (SIC/SNB) Holidays
 
-**Standard:** ISO 4217 `CHF`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [CH](./CH.md) (national), [XSWX](./XSWX.md) (SIX Swiss Exchange) — `CHF` adds Berchtoldstag (January 2) and St. Stephen's Day naming for Boxing Day; unlike both siblings, `CHF` uses a strict no-adjustment convention (see below) instead of a weekend-roll rule.
-**Service class:** `HolidayCalendarServiceCHF` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 4217 `CHF`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [CH](./CH.md) (national), [XSWX](./XSWX.md) (SIX Swiss Exchange) — `CHF` adds Berchtoldstag (January 2) and St. Stephen's Day naming for Boxing Day; unlike both siblings, `CHF` uses a strict no-adjustment convention (see below) instead of a weekend-roll rule.
+- **Service class:** `HolidayCalendarServiceCHF` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

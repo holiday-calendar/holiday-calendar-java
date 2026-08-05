@@ -1,9 +1,9 @@
 # MA — Morocco (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `MA`
-**Category:** National
-**Sibling calendars:** [MAD](./MAD.md) (CSE/BAM settlement) — `MA` and `MAD` share the identical 17-holiday list via `MoroccoHolidays.baseHolidays()`, differing only in rollability and roll strategy.
-**Service class:** `HolidayCalendarServiceMA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `MA`
+- **Category:** National
+- **Sibling calendars:** [MAD](./MAD.md) (CSE/BAM settlement) — `MA` and `MAD` share the identical 17-holiday list via `MoroccoHolidays.baseHolidays()`, differing only in rollability and roll strategy.
+- **Service class:** `HolidayCalendarServiceMA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

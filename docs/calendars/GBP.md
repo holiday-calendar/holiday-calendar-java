@@ -1,9 +1,9 @@
 # GBP — United Kingdom (CHAPS) Holidays
 
-**Standard:** ISO 4217 `GBP`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [UK](./UK.md) (national), [XLON](./XLON.md) (London Stock Exchange) — `GBP` omits the four historical Jubilee `SPECIAL_ANNIVERSARY` entries that `UK`/`XLON` carry, and instead has its own one-off entries for the 2022 State Funeral and 2023 Coronation, which neither sibling carries.
-**Service class:** `HolidayCalendarServiceGBP` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 4217 `GBP`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [UK](./UK.md) (national), [XLON](./XLON.md) (London Stock Exchange) — `GBP` omits the four historical Jubilee `SPECIAL_ANNIVERSARY` entries that `UK`/`XLON` carry, and instead has its own one-off entries for the 2022 State Funeral and 2023 Coronation, which neither sibling carries.
+- **Service class:** `HolidayCalendarServiceGBP` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

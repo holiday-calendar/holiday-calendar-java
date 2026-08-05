@@ -1,9 +1,9 @@
 # IL — Israel National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `IL`
-**Category:** National
-**Sibling calendars:** [ILS](./ILS.md) (TASE/Bank of Israel settlement) — `ILS` mirrors 9 of `IL`'s 10 holidays (omitting Yom Hazikaron, since TASE remains open on it) and adds 6 `EARLY_CLOSE` holidays that `IL` doesn't carry. `IL` and `ILS` share their holiday-list source via a package-private `IsraelHolidays` factory class.
-**Service class:** `HolidayCalendarServiceIL` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `IL`
+- **Category:** National
+- **Sibling calendars:** [ILS](./ILS.md) (TASE/Bank of Israel settlement) — `ILS` mirrors 9 of `IL`'s 10 holidays (omitting Yom Hazikaron, since TASE remains open on it) and adds 6 `EARLY_CLOSE` holidays that `IL` doesn't carry. `IL` and `ILS` share their holiday-list source via a package-private `IsraelHolidays` factory class.
+- **Service class:** `HolidayCalendarServiceIL` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

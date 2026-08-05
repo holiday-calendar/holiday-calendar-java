@@ -1,9 +1,9 @@
 # AU — Australia National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `AU`
-**Category:** National
-**Sibling calendars:** [AUD](./AUD.md) (RBA), [XASX](./XASX.md) (Australian Securities Exchange) — `AU` and `XASX` share all 9 holidays via the `AuHolidays` factory; `AUD` independently duplicates most of the same holidays but omits Easter Saturday and adds an NSW-specific Bank Holiday that neither `AU` nor `XASX` carries.
-**Service class:** `HolidayCalendarServiceAU` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 3166-1 alpha-2 `AU`
+- **Category:** National
+- **Sibling calendars:** [AUD](./AUD.md) (RBA), [XASX](./XASX.md) (Australian Securities Exchange) — `AU` and `XASX` share all 9 holidays via the `AuHolidays` factory; `AUD` independently duplicates most of the same holidays but omits Easter Saturday and adds an NSW-specific Bank Holiday that neither `AU` nor `XASX` carries.
+- **Service class:** `HolidayCalendarServiceAU` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

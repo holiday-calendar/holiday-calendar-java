@@ -1,9 +1,9 @@
 # ILS — Israel (TASE/Bank of Israel) Holidays
 
-**Standard:** ISO 4217 `ILS`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [IL](./IL.md) (national) — `ILS` omits Yom Hazikaron (which `IL` carries) and adds 6 `EARLY_CLOSE` holidays that `IL` doesn't carry. Both share their base holiday list via the same package-private `IsraelHolidays` factory.
-**Service class:** `HolidayCalendarServiceILS` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `ILS`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [IL](./IL.md) (national) — `ILS` omits Yom Hazikaron (which `IL` carries) and adds 6 `EARLY_CLOSE` holidays that `IL` doesn't carry. Both share their base holiday list via the same package-private `IsraelHolidays` factory.
+- **Service class:** `HolidayCalendarServiceILS` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

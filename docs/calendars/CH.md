@@ -1,9 +1,9 @@
 # CH — Switzerland National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `CH`
-**Category:** National
-**Sibling calendars:** [CHF](./CHF.md) (SIC/SNB settlement), [XSWX](./XSWX.md) (SIX Swiss Exchange) — SIX is closed on every holiday observed by `CH`, plus two additional market-only holidays (see XSWX)
-**Service class:** `HolidayCalendarServiceCH` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 3166-1 alpha-2 `CH`
+- **Category:** National
+- **Sibling calendars:** [CHF](./CHF.md) (SIC/SNB settlement), [XSWX](./XSWX.md) (SIX Swiss Exchange) — SIX is closed on every holiday observed by `CH`, plus two additional market-only holidays (see XSWX)
+- **Service class:** `HolidayCalendarServiceCH` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

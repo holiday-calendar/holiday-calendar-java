@@ -1,9 +1,9 @@
 # XASX — Australian Securities Exchange (ASX) Holidays
 
-**Standard:** ISO 10383 MIC `XASX`
-**Category:** Market/Exchange
-**Sibling calendars:** [AU](./AU.md) (national), [AUD](./AUD.md) (RBA) — `XASX` shares all 9 of `AU`'s holidays verbatim via the `AuHolidays` factory, adding two early closes on top. Unlike `AUD`, `XASX` includes Easter Saturday and excludes the NSW Bank Holiday.
-**Service class:** `HolidayCalendarServiceXASX` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 10383 MIC `XASX`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [AU](./AU.md) (national), [AUD](./AUD.md) (RBA) — `XASX` shares all 9 of `AU`'s holidays verbatim via the `AuHolidays` factory, adding two early closes on top. Unlike `AUD`, `XASX` includes Easter Saturday and excludes the NSW Bank Holiday.
+- **Service class:** `HolidayCalendarServiceXASX` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

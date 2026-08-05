@@ -1,9 +1,9 @@
 # TR — Turkey (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `TR`
-**Category:** National
-**Sibling calendars:** [TRY](./TRY.md) (BIST/TCMB settlement) — `TR` and `TRY` share the identical 14-holiday base list plus the same Republic Day Eve early close via `TurkeyHolidays`, differing only in rollability and roll strategy.
-**Service class:** `HolidayCalendarServiceTR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `TR`
+- **Category:** National
+- **Sibling calendars:** [TRY](./TRY.md) (BIST/TCMB settlement) — `TR` and `TRY` share the identical 14-holiday base list plus the same Republic Day Eve early close via `TurkeyHolidays`, differing only in rollability and roll strategy.
+- **Service class:** `HolidayCalendarServiceTR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

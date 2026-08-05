@@ -1,9 +1,9 @@
 # JP — Japan National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `JP`
-**Category:** National
-**Sibling calendars:** [JPY](./JPY.md) (Bank of Japan) — `JPY` shares all of `JP`'s holidays and cascade/sandwich logic verbatim, adding 3 BOJ-specific operational closures (Jan 2, Jan 3, Dec 31) on top. Japan has no dedicated exchange (MIC) calendar in this codebase — `JP` is documented as national-only.
-**Service class:** `HolidayCalendarServiceJP` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`), wrapped by the package-private `JapaneseHolidayCalendar` (see Notes of Interest)
+- **Standard:** ISO 3166-1 alpha-2 `JP`
+- **Category:** National
+- **Sibling calendars:** [JPY](./JPY.md) (Bank of Japan) — `JPY` shares all of `JP`'s holidays and cascade/sandwich logic verbatim, adding 3 BOJ-specific operational closures (Jan 2, Jan 3, Dec 31) on top. Japan has no dedicated exchange (MIC) calendar in this codebase — `JP` is documented as national-only.
+- **Service class:** `HolidayCalendarServiceJP` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`), wrapped by the package-private `JapaneseHolidayCalendar` (see Notes of Interest)
 
 ## Weekend & Date Roll
 

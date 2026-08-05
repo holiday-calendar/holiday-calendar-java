@@ -1,9 +1,9 @@
 # SA — Saudi Arabia (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `SA`
-**Category:** National
-**Sibling calendars:** [SAR](./SAR.md) (Tadawul/SAMA settlement) — `SA` and `SAR` share the identical 10-holiday list via `SaudiHolidays.baseHolidays()`, differing only in rollability and roll strategy.
-**Service class:** `HolidayCalendarServiceSA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `SA`
+- **Category:** National
+- **Sibling calendars:** [SAR](./SAR.md) (Tadawul/SAMA settlement) — `SA` and `SAR` share the identical 10-holiday list via `SaudiHolidays.baseHolidays()`, differing only in rollability and roll strategy.
+- **Service class:** `HolidayCalendarServiceSA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

@@ -1,9 +1,9 @@
 # XNYS — New York Stock Exchange (NYSE) Holidays
 
-**Standard:** ISO 10383 MIC `XNYS`
-**Category:** Market/Exchange
-**Sibling calendars:** [US](./US.md) (national), [USD](./USD.md) (Federal Reserve) — `XNYS` adds Good Friday (a market convention, not a federal holiday) on top of every `US` holiday, and carries 3 `EARLY_CLOSE` entries neither sibling has. Unlike `USD`, `XNYS` excludes Columbus Day and Veterans Day.
-**Service class:** `HolidayCalendarServiceXNYS` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 10383 MIC `XNYS`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [US](./US.md) (national), [USD](./USD.md) (Federal Reserve) — `XNYS` adds Good Friday (a market convention, not a federal holiday) on top of every `US` holiday, and carries 3 `EARLY_CLOSE` entries neither sibling has. Unlike `USD`, `XNYS` excludes Columbus Day and Veterans Day.
+- **Service class:** `HolidayCalendarServiceXNYS` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

@@ -1,9 +1,9 @@
 # CN — China National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `CN`
-**Category:** National
-**Sibling calendars:** [CNY](./CNY.md) (PBOC/CNAPS) — `CN` models the statutory *minimum* windows from China's State Council Ordinance; `CNY` models the *full* operational closure windows actually observed in practice (longer for Spring Festival, National Day, and Labour Day). See Notes of Interest for the exact day-count differences.
-**Service class:** `HolidayCalendarServiceCN` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
+- **Standard:** ISO 3166-1 alpha-2 `CN`
+- **Category:** National
+- **Sibling calendars:** [CNY](./CNY.md) (PBOC/CNAPS) — `CN` models the statutory *minimum* windows from China's State Council Ordinance; `CNY` models the *full* operational closure windows actually observed in practice (longer for Spring Festival, National Day, and Labour Day). See Notes of Interest for the exact day-count differences.
+- **Service class:** `HolidayCalendarServiceCN` (`org.holiday.calendar.impl`, module `org.holiday.calendar.apac`)
 
 ## Weekend & Date Roll
 

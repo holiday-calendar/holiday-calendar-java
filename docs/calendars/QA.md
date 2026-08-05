@@ -1,9 +1,9 @@
 # QA — Qatar (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `QA`
-**Category:** National
-**Sibling calendars:** [QAR](./QAR.md) (QSE/QCB settlement) — `QAR` adds one holiday (Qatar Banks Holiday) that `QA` doesn't carry, on top of the same 9 base holidays.
-**Service class:** `HolidayCalendarServiceQA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `QA`
+- **Category:** National
+- **Sibling calendars:** [QAR](./QAR.md) (QSE/QCB settlement) — `QAR` adds one holiday (Qatar Banks Holiday) that `QA` doesn't carry, on top of the same 9 base holidays.
+- **Service class:** `HolidayCalendarServiceQA` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

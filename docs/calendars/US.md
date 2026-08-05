@@ -1,9 +1,9 @@
 # US — United States National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `US`
-**Category:** National
-**Sibling calendars:** [USD](./USD.md) (Federal Reserve settlement), [XNYS](./XNYS.md) (New York Stock Exchange) — `US` contains only holidays observed by the federal government; `USD` and `XNYS` each add/omit specific holidays (see their own docs).
-**Service class:** `HolidayCalendarServiceUS` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 3166-1 alpha-2 `US`
+- **Category:** National
+- **Sibling calendars:** [USD](./USD.md) (Federal Reserve settlement), [XNYS](./XNYS.md) (New York Stock Exchange) — `US` contains only holidays observed by the federal government; `USD` and `XNYS` each add/omit specific holidays (see their own docs).
+- **Service class:** `HolidayCalendarServiceUS` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

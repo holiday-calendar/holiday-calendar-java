@@ -1,9 +1,9 @@
 # XSWX — SIX Swiss Exchange Holidays
 
-**Standard:** ISO 10383 MIC `XSWX`
-**Category:** Market/Exchange
-**Sibling calendars:** [CH](./CH.md) (national), [CHF](./CHF.md) (SIC/SNB settlement) — `XSWX` shares all 9 of `CH`'s holidays verbatim via the `ChHolidays` factory, adding Christmas Eve and New Year's Eve as market-only closures on top. Unlike `CHF`, `XSWX` uses the same weekend-roll rule as `CH`.
-**Service class:** `HolidayCalendarServiceXSWX` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 10383 MIC `XSWX`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [CH](./CH.md) (national), [CHF](./CHF.md) (SIC/SNB settlement) — `XSWX` shares all 9 of `CH`'s holidays verbatim via the `ChHolidays` factory, adding Christmas Eve and New Year's Eve as market-only closures on top. Unlike `CHF`, `XSWX` uses the same weekend-roll rule as `CH`.
+- **Service class:** `HolidayCalendarServiceXSWX` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

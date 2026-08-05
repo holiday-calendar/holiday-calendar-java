@@ -13,10 +13,10 @@ verifying them.
 -->
 # <CODE> — <Country/Market Name>
 
-**Standard:** <ISO 3166-1 alpha-2 | ISO 4217 | ISO 10383 MIC> `<CODE>`
-**Category:** National | Central Bank/Settlement | Market/Exchange
-**Sibling calendars:** [<CODE2>](./<CODE2>.md), [<CODE3>](./<CODE3>.md) — or "None"
-**Service class:** `HolidayCalendarService<CODE>` (`org.holiday.calendar.impl`, module `org.holiday.calendar.<western|apac|mena>`)
+- **Standard:** <ISO 3166-1 alpha-2 | ISO 4217 | ISO 10383 MIC> `<CODE>`
+- **Category:** National | Central Bank/Settlement | Market/Exchange
+- **Sibling calendars:** [<CODE2>](./<CODE2>.md), [<CODE3>](./<CODE3>.md) — or "None"
+- **Service class:** `HolidayCalendarService<CODE>` (`org.holiday.calendar.impl`, module `org.holiday.calendar.<western|apac|mena>`)
 
 ## Weekend & Date Roll
 

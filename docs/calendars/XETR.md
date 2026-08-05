@@ -1,9 +1,9 @@
 # XETR — Deutsche Börse Xetra Holidays
 
-**Standard:** ISO 10383 MIC `XETR`
-**Category:** Market/Exchange
-**Sibling calendars:** [DE](./DE.md) (national) — `XETR` shares all 9 of `DE`'s holidays verbatim via the `DeHolidays` factory, adding Christmas Eve and New Year's Eve as market-only closures on top.
-**Service class:** `HolidayCalendarServiceXETR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 10383 MIC `XETR`
+- **Category:** Market/Exchange
+- **Sibling calendars:** [DE](./DE.md) (national) — `XETR` shares all 9 of `DE`'s holidays verbatim via the `DeHolidays` factory, adding Christmas Eve and New Year's Eve as market-only closures on top.
+- **Service class:** `HolidayCalendarServiceXETR` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

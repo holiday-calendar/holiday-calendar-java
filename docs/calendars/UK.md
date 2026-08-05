@@ -1,9 +1,9 @@
 # UK — United Kingdom National Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `UK`
-**Category:** National
-**Sibling calendars:** [GBP](./GBP.md) (CHAPS settlement), [XLON](./XLON.md) (London Stock Exchange) — `UK` and `XLON` share all 12 holidays via the `UkHolidays` factory; `XLON` additionally has two early closes. `GBP` independently duplicates most of the same holidays but omits the four Jubilee `SPECIAL_ANNIVERSARY` entries and instead has its own one-off entries for the 2022 State Funeral and 2023 Coronation.
-**Service class:** `HolidayCalendarServiceUK` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
+- **Standard:** ISO 3166-1 alpha-2 `UK`
+- **Category:** National
+- **Sibling calendars:** [GBP](./GBP.md) (CHAPS settlement), [XLON](./XLON.md) (London Stock Exchange) — `UK` and `XLON` share all 12 holidays via the `UkHolidays` factory; `XLON` additionally has two early closes. `GBP` independently duplicates most of the same holidays but omits the four Jubilee `SPECIAL_ANNIVERSARY` entries and instead has its own one-off entries for the 2022 State Funeral and 2023 Coronation.
+- **Service class:** `HolidayCalendarServiceUK` (`org.holiday.calendar.impl`, module `org.holiday.calendar.western`)
 
 ## Weekend & Date Roll
 

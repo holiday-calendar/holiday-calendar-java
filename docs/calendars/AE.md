@@ -1,9 +1,9 @@
 # AE — UAE (National) Holidays
 
-**Standard:** ISO 3166-1 alpha-2 `AE`
-**Category:** National
-**Sibling calendars:** [AED](./AED.md) (CBUAE/DFM/ADX settlement) — `AE` and `AED` share the identical 10-holiday list via `UaeHolidays.baseHolidays()`, differing only in rollability and roll strategy.
-**Service class:** `HolidayCalendarServiceAE` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 3166-1 alpha-2 `AE`
+- **Category:** National
+- **Sibling calendars:** [AED](./AED.md) (CBUAE/DFM/ADX settlement) — `AE` and `AED` share the identical 10-holiday list via `UaeHolidays.baseHolidays()`, differing only in rollability and roll strategy.
+- **Service class:** `HolidayCalendarServiceAE` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

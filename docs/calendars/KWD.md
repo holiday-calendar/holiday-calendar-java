@@ -1,9 +1,9 @@
 # KWD — Kuwait (Boursa Kuwait/CBK) Holidays
 
-**Standard:** ISO 4217 `KWD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [KW](./KW.md) (national) — `KWD` shares the identical 13-holiday list with `KW`, differing only in rollability (fully non-rollable) and roll strategy.
-**Service class:** `HolidayCalendarServiceKWD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `KWD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [KW](./KW.md) (national) — `KWD` shares the identical 13-holiday list with `KW`, differing only in rollability (fully non-rollable) and roll strategy.
+- **Service class:** `HolidayCalendarServiceKWD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

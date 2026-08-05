@@ -1,9 +1,9 @@
 # AED — UAE (CBUAE/DFM/ADX) Holidays
 
-**Standard:** ISO 4217 `AED`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [AE](./AE.md) (national) — `AED` shares the identical 10-holiday list with `AE`, differing only in rollability (`AED` is fully non-rollable) and roll strategy.
-**Service class:** `HolidayCalendarServiceAED` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `AED`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [AE](./AE.md) (national) — `AED` shares the identical 10-holiday list with `AE`, differing only in rollability (`AED` is fully non-rollable) and roll strategy.
+- **Service class:** `HolidayCalendarServiceAED` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 

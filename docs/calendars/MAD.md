@@ -1,9 +1,9 @@
 # MAD — Morocco (CSE/BAM) Holidays
 
-**Standard:** ISO 4217 `MAD`
-**Category:** Central Bank/Settlement
-**Sibling calendars:** [MA](./MA.md) (national) — `MAD` shares the identical 17-holiday list with `MA`, differing only in rollability (fully non-rollable) and roll strategy.
-**Service class:** `HolidayCalendarServiceMAD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
+- **Standard:** ISO 4217 `MAD`
+- **Category:** Central Bank/Settlement
+- **Sibling calendars:** [MA](./MA.md) (national) — `MAD` shares the identical 17-holiday list with `MA`, differing only in rollability (fully non-rollable) and roll strategy.
+- **Service class:** `HolidayCalendarServiceMAD` (`org.holiday.calendar.impl`, module `org.holiday.calendar.mena`)
 
 ## Weekend & Date Roll
 
