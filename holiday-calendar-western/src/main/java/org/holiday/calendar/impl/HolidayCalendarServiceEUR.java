@@ -40,7 +40,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * If a closure date falls on a weekend, no compensatory weekday closure is
  * designated — the system is already non-operating on weekends.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  * @see <a href="https://www.ecb.europa.eu/paym/target/target2/profuse/calendar/html/index.en.html">ECB TARGET2 Calendar</a>
  */
 public class HolidayCalendarServiceEUR extends AbstractHolidayCalendarService {

@@ -54,7 +54,7 @@ import java.time.Month;
  * alone is insufficient — each holiday's identity is checked in the lambda.
  * Any future rollable holiday added to this calendar must also be handled there.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  * @see <a href="https://www.bankofengland.co.uk/payment-and-settlement/chaps/chaps-settlement-calendar">Bank of England CHAPS Settlement Calendar</a>
  */
 public class HolidayCalendarServiceGBP extends AbstractHolidayCalendarService {

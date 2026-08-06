@@ -39,3 +39,5 @@ Not applicable — `CHF` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - [SIX — SIC Settlement Services](https://www.six-group.com/en/products-services/banking-services/interbank-clearing/settlement-services/sic.html) — cited directly in `HolidayCalendarServiceCHF`'s own Javadoc; official primary source for the SIC no-adjustment convention
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

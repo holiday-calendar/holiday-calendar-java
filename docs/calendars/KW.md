@@ -42,3 +42,5 @@ Not applicable — `KW` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - Islamic holiday sourcing (CBK/Boursa Kuwait 2024–2026 announcements, Umm al-Qura projection for 2027–2055, data ceiling 2055) is documented directly in this project's own source comments (`KuwaitHolidays.java`); no official CBK/Boursa Kuwait primary-source page was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

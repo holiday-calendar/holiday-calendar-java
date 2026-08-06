@@ -44,7 +44,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * Euronext Paris's Christmas Eve and New Year's Eve half-day closes.
  * Euronext Paris is closed on every public holiday observed by {@code FR}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceXPAR extends AbstractHolidayCalendarService {
 

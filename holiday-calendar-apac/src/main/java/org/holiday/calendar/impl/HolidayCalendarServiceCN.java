@@ -99,7 +99,7 @@ import java.util.OptionalInt;
  * year with no upper bound; {@link #dataValidThrough()} returns
  * {@link OptionalInt#empty()} accordingly.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceCN extends AbstractHolidayCalendarService {
 

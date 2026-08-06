@@ -34,7 +34,7 @@ import java.time.temporal.TemporalAdjusters;
  * in Canada.
  *
  * @see MayDay
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class LaborDay implements Observance {
 

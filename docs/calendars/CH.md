@@ -42,3 +42,5 @@ This codebase models `CH` as a single canonical list (the majority-cantonal conv
 - [Federal Department of Foreign Affairs (EDA) — National holiday and national anthem](https://www.eda.admin.ch/aboutswitzerland/en/home/gesellschaft/traditionen/nationalfeiertag.html) — official confirmation of Swiss National Day's status as the sole federally-mandated public holiday, and its basis in the 1993 popular initiative
 - [Swiss Federalism — Public holidays in the Swiss Confederation](https://swissfederalism.ch/en/public-holidays-swiss-confederation/) — cantonal-variation overview; not a primary government source, but the clearest single account of which cantons observe which holidays (retrieved 2026-08-04)
 - Good Friday's Ticino/Valais exception is corroborated across multiple third-party Swiss holiday aggregators (e.g. tour-switzerland.ch, karpeo.ch); no single official cantons-comparison page was located as of 2026-08-04
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

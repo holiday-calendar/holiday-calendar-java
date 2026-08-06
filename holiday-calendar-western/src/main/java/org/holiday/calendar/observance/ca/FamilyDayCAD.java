@@ -37,7 +37,7 @@ import java.time.temporal.TemporalAdjusters;
  * calendar, the 2013 federal start date is authoritative.</p>
  *
  * @see FamilyDay
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class FamilyDayCAD implements Observance {
 

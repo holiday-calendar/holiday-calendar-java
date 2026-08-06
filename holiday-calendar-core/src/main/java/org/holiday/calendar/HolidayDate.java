@@ -27,7 +27,7 @@ import static java.util.Objects.requireNonNull;
  * Era (CE). Instances of this class are immutable and thread safe.
  *
  * @see HolidayCalendar#calculate(int)
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public record HolidayDate(Holiday holiday, LocalDate date) {
 

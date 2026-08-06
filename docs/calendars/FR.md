@@ -41,3 +41,5 @@ Not applicable — the `FR` national calendar never includes early-close (half-d
 
 - No single official French government (service-public.fr or legifrance.gouv.fr) primary source was captured with a stable citation URL enumerating exactly these 11 dates in this pass; the "jours fériés" list is well-established public record under French labor law (Code du travail, Article L3133-1) and not independently disputed across sources checked
 - The Alsace-Moselle regional exception (mentioned in Notes of Interest) is well-known public information but was not independently re-verified via primary source in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

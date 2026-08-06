@@ -35,7 +35,7 @@ import java.time.Month;
  * against BIST's 2023 holiday schedule, where 28-29 October fell on
  * Saturday-Sunday with no preceding half-day session).
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class RepublicDayEveEarlyClose extends AbstractObservance {
 

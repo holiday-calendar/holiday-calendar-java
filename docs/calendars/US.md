@@ -41,3 +41,5 @@ Juneteenth was signed into federal law on June 17, 2021, and is modeled here as 
 
 - No single official U.S. government page enumerates all 11 federal holidays with a citation-friendly URL as of 2026-08-04; the list matches the well-established public federal holiday schedule (5 U.S.C. § 6103) and is not independently disputed across sources checked
 - Juneteenth's 2021 federal-holiday status: signed into law June 17, 2021 (Juneteenth National Independence Day Act) — corroborated across multiple secondary sources; no direct primary citation captured during this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

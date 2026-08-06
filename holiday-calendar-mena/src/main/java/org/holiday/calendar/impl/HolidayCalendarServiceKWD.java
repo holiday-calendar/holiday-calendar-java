@@ -41,7 +41,7 @@ import java.util.OptionalInt;
  * calendar. Kuwait determines Islamic holiday dates by moon sighting and may
  * differ from Saudi Arabia by ±1 day.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceKWD extends AbstractHolidayCalendarService {
 

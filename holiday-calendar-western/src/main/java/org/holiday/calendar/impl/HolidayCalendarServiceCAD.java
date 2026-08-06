@@ -61,7 +61,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  *       observed substitute.</li>
  * </ul>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceCAD extends AbstractHolidayCalendarService {
 

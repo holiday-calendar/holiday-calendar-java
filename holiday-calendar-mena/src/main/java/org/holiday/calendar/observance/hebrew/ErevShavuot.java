@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * Observance of Erev Shavuot — the eve of the Feast of Weeks / Pentecost, the
  * day preceding {@link Shavuot}, on which many Israeli businesses close early.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ErevShavuot extends AbstractObservance {
 

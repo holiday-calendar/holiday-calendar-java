@@ -34,7 +34,7 @@ import java.time.LocalDate;
  * three-day statutory minimum window (national {@code CN} calendar, Days 1–3)
  * and the seven-day PBOC operational window ({@code CNY} calendar, Days 1–7).</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChineseNewYearDay extends AbstractObservance {
 

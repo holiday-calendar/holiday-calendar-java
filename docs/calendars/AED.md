@@ -26,3 +26,5 @@ Not applicable — `AED` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - See [AE.md](./AE.md) — `AED` inherits the identical underlying facts and sourcing gaps
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

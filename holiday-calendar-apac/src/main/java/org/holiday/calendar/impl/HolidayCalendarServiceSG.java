@@ -32,7 +32,7 @@ import java.util.OptionalInt;
  * {@code EARLY_CLOSE} holidays representing SGX's Christmas Eve and New
  * Year's Eve half-day trading closes, which this national calendar does not.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceSG extends AbstractHolidayCalendarService {
 

@@ -32,7 +32,7 @@ import java.time.LocalDate;
  * days are public holidays. The Hebrew year for Nisan in a given Gregorian
  * year is {@code gregorianYear + 3760}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class Passover extends AbstractObservance {
 

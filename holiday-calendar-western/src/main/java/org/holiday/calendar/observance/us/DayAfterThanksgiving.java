@@ -31,7 +31,7 @@ import java.time.temporal.TemporalAdjusters;
  * Thursday in November. Although not a federal holiday, it is observed as a
  * market closure by the NYSE.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class DayAfterThanksgiving extends AbstractObservance {
 

@@ -40,3 +40,5 @@ Not applicable — the `SG` national calendar never includes early-close (half-d
 ## Sources
 
 - [Singapore Ministry of Manpower — public holidays](https://www.mom.gov.sg/) — the official source for Singapore's 11 gazetted public holidays and the Employment Act's non-working-day substitution rule; the specific list was corroborated via secondary aggregators referencing MOM (no single stable MOM URL enumerating the historical list was captured in this pass)
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

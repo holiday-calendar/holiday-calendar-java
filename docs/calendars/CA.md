@@ -43,3 +43,5 @@ Not applicable — the `CA` national calendar never includes early-close (half-d
 
 - No single official Government of Canada page enumerating all of `CA`'s specific 13 dates (as opposed to the general federal statutory holidays list) was located and cross-checked in this pass; the general holiday set matches widely-corroborated public sources
 - National Day For Truth and Reconciliation's first-observed date (September 30, 2021) is well-established public record (created by federal legislation in 2021)
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

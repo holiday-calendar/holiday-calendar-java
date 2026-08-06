@@ -40,7 +40,7 @@ import java.util.OptionalInt;
  * {@code mawlid-ae.csv}. Dates for 2024–2026 are official SCA/DFM announcements;
  * 2027–2055 are projected from the Umm al-Qura tabular Islamic calendar.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceAE extends AbstractHolidayCalendarService {
 

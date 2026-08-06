@@ -57,3 +57,5 @@ This project's `HolidayCalendar` model captures both halves correctly — verifi
 - [Bank Holidays for Queen Elizabeth's Passing (leavedates.com)](https://www.leavedates.com/articles/queen-elizabeth-death-public-holiday-2022) and [Highland Council — King's Coronation bank holiday](https://www.highland.gov.uk/news/article/15144/king-s-coronation-bank-holiday-8-may-2023) — corroborate the 2022/2023 one-off dates (modeled on `GBP`, see [GBP.md](./GBP.md))
 - [UK Parliament Commons Library — How are royal jubilees celebrated in the UK?](https://commonslibrary.parliament.uk/how-are-royal-jubilees-celebrated-in-the-uk/) — corroborates all four Jubilee bank holiday dates and the Spring Bank Holiday move pattern described above
 - No single official gov.uk page listing all four historical Jubilee bank holiday dates together was located as of 2026-08-04; individual dates are well-corroborated across the Commons Library and contemporaneous news sources cited above
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

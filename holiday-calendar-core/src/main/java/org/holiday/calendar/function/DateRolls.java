@@ -23,7 +23,7 @@ import java.time.DayOfWeek;
 /**
  * Factory providing common {@link DateRoll} strategies.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public final class DateRolls {
 

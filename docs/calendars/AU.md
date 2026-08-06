@@ -41,3 +41,5 @@ Both Easter Saturday and King's Birthday are retained in this single national li
 
 - Easter Saturday's exclusion in WA/Tasmania and King's Birthday's Queensland (1st Monday October, since 2016) and Western Australia (governor-set late-September/early-October date) variations are corroborated across [SBS News](https://www.sbs.com.au/news/article/kings-birthday-public-holiday-which-states-get-day-off/tz6nfmiar) and [Office Holidays — King's Birthday in Queensland](https://www.officeholidays.com/holidays/australia/queensland/australia-kings-birthday)
 - No single official Australian federal government primary source enumerating all state-level public holiday variations was captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

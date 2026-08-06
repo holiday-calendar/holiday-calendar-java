@@ -29,7 +29,7 @@ import static java.util.Objects.requireNonNull;
  * A holiday which commemorates a particular anniversary of an event. Example
  * of a special anniversary is a Jubilee for a reigning monarch.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public final class SpecialAnniversary implements Holiday {
 

@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * The 40th day of Easter. Ascension Day commemorates Jesus Christ's ascension
  * into heaven, according to Christian belief.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class AscensionDay extends CompositeObservance {
 

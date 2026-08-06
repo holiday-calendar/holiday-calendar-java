@@ -20,6 +20,6 @@
  * Implementations of {@link org.holiday.calendar.function.Observance}
  * for holidays observed exclusively in Canada.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.ca;

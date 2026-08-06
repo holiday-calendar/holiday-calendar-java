@@ -29,3 +29,5 @@ LSE's two early closes are the only point of difference from `UK` — both shift
 ## Sources
 
 - No official LSE primary-source page for the 12:30 Christmas Eve/New Year's Eve early-close time was located and independently verified in this pass; the time and shift-to-Friday behavior match this project's existing implementation comments
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

@@ -39,7 +39,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * and are omitted (not shifted) when they fall on a weekend. Xetra/FWB is
  * closed on every public holiday observed by {@code DE}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceXETR extends AbstractHolidayCalendarService {
 

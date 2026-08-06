@@ -32,7 +32,7 @@ import static java.util.Objects.requireNonNull;
  * <a href="https://en.wikipedia.org/wiki/New_Year%27s_Day">New Year's Day</a>
  * and a national independence day.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public final class FixedHoliday implements Holiday {
 

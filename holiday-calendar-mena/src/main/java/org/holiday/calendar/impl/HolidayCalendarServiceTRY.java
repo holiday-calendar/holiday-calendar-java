@@ -46,7 +46,7 @@ import java.util.OptionalInt;
  * HolidayCalendar#calculate(int)}. It does not shift when 28 October falls on
  * a Saturday or Sunday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceTRY extends AbstractHolidayCalendarService {
 

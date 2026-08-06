@@ -58,3 +58,5 @@ Not applicable — the `JP` national calendar never includes early-close (half-d
 - [Japanese Law Translation — Act on National Holidays (official English translation)](https://www.japaneselawtranslation.go.jp/en/laws/view/4846/en) — official government translation of the underlying statute (国民の祝日に関する法律, Act No. 178 of 1948, as amended)
 - The 2007 amendment's cascade-rule mechanics, the Saturday/Sunday asymmetry, and the sandwiched-day rule are independently corroborated by third-party sources (e.g. Wikipedia's "Public holidays in Japan" and "Happy Monday System" articles) consistent with this project's own implementation
 - The closed-issue history (#125, #126, #127, #132, #133) driving this implementation is this project's own GitHub history, not an external source — cited here because it's directly discoverable evidence of why the code looks the way it does
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

@@ -40,3 +40,5 @@ Not applicable — `USD` carries no `EARLY_CLOSE` entries. NYSE's half-day close
 ## Sources
 
 - [Federal Reserve — Holiday Schedule (K.8)](https://www.federalreserve.gov/aboutthefed/k8.htm) — cited directly in `HolidayCalendarServiceUSD`'s own Javadoc; official primary source for the 11 Federal Reserve holidays
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

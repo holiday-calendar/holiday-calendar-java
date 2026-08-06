@@ -27,7 +27,7 @@ import java.time.LocalDate;
  * {@link WhitSunday Whit Sunday}. Whit Monday is exactly 50 days after Easter
  * Sunday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class WhitMonday extends CompositeObservance {
 

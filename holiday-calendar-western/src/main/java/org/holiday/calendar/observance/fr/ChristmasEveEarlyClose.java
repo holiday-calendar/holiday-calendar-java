@@ -38,7 +38,7 @@ import java.time.Month;
  * preceding Friday traded full hours in both weekend years, cross-checked
  * 2014-2026.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChristmasEveEarlyClose extends EuronextEveEarlyClose {
 

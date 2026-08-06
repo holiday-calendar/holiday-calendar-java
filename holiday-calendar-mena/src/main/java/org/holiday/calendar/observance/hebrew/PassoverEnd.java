@@ -31,7 +31,7 @@ import java.time.LocalDate;
  * <p>Israel observes a 7-day Passover (Nisan 15–21). Only Nisan 21 (the last day)
  * is a public holiday; the intermediate days (Chol HaMoed) are not closures.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class PassoverEnd extends AbstractObservance {
 

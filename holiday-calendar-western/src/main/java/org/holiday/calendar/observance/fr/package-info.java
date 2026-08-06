@@ -26,6 +26,6 @@
  * 31, sharing a package-private base for their common suppress-on-weekend
  * logic.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.fr;

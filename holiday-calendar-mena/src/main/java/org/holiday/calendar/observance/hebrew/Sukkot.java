@@ -28,7 +28,7 @@ import java.time.LocalDate;
 /**
  * Observance of Sukkot (15 Tishri) — the Festival of Tabernacles, first day.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class Sukkot extends AbstractObservance {
 

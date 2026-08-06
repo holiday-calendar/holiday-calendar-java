@@ -33,7 +33,7 @@ import java.time.temporal.TemporalAdjusters;
  * legislatively mandated as a public holiday across the country by the Canadian
  * federal government.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class CivicHoliday extends AbstractObservance {
 

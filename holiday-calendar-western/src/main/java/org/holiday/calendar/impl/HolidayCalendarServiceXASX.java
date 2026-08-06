@@ -39,7 +39,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * holidays representing ASX's Christmas Eve and New Year's Eve half-day
  * closes. ASX is closed on every public holiday observed by {@code AU}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceXASX extends AbstractHolidayCalendarService {
 

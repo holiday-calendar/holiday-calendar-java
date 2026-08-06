@@ -29,3 +29,5 @@ Not applicable — `SGD` carries no `EARLY_CLOSE` entries.
 
 - [MAS — MEPS+ Service Agreement](https://www.mas.gov.sg/-/media/MAS/Singapore-Financial-Centre/Why-Singapore/MEPS/Agreements/MEPSplus-Svc-Agreement_wef-8-Feb-2021_v2.pdf) — official primary source; directly confirms the "business day" definition (Monday–Friday excluding Singapore public/bank holidays) cited in this project's own implementation comment
 - See [SG.md](./SG.md) for sourcing on the shared holiday list
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

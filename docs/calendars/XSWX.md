@@ -31,3 +31,5 @@ Christmas Eve and New Year's Eve are the only two dates where `XSWX` diverges fr
 ## Sources
 
 - [SIX — Trading & Currency Holiday Calendar](https://www.six-group.com/en/market-data/news-tools/trading-currency-holiday-calendar.html) — official primary source for SIX's trading calendar, including the Christmas Eve/New Year's Eve market-only closures
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

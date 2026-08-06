@@ -26,6 +26,6 @@
  * SGT) on December 24 and 31; the close is simply not observed (not shifted)
  * in years those dates fall on a weekend.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.sg;

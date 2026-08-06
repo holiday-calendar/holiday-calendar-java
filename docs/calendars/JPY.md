@@ -35,3 +35,5 @@ Not applicable — `JPY` carries no `EARLY_CLOSE` entries; the three BOJ closure
 
 - See [JP.md](./JP.md) — `JPY` inherits the same underlying facts, sources, and closed-issue history for the cascade/sandwich mechanism
 - The BOJ Jan 2/Jan 3/Dec 31 closures and the #133 cascade-interaction history are documented directly in this project's own source comments (`HolidayCalendarServiceJPY.java`); no official Bank of Japan primary-source page was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

@@ -33,7 +33,7 @@ import java.util.Map;
  * United Kingdom since 1978. In years when the anniversary of VE Day is
  * commemorated, this holiday's observed date is moved to May 8.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class EarlyMayBankHoliday implements Observance {
 

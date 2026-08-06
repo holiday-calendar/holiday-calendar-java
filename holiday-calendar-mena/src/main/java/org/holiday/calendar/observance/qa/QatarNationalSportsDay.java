@@ -32,7 +32,7 @@ import java.time.temporal.TemporalAdjusters;
  * 14 February 2012. Falls on a Tuesday by definition and never requires a
  * substitute holiday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class QatarNationalSportsDay extends AbstractObservance {
 

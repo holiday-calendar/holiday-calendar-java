@@ -47,7 +47,7 @@ import java.time.Month;
  * Saturday (which would suppress NYSE's Dec 24 early close), yet December 24,
  * 2021 fell on a Friday and TSX held its early close that day.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChristmasEveEarlyClose extends AbstractObservance {
 

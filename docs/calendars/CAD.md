@@ -53,3 +53,5 @@ This same `BoxingDayCAD` class is reused verbatim by `XTSE` (see [XTSE.md](./XTS
 - [Bank of Canada — An Overview of Lynx, Canada's High-Value Payment System (May 2022)](https://www.bankofcanada.ca/wp-content/uploads/2022/05/Overview-Lynx-Canadas-High-Value-Payment-System.pdf) — official primary source confirming Lynx operates on all weekdays that are not statutory holidays
 - [Bank of Canada — Bank of Canada holiday schedule](https://www.bankofcanada.ca/press/upcoming-events/bank-of-canada-holiday-schedule/) — official annual schedule page (referenced, not independently cross-checked against every date in the Holidays table above)
 - Family Day's 2013 federal-adoption date and the Boxing Day/Christmas collision logic are corroborated by this project's own implementation comments (`HolidayCalendarServiceCAD.java`, `BoxingDayCAD.java`); not independently re-verified against a Bank Act primary text in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

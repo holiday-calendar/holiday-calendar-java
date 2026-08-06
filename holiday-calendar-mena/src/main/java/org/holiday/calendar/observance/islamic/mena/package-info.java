@@ -40,6 +40,6 @@
  * {@code observance.islamic.mena.ilmitakvim} calculator, pending official
  * publication.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.islamic.mena;

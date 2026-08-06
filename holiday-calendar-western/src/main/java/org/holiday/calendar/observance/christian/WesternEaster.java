@@ -32,7 +32,7 @@ import java.time.Month;
  * 1583 CE will be calculated the same as Orthodox Easter and simply returned as
  * the Gregorian date.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class WesternEaster extends AbstractObservance implements EasterObservance {
 

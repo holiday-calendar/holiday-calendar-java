@@ -26,3 +26,5 @@ Covers market closure days for Boursa Kuwait and the Central Bank of Kuwait (CBK
 ## Sources
 
 - See [KW.md](./KW.md) — `KWD` inherits the identical underlying facts and sourcing gaps
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

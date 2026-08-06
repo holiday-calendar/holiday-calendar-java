@@ -38,7 +38,7 @@ import java.util.OptionalInt;
  * ({@link HolidayCalendarServiceSGD}) does not include these — MEPS+ RTGS
  * settlement and SGX equities trading are distinct systems.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceXSES extends AbstractHolidayCalendarService {
 

@@ -33,7 +33,7 @@ import java.time.LocalDate;
  * <p>Jordan observes four days of Eid al-Fitr per official ASE and CBJ holiday
  * announcements.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class EidAlFitrDay4 extends AbstractObservance {
 

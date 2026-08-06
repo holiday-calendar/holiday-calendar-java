@@ -41,7 +41,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * are observed on their published calendar dates regardless of day of week. If a
  * closure date falls on a weekend, no compensatory weekday closure is designated.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  * @see <a href="https://www.six-group.com/en/products-services/banking-services/interbank-clearing/settlement-services/sic.html">SIX SIC Settlement Services</a>
  */
 public class HolidayCalendarServiceCHF extends AbstractHolidayCalendarService {

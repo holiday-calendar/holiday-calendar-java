@@ -28,6 +28,6 @@
  * {@link org.holiday.calendar.observance.au.NewYearsEveEarlyClose}, which
  * share a package-private base implementing the common half-day-close logic.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.au;

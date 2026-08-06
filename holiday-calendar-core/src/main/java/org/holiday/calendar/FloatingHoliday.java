@@ -33,7 +33,7 @@ import static java.util.Objects.requireNonNull;
  * the observed date of a floating holiday can vary widely in complexity.
  *
  * @see Observance
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public final class FloatingHoliday implements Holiday {
 

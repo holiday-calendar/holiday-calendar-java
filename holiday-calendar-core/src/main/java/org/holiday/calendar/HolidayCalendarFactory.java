@@ -27,7 +27,7 @@ import java.util.OptionalInt;
 /**
  * Factory for creation of {@link HolidayCalendar} objects.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarFactory {
 

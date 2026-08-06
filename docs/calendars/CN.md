@@ -43,3 +43,5 @@ Not applicable — `CN` carries no `EARLY_CLOSE` entries.
 
 - [China Britain Business Council — What is China's 'compensatory working day' system?](https://focus.cbbc.org/what-is-chinas-compensatory-working-day-system/) — corroborates the *tiaoxiu* block-shift mechanism and its incompatibility with a simple per-day roll rule
 - The statutory basis (State Council Ordinance on Public Holidays for National Festivals and Memorial Days, as amended 2007/2013) and the exact day-count distinctions from `CNY` are documented directly in this project's own source comments (`HolidayCalendarServiceCN.java`); no official gov.cn primary-source page in English was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

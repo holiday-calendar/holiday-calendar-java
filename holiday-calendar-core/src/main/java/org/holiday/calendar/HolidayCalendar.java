@@ -32,7 +32,7 @@ import static java.util.Objects.requireNonNull;
  * calendar year. An instance of this class defines the days on which
  * activities may not occur.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendar {
 

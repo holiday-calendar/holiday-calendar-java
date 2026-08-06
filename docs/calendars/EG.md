@@ -48,3 +48,5 @@ Not applicable — `EG` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - Islamic holiday sourcing (CBE/EGX 2024–2025 announcements, Umm al-Qura projection for 2026–2055) and the ad hoc bridge-day caveat are documented directly in this project's own source comments (`EgyptHolidays.java`); no official CBE/EGX primary-source page was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

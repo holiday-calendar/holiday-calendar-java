@@ -22,7 +22,7 @@ package org.holiday.calendar;
  * Abstract base class for {@link HolidayCalendarService} implementations,
  * providing the identity behavior common to all concrete service classes.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public abstract class AbstractHolidayCalendarService implements HolidayCalendarService {
 

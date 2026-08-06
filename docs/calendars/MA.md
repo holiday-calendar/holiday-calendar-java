@@ -50,3 +50,5 @@ Not applicable — `MA` carries no `EARLY_CLOSE` entries.
 ## Sources
 
 - Islamic holiday sourcing (Moroccan government/CSE 2024–2025 announcements, Umm al-Qura projection for 2026–2055, data ceiling 2055), the Amazigh New Year gazetting date, the 2004 workweek change, and the CSE circular AV-2025-078 basis for the no-roll settlement convention are documented directly in this project's own source comments (`MoroccoHolidays.java`); no official Moroccan government or CSE primary-source page was independently captured with a stable citation URL in this pass
+
+<!-- #325: source @author email updated to dave@holiday-calendar.org; no calendar content changed. -->

@@ -40,6 +40,6 @@
  * that base observance — see the {@code observance.christian} package in the
  * western module for examples such as Good Friday and Easter Monday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance;

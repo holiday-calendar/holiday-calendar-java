@@ -38,7 +38,7 @@ import java.time.ZoneId;
  * Friday (observed by NYSE by market convention, not a US federal holiday)
  * and NYSE's early-close (half-day) trading sessions.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceXNYS extends AbstractHolidayCalendarService {
 

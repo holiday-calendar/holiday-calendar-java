@@ -32,7 +32,7 @@ import java.time.temporal.TemporalAdjusters;
  * in the Americas on October 12, 1492. Since 1971, this holiday has been
  * observed on the second Monday in October.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ColumbusDay implements Observance {
 

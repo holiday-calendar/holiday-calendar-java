@@ -30,6 +30,6 @@
  * from published National Astronomical Observatory of Japan almanac data
  * rather than an astronomical algorithm.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.observance.jp;

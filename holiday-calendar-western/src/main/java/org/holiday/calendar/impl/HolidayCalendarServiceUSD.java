@@ -37,7 +37,7 @@ import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
  * calendar: includes Columbus Day and Veterans Day; excludes Good Friday and
  * Day After Thanksgiving (NYSE-only market conventions).
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  * @see <a href="https://www.federalreserve.gov/aboutthefed/k8.htm">Federal Reserve Holiday Schedule (K.8)</a>
  */
 public class HolidayCalendarServiceUSD extends AbstractHolidayCalendarService {

@@ -31,7 +31,7 @@ import java.time.LocalDate;
  * <p>In Israel (unlike the Diaspora), Shemini Atzeret and Simchat Torah are
  * combined on a single day — 22 Tishri.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class SheminiAtzeret extends AbstractObservance {
 

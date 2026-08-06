@@ -47,7 +47,7 @@ import java.util.Optional;
  * case when upgrading from a pre-2.0.0 release. If the switch is used as an expression
  * over a nullable {@code Holiday} reference, also add an explicit {@code case null} branch.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public sealed interface Holiday permits FixedHoliday, FloatingHoliday, SpecialAnniversary, EarlyCloseHoliday {
 

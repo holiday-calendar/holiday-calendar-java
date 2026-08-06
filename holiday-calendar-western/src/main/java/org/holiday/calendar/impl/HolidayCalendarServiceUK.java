@@ -32,7 +32,7 @@ import java.util.List;
  * England-and-Wales bank holidays, and never includes early-close (half-day)
  * trading sessions.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceUK extends AbstractHolidayCalendarService {
 

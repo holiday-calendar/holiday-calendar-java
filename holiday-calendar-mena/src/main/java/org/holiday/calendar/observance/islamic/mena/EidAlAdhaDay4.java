@@ -33,7 +33,7 @@ import java.time.LocalDate;
  * <p>Turkey observes four days of Eid al-Adha, one more than the three days
  * observed by GCC states (Saudi Arabia, UAE).</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class EidAlAdhaDay4 extends AbstractObservance {
 
