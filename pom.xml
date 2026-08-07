@@ -22,6 +22,11 @@
         </license>
     </licenses>
 
+    <organization>
+        <name>Holiday Project Team</name>
+        <url>${project.url}</url>
+    </organization>
+
     <developers>
         <developer>
             <id>davejoyce</id>
