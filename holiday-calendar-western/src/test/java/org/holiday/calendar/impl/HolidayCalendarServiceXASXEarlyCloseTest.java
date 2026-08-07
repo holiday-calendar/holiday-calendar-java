@@ -21,8 +21,8 @@ package org.holiday.calendar.impl;
 import org.holiday.calendar.EarlyCloseHoliday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.HolidayDate;
-import org.holiday.calendar.observance.fr.ChristmasEveEarlyClose;
-import org.holiday.calendar.observance.fr.NewYearsEveEarlyClose;
+import org.holiday.calendar.observance.au.ChristmasEveEarlyClose;
+import org.holiday.calendar.observance.au.NewYearsEveEarlyClose;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -40,48 +40,46 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code FR} calendar's early-close (Euronext Paris half-day
- * closure) holidays: Christmas Eve and New Year's Eve. Because December 24
- * and December 31 are always exactly 7 days apart, they always share the
- * same day-of-week within a given year — both early closes are always
- * present together or absent together, never one without the other, same
- * shape as SG.
+ * Tests for the {@code XASX} calendar's early-close (ASX half-day closure)
+ * holidays: Christmas Eve and New Year's Eve. Because December 24 and
+ * December 31 are always exactly 7 days apart, they always share the same
+ * day-of-week within a given year — both early closes are always present
+ * together or absent together, never one without the other, same shape as
+ * FR.
  *
- * <p>Unlike CA (Christmas Day {@code rollable(false)}) and SG (no rollable
- * holiday ever lands on Dec 24/31), FR's Christmas Day and New Year's Day are
- * both {@code rollable(true)} under {@code previousFridayOrFollowingMonday}.
- * This produces two genuine, independently-verified date collisions with the
- * early closes, both covered explicitly below rather than relying on a naive
- * "always empty intersection" assertion:
+ * <p>XASX's Christmas Day and New Year's Day are both {@code rollable(true)}
+ * under {@code previousFridayOrFollowingMonday} (the same roll rule FR
+ * uses), producing the same two genuine date collisions with the early
+ * closes that FR's test suite covers, both verified explicitly below:
  * <ul>
  *     <li>Christmas Day rolls back onto December 24 whenever December 25
- *     falls on a Saturday (e.g. 2027) — the same date Christmas Eve's early
- *     close independently occupies that year.</li>
+ *     falls on a Saturday (e.g. 2021, 2027) — the same date Christmas Eve's
+ *     early close independently occupies that year.</li>
  *     <li>New Year's Day rolls back onto December 31 of the <em>prior</em>
- *     year whenever January 1 falls on a Saturday (e.g. January 1, 2028 rolls
- *     to December 31, 2027) — the same date New Year's Eve's early close
- *     independently occupies in that prior year. This crosses a
+ *     year whenever January 1 falls on a Saturday (e.g. January 1, 2028
+ *     rolls to December 31, 2027) — the same date New Year's Eve's early
+ *     close independently occupies in that prior year. This crosses a
  *     {@code calculate(year)} year boundary, so it is not caught by a
  *     same-year intersection check alone.</li>
  * </ul>
  */
-public class HolidayCalendarServiceFREarlyCloseTest {
+public class HolidayCalendarServiceXASXEarlyCloseTest {
 
-    private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(14, 5);
-    private static final ZoneId EXPECTED_ZONE = ZoneId.of("Europe/Paris");
+    private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(14, 10);
+    private static final ZoneId EXPECTED_ZONE = ZoneId.of("Australia/Sydney");
 
-    // 11 full-day holidays registered in HolidayCalendarServiceFR; the two Eve
-    // holidays are EARLY_CLOSE and excluded by calculate(), so calculate() sees 11.
-    private static final int FULL_DAY_HOLIDAY_COUNT = 11;
+    // 9 full-day holidays registered in HolidayCalendarServiceXASX; the two Eve
+    // holidays are EARLY_CLOSE and excluded by calculate(), so calculate() sees 9.
+    private static final int FULL_DAY_HOLIDAY_COUNT = 9;
 
-    private final HolidayCalendarServiceFR service = new HolidayCalendarServiceFR();
+    private final HolidayCalendarServiceXASX service = new HolidayCalendarServiceXASX();
 
     // -------------------------------------------------------------------------
-    // Count / presence per year (verified 2020-2029 Euronext cycle)
+    // Count / presence per year (verified 2020-2029 ASX cycle)
     // -------------------------------------------------------------------------
 
-    @DataProvider(name = "frEarlyCloseFixture")
-    public Iterator<Object[]> frEarlyCloseFixture() {
+    @DataProvider(name = "xasxEarlyCloseFixture")
+    public Iterator<Object[]> xasxEarlyCloseFixture() {
         List<Object[]> data = Arrays.asList(
                 new Object[]{2020, true},
                 new Object[]{2021, true},
@@ -97,23 +95,23 @@ public class HolidayCalendarServiceFREarlyCloseTest {
         return data.iterator();
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testEarlyCloseCountForYear(int year, boolean present) {
         List<HolidayDate> earlyCloses = service.getHolidayCalendar().calculateEarlyCloses(year);
         assertNotNull(earlyCloses);
-        assertEquals(earlyCloses.size(), present ? 2 : 0, "FR " + year + ": unexpected early-close count");
+        assertEquals(earlyCloses.size(), present ? 2 : 0, "XASX " + year + ": unexpected early-close count");
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testChristmasEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("Christmas Eve"), present,
-                "FR " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
+                "XASX " + year + ": Christmas Eve presence must match December 24 day-of-week rule");
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testNewYearsEvePresenceForYear(int year, boolean present) {
         assertEquals(earlyCloseNames(year).contains("New Year's Eve"), present,
-                "FR " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
+                "XASX " + year + ": New Year's Eve presence must match December 31 day-of-week rule");
     }
 
     private Set<String> earlyCloseNames(int year) {
@@ -122,10 +120,10 @@ public class HolidayCalendarServiceFREarlyCloseTest {
                 .collect(Collectors.toSet());
     }
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testEarlyCloseCountAlwaysZeroOrTwo(int year, boolean present) {
         int count = service.getHolidayCalendar().calculateEarlyCloses(year).size();
-        assertNotEquals(count, 1, "FR " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
+        assertNotEquals(count, 1, "XASX " + year + ": Christmas Eve and New Year's Eve must always co-occur, never appear alone");
     }
 
     // -------------------------------------------------------------------------
@@ -149,24 +147,24 @@ public class HolidayCalendarServiceFREarlyCloseTest {
     // -------------------------------------------------------------------------
 
     @Test
-    public void testCloseTimeIs14_05() {
+    public void testCloseTimeIs14_10() {
         for (int year : List.of(2024, 2027)) {
             for (HolidayDate hd : service.getHolidayCalendar().calculateEarlyCloses(year)) {
                 assertTrue(hd.getHoliday() instanceof EarlyCloseHoliday);
                 EarlyCloseHoliday earlyClose = (EarlyCloseHoliday) hd.getHoliday();
                 assertEquals(earlyClose.getCloseTime(), EXPECTED_CLOSE_TIME,
-                        earlyClose.getName() + " must close at 14:05");
+                        earlyClose.getName() + " must close at 14:10");
             }
         }
     }
 
     @Test
-    public void testZoneIdIsEuropeParis() {
+    public void testZoneIdIsAustraliaSydney() {
         for (int year : List.of(2024, 2027)) {
             for (HolidayDate hd : service.getHolidayCalendar().calculateEarlyCloses(year)) {
                 EarlyCloseHoliday earlyClose = (EarlyCloseHoliday) hd.getHoliday();
                 assertEquals(earlyClose.getZoneId(), EXPECTED_ZONE,
-                        earlyClose.getName() + " must be expressed in Europe/Paris");
+                        earlyClose.getName() + " must be expressed in Australia/Sydney");
             }
         }
     }
@@ -190,7 +188,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
         for (int year : List.of(2024, 2027)) {
             List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
             assertNotNull(holidays);
-            assertEquals(holidays.size(), FULL_DAY_HOLIDAY_COUNT, "FR " + year + ": unexpected full-day holiday count");
+            assertEquals(holidays.size(), FULL_DAY_HOLIDAY_COUNT, "XASX " + year + ": unexpected full-day holiday count");
         }
     }
 
@@ -200,7 +198,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
     // onto Christmas Eve
     // -------------------------------------------------------------------------
 
-    @Test(dataProvider = "frEarlyCloseFixture")
+    @Test(dataProvider = "xasxEarlyCloseFixture")
     public void testCrossListDateOverlapOnlyOnKnownChristmasDayRollYears(int year, boolean present) {
         HolidayCalendar calendar = service.getHolidayCalendar();
         Set<LocalDate> fullDayDates = calendar.calculate(year).stream()
@@ -217,9 +215,9 @@ public class HolidayCalendarServiceFREarlyCloseTest {
                 DayOfWeek.SATURDAY.equals(LocalDate.of(year, Month.DECEMBER, 25).getDayOfWeek());
         if (isChristmasDaySaturdayRollYear) {
             assertEquals(intersection, Set.of(LocalDate.of(year, Month.DECEMBER, 24)),
-                    "FR " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
+                    "XASX " + year + ": expected exactly the known Christmas Day/Christmas Eve collision");
         } else {
-            assertTrue(intersection.isEmpty(), "FR " + year + ": unexpected cross-list date collision: " + intersection);
+            assertTrue(intersection.isEmpty(), "XASX " + year + ": unexpected cross-list date collision: " + intersection);
         }
     }
 
@@ -230,7 +228,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
 
     @Test
     public void testChristmasDayAndChristmasEveCoexistOn24Dec2027() {
-        // December 25, 2027 is a Saturday and rolls to Friday December 24 under FR's
+        // December 25, 2027 is a Saturday and rolls to Friday December 24 under XASX's
         // previousFridayOrFollowingMonday roll rule -- the same date the non-rolling
         // Christmas Eve EARLY_CLOSE independently occupies (December 24, 2027 is a
         // Friday, a valid early-close weekday). Both facts are true simultaneously and
@@ -257,7 +255,7 @@ public class HolidayCalendarServiceFREarlyCloseTest {
     @Test
     public void testNewYearsDayAndNewYearsEveCoexistOn31Dec2027() {
         // January 1, 2028 is a Saturday and rolls back to Friday December 31, 2027
-        // under FR's previousFridayOrFollowingMonday roll rule -- the same date the
+        // under XASX's previousFridayOrFollowingMonday roll rule -- the same date the
         // non-rolling New Year's Eve EARLY_CLOSE independently occupies in 2027
         // (December 31, 2027 is a Friday, a valid early-close weekday). This is a
         // genuine same-date coexistence spanning two different year arguments:

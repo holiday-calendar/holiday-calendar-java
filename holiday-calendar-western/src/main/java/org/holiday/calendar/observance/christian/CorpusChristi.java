@@ -28,7 +28,7 @@ import java.time.LocalDate;
  * is celebrated on the Thursday 60 days after Easter, or on the following
  * Sunday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class CorpusChristi extends CompositeObservance {
 

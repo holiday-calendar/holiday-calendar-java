@@ -51,6 +51,14 @@ public class HolidayCalendarServiceUSTest extends AbstractHolidayCalendarService
     }
 
     @Test
+    public void testGoodFridayAbsentFromCalculate() {
+        HolidayCalendarService service = factory.getService(CODE);
+        List<HolidayDate> holidays = service.getHolidayCalendar().calculate(2024);
+        assertFalse(holidays.stream().anyMatch(hd -> "Good Friday".equals(hd.getHoliday().getName())),
+                "US: Good Friday is a NYSE-only closure, not a US federal holiday, and must not appear in calculate()");
+    }
+
+    @Test
     public void testEarlyCloseHolidaysAbsentFromCalculate() {
         HolidayCalendarService service = factory.getService(CODE);
         Set<String> earlyCloseNames = Set.of("Day After Thanksgiving", "Christmas Eve", "July 3rd");

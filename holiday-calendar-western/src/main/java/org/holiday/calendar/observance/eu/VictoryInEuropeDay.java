@@ -28,7 +28,7 @@ import java.time.Month;
  * acceptance by the Allies of World War II of Nazi Germany's unconditional
  * surrender of its armed forces on 8 May 1945.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class VictoryInEuropeDay extends AbstractObservance {
 

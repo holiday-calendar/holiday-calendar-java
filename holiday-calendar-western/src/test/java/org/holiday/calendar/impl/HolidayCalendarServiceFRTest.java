@@ -18,12 +18,21 @@
 
 package org.holiday.calendar.impl;
 
+import org.holiday.calendar.HolidayCalendar;
+import org.holiday.calendar.HolidayCalendarService;
+import org.holiday.calendar.HolidayDate;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.testng.Assert.assertFalse;
 
 public class HolidayCalendarServiceFRTest extends AbstractHolidayCalendarServiceTest {
 
@@ -56,6 +65,38 @@ public class HolidayCalendarServiceFRTest extends AbstractHolidayCalendarService
         final Object[] bastilleDay24 = {2024, "Bastille Day", LocalDate.of(2024, Month.JULY, 15)};
         return Arrays.asList(christmas21, christmas22, christmas23,
                              bastilleDay21, bastilleDay24).listIterator();
+    }
+
+    @Test
+    public void testEarlyCloseHolidaysAbsentFromCalculate() {
+        HolidayCalendarService service = factory.getService(CODE);
+        for (int year : List.of(2021, 2023, 2024, 2025)) {
+            List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+            Set<String> actualNames = holidays.stream()
+                    .map(hd -> hd.getHoliday().getName())
+                    .collect(Collectors.toSet());
+            assertFalse(actualNames.contains("Christmas Eve"),
+                    "Christmas Eve must not appear in calculate(" + year + ") — moved to XPAR");
+            assertFalse(actualNames.contains("New Year's Eve"),
+                    "New Year's Eve must not appear in calculate(" + year + ") — moved to XPAR");
+        }
+    }
+
+    @Test
+    public void testFrHasNoEarlyCloses() {
+        HolidayCalendarService service = factory.getService(CODE);
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        assertFalse(calendar.hasEarlyCloses(), "FR: national calendar must have zero early closes");
+    }
+
+    @Test
+    public void testGoodFridayAbsentFromCalculate() {
+        HolidayCalendarService service = factory.getService(CODE);
+        for (int year : List.of(2021, 2022, 2024)) {
+            List<HolidayDate> holidays = service.getHolidayCalendar().calculate(year);
+            assertFalse(holidays.stream().anyMatch(hd -> "Good Friday".equals(hd.getHoliday().getName())),
+                    "FR: Good Friday must not appear for " + year + " (not a French national holiday)");
+        }
     }
 
 }

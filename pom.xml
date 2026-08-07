@@ -7,7 +7,7 @@
     <groupId>org.holiday.calendar</groupId>
     <artifactId>holiday-calendar-java</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
 
     <name>Holiday Calendar</name>
     <description>Holiday Calendar Library for Java</description>
@@ -22,11 +22,16 @@
         </license>
     </licenses>
 
+    <organization>
+        <name>Holiday Project Team</name>
+        <url>${project.url}</url>
+    </organization>
+
     <developers>
         <developer>
             <id>davejoyce</id>
             <name>Dave Joyce</name>
-            <email>dave@osframework.org</email>
+            <email>dave@holiday-calendar.org</email>
             <roles>
                 <role>founder</role>
             </roles>

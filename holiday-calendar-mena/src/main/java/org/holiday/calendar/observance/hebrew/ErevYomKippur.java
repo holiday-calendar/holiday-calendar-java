@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * Observance of Erev Yom Kippur — the eve of the Day of Atonement, the day
  * preceding {@link YomKippur}, on which many Israeli businesses close early.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ErevYomKippur extends AbstractObservance {
 

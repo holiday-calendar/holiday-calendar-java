@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
  * Exception thrown when a requested holiday calendar code is not provided by
  * any registered {@link HolidayCalendarService}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarNotFoundException extends NoSuchElementException {
 

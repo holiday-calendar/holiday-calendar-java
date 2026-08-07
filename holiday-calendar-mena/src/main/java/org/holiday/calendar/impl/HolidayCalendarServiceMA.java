@@ -49,7 +49,7 @@ import java.util.OptionalInt;
  * dates against official Moroccan announcements as each year is published.
  * Corrections require a new JAR release.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceMA extends AbstractHolidayCalendarService {
 

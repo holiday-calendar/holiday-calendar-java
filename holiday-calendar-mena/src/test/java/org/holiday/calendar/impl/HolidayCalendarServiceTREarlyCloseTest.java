@@ -32,14 +32,14 @@ import java.util.List;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code TR} calendar's early-close (BIST Republic Day Eve
- * half-day closure) holiday, provided by {@link TurkeyHolidays#earlyCloseHolidays()}.
+ * Tests for the {@code TR} calendar's early-close (nationwide Republic Day Eve
+ * half-day per Law No. 2429) holiday, provided by {@link TurkeyHolidays#earlyCloseHolidays()}.
  */
 public class HolidayCalendarServiceTREarlyCloseTest {
 
     private static final int EARLY_CLOSE_COUNT = 1;
     private static final int FULL_DAY_HOLIDAY_COUNT = 14;
-    private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(12, 30);
+    private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(13, 0);
     private static final ZoneId EXPECTED_ZONE = ZoneId.of("Europe/Istanbul");
 
     private final HolidayCalendarServiceTR service = new HolidayCalendarServiceTR();
@@ -69,7 +69,7 @@ public class HolidayCalendarServiceTREarlyCloseTest {
         assertEquals(republicDayEve.getDate(), LocalDate.of(2025, Month.OCTOBER, 28));
         assertTrue(republicDayEve.getHoliday() instanceof EarlyCloseHoliday);
         EarlyCloseHoliday earlyClose = (EarlyCloseHoliday) republicDayEve.getHoliday();
-        assertEquals(earlyClose.getCloseTime(), EXPECTED_CLOSE_TIME, "Republic Day Eve must close at 12:30");
+        assertEquals(earlyClose.getCloseTime(), EXPECTED_CLOSE_TIME, "Republic Day Eve must close at 13:00");
         assertEquals(earlyClose.getZoneId(), EXPECTED_ZONE, "Republic Day Eve must be expressed in Europe/Istanbul");
     }
 
@@ -79,7 +79,7 @@ public class HolidayCalendarServiceTREarlyCloseTest {
         assertEquals(LocalDate.of(2023, Month.OCTOBER, 28).getDayOfWeek(), DayOfWeek.SATURDAY);
         List<HolidayDate> earlyCloses = service.getHolidayCalendar().calculateEarlyCloses(2023);
         assertTrue(earlyCloses.isEmpty(),
-                "BIST does not shift the half-day close to the preceding Friday when Oct 28 falls on a weekend");
+                "Republic Day Eve does not shift to the preceding Friday when Oct 28 falls on a weekend");
     }
 
 }

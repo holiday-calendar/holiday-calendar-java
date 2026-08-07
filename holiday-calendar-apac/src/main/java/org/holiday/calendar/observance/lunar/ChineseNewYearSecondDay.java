@@ -28,7 +28,7 @@ import java.time.LocalDate;
  * Observance of Chinese New Year (second day), the day following the first
  * day of the Chinese lunisolar new year.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChineseNewYearSecondDay extends AbstractObservance {
 

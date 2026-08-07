@@ -22,7 +22,6 @@ import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
 
-import java.util.List;
 import java.util.OptionalInt;
 
 /**
@@ -30,7 +29,8 @@ import java.util.OptionalInt;
  *
  * <p>Calendar code: {@code TRY}. Covers settlement closure days for Borsa Istanbul
  * (BIST) and the Central Bank of the Republic of Turkey (TCMB). The settlement
- * holiday schedule mirrors the Turkey national calendar ({@code TR}).
+ * holiday schedule mirrors the Turkey national calendar ({@code TR}), differing
+ * only in roll strategy.
  *
  * <p>Roll strategy: {@link DateRolls#noRoll()} — settlement requires both
  * counterparties to be available on the same calendar date; there is no
@@ -38,14 +38,15 @@ import java.util.OptionalInt;
  *
  * <p>Weekend: Saturday + Sunday (standard Western weekend).
  *
- * <p><strong>Half-day closure not modelled:</strong>
- * Borsa Istanbul (BIST) and TCMB observe a partial closure on 28 October
- * (Republic Day Eve): BIST closes at 12:30 local time and TCMB suspends TRY
- * settlement from midday. This calendar does not include 28 October as a holiday.
- * Callers relying on afternoon liquidity or same-day settlement on this date must
- * apply their own adjustment.
+ * <p>Law No. 2429 (Ulusal Bayram ve Genel Tatiller Hakkında Kanun) declares
+ * Republic Day Eve (28 October) a nationwide half-day holiday, in effect from
+ * 13:00 {@code Europe/Istanbul}. This is modelled as an {@code EARLY_CLOSE}
+ * holiday, non-rollable, and reported separately via {@link
+ * HolidayCalendar#calculateEarlyCloses(int)} rather than {@link
+ * HolidayCalendar#calculate(int)}. It does not shift when 28 October falls on
+ * a Saturday or Sunday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceTRY extends AbstractHolidayCalendarService {
 
@@ -68,7 +69,8 @@ public class HolidayCalendarServiceTRY extends AbstractHolidayCalendarService {
                 .name(NAME)
                 .dateRoll(DateRolls.noRoll())
                 .weekendDays(TurkeyHolidays.STANDARD_WEEKEND)
-                .holidays(TurkeyHolidays.baseHolidays(false, List.of()))
+                .holidays(TurkeyHolidays.baseHolidays(false))
+                .holidays(TurkeyHolidays.earlyCloseHolidays())
                 .build();
     }
 

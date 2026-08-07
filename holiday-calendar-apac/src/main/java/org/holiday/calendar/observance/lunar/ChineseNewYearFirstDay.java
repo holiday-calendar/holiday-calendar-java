@@ -28,7 +28,7 @@ import java.time.LocalDate;
  * Observance of Chinese New Year (first day), also known as Lunar New Year.
  * This is the first day of the first month in the Chinese lunisolar calendar.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChineseNewYearFirstDay extends AbstractObservance {
 

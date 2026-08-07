@@ -29,7 +29,7 @@ import java.time.Month;
  * Service for provision of the Japan (Bank of Japan / BOJ) holiday calendar.
  *
  * <p>Calendar code: {@code JPY}. The BOJ calendar shares all Japanese national
- * public holidays with the TSE calendar ({@code JP}) and additionally closes on
+ * public holidays with the national calendar ({@code JP}) and additionally closes on
  * January 2, January 3, and December 31 as BOJ operational closures. The
  * substitute-holiday rule (振替休日) and sandwiched-day rule (国民の休日) both apply.
  */

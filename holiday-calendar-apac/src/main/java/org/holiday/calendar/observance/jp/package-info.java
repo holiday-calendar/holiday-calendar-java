@@ -1,0 +1,35 @@
+/*******************************************************************************
+ * Holiday Calendar - A library for definition and calculation of holiday calendars
+ * Copyright (C) 2021-2026 The Holiday Calendar Project Contributors
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option) any
+ * later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along
+ * with this library; if not, write to the Free Software Foundation, Inc., 59
+ * Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ ******************************************************************************/
+
+/**
+ * Implementations of {@link org.holiday.calendar.function.Observance} for
+ * Japanese national public holidays:
+ * {@link org.holiday.calendar.observance.jp.ComingOfAgeDay},
+ * {@link org.holiday.calendar.observance.jp.VernalEquinoxDay},
+ * {@link org.holiday.calendar.observance.jp.MarineDay},
+ * {@link org.holiday.calendar.observance.jp.RespectForTheAgedDay},
+ * {@link org.holiday.calendar.observance.jp.AutumnalEquinoxDay},
+ * {@link org.holiday.calendar.observance.jp.SportsDay}, and
+ * {@link org.holiday.calendar.observance.jp.EmperorsBirthday} (whose date
+ * changes with the reigning Emperor). Equinox-based holidays are computed
+ * from published National Astronomical Observatory of Japan almanac data
+ * rather than an astronomical algorithm.
+ *
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
+ */
+package org.holiday.calendar.observance.jp;

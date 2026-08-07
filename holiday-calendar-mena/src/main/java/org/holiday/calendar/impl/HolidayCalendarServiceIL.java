@@ -44,7 +44,7 @@ import org.holiday.calendar.function.DateRolls;
  * <p>MSCI classification: Developed Market (DM) — the only Developed Market
  * in the MENA module.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceIL extends AbstractHolidayCalendarService {
 

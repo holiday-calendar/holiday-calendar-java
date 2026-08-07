@@ -22,15 +22,14 @@ import org.holiday.calendar.AbstractHolidayCalendarService;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
 
-import java.util.List;
 import java.util.OptionalInt;
 
 /**
  * Service for provision of Turkey national public holiday calendar.
  *
- * <p>Calendar code: {@code TR}. Covers public holidays observed in the Republic
- * of Turkey as declared by Borsa Istanbul (BIST) and the Central Bank of the
- * Republic of Turkey (TCMB).
+ * <p>Calendar code: {@code TR}. Covers public holidays observed nationwide in the
+ * Republic of Turkey under Law No. 2429 (Ulusal Bayram ve Genel Tatiller Hakkında
+ * Kanun).
  *
  * <p>Weekend: Saturday + Sunday (standard Western weekend). Fixed holidays that
  * fall on Saturday or Sunday are observed on the following Monday per
@@ -48,14 +47,18 @@ import java.util.OptionalInt;
  * against official announcements as each year is
  * published. Corrections require a new JAR release.
  *
- * <p>Borsa Istanbul (BIST) observes a half-day closure on 28 October (Republic
- * Day Eve), closing at 12:30 {@code Europe/Istanbul}. This is modelled as an
- * {@code EARLY_CLOSE} holiday, non-rollable, and reported separately via
- * {@link HolidayCalendar#calculateEarlyCloses(int)} rather than {@link
- * HolidayCalendar#calculate(int)}. It does not shift when 28 October falls on
- * a Saturday or Sunday.
+ * <p>Law No. 2429 itself declares Republic Day Eve (28 October) a nationwide
+ * half-day holiday, in effect from 13:00 {@code Europe/Istanbul} through the end
+ * of Republic Day on 29 October — it applies to all public institutions, not just
+ * Borsa Istanbul (BIST) or the Central Bank of the Republic of Turkey (TCMB). This
+ * is modelled as an {@code EARLY_CLOSE} holiday, non-rollable, and reported
+ * separately via {@link HolidayCalendar#calculateEarlyCloses(int)} rather than
+ * {@link HolidayCalendar#calculate(int)}. It does not shift when 28 October falls
+ * on a Saturday or Sunday. The same closure is also carried by {@link
+ * HolidayCalendarServiceTRY}, since it is a statutory holiday rather than a
+ * market-only convention.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceTR extends AbstractHolidayCalendarService {
 
@@ -78,7 +81,7 @@ public class HolidayCalendarServiceTR extends AbstractHolidayCalendarService {
                 .name(NAME)
                 .dateRoll(DateRolls.followingMonday())
                 .weekendDays(TurkeyHolidays.STANDARD_WEEKEND)
-                .holidays(TurkeyHolidays.baseHolidays(true, List.of()))
+                .holidays(TurkeyHolidays.baseHolidays(true))
                 .holidays(TurkeyHolidays.earlyCloseHolidays())
                 .build();
     }

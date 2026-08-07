@@ -30,7 +30,7 @@ import java.time.temporal.TemporalAdjusters;
  * Observance of the King's Birthday public holiday in Australia (ASX), observed
  * on the second Monday in June.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class KingsBirthday extends AbstractObservance {
 

@@ -26,7 +26,7 @@ import java.util.Objects;
  * Abstract base class for observances that are computed relative to another
  * {@link Observance} (the base). Year validity is delegated to the base.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public abstract class CompositeObservance extends AbstractObservance {
 

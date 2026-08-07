@@ -37,7 +37,7 @@ import java.util.stream.IntStream;
  * early-to-medieval period of the Christian church, this implementation of the
  * Gauss algorithm is only valid for years 530 - 3399 AD.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class OrthodoxEaster extends AbstractObservance implements EasterObservance {
 

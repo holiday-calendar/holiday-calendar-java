@@ -33,7 +33,35 @@ import org.holiday.calendar.function.DateRolls;
  * counterparties to be available on the same calendar date; there is no
  * roll-forward convention. All holidays are {@code rollable(false)}.
  *
- * <p>Weekend: Friday + Saturday (Israeli market convention).
+ * <p><strong>Weekend: {@code Friday+Saturday} confirmed still correct for
+ * settlement purposes; see #321 for the investigation.</strong> TASE shifted
+ * its <em>trading</em> week from Sunday–Thursday to Monday–Friday effective
+ * January 5, 2026 (MSCI and Solactive index-provider announcements). This did
+ * <em>not</em> change TASE's settlement/clearing calendar: TASE's own
+ * Clearing House By-Laws (Part One — General, "Update of March 03, 2026")
+ * define {@code "business day"}/{@code "clearing day"} as "a day on which the
+ * Bank of Israel performs monetary activity," deliberately distinct from
+ * {@code "trading day"} ("a day on which trading takes place on TASE") — the
+ * By-Laws' own "day of receipt" clause explicitly contemplates a business day
+ * that is not a trading day. TASE settlement therefore remains anchored to
+ * the Bank of Israel's business week, which is unchanged: Sunday–Friday, per
+ * the Bank of Israel's own 2026 ZAHAV RTGS and Markets Department schedules
+ * (read directly), with Saturday as the standing closure day.
+ * <ul>
+ *   <li>Because all holidays here are {@code rollable(false)} and the roll
+ *       strategy is {@link DateRolls#noRoll()}, {@code weekendDays} has no
+ *       effect on {@link HolidayCalendar#calculate(int)} for this calendar —
+ *       its only live effect is the public {@code isWeekend()}/
+ *       {@code isWeekendUTC()} query methods.</li>
+ *   <li>One genuine, narrower nuance remains: the Bank of Israel's own
+ *       schedules show Friday as a <em>short</em> business day (13:15–14:00
+ *       close, depending on department), not a full closure. Per this class's
+ *       established convention — see the Hoshana Raba handling below, where a
+ *       TASE-vs-BOI difference in hours is modeled as an {@code EARLY_CLOSE}
+ *       holiday rather than a change to {@code weekendDays} — this argues at
+ *       most for a possible future {@code EARLY_CLOSE} treatment of Fridays,
+ *       not for a change to {@code weekendDays} itself.</li>
+ * </ul>
  *
  * <p><strong>Hoshana Raba (21 Tishri) — modeled as an early close:</strong>
  * TASE closes fully on Hoshana Raba (the 7th day of Sukkot, 21 Tishri) consistently;
@@ -47,7 +75,7 @@ import org.holiday.calendar.function.DateRolls;
  * trading calendars, where the day is a full closure, should treat this date
  * accordingly rather than relying on the 13:15 close time.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceILS extends AbstractHolidayCalendarService {
 

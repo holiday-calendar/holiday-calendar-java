@@ -41,7 +41,7 @@ import java.time.Month;
  * December 23, 2022 as a normal, full-hours trading day rather than shifting
  * the half-day session to it.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ChristmasEveEarlyClose extends AsxEveEarlyClose {
 

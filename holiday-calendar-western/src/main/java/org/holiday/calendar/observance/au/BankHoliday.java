@@ -30,7 +30,7 @@ import java.time.temporal.TemporalAdjusters;
  * Observance of the Bank Holiday public holiday in New South Wales, Australia,
  * observed on the first Monday in August.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class BankHoliday extends AbstractObservance {
 

@@ -28,7 +28,7 @@ import java.time.LocalDate;
 /**
  * Observance of Yom Kippur (10 Tishri) — the Day of Atonement.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class YomKippur extends AbstractObservance {
 

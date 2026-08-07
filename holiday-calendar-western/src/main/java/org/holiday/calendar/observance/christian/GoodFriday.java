@@ -28,7 +28,7 @@ import java.time.LocalDate;
  * as a legal holiday around the world. Good Friday is the Friday two days
  * preceding Easter Sunday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class GoodFriday extends CompositeObservance {
 

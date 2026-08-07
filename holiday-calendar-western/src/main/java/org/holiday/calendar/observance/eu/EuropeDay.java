@@ -29,7 +29,7 @@ import java.time.Year;
  * celebrated on 5 May by the Council of Europe and on 9 May by the European
  * Union.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class EuropeDay implements Observance {
 

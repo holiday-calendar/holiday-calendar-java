@@ -60,7 +60,7 @@ import java.time.ZoneId;
  * available (Diyanet has historically published several years ahead of the
  * current year).</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public final class IlmiTakvimCalculator {
 

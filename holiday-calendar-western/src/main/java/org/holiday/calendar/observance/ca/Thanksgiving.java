@@ -18,7 +18,7 @@
 
 package org.holiday.calendar.observance.ca;
 
-import org.holiday.calendar.function.Observance;
+import org.holiday.calendar.observance.AbstractObservance;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -33,12 +33,12 @@ import java.time.temporal.TemporalAdjusters;
  * <p>Note that this public holiday is similar to, but distinct from, the
  * holiday of the same name in the United States.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
-public class Thanksgiving implements Observance {
+public class Thanksgiving extends AbstractObservance {
 
     @Override
-    public LocalDate apply(Integer year) {
+    protected LocalDate computeDate(int year) {
         return Year.of(year)
                    .atMonth(Month.OCTOBER)
                    .atDay(1)

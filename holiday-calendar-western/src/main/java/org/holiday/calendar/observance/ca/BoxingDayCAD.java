@@ -48,12 +48,13 @@ import java.time.Month;
  *       December.</li>
  * </ul>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class BoxingDayCAD implements Observance {
 
     @Override
     public LocalDate apply(Integer year) {
+        if (!test(year)) return null;
         final LocalDate christmas = LocalDate.of(year, Month.DECEMBER, 25);
         final LocalDate boxingDay = LocalDate.of(year, Month.DECEMBER, 26);
         final DayOfWeek christmasDow = christmas.getDayOfWeek();
@@ -64,6 +65,11 @@ public class BoxingDayCAD implements Observance {
         if (boxingDow    == DayOfWeek.SATURDAY) return boxingDay.plusDays(2L); // Dec 28 (Mon)
         if (boxingDow    == DayOfWeek.SUNDAY)   return boxingDay.plusDays(1L); // Dec 27 (Mon)
         return boxingDay;
+    }
+
+    @Override
+    public boolean test(Integer year) {
+        return year != null;
     }
 
 }

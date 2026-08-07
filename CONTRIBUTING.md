@@ -6,6 +6,8 @@ First off, thank you for taking the time to contribute! :+1:
 
 * [Code of Conduct](#code-of-conduct)
 * [Copyright Header](#copyright-header)
+* [Adding a New Observance](#adding-a-new-observance)
+* [Calendar Reference Docs](#calendar-reference-docs)
 * [How to Contribute](#how-to-contribute)
   * [Create an issue](#create-an-issue)
   * [Report a security vulnerability](#report-a-security-vulnerability)
@@ -26,6 +28,28 @@ All Java source files must include the project's LGPL-2.1 copyright header. IDE 
 **Eclipse:** Import the template via **Window > Preferences > Java > Code Style > Code Templates > Import**, selecting `ide-templates/eclipse/codetemplates.xml`. Eclipse will then insert the header automatically when creating new Java files.
 
 **Visual Studio Code:** Type `hcheader` and press Tab in any `.java` file to expand the full header. No extension required — the snippet is defined in `.vscode/holiday-calendar.code-snippets`.
+
+### Adding a New Observance
+
+Contributing a new floating holiday or half-day-close (early close) date? See
+[docs/OBSERVANCE_PATTERNS.md](docs/OBSERVANCE_PATTERNS.md) for the `Observance`
+interface contract, the implementation patterns used across the codebase
+(algorithm-based, nth-weekday-of-month, CSV-backed lookup, astronomical
+fallback), the Early Close pattern, a step-by-step guide, and the testing
+checklist. Start there before opening a PR that adds or changes an observance.
+
+### Calendar Reference Docs
+
+Any PR that adds a new `HolidayCalendarService` implementation, or changes an
+existing one's holiday list, roll strategy, weekend days, or early-close
+behavior, must add or update the corresponding file at
+`docs/calendars/<CODE>.md` (see the [docs/calendars/](docs/calendars/)
+directory) using the template in
+[docs/calendars/TEMPLATE.md](docs/calendars/TEMPLATE.md). New calendars must
+also add a row to both tables in
+[docs/calendars/README.md](docs/calendars/README.md). A CI check flags PRs
+that change a calendar's source without a matching doc change; if it fires
+on your PR, update the doc before requesting review.
 
 ### How to Contribute
 

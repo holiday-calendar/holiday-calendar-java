@@ -45,7 +45,7 @@ import java.util.OptionalInt;
  * <p>Islamic New Year and Prophet's Birthday are not gazetted public holidays in
  * Qatar and are not included.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceQAR extends AbstractHolidayCalendarService {
 

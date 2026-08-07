@@ -35,7 +35,7 @@ import java.time.LocalDate;
  * and Islam. It is observed as a national public holiday in Egypt by all Egyptians
  * regardless of religion and is a bank and exchange closure day.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ShamElNessim extends CompositeObservance {
 

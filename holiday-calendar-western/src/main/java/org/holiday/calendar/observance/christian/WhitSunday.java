@@ -28,7 +28,7 @@ import java.time.LocalDate;
  * is observed on the 7th Sunday after Easter, or exactly 49 days following
  * Easter Sunday.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class WhitSunday extends CompositeObservance {
 

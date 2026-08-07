@@ -38,10 +38,10 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.*;
 
 /**
- * Tests for the {@code UK} calendar's early-close (LSE half-day closure)
+ * Tests for the {@code XLON} calendar's early-close (LSE half-day closure)
  * holidays: Christmas Eve and New Year's Eve.
  */
-public class HolidayCalendarServiceUKEarlyCloseTest {
+public class HolidayCalendarServiceXLONEarlyCloseTest {
 
     private static final int EARLY_CLOSE_COUNT = 2;
     // 8 full-day holidays apply in 2025: the 4 Jubilee SPECIAL_ANNIVERSARY
@@ -50,7 +50,7 @@ public class HolidayCalendarServiceUKEarlyCloseTest {
     private static final LocalTime EXPECTED_CLOSE_TIME = LocalTime.of(12, 30);
     private static final ZoneId EXPECTED_ZONE = ZoneId.of("Europe/London");
 
-    private final HolidayCalendarServiceUK service = new HolidayCalendarServiceUK();
+    private final HolidayCalendarServiceXLON service = new HolidayCalendarServiceXLON();
 
     // -------------------------------------------------------------------------
     // Count

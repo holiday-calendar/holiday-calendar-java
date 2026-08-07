@@ -58,7 +58,7 @@ public class HolidayCalendarServiceSGTest {
 
     @Test
     public void testGetRegion() {
-        assertEquals(service.getRegion(), "Singapore (SGX) Holidays");
+        assertEquals(service.getRegion(), "Singapore National Holidays");
     }
 
     @Test
@@ -75,6 +75,29 @@ public class HolidayCalendarServiceSGTest {
         assertNotNull(holidays);
         // 11 holidays defined; all lookup-table ones cover 2024, Time4J covers CNY
         assertTrue(holidays.size() >= 7, "Expected at least 7 holidays for 2024, got: " + holidays.size());
+    }
+
+    @Test
+    public void testEarlyCloseHolidaysAbsentFromCalculate() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        for (int year : List.of(2021, 2023, 2024, 2025)) {
+            List<HolidayDate> holidays = calendar.calculate(year);
+            boolean anyEarlyClose = holidays.stream()
+                    .anyMatch(hd -> "Christmas Eve".equals(hd.getHoliday().getName())
+                            || "New Year's Eve".equals(hd.getHoliday().getName()));
+            assertFalse(anyEarlyClose,
+                    "SG " + year + ": Christmas Eve/New Year's Eve must not appear — moved to XSES");
+        }
+    }
+
+    @Test
+    public void testSgHasNoEarlyCloses() {
+        HolidayCalendar calendar = service.getHolidayCalendar();
+        assertFalse(calendar.hasEarlyCloses(), "SG: national calendar must have zero early closes");
+        for (int year : List.of(2021, 2023, 2024, 2025)) {
+            assertTrue(calendar.calculateEarlyCloses(year).isEmpty(),
+                    "SG " + year + ": calculateEarlyCloses() must be empty on the national calendar");
+        }
     }
 
     @Test

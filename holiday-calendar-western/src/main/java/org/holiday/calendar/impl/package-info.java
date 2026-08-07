@@ -17,8 +17,19 @@
  ******************************************************************************/
 
 /**
- * Implementations of {@link org.holiday.calendar.HolidayCalendarService}.
+ * Implementations of {@link org.holiday.calendar.HolidayCalendarService} for
+ * Western national and market/exchange holiday calendars, one national/market
+ * pair per country: Australia ({@code AU}/{@code XASX}), Canada
+ * ({@code CA}/{@code XTSE}), Germany ({@code DE}/{@code XETR}), France
+ * ({@code FR}/{@code XPAR}), Switzerland ({@code CH}/{@code XSWX}), the United
+ * Kingdom ({@code UK}/{@code XLON}), and the United States
+ * ({@code US}/{@code XNYS}); plus central-bank/settlement calendars
+ * ({@code AUD}, {@code CAD}, {@code CHF}, {@code EUR}, {@code GBP},
+ * {@code USD}) and the shared {@code *Holidays} helper classes each service
+ * delegates to. Each type is discovered at runtime via
+ * {@link java.util.ServiceLoader}; see {@code module-info.java} for the
+ * registered {@code provides} list.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 package org.holiday.calendar.impl;

@@ -19,31 +19,25 @@
 package org.holiday.calendar.impl;
 
 import org.holiday.calendar.AbstractHolidayCalendarService;
-import org.holiday.calendar.Holiday;
 import org.holiday.calendar.HolidayCalendar;
 import org.holiday.calendar.function.DateRolls;
-import org.holiday.calendar.observance.christian.AscensionDay;
-import org.holiday.calendar.observance.christian.EasterMonday;
-import org.holiday.calendar.observance.christian.EasterObservance;
-import org.holiday.calendar.observance.christian.GoodFriday;
-import org.holiday.calendar.observance.christian.WesternEaster;
-import org.holiday.calendar.observance.christian.WhitMonday;
-import org.holiday.calendar.observance.de.ChristmasEve;
-import org.holiday.calendar.observance.de.NewYearsEve;
-
-import java.time.Month;
 
 import static org.holiday.calendar.HolidayCalendar.STANDARD_WEEKEND;
 
 /**
- * Service for provision of Germany (Xetra/FSE) holiday calendar.
+ * Service for provision of the Germany national public holiday calendar.
+ * Distinct from {@link HolidayCalendarServiceXETR}, the Xetra/Frankfurt
+ * Stock Exchange trading calendar: this calendar contains only Germany's 9
+ * official nationwide (bundesweite) public holidays — Christmas Eve and New
+ * Year's Eve are correctly absent, as they are Xetra/Frankfurt-specific
+ * market closures, not German public holidays.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceDE extends AbstractHolidayCalendarService {
 
     private static final String CODE = "DE";
-    private static final String NAME = "Germany (Xetra) Holidays";
+    private static final String NAME = "Germany National Holidays";
 
     public HolidayCalendarServiceDE() {
         super(CODE, NAME);
@@ -51,104 +45,12 @@ public class HolidayCalendarServiceDE extends AbstractHolidayCalendarService {
 
     @Override
     public HolidayCalendar getHolidayCalendar() {
-        final EasterObservance easter = new WesternEaster();
-
-        final Holiday newYearsDay = Holiday.builder()
-                .name("New Year's Day")
-                .description("First day of new year in the Common Era (CE)")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.JANUARY, 1)
-                .build();
-        final Holiday goodFriday = Holiday.builder()
-                .name("Good Friday")
-                .description("Friday before Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new GoodFriday(easter))
-                .build();
-        final Holiday easterMonday = Holiday.builder()
-                .name("Easter Monday")
-                .description("Monday after Easter Sunday")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new EasterMonday(easter))
-                .build();
-        final Holiday labourDay = Holiday.builder()
-                .name("Labour Day")
-                .description("International Workers' Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.MAY, 1)
-                .build();
-        final Holiday ascensionDay = Holiday.builder()
-                .name("Ascension Day")
-                .description("The 40th day of Easter; Jesus Christ's ascension into heaven")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new AscensionDay(easter))
-                .build();
-        final Holiday whitMonday = Holiday.builder()
-                .name("Whit Monday")
-                .description("Monday after Whit Sunday (Pentecost)")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new WhitMonday(easter))
-                .build();
-        final Holiday germanUnityDay = Holiday.builder()
-                .name("German Unity Day")
-                .description("German Unity Day")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.OCTOBER, 3)
-                .build();
-        final Holiday christmasEve = Holiday.builder()
-                .name("Christmas Eve")
-                .description("Full non-trading day (Erfüllungstag) at Xetra/Frankfurt Stock "
-                        + "Exchange; omitted (not shifted) when it falls on a weekend")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new ChristmasEve())
-                .build();
-        final Holiday christmasDay = Holiday.builder()
-                .name("Christmas Day")
-                .description("Celebration of traditional Christmas holiday")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 25)
-                .build();
-        final Holiday boxingDay = Holiday.builder()
-                .name("Boxing Day")
-                .description("Day after Christmas")
-                .type(Holiday.Type.FIXED)
-                .rollable(true)
-                .monthDay(Month.DECEMBER, 26)
-                .build();
-        final Holiday newYearsEve = Holiday.builder()
-                .name("New Year's Eve")
-                .description("Full non-trading day (Erfüllungstag) at Xetra/Frankfurt Stock "
-                        + "Exchange; omitted (not shifted) when it falls on a weekend")
-                .type(Holiday.Type.FLOATING)
-                .rollable(false)
-                .observance(new NewYearsEve())
-                .build();
-
         return HolidayCalendar.builder()
                 .code(CODE)
                 .name(NAME)
                 .dateRoll(DateRolls.previousFridayOrFollowingMonday())
                 .weekendDays(STANDARD_WEEKEND)
-                .holiday(newYearsDay)
-                .holiday(goodFriday)
-                .holiday(easterMonday)
-                .holiday(labourDay)
-                .holiday(ascensionDay)
-                .holiday(whitMonday)
-                .holiday(germanUnityDay)
-                .holiday(christmasEve)
-                .holiday(christmasDay)
-                .holiday(boxingDay)
-                .holiday(newYearsEve)
+                .holidays(DeHolidays.baseHolidays())
                 .build();
     }
 

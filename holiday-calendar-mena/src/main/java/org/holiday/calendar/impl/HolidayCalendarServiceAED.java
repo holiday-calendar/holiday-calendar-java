@@ -38,7 +38,7 @@ import java.util.OptionalInt;
  *
  * <p>Weekend: Friday + Saturday (GCC market convention).
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceAED extends AbstractHolidayCalendarService {
 

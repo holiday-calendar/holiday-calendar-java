@@ -31,7 +31,7 @@ import static org.testng.Assert.assertEquals;
 /**
  * Abstract superclass of standard {@link Observance} unit tests.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public abstract class AbstractObservanceTest {
 

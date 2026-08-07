@@ -47,7 +47,7 @@ This is a multi-module Maven project:
 - `FixedHoliday` — same `MonthDay` every year (e.g., New Year's Day)
 - `FloatingHoliday` — date computed per year via an `Observance` function (e.g., Easter)
 - `SpecialAnniversary` — anniversary-based holidays
-- `EarlyCloseHoliday` — half-day market close (`Holiday.Type.EARLY_CLOSE`); carries a `closeTime`/`zoneId`, is always non-rollable, and is excluded from `HolidayCalendar.calculate()` — use `calculateEarlyCloses(int year)` instead. See `IsraelHolidays.earlyCloseHolidays()` (mena) and `HolidayCalendarServiceUK`'s Christmas Eve/New Year's Eve (western) for precedent.
+- `EarlyCloseHoliday` — half-day market close (`Holiday.Type.EARLY_CLOSE`); carries a `closeTime`/`zoneId`, is always non-rollable, and is excluded from `HolidayCalendar.calculate()` — use `calculateEarlyCloses(int year)` instead. See `IsraelHolidays.earlyCloseHolidays()` (mena) and `HolidayCalendarServiceXLON`'s Christmas Eve/New Year's Eve (western) for precedent.
 
 **`HolidayCalendar`** — named collection of holidays with a `DateRoll` strategy and configurable `weekendDays`. Its `calculate(int year)` returns sorted `HolidayDate` instances with rolling applied (respects the `rollable` flag per holiday).
 

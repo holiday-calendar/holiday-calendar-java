@@ -37,7 +37,7 @@ import java.time.temporal.TemporalAdjusters;
  * <p>This holiday applies to the {@code QAR} (QSE/QCB) settlement calendar only;
  * it is not a gazetted national public holiday and is not included in {@code QA}.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class QatarBanksHoliday extends AbstractObservance {
 

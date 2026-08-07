@@ -32,9 +32,22 @@ import java.util.Optional;
  * religious, or governmental in origin. Its date of occurrence may be fixed,
  * <a href="https://en.wikipedia.org/wiki/Moveable_feast">moveable</a>, or
  * otherwise computed.
- * <p>Permitted subtypes determine the method of holiday date calculation.</p>
+ * <p>Permitted subtypes determine the method of holiday date calculation:</p>
+ * <ul>
+ *     <li>{@link FixedHoliday} — same {@link java.time.MonthDay} every year</li>
+ *     <li>{@link FloatingHoliday} — date computed per year via an {@link Observance}</li>
+ *     <li>{@link SpecialAnniversary} — anniversary of a fixed {@link java.time.LocalDate}</li>
+ *     <li>{@link EarlyCloseHoliday} — a non-rollable partial trading day (since 2.0.0);
+ *     excluded from {@link HolidayCalendar#calculate(int)} and reported separately by
+ *     {@link HolidayCalendar#calculateEarlyCloses(int)}</li>
+ * </ul>
+ * <p>Code that exhaustively switches over these subtypes (e.g. {@code switch (holiday) {
+ * case FixedHoliday f -> ...; case FloatingHoliday f -> ...; case SpecialAnniversary s -> ...;
+ * case EarlyCloseHoliday e -> ...; }}) must be updated to add the {@code EarlyCloseHoliday}
+ * case when upgrading from a pre-2.0.0 release. If the switch is used as an expression
+ * over a nullable {@code Holiday} reference, also add an explicit {@code case null} branch.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public sealed interface Holiday permits FixedHoliday, FloatingHoliday, SpecialAnniversary, EarlyCloseHoliday {
 

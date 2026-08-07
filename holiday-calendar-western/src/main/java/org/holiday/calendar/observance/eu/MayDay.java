@@ -18,7 +18,7 @@
 
 package org.holiday.calendar.observance.eu;
 
-import org.holiday.calendar.function.Observance;
+import org.holiday.calendar.observance.AbstractObservance;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -35,9 +35,9 @@ import java.time.temporal.TemporalAdjusters;
  * <em>Labour Day</em>.
  * </p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
-public class MayDay implements Observance {
+public class MayDay extends AbstractObservance {
 
     private final boolean onFirstMonday;
 
@@ -50,7 +50,7 @@ public class MayDay implements Observance {
     }
 
     @Override
-    public LocalDate apply(Integer year) {
+    protected LocalDate computeDate(int year) {
         LocalDate actual = Year.of(year).atMonth(Month.MAY).atDay(1);
         return onFirstMonday ? actual.with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)) : actual;
     }

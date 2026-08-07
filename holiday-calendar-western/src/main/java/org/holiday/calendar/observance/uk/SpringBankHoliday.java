@@ -34,7 +34,7 @@ import java.util.Map;
  * anniversary of the accession of the sovereign, this holiday's observed date
  * is adjusted to adjoin the Jubilee bank holiday to create a 4-day weekend.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class SpringBankHoliday implements Observance {
 

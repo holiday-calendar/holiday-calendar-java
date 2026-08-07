@@ -38,7 +38,7 @@ import java.time.Month;
  * New Year" notices (asxonline.com): the 2025/2026 notice confirms the same
  * 14:10 Sydney close applies to both December 24 and December 31.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class NewYearsEveEarlyClose extends AsxEveEarlyClose {
 

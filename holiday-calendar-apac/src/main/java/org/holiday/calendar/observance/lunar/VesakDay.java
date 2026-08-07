@@ -39,7 +39,7 @@ import java.util.Map;
  *
  * <p>Date data is loaded at runtime from {@code vesak-day.csv} in this package.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class VesakDay extends AbstractObservance {
 

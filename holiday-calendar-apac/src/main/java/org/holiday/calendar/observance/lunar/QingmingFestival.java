@@ -33,7 +33,7 @@ import java.time.LocalDate;
  * which applies the {@code SolarTerm.MINOR_03_QINGMING_015.sinceLichun()} operator
  * using precise astronomical solar-longitude calculations.</p>
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class QingmingFestival extends AbstractObservance {
 

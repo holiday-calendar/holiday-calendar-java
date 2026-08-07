@@ -31,7 +31,7 @@ import java.time.temporal.TemporalAdjusters;
  * United States that marks the birthday of Dr. Martin Luther King, Jr. First
  * observed in 1986, this holiday always falls on the third Monday in January.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class MartinLutherKingJrDay implements Observance {
 

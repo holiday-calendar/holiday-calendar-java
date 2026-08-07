@@ -45,7 +45,7 @@ import java.util.OptionalInt;
  * and is available for all years within the valid range of the Orthodox Easter
  * algorithm (530–3399 AD).
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class HolidayCalendarServiceEG extends AbstractHolidayCalendarService {
 

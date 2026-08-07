@@ -33,7 +33,7 @@ import java.time.temporal.TemporalAdjusters;
  * in order to avoid disrupting trade with the United States. This holiday
  * always falls on the third Monday in February.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class FamilyDay implements Observance {
 

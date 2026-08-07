@@ -33,7 +33,7 @@ import java.time.temporal.TemporalAdjusters;
  * celebrated on February 22 from 1879 to 1970. As of 1971, this holiday always
  * falls on the third Monday in February.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class PresidentsDay implements Observance {
 

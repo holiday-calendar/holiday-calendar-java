@@ -19,16 +19,24 @@
 package org.holiday.calendar.observance.ca;
 
 import org.holiday.calendar.western.test.AbstractObservanceTest;
+import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.testng.Assert.assertNull;
+
 public class CivicHolidayTest extends AbstractObservanceTest {
 
     public CivicHolidayTest() {
         super(new CivicHoliday());
+    }
+
+    @Test
+    public void testApply_NullYear() {
+        assertNull(observance.apply(null));
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * Observance of Erev Rosh Hashanah — the eve of the Jewish New Year, the day
  * preceding {@link RoshHashanah}, on which many Israeli businesses close early.
  *
- * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
+ * @author <a href="mailto:dave@holiday-calendar.org">Dave Joyce</a>
  */
 public class ErevRoshHashanah extends AbstractObservance {
 
