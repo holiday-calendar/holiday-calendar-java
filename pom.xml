@@ -102,7 +102,7 @@
         <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
         <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.22.0</maven-site-plugin.version>
-        <sonar-maven-plugin.version>5.7.0.6970</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.8.0.7211</sonar-maven-plugin.version>
         <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
     </properties>
 
